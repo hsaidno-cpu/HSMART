@@ -35,6 +35,7 @@ This repository currently contains the architecture and implementation contracts
 
 | Path | Purpose |
 |---|---|
+| docs/foundation/ | Project Charter, decision rights, scope, success measures, and adoption record |
 | docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
@@ -54,14 +55,14 @@ A successful HTTP response alone is not acceptance evidence.
 
 ## Status and non-goals
 
-- Current status: **Architecture baseline / implementation not yet established**.
+- Current status: **Architecture and project governance baselines / implementation not yet established**.
 - No production endpoint, cloud account, database, OAuth issuer, marketplace payment provider, or runtime is claimed to exist.
 - The baseline does not require microservices, Kubernetes, multi-region deployment, or autonomous code modification in the MVP.
 - External clients may need adapter refresh or reconnection for changed tool manifests. HSMART cannot force an independently managed client to refresh.
 
 ## Contributing
 
-See CONTRIBUTING.md. Normative architecture or contract changes require an ADR, validation evidence, and compatibility assessment.
+See CONTRIBUTING.md. Normative architecture or contract changes require an ADR, validation evidence, and compatibility assessment. Project scope and governance changes must follow the Project Charter.
 
 ## License
 
