@@ -8,7 +8,7 @@
 
 ## 1. Purpose and positioning
 
-HSMART (Hypersystem Management & Synchronization Architecture for Revolutionary Technology) is a universal AI ecosystem infrastructure platform. It standardizes how independently owned AI capabilities are identified, discovered, authorized, executed, evaluated, distributed, and updated.
+HSMART (Hypersystem Synchronization & Management Architecture for Revolutionary Technology) is a universal AI ecosystem infrastructure platform. It standardizes how independently owned AI capabilities are identified, discovered, authorized, executed, evaluated, distributed, and updated.
 
 HSMART is an infrastructure and governance layer. It does not own the intelligence of every model or platform connected to it.
 
