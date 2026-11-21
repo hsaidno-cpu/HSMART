@@ -28,7 +28,7 @@ This is a documentation and contract baseline. It does **not** mean that HSMART 
 | Domain boundaries and ADRs | Documented |
 | Canonical manifest and API contracts | Initial specifications exist |
 | CI structural validation | Initial workflow exists |
-| Project Charter and accountable owners | Charter baseline drafted; ratification and owner appointments pending |
+| Project Charter and accountable owners | Charter baseline merged; formal ratification and owner appointments pending |
 | Technology and infrastructure decisions | To be finalized through ADRs |
 | Runtime, registry, gateway, synchronization services | Not implemented |
 | Production and legal operating model | Not approved / not established |
@@ -70,7 +70,7 @@ The main path is sequential where contracts and runtime dependencies require it.
 **Objective:** Turn the architecture vision into an owned project with boundaries, decision rights, measurable outcomes, and a controlled backlog.
 
 **Work**
-- Create and approve the HSMART Project Charter.
+- Formally ratify the merged HSMART Project Charter and record the adoption decision.
 - Define the initial target users, primary use cases, non-goals, and MVP boundary.
 - Assign accountable owners for product, architecture, platform, security, and operations. One person may cover multiple roles initially, but accountability must remain explicit.
 - Define decision rights for the Foundation and Commercial Operator model.
@@ -498,7 +498,7 @@ Every kilometer must satisfy these cross-cutting conditions:
 The first month is for making HSMART buildable, not for pretending the entire platform can be completed in a month.
 
 ### Week 1 — Lock the project
-- Draft and approve the Project Charter.
+- Formally ratify the merged Project Charter and record the adoption decision.
 - Name accountable owners and decision-makers.
 - Confirm MVP use case, non-goals, and measurable acceptance criteria.
 - Open the prioritized backlog and risk register.
