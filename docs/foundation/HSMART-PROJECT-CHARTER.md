@@ -1,6 +1,6 @@
 # HSMART Project Charter
 
-**Project:** HSMART — Hypersystem Management & Synchronization Architecture for Revolutionary Technology  
+**Project:** HSMART — Hypersystem Synchronization & Management Architecture for Revolutionary Technology  
 **Document ID:** HSMART-GOV-CHARTER-001  
 **Version:** 1.0.0  
 **Document date:** 2026-11-21  
@@ -27,7 +27,7 @@ This charter establishes the project baseline. It does not claim that a legal Fo
 | Field | Charter definition |
 |---|---|
 | Project name | HSMART |
-| Full name | Hypersystem Management & Synchronization Architecture for Revolutionary Technology |
+| Full name | Hypersystem Synchronization & Management Architecture for Revolutionary Technology |
 | Product category | Universal AI Ecosystem Infrastructure Platform |
 | Project type | Multi-phase platform engineering and ecosystem development |
 | Primary delivery model | Incremental, stage-gated, evidence-based |
