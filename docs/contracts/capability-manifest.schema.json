@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.hsmart.example/v1/capability-manifest.schema.json",
+  "title": "HSMART Universal Capability Manifest",
+  "description": "Canonical manifest for a skill, plugin, agent, tool, workflow, or orchestrator. The example domain is reserved and is not a live service.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": { "const": "hsmart.io/v1" },
+    "kind": { "enum": ["Capability", "Skill", "Plugin", "Agent", "Tool", "Orchestrator"] },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "version", "publisher", "description"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^hsmart:[a-z0-9][a-z0-9._-]*:[a-z0-9][a-z0-9._-]*$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "version": { "type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$" },
+        "publisher": { "type": "string", "minLength": 1 },
+        "namespace": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "description": { "type": "string", "maxLength": 2000 },
+        "tags": { "type": "array", "items": { "type": "string", "maxLength": 64 }, "uniqueItems": true },
+        "homepage": { "type": "string", "format": "uri" },
+        "license": { "type": "string", "maxLength": 128 }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capabilityType", "interfaces", "runtime", "security"],
+      "properties": {
+        "capabilityType": { "enum": ["skill", "plugin", "agent", "tool", "orchestrator", "workflow"] },
+        "interfaces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["protocol"],
+            "properties": {
+              "protocol": { "enum": ["mcp", "rest", "sdk", "webhook", "native"] },
+              "schemaRef": { "type": "string" },
+              "entrypoint": { "type": "string" }
+            }
+          }
+        },
+        "runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": {
+            "mode": { "enum": ["managed", "self-hosted", "hybrid", "client-side"] },
+            "minimumVersion": { "type": "string" },
+            "supportedExecutionTypes": { "type": "array", "items": { "type": "string" } },
+            "resourceProfile": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cpuMilli": { "type": "integer", "minimum": 1 },
+                "memoryMiB": { "type": "integer", "minimum": 16 },
+                "timeoutSeconds": { "type": "integer", "minimum": 1, "maximum": 86400 }
+              }
+            }
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "versionRange"],
+            "properties": {
+              "id": { "type": "string" },
+              "versionRange": { "type": "string" },
+              "optional": { "type": "boolean", "default": false }
+            }
+          }
+        },
+        "permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["scope", "reason"],
+            "properties": {
+              "scope": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]*$" },
+              "reason": { "type": "string", "maxLength": 500 },
+              "risk": { "enum": ["low", "medium", "high", "critical"] }
+            }
+          }
+        },
+        "synchronization": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "channel": { "enum": ["development", "preview", "beta", "stable"] },
+            "policy": { "enum": ["pinned", "latest-compatible", "adaptive"] },
+            "minimumApproval": { "enum": ["none", "review", "security-review", "explicit-owner"] }
+          }
+        },
+        "compatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "platforms": { "type": "array", "items": { "type": "string" } },
+            "adapters": { "type": "array", "items": { "type": "string" } },
+            "protocolVersions": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "security": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["artifactSignatureRequired", "sandboxRequired"],
+          "properties": {
+            "artifactSignatureRequired": { "type": "boolean" },
+            "sandboxRequired": { "type": "boolean" },
+            "networkEgress": { "enum": ["none", "declared-only", "restricted", "explicitly-approved"] },
+            "dataClassification": { "enum": ["public", "internal", "confidential", "restricted"] }
+          }
+        },
+        "lifecycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": { "enum": ["draft", "validated", "published", "deprecated", "quarantined", "retired"] },
+            "deprecationDate": { "type": "string", "format": "date" },
+            "supportUntil": { "type": "string", "format": "date" }
+          }
+        }
+      }
+    }
+  }
+}

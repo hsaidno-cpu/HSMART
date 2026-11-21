@@ -1,5 +1,36 @@
-# Object file
-*.o
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Ada Library Information
-*.ali
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+.local/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+dist/
+build/
+
+# Node
+node_modules/
+.npm/
+coverage/
+
+# Local runtime/data
+data/
+tmp/
+logs/
+*.log
