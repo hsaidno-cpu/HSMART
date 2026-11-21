@@ -28,7 +28,7 @@ This is a documentation and contract baseline. It does **not** mean that HSMART 
 | Domain boundaries and ADRs | Documented |
 | Canonical manifest and API contracts | Initial specifications exist |
 | CI structural validation | Initial workflow exists |
-| Project Charter and accountable owners | To be completed |
+| Project Charter and accountable owners | Charter baseline drafted; ratification and owner appointments pending |
 | Technology and infrastructure decisions | To be finalized through ADRs |
 | Runtime, registry, gateway, synchronization services | Not implemented |
 | Production and legal operating model | Not approved / not established |
@@ -537,7 +537,7 @@ A roadmap item is not complete because its code compiles or its endpoint returns
 
 ## 13. Immediate next actions
 
-1. Create and approve \`HSMART-PROJECT-CHARTER.md\`.
+1. Ratify the [HSMART Project Charter](../foundation/HSMART-PROJECT-CHARTER.md) and appoint the accountable Project Sponsor and Project Owner.
 2. Assign accountable owners for the first vertical slice.
 3. Finalize the implementation-stack ADRs.
 4. Define the manifest contract tests and demo capability fixture.
