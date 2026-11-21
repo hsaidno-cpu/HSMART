@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  validate-json:
-    name: Validate JSON contracts
+  validate-contracts:
+    name: Validate JSON and OpenAPI contracts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,11 +30,25 @@ jobs:
                   json.load(handle)
               print(f"valid JSON: {path}")
           PY
+      - name: Validate OpenAPI YAML structure
+        run: |
+          ruby -ryaml -e '
+            document = YAML.safe_load_file("docs/contracts/openapi.yaml", aliases: false)
+            abort "OpenAPI document must be a mapping" unless document.is_a?(Hash)
+            abort "Expected OpenAPI 3.1.0" unless document["openapi"] == "3.1.0"
+            abort "Missing paths" unless document["paths"].is_a?(Hash)
+            abort "Missing invoke endpoint" unless document["paths"].key?("/v1/invoke")
+            abort "Missing capability discovery endpoint" unless document["paths"].key?("/v1/capabilities")
+            abort "Missing bearer security scheme" unless document.dig("components", "securitySchemes", "bearerAuth").is_a?(Hash)
+            puts "OpenAPI YAML parsed and required contract sections found"
+          '
       - name: Check required architecture files
         run: |
           test -s README.md
           test -s docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md
           test -s docs/architecture/DOMAIN-BOUNDARIES.md
+          test -s docs/architecture/ECOSYSTEM-INTEGRATION.md
+          test -s docs/access/UNIVERSAL-ACCESS-MANAGER.md
           test -s docs/security/THREAT-MODEL.md
           test -s docs/data/DATA-MODEL.md
           test -s docs/contracts/openapi.yaml
