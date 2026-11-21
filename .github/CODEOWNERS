@@ -1,0 +1,5 @@
+# Replace placeholders with actual maintainers after ownership is assigned.
+# * @hsmart-maintainers
+/docs/architecture/ @hsmart-architecture-owners
+/docs/security/ @hsmart-security-owners
+/docs/contracts/ @hsmart-contract-owners

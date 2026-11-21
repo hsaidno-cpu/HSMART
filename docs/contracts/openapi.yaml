@@ -1,0 +1,403 @@
+openapi: 3.1.0
+info:
+  title: HSMART Universal API
+  version: 1.0.0
+  description: >
+    Architecture-stage API contract for discovery, invocation, execution,
+    release submission, synchronization, and runtime registration.
+    This is a contract baseline, not a deployed API.
+servers:
+  - url: https://api.hsmart.example
+    description: Reserved example host; replace after domain and deployment provisioning.
+security:
+  - bearerAuth: []
+paths:
+  /v1/health:
+    get:
+      operationId: getHealth
+      security: []
+      summary: Read service health
+      responses:
+        "200":
+          description: Health status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, service]
+                properties:
+                  status: { type: string, enum: [ok, degraded] }
+                  service: { type: string }
+  /v1/capabilities:
+    get:
+      operationId: listCapabilities
+      summary: Discover visible capabilities
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string, maxLength: 200 }
+        - in: query
+          name: protocol
+          schema: { type: string, enum: [mcp, rest, sdk, webhook, native] }
+        - in: query
+          name: cursor
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        "200":
+          description: Capability page
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CapabilityPage' }
+        "401": { $ref: '#/components/responses/Unauthorized' }
+  /v1/capabilities/{capabilityId}:
+    get:
+      operationId: getCapability
+      summary: Read capability metadata visible to caller
+      parameters:
+        - $ref: '#/components/parameters/CapabilityId'
+      responses:
+        "200":
+          description: Capability metadata
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CapabilitySummary' }
+        "404": { $ref: '#/components/responses/NotFound' }
+  /v1/capabilities/{capabilityId}/versions:
+    get:
+      operationId: listCapabilityVersions
+      summary: List published versions and channels
+      parameters:
+        - $ref: '#/components/parameters/CapabilityId'
+      responses:
+        "200":
+          description: Version list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required: [version, channel, digest, status]
+                      properties:
+                        version: { type: string }
+                        channel: { type: string }
+                        digest: { type: string }
+                        status: { type: string }
+  /v1/invoke:
+    post:
+      operationId: invokeCapability
+      summary: Invoke an authorized capability
+      description: >
+        Invocation is separately authorized against tenant, entitlement,
+        permissions, runtime policy, and quota. Async acceptance does not
+        mean execution has completed.
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string, minLength: 8, maxLength: 200 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InvocationRequest' }
+      responses:
+        "202":
+          description: Invocation accepted for asynchronous execution
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/InvocationAccepted' }
+        "400": { $ref: '#/components/responses/BadRequest' }
+        "401": { $ref: '#/components/responses/Unauthorized' }
+        "403": { $ref: '#/components/responses/Forbidden' }
+        "404": { $ref: '#/components/responses/NotFound' }
+        "409": { $ref: '#/components/responses/Conflict' }
+        "422": { $ref: '#/components/responses/ValidationError' }
+        "429": { $ref: '#/components/responses/RateLimited' }
+  /v1/executions/{executionId}:
+    get:
+      operationId: getExecution
+      summary: Read execution status and permitted result
+      parameters:
+        - in: path
+          name: executionId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Execution state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ExecutionStatus' }
+        "404": { $ref: '#/components/responses/NotFound' }
+  /v1/releases:
+    post:
+      operationId: submitRelease
+      summary: Submit a capability release for validation
+      description: Publisher authorization and artifact provenance are mandatory. Submission is not publication.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [capabilityId, version, manifest, artifact]
+              properties:
+                capabilityId: { type: string }
+                version: { type: string }
+                manifest: { type: object }
+                artifact:
+                  type: object
+                  required: [digest, uploadReference]
+                  properties:
+                    digest: { type: string }
+                    uploadReference: { type: string }
+                provenanceReference: { type: string }
+                sbomReference: { type: string }
+      responses:
+        "202":
+          description: Release submitted
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [releaseId, status]
+                properties:
+                  releaseId: { type: string }
+                  status: { type: string, enum: [submitted, validation_pending] }
+        "401": { $ref: '#/components/responses/Unauthorized' }
+        "403": { $ref: '#/components/responses/Forbidden' }
+        "422": { $ref: '#/components/responses/ValidationError' }
+  /v1/synchronizations:
+    post:
+      operationId: requestSynchronization
+      summary: Request desired-state reconciliation for a target runtime
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SynchronizationRequest' }
+      responses:
+        "202":
+          description: Synchronization evaluation accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [syncId, status]
+                properties:
+                  syncId: { type: string }
+                  status: { type: string }
+                  desiredVersion: { type: string }
+                  observedVersion: { type: string }
+        "403": { $ref: '#/components/responses/Forbidden' }
+        "409": { $ref: '#/components/responses/Conflict' }
+  /v1/synchronizations/{syncId}:
+    get:
+      operationId: getSynchronization
+      summary: Read synchronization progress and observed state
+      parameters:
+        - in: path
+          name: syncId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Synchronization status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [syncId, status]
+                properties:
+                  syncId: { type: string }
+                  status: { type: string }
+                  desiredVersion: { type: string }
+                  observedVersion: { type: string }
+                  lastError: { type: string }
+  /v1/runtimes/register:
+    post:
+      operationId: registerRuntime
+      summary: Register a self-hosted runtime using workload identity
+      description: Static public API keys alone are insufficient for runtime trust.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [runtimeId, organizationId, runtimeVersion, capabilities]
+              properties:
+                runtimeId: { type: string }
+                organizationId: { type: string }
+                environment: { type: string }
+                runtimeVersion: { type: string }
+                capabilities: { type: object }
+      responses:
+        "201":
+          description: Runtime registered
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [runtimeId, status]
+                properties:
+                  runtimeId: { type: string }
+                  status: { type: string }
+        "401": { $ref: '#/components/responses/Unauthorized' }
+        "403": { $ref: '#/components/responses/Forbidden' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CapabilityId:
+      in: path
+      name: capabilityId
+      required: true
+      schema: { type: string }
+  schemas:
+    CapabilitySummary:
+      type: object
+      required: [id, name, publisher, latestStable, protocols]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        publisher: { type: string }
+        latestStable: { type: string }
+        protocols:
+          type: array
+          items: { type: string }
+        publisherVerified: { type: boolean }
+    CapabilityPage:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/CapabilitySummary' }
+        nextCursor: { type: [string, "null"] }
+    InvocationRequest:
+      type: object
+      additionalProperties: false
+      required: [capabilityId, versionPolicy, input]
+      properties:
+        capabilityId: { type: string }
+        versionPolicy:
+          type: object
+          required: [mode]
+          properties:
+            mode: { type: string, enum: [pinned, latest-compatible, channel] }
+            version: { type: string }
+            channel: { type: string, enum: [development, preview, beta, stable] }
+        input: { type: object }
+        execution:
+          type: object
+          properties:
+            timeoutMs: { type: integer, minimum: 100, maximum: 86400000 }
+            environment: { type: string }
+    InvocationAccepted:
+      type: object
+      required: [requestId, executionId, capabilityId, resolvedVersion, status]
+      properties:
+        requestId: { type: string }
+        executionId: { type: string }
+        capabilityId: { type: string }
+        resolvedVersion: { type: string }
+        status: { type: string, enum: [accepted, queued] }
+        executionMode: { type: string, enum: [cloud, self-hosted] }
+    ExecutionStatus:
+      type: object
+      required: [executionId, status]
+      properties:
+        executionId: { type: string }
+        status:
+          type: string
+          enum: [accepted, queued, running, completed, failed, cancelled, timed_out, quarantined]
+        capabilityId: { type: string }
+        resolvedVersion: { type: string }
+        result: { type: object }
+        error:
+          type: object
+          properties:
+            code: { type: string }
+            message: { type: string }
+            retryable: { type: boolean }
+    SynchronizationRequest:
+      type: object
+      additionalProperties: false
+      required: [target, capabilityId, desiredVersion, policy]
+      properties:
+        target:
+          type: object
+          required: [type, id]
+          properties:
+            type: { type: string, enum: [runtime, tenant, deployment] }
+            id: { type: string }
+        capabilityId: { type: string }
+        desiredVersion: { type: string }
+        channel: { type: string, enum: [development, preview, beta, stable] }
+        policy: { type: string, enum: [adaptive, pinned, latest-compatible] }
+        rollout:
+          type: object
+          properties:
+            strategy: { type: string, enum: [immediate, staged, canary] }
+            approval: { type: string, enum: [none, required] }
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, retryable]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            requestId: { type: string }
+            retryable: { type: boolean }
+            details: { type: object }
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Unauthorized:
+      description: Authentication required or invalid
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Forbidden:
+      description: Authenticated but not authorized
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    NotFound:
+      description: Resource not found or not visible
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Conflict:
+      description: State or version conflict
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    ValidationError:
+      description: Schema or policy validation failed
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }

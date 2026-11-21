@@ -1,0 +1,41 @@
+name: Specification Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-json:
+    name: Validate JSON contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON syntax
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = sorted(Path(".").rglob("*.json"))
+          if not files:
+              raise SystemExit("No JSON files found")
+          for path in files:
+              if ".git" in path.parts:
+                  continue
+              with path.open("r", encoding="utf-8") as handle:
+                  json.load(handle)
+              print(f"valid JSON: {path}")
+          PY
+      - name: Check required architecture files
+        run: |
+          test -s README.md
+          test -s docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md
+          test -s docs/architecture/DOMAIN-BOUNDARIES.md
+          test -s docs/security/THREAT-MODEL.md
+          test -s docs/data/DATA-MODEL.md
+          test -s docs/contracts/openapi.yaml
+          test -s docs/contracts/capability-manifest.schema.json
