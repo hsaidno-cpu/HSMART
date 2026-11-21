@@ -35,7 +35,8 @@ This repository currently contains the architecture and implementation contracts
 
 | Path | Purpose |
 |---|---|
-| docs/architecture/ | Master architecture, domains, ADRs, glossary |
+| docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
+| docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
 | docs/data/ | Logical data model and governance |
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
