@@ -36,7 +36,7 @@ This repository currently contains the architecture and implementation contracts
 | Path | Purpose |
 |---|---|
 | docs/foundation/ | Project Charter, ratification record, MVP boundary and acceptance decision |
-| docs/planning/ | Prioritized KM 0–KM 2 backlog and dependencies |
+| docs/planning/ | Progressive completion roadmap, prioritized KM 0–KM 2 backlog and dependencies |
 | docs/engineering/ | Contract tooling and KM 1 application development environment |
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
 | src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |
@@ -60,7 +60,7 @@ A successful HTTP response alone is not acceptance evidence.
 
 ## Status and non-goals
 
-- Current status: **Architecture and project governance baselines / implementation not yet established**.
+- Current status: **KM 1 application foundation implemented on PR #28 branch; PR #13 canonical; main protection and KM 0/KM 1 exit gates remain open**.
 - No production endpoint, cloud account, database, OAuth issuer, marketplace payment provider, or runtime is claimed to exist.
 - The baseline does not require microservices, Kubernetes, multi-region deployment, or autonomous code modification in the MVP.
 - External clients may need adapter refresh or reconnection for changed tool manifests. HSMART cannot force an independently managed client to refresh.
@@ -78,7 +78,7 @@ See CONTRIBUTING.md. Normative architecture or contract changes require an ADR, 
 The repository currently contains an Apache License 2.0 file. Review licensing and ownership policy for each separately distributed artifact, marketplace listing, trademark, and third-party contribution before commercial release.
 
 
-## Current implementation disposition — 22 November 2026
+## Historical implementation snapshot — 22 November 2026 (superseded by PR #28 current snapshot above)
 
 - PR #13 is merged to `main` at `17c78dcd2ea59c6d40f9a07d188bab6f829f0596`.
 - GOV-01 is the sole human authority in the internal governance model; GOV-02 through GOV-12 are AI Functional Delegate profiles designated but not provisioned/active.
