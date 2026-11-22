@@ -35,7 +35,10 @@ This repository currently contains the architecture and implementation contracts
 
 | Path | Purpose |
 |---|---|
-| docs/foundation/ | Project Charter, decision rights, scope, success measures, and adoption record |
+| docs/foundation/ | Project Charter, ratification record, MVP boundary and acceptance decision |
+| docs/planning/ | Prioritized KM 0–KM 2 backlog and dependencies |
+| docs/engineering/ | Reproducible contract-validation development environment |
+| tests/ | JSON Schema fixtures and OpenAPI contract tests |
 | docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
@@ -43,7 +46,7 @@ This repository currently contains the architecture and implementation contracts
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
 | docs/runtime/ | Hybrid runtime and execution contracts |
-| docs/governance/ | Ownership, publisher, marketplace governance |
+| docs/governance/ | Ownership, role appointments, publisher and marketplace governance |
 | docs/roadmap/ | Implementation phases and acceptance criteria |
 | docs/operations/ | Production-readiness and operations |
 

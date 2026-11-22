@@ -1,0 +1,44 @@
+{
+  "apiVersion": "hsmart.io/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "hsmart:demo:text-transformer",
+    "name": "HSMART Demo Text Transformer",
+    "version": "1.0.0",
+    "publisher": "hsmart-core",
+    "namespace": "hsmart-core",
+    "description": "Deterministic demonstration capability for the HSMART MVP lifecycle.",
+    "tags": ["demo", "text", "mvp"]
+  },
+  "spec": {
+    "capabilityType": "tool",
+    "interfaces": [
+      {
+        "protocol": "rest",
+        "schemaRef": "urn:hsmart:demo:text-transformer:input-output:v1",
+        "entrypoint": "transform"
+      },
+      {
+        "protocol": "mcp",
+        "entrypoint": "transform"
+      }
+    ],
+    "runtime": {
+      "mode": "managed",
+      "minimumVersion": "0.1.0",
+      "supportedExecutionTypes": ["deterministic"]
+    },
+    "permissions": [],
+    "security": {
+      "artifactSignatureRequired": true,
+      "sandboxRequired": true,
+      "networkEgress": "none",
+      "dataClassification": "public"
+    },
+    "synchronization": {
+      "channel": "development",
+      "policy": "pinned",
+      "minimumApproval": "review"
+    }
+  }
+}

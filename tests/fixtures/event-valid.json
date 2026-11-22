@@ -1,0 +1,19 @@
+{
+  "eventId": "evt-000001",
+  "eventType": "registry.capability.registered",
+  "eventVersion": "1.0",
+  "occurredAt": "2026-11-22T01:00:00Z",
+  "producer": "hsmart.registry",
+  "organizationId": "org-demo",
+  "tenantId": "tenant-demo",
+  "aggregateId": "hsmart:demo:text-transformer",
+  "correlationId": "req-000001",
+  "data": {
+    "capabilityId": "hsmart:demo:text-transformer",
+    "version": "1.0.0",
+    "status": "validated"
+  },
+  "trace": {
+    "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+  }
+}

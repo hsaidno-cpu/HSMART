@@ -1,0 +1,11 @@
+{
+  "apiVersion": "hsmart.io/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "hsmart:demo:text-transformer",
+    "name": "HSMART Demo Text Transformer",
+    "version": "1.0.0",
+    "publisher": "hsmart-core",
+    "description": "Invalid fixture intentionally omits spec."
+  }
+}
