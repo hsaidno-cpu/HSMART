@@ -9,43 +9,68 @@ permissions:
   contents: read
 
 jobs:
-  validate-contracts:
-    name: Validate JSON Schema, OpenAPI and repository contracts
-    runs-on: ubuntu-latest
+  contract-tests:
+    name: Contract tests (\${"$" + "{{ matrix.os }}"})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025, macos-15]
+    runs-on: \${"$" + "{{ matrix.os }}"}
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.12 contract toolchain
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
-      - name: Install pinned contract-validation dependencies
+      - name: Bootstrap on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/bootstrap-dev.ps1
+
+      - name: Bootstrap on macOS/Linux
+        if: runner.os != 'Windows'
+        shell: bash
+        run: sh scripts/bootstrap-dev.sh
+
+      - name: Record toolchain versions
+        shell: bash
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements-dev.txt
+          if [ "\${"$" + "{{ runner.os }}"}" = "Windows" ]; then
+            .venv/Scripts/python.exe --version
+            .venv/Scripts/python.exe -m pip --version
+          else
+            .venv/bin/python --version
+            .venv/bin/python -m pip --version
+          fi
 
-      - name: Validate JSON syntax
+      - name: Validate dependencies, JSON and contract tests
+        shell: bash
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
+          if [ "\${"$" + "{{ runner.os }}"}" = "Windows" ]; then
+            PYTHON=".venv/Scripts/python.exe"
+          else
+            PYTHON=".venv/bin/python"
+          fi
+          "$PYTHON" -m pip check
+          "$PYTHON" scripts/validate-json.py
+          "$PYTHON" -m pytest -q
 
-          files = sorted(Path(".").rglob("*.json"))
-          if not files:
-              raise SystemExit("No JSON files found")
-          for path in files:
-              if ".git" in path.parts:
-                  continue
-              with path.open("r", encoding="utf-8") as handle:
-                  json.load(handle)
-              print(f"valid JSON: {path}")
-          PY
+  repository-integrity:
+    name: OpenAPI and required repository files
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Run JSON Schema and OpenAPI contract tests
-        run: python -m pytest -q
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       - name: Validate OpenAPI YAML structure
         run: |
@@ -60,7 +85,7 @@ jobs:
             puts "OpenAPI YAML parsed and required contract sections found"
           '
 
-      - name: Check required architecture and engineering files
+      - name: Check required architecture, governance and engineering files
         run: |
           test -s README.md
           test -s CONTRIBUTING.md
@@ -74,6 +99,12 @@ jobs:
           test -s docs/contracts/openapi.yaml
           test -s docs/contracts/capability-manifest.schema.json
           test -s docs/contracts/event-envelope.schema.json
+          test -s docs/foundation/HSMART-PROJECT-CHARTER.md
+          test -s docs/foundation/CHARTER-RATIFICATION-RECORD.md
           test -s docs/foundation/MVP-DECISION-RECORD.md
+          test -s docs/governance/ROLE-APPOINTMENT-REGISTER.md
+          test -s docs/architecture/adr/ADR-011-implementation-stack-and-infrastructure.md
           test -s docs/planning/BACKLOG-KM0-KM2.md
           test -s docs/engineering/DEVELOPMENT-ENVIRONMENT.md
+          test -s scripts/validate-json.py
+          test -s tests/README.md
