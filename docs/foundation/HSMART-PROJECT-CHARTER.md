@@ -2,8 +2,9 @@
 
 **Project:** HSMART — Hypersystem Synchronization & Management Architecture for Revolutionary Technology  
 **Document ID:** HSMART-GOV-CHARTER-001  
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Document date:** 2026-11-21  
+**Last updated:** 2026-11-22  
 **Document owner:** HSMART Project Owner — appointment required  
 **Status:** Project governance baseline; formal owner ratification pending  
 **Authority:** Governs project scope, delivery priorities, decision rights, and acceptance rules after adoption
@@ -317,11 +318,11 @@ A stage is not complete because its planned duration elapsed. It is complete onl
 
 ### 13.1 Required accountable roles
 
-Names are deliberately not fabricated. The project owner must appoint accountable people before implementation work expands beyond the initial foundation.
+The project is currently founder-led and has no legal-entity structure. GOV-01 is recorded through a founder self-declaration for internal project governance only. This does not appoint the remaining roles or create authority over third parties.
 
 | Role | Accountability | Current status |
 |---|---|---|
-| Project Sponsor / Accountable Owner | Strategic direction, funding/resources, major scope and risk decisions | To appoint |
+| Project Sponsor / Accountable Owner | Strategic direction, internal project scope, priorities, and stewardship of resources actually controlled by the holder | Appointed: Harysaidno — HSMART-GOV-FOUNDER-001; internal project authority only |
 | Project Owner | Overall delivery accountability and charter maintenance | To appoint |
 | Product Owner | User needs, priorities, acceptance, roadmap trade-offs | To appoint |
 | Architecture Lead | Architecture integrity, contracts, ADRs, technical boundaries | To appoint |
@@ -339,8 +340,8 @@ In an early single-person or small-team phase, one person may hold multiple role
 |---|---|---|
 | D0 — Editorial | Typo, formatting, non-normative clarification | Maintainer review |
 | D1 — Component | Internal implementation detail within approved contracts | Component owner review and tests |
-| D2 — Architecture | Domain boundary, canonical schema, protocol, major dependency, data model | ADR, architecture review, compatibility assessment |
-| D3 — Critical | Security boundary, privilege model, production release, data retention, legal/commercial policy | Named accountable approval, documented risk review, and independent review where practical |
+| D2 — Architecture | Domain boundary, canonical schema, protocol, major dependency, data model | ADR, architecture review, compatibility assessment, and approval within recorded internal project authority |
+| D3 — Critical | Security boundary, privilege model, production release, data retention, legal/commercial policy | Named accountable approval, documented risk review, and independent review where practical; external legal/commercial commitments require the legally authorized person/entity |
 
 ### 13.3 Change control
 
@@ -474,7 +475,7 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 | Approval role | Name / authority | Decision | Date |
 |---|---|---|---|
-| Project Sponsor / Accountable Owner | To be appointed | Pending | Pending |
+| Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001, internal project authority only | Appointment recorded; Charter ratification pending | 2026-11-22 |
 | Project Owner | To be appointed | Pending | Pending |
 | Product Owner | To be appointed | Pending | Pending |
 | Architecture Lead | To be appointed | Pending | Pending |
@@ -494,7 +495,7 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 The next execution sequence is:
 
-1. Appoint the Project Sponsor and Project Owner.
+1. GOV-01 is appointed for internal project governance; appoint the Project Owner (GOV-02).
 2. Assign the initial Product, Architecture, Engineering, and Security responsibilities.
 3. Approve the MVP demo capability and its acceptance tests.
 4. Open and prioritize KM 0–2 backlog issues with dependencies and owners.

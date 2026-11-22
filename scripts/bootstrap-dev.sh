@@ -17,7 +17,8 @@ if [ ! -d .venv ]; then
   "$PYTHON_BIN" -m venv .venv
 fi
 
-. .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements-dev.txt
-echo "HSMART contract-validation environment is ready. Run: python -m pytest -q"
+.venv/bin/python -m pip install -r requirements-dev.txt
+echo "HSMART contract-validation environment is ready."
+echo "Run: .venv/bin/python scripts/validate-json.py"
+echo "Run: .venv/bin/python -m pip check"
+echo "Run: .venv/bin/python -m pytest -q"
