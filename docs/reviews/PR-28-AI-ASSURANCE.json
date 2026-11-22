@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR28-20261123",
+  "pr_number": 28,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "17c78dcd2ea59c6d40f9a07d188bab6f829f0596",
+  "reviewed_head_sha": "0dc9a03530c2b614299586a6598d3c8500440708",
+  "review_timestamp_utc": "2026-11-23T00:00:00Z",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_UNTIL_MAIN_PROTECTION_APPLIED_AND_VERIFIED_AND_GOV01_FINAL_DISPOSITION",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.independent-assurance-reviewer.orchestrator",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured assurance review produced by the current GPT-6 assistant execution; not executed by a separate provisioned GOV-11 runtime.",
+    "decision_authority": "No merge, release, risk-acceptance or GitHub-native approval authority."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant conversation used for implementation and review; no separate provider, runtime or context isolation is evidenced."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "PR #28 changes from main base SHA to the exact reviewed code SHA",
+    "focus": [
+      "ADR-011 decision consistency and boundaries",
+      "AI role allocation GOV-01 through GOV-12",
+      "repository protection operator and GitHub Actions workflows",
+      "AI reviewer evidence validator and exact-SHA binding",
+      "FastAPI application environment and PostgreSQL/Alembic foundation",
+      "outbox idempotency, worker retry and concurrency behavior",
+      "entitlement rights provenance and Indonesian legal boundary mapping",
+      "progressive roadmap and canonical status synchronization"
+    ],
+    "excluded": [
+      "Production deployment",
+      "External identity and secret-manager provisioning",
+      "Production WORM audit",
+      "Live Registry/Gateway/Runtime/Evaluation/Synchronization services",
+      "Formal legal opinion or entity formation"
+    ]
+  },
+  "methods": [
+    "requirements-to-diff traceability",
+    "architecture and ADR consistency review",
+    "security boundary and least-privilege review",
+    "PostgreSQL transaction/idempotency and worker failure-path review",
+    "GitHub branch-protection operator and workflow review",
+    "legal/entitlement boundary and authority review",
+    "exact-commit CI evidence verification"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Contract tests (ubuntu-24.04)",
+      "status": "PASS",
+      "run_id": 45081668492
+    },
+    {
+      "name": "Contract tests (windows-2025)",
+      "status": "PASS",
+      "run_id": 45081668492
+    },
+    {
+      "name": "Contract tests (macos-15)",
+      "status": "PASS",
+      "run_id": 45081668492
+    },
+    {
+      "name": "OpenAPI and required repository files",
+      "status": "PASS",
+      "run_id": 45081668492
+    },
+    {
+      "name": "KM1 application integration (PostgreSQL 16)",
+      "status": "PASS",
+      "run_id": 45081668513
+    },
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS",
+      "run_id": 45081668491
+    },
+    {
+      "name": "AI Reviewer Evidence",
+      "status": "EXPECTED_FAILURE_BEFORE_REPORT_ONLY_COMMIT",
+      "run_id": 45081668545
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Repository governance",
+      "finding": "GitHub currently reports main protected=false. PR #28 provides a dry-run-by-default administrative operator, desired ruleset and an Actions workflow, but the first application still requires a repository token with Administration: write and API read-back.",
+      "disposition": "Separate merge gate. Do not merge PR #28 until branch protection/ruleset is actually applied, all required contexts are read back, and a negative enforcement test passes."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "AI role runtime",
+      "finding": "GOV-02..GOV-12 are logical AI Functional Delegate designations only. Their runtimes, models, tool scopes and audit stores are not provisioned/active.",
+      "disposition": "No production operations may be attributed to these delegates until A1-A8 evidence passes."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Production, DR and security",
+      "finding": "No production deployment, WORM storage, live secrets manager/KMS, backup schedule, tested restore, failover or production security evidence is present.",
+      "disposition": "Production state remains NOT_DEPLOYED; DR NOT_TESTED; production security NOT_VERIFIED."
+    },
+    {
+      "id": "F-04",
+      "severity": "LOW",
+      "status": "OPEN",
+      "area": "Supply chain",
+      "finding": "The development toolchain pins direct dependencies but does not yet provide a fully transitive, hash-locked dependency artifact.",
+      "disposition": "Do not call the environment hermetic or bit-for-bit reproducible; add a verified hashed lock before supply-chain assurance claims."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Platform execution scope",
+      "finding": "The KM 1 worker is an allowlisted outbox foundation with no business capability handlers registered. The operational Registry, Gateway, managed Runtime, Evaluation and Synchronization services are deliberately not implemented in this PR.",
+      "disposition": "Do not claim end-to-end capability invocation or platform service operation. Proceed to KM 2 only after KM 1 acceptance."
+    },
+    {
+      "id": "F-06",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Legal authority",
+      "finding": "The Indonesia legal memo is an issue-spotting research baseline, not entity formation, PSE registration, tax advice, a legal opinion or evidence of third-party IP rights.",
+      "disposition": "No external contract, marketplace, payment or customer-data operation is authorized by this PR."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Main branch protection",
+      "status": "HOLD",
+      "required": "Apply via repository Administration: write token; read back branch protection and HSMART ruleset; negative enforcement test."
+    },
+    {
+      "gate": "GOV-01 final merge disposition",
+      "status": "PENDING",
+      "required": "Explicit final decision on exact PR head after all repository gates pass."
+    },
+    {
+      "gate": "KM 0 exit",
+      "status": "OPEN",
+      "required": "Applied protection plus GOV-01 exit decision on evidence bundle."
+    },
+    {
+      "gate": "KM 1 exit",
+      "status": "OPEN",
+      "required": "AI assurance and exact-commit technical acceptance by GOV-01."
+    }
+  ],
+  "limitations": [
+    "This is a correlation-limited AI assurance report, not independent model/provider certification.",
+    "GOV-11 has been designated as a logical profile but has not been provisioned as a separate execution runtime.",
+    "A successful CI check proves only the named workflow's tests on its exact commit; it does not prove production deployment, DR, WORM, legal compliance or platform-service operation."
+  ],
+  "disposition": "The reviewed change set is acceptable with caveats as a KM 1 foundation and governance implementation proposal. Merge, KM 0/KM 1 closure, production release and downstream KM 2 work remain on HOLD until their separate gates pass."
+}
