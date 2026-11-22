@@ -1,0 +1,6 @@
+# Direct pins for the HSMART Python 3.12 application foundation (verified release baseline, 2026-11-22).
+fastapi==0.128.3
+uvicorn==0.54.0
+SQLAlchemy==2.0.58
+alembic==1.20.1
+psycopg[binary]==3.3.9

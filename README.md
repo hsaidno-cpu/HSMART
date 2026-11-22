@@ -37,9 +37,9 @@ This repository currently contains the architecture and implementation contracts
 |---|---|
 | docs/foundation/ | Project Charter, ratification record, MVP boundary and acceptance decision |
 | docs/planning/ | Prioritized KM 0–KM 2 backlog and dependencies |
-| docs/engineering/ | Reproducible contract-validation development environment |
+| docs/engineering/ | Contract tooling and KM 1 application development environment |
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
-| src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |
+| src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |\n| src/hsmart_platform/ | KM 1 FastAPI/SQLAlchemy/Alembic application foundation; not KM 2 services |
 | docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
@@ -71,3 +71,14 @@ See CONTRIBUTING.md. Normative architecture or contract changes require an ADR, 
 ## License
 
 The repository currently contains an Apache License 2.0 file. Review licensing and ownership policy for each separately distributed artifact, marketplace listing, trademark, and third-party contribution before commercial release.
+
+
+## Current implementation disposition — 22 November 2026
+
+- PR #13 is merged to `main` at `17c78dcd2ea59c6d40f9a07d188bab6f829f0596`.
+- GOV-01 is the sole human authority in the internal governance model; GOV-02 through GOV-12 are AI Functional Delegate profiles designated but not provisioned/active.
+- ADR-011 v1.2.0 is accepted as the internal KM 1 technology baseline; cloud provider, region, OIDC vendor, secret manager, artifact-store vendor and spending remain separate decisions.
+- KM 1 foundation code and PostgreSQL 16 CI workflow are implemented on a working branch. Local tests report 11 passed and 2 PostgreSQL tests skipped locally; hosted PostgreSQL CI is pending.
+- GitHub still reports `main` unprotected. A dry-run/apply operator is included; applying requires a repository Administration: write token supplied locally by an authorized administrator.
+- KM 0/KM 1 are not yet closed. KM 2 Registry and later Gateway, Runtime, Evaluation and Synchronization services remain gated.
+- No production endpoint, production deployment, real backup/restore, DR exercise, WORM audit store or production security certification is claimed.

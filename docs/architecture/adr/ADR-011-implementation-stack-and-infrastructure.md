@@ -1,10 +1,10 @@
 # ADR-011 — MVP Application Stack & Infrastructure Direction
 
-- **Status:** RECOMMENDED BASELINE — FORMAL ACCEPTANCE PENDING
-- **Version:** 1.1.0
+- **Status:** ACCEPTED BY GOV-01 — INTERNAL TECHNICAL BASELINE; PROVIDER/PROCUREMENT CHOICES DEFERRED
+- **Version:** 1.2.0
 - **Date:** 2026-11-22
 - **Decision class:** D2
-- **Decision owner:** Architecture Lead; accountable approval by Project Sponsor/Owner — appointments pending
+- **Decision owner:** GOV-01 Project Sponsor / Accountable Owner; AI technical delegates provide bounded recommendations only
 - **Related:** ADR-001 through ADR-010; Project Charter v1.0.0; MVP Decision Record v1.1.0
 - **Supersedes:** None
 
@@ -30,7 +30,7 @@ This ADR therefore separates (a) a recommended technology baseline for an engine
 
 ## 3. Recommended MVP technology baseline
 
-These are the recommended defaults to validate in a short vertical-slice spike. They are not an accepted procurement decision.
+GOV-01 accepts these defaults as the internal MVP application stack baseline for KM 1. This acceptance does not select a cloud vendor, region, identity provider, object-store vendor, paid service or spending ceiling.
 
 | Concern | Recommended baseline | Rationale / guardrail |
 |---|---|---|
@@ -83,7 +83,7 @@ These are the recommended defaults to validate in a short vertical-slice spike. 
 - Backups are not accepted until restoration has been tested.
 - Object versioning alone is not proof of immutability; verify provider retention controls and digest behavior with an integration test.
 
-## 6. Required proof-of-fit before acceptance
+## 6. Proof-of-fit and implementation verification
 
 1. Engineering Lead records team capability and completes a small FastAPI vertical-slice spike against the canonical OpenAPI contract. If the team cannot own it, compare NestJS before acceptance.
 2. Architecture Lead proves PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
@@ -91,7 +91,7 @@ These are the recommended defaults to validate in a short vertical-slice spike. 
 4. Operations/Reliability Lead demonstrates deployment, backup/restore, logs/metrics/traces and recovery ownership.
 5. Project Sponsor/Owner sets a budget envelope and approves any paid resource.
 6. Candidate cloud providers/regions are compared against documented criteria: Indonesia/data residency needs, latency, availability, managed services, security controls, recovery, support, portability and total cost.
-7. ADR approval is recorded by the roles with authority; the accepted ADR and decision log are updated in the same reviewed change.
+7. GOV-01 acceptance is recorded in HSMART-GOV-DEC-2026-11-22-002. Implementation and environment acceptance remain evidence-gated by KM 1 CI and the independent exit evaluation.
 
 ## 7. Rollback / reconsideration
 
@@ -108,5 +108,9 @@ Reconsider before production if the selected stack fails the vertical-slice acce
 | Operations / Reliability Lead | NOT APPOINTED | PENDING | — |
 
 ## 9. Current disposition
+
+**ADR-011 v1.2.0 is ACCEPTED by GOV-01 as the internal application-stack and infrastructure direction for KM 1.** This authorizes the modular-monolith application foundation and its reproducible environment. It does not certify all technical acceptance tests as passed, approve production deployment, authorize spending or external commitments, or select a cloud provider, region, domain, OIDC issuer, KMS, secret manager or artifact-store vendor.
+
+The current local proof-of-fit implementation has 11 tests passing and 2 PostgreSQL integration tests skipped locally because no PostgreSQL service was available. The dedicated PostgreSQL 16 GitHub Actions job is required before KM 1 exit. Acceptance of the ADR is not a declaration that this future CI run has already passed.
 
 **The recommended technology baseline is sufficiently specific for a reversible engineering spike. The formal ADR is not accepted.** No cloud provider, region, domain, database service, OIDC issuer, KMS, secret manager or paid service has been procured or deployed. This record must not be cited as authorization to spend money or launch production infrastructure.

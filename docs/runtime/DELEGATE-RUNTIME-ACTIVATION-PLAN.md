@@ -1,4 +1,4 @@
-# GOV-02..GOV-06 Runtime Activation and Evidence Plan
+# GOV-02..GOV-12 AI Functional Delegate Runtime Activation and Evidence Plan
 
 **Document ID:** HSMART-RUNTIME-GOV-DELEGATES-001  
 **Version:** 0.1.0  
@@ -130,3 +130,21 @@ Update this ledger only from deployment and test evidence. A successful local un
 **Connection finding:** The current session has GitHub and Notion project access, but no connected hosting/deployment, cloud IAM, model-provider, secret-manager or WORM-storage control-plane action. Provider discovery returned Railway and Render as available but not installed; no deployment action has been performed. Do not treat plugin discovery as an authenticated provider connection.
 
 **Runtime disposition:** all five delegates remain DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE. This plan is an evidence register, not a deployment claim. Secrets must never be placed in GitHub, Notion or chat.
+
+
+## 12. GOV-07 through GOV-12 runtime activation extension
+
+The GOV-01 decision addendum `HSMART-GOV-DEC-2026-11-22-002` designates six additional AI Functional Delegates. Each is subject to mandatory A1–A8 activation gates and must have a distinct runtime identity, model binding, Skill pins, tool allowlist, approval-grant lineage and audit namespace.
+
+| Delegate | Stable Agent ID | Scope | Runtime state | Activation |
+|---|---|---|---|---|
+| GOV-07 | `hsmart.gov07.operations-reliability.orchestrator` | Operations, reliability, incident triage and recovery evidence | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-08 | `hsmart.gov08.legal-commercial-research.orchestrator` | Legal/commercial research and drafting support only | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-09 | `hsmart.gov09.entitlement-governance.orchestrator` | Entitlement rules, rights evidence and quota tests | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-10 | `hsmart.gov10.repository-governance.orchestrator` | Repository protection specification and drift checks | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-11 | `hsmart.gov11.independent-assurance-reviewer.orchestrator` | Independent-context AI review and evidence challenge | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-12 | `hsmart.gov12.business-continuity.orchestrator` | Backup, restore, continuity and DR evidence | NOT_PROVISIONED | NOT ACTIVE |
+
+The GOV-07 role designation satisfies internal functional allocation; it does not prove a hosted operations system, monitoring, backup, restore, on-call response or recovery process exists. GOV-08 is not legal counsel and cannot approve or sign external instruments. GOV-11 must not represent a correlated second persona as independent certification or submit a false GitHub-native human approval.
+
+All six new delegates remain BLOCKED until A1–A8 evidence is recorded. Do not mark production operations, DR or security readiness complete from a designation, runbook or local test alone.

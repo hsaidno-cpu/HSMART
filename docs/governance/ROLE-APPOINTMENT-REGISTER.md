@@ -3,7 +3,7 @@
 **Register ID:** HSMART-GOV-ROLE-001  
 **Version:** 1.3.0  
 **Prepared:** 2026-11-22  
-**Status:** GOV-01 HUMAN AUTHORITY APPOINTED; GOV-02..GOV-06 AI FUNCTIONAL DELEGATES DESIGNATED; HUMAN ROLE SEATS VACANT  
+**Status:** GOV-01 IS THE ONLY HUMAN AUTHORITY; GOV-02..GOV-12 AI FUNCTIONAL DELEGATES DESIGNATED; NO OTHER HUMAN ROLE SEATS  
 **Authority:** Project Charter v1.0.2; Founder & Project Initiator Authority Declaration HSMART-GOV-FOUNDER-001; AI Functional Delegation Charter HSMART-GOV-AI-DEL-001
 
 ## 1. Operating rule
@@ -24,8 +24,12 @@ Each role must be read according to its recorded scope. An appointment to one ro
 | GOV-04 | Architecture Lead | Architecture integrity, contracts, ADR proposals, domain boundaries, interoperability and quality attributes | Technical recommendation only; GOV-01 approves material D2 decisions | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov04.architecture.orchestrator`; human seat VACANT; runtime pending |
 | GOV-05 | Engineering Lead | Engineering practices, implementation of approved work, code quality, tests, CI and technical documentation | Branch-scoped D1 only under explicit GOV-01 grant; no main write, merge or production release | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov05.engineering.orchestrator`; human seat VACANT; runtime pending |
 | GOV-06 | Security & Privacy Lead | Threat modeling, security/privacy review, identity/policy assessment, supply-chain assurance and incident escalation | May recommend/maintain HOLD; cannot waive or accept its own finding or risk | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov06.security-privacy.orchestrator`; human seat VACANT; runtime pending |
-| GOV-07 | Operations / Reliability Lead | Deployment, monitoring, backup, restore, incident and recovery readiness | Operational readiness recommendation and stop authority for unsafe operations under approved policy | UNASSIGNED |
-| GOV-08 | Legal / Commercial Advisor | Entity, IP, licensing, publisher terms, privacy, tax and commerce review | Professional advice; legal approval remains with the legally authorized person/entity | TO ENGAGE WHEN NEEDED |
+| GOV-07 | Operations / Reliability Lead | Runbooks, service health, incident triage, backup/restore exercises and operational readiness | Bounded operation under GOV-01-approved playbooks; no independent production release | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov07.operations-reliability.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
+| GOV-08 | Legal / Commercial Research | Legal/commercial issue spotting, jurisdiction research, license/contract drafting support | Research and drafting only; not legal counsel, not a lawyer, cannot sign or bind third parties | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov08.legal-commercial-research.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
+| GOV-09 | Entitlement Governance Steward | Internal entitlement model, license-to-permission mapping, quota, expiry, revocation and entitlement evidence | Policy proposal and test evidence only; GOV-01 approves internal policy and rights remain with publishers | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov09.entitlement-governance.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
+| GOV-10 | Repository Governance Lead | Main-branch ruleset specification, drift checks, change-control and protection evidence | Prepare/apply only with a specific GOV-01 grant and administrator authorization; no bypass or merge | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov10.repository-governance.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
+| GOV-11 | Independent Assurance Reviewer | Separate-context AI review, challenge tests, evidence completeness, dissent and re-check | Read-only reviewer; no self-approval, GitHub-native human approval, merge or release | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov11.independent-assurance-reviewer.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
+| GOV-12 | Business Continuity / Disaster Recovery Lead | Recovery plans, backup validation, DR test design, restoration evidence and continuity reporting | No claim of readiness without executed tests; no unilateral destructive failover | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov12.business-continuity.orchestrator`; runtime NOT_PROVISIONED / NOT_ACTIVE |
 | GOV-09 | Capability Publisher Owner | Accuracy, provenance, permissions and lifecycle of each published capability | Publisher-level content and release attestations within policy | PER PUBLISHER / NOT APPLICABLE YET |
 
 ### 2.1 GOV-01 appointment record
@@ -127,3 +131,12 @@ Where staffing is limited, operational functions may be delegated to AI profiles
 ## 8. Closure condition
 
 The GOV-01 human appointment is recorded and effective for internal project governance as of 2026-11-22. GOV-02 through GOV-06 have been designated as interim AI Functional Delegates by GOV-01 under HSMART-AUTH-GOV01-20261122-002. Their human role seats remain VACANT and their runtime instances are not provisioned or verified. The core-role task is therefore PARTIALLY COVERED / IN_PROGRESS, not fully complete. MVP v1.1.0 approval is recorded as APPROVED AS WRITTEN and Charter v1.0.2 adoption is recorded as RATIFIED WITH CONDITIONS under HSMART-GOV-DEC-2026-11-22-001 / HSMART-GOV-RAT-001 v1.4.0. Policy enforcement implementation, hosted runtime provisioning, production WORM audit and Agent activation remain separate open gates.
+
+
+## 9. GOV-01 decision addendum — AI-only role allocation beyond GOV-01
+
+Effective 2026-11-22, GOV-01 has directed that GOV-01 is the sole human role in the internal HSMART governance model. GOV-02 through GOV-12 are logical AI Functional Delegates with distinct remits under decision `HSMART-GOV-DEC-2026-11-22-002`.
+
+This does not turn AI profiles into natural persons, professional advisers, corporate officers or legal signatories. Each delegate remains DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE until its individual runtime activation gates pass. GOV-08 provides legal/commercial research only. External legal, tax, privacy, IP, publisher and commercial commitments still require a legally authorized person/entity and qualified human professional review where applicable.
+
+GOV-11 is the designated logical AI reviewer. A review must disclose model/provider/context correlation. An AI review report is not a GitHub-native human approval. GOV-01 retains final human approval and merge authority.

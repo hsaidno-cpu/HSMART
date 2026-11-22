@@ -524,3 +524,12 @@ The next execution sequence is:
 7. Begin Registry implementation only after the KM 1 exit gate is satisfied.
 
 **Project control statement:** HSMART will be measured by verified capability lifecycle outcomes, security, interoperability, and operational evidence—not by the number of modules, diagrams, integrations, or documents produced.
+
+
+## 20.3 GOV-01 decision addendum — AI-only role allocation (2026-11-22)
+
+GOV-01 decision `HSMART-GOV-DEC-2026-11-22-002` establishes GOV-01 as the only human authority in HSMART's internal role model. GOV-02 through GOV-12 are logical AI Functional Delegates with distinct remit and limits. This decision updates the internal operating allocation described in earlier Charter sections and is to be read together with `docs/governance/AI-ROLE-DELEGATION-ADDENDUM-2026-11-22.md`.
+
+GOV-07 is designated for Operations/Reliability, GOV-08 for legal/commercial research (not legal counsel or signatory), GOV-09 for entitlement governance, GOV-10 for repository governance, GOV-11 for AI assurance review and GOV-12 for business continuity/DR. No other human role seat is appointed.
+
+AI designations do not create a legal entity or professional qualification and do not activate runtime access. Each delegate remains NOT_PROVISIONED / NOT_ACTIVE until its individual activation gates pass. GOV-01 retains final internal approval. External legal, tax, privacy, IP and commercial commitments still require an appropriately authorized person/entity and qualified professional review.
