@@ -85,13 +85,13 @@ GOV-01 accepts these defaults as the internal MVP application stack baseline for
 
 ## 6. Proof-of-fit and implementation verification
 
-1. Engineering Lead records team capability and completes a small FastAPI vertical-slice spike against the canonical OpenAPI contract. If the team cannot own it, compare NestJS before acceptance.
-2. Architecture Lead proves PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
-3. Security & Privacy Lead reviews OIDC audience/issuer handling, worker identity, key lifecycle, secrets, data residency and default-deny egress.
-4. Operations/Reliability Lead demonstrates deployment, backup/restore, logs/metrics/traces and recovery ownership.
-5. Project Sponsor/Owner sets a budget envelope and approves any paid resource.
+1. GOV-05 AI Engineering Delegate maintains the FastAPI implementation against the canonical OpenAPI contract; Python 3.12 CI is the reference environment.
+2. GOV-04 AI Architecture Delegate challenges PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
+3. GOV-06 AI Security & Privacy Delegate assesses OIDC audience/issuer handling, workload identity, key lifecycle, secrets, data residency and default-deny egress.
+4. GOV-07 AI Operations/Reliability Delegate prepares deployment, backup/restore, observability and recovery evidence; its runtime is inactive until A1–A8 pass.
+5. GOV-01 separately approves any provider, region, budget and paid resource before provisioning.
 6. Candidate cloud providers/regions are compared against documented criteria: Indonesia/data residency needs, latency, availability, managed services, security controls, recovery, support, portability and total cost.
-7. GOV-01 acceptance is recorded in HSMART-GOV-DEC-2026-11-22-002. Implementation and environment acceptance remain evidence-gated by KM 1 CI and the independent exit evaluation.
+7. GOV-01 acceptance is recorded in HSMART-GOV-DEC-2026-11-22-002. KM 1 exit still requires hosted CI, AI assurance and GOV-01 acceptance of the exact implementation commit.
 
 ## 7. Rollback / reconsideration
 
@@ -101,16 +101,14 @@ Reconsider before production if the selected stack fails the vertical-slice acce
 
 | Approver role | Name | Decision | Date |
 |---|---|---|---|
-| Project Sponsor / Accountable Owner | NOT APPOINTED | PENDING | — |
-| Architecture Lead | NOT APPOINTED | PENDING | — |
-| Engineering Lead | NOT APPOINTED | PENDING | — |
-| Security & Privacy Lead | NOT APPOINTED | PENDING | — |
-| Operations / Reliability Lead | NOT APPOINTED | PENDING | — |
+| GOV-01 — Project Sponsor / Accountable Owner | Harysaidno | ACCEPTED — HSMART-GOV-DEC-2026-11-22-002 | 2026-11-22 |
+| GOV-04 — Architecture Lead (AI delegate) | Designated; runtime inactive | Technical recommendation only | 2026-11-22 |
+| GOV-05 — Engineering Lead (AI delegate) | Designated; runtime inactive | Implementation/evidence within grant | 2026-11-22 |
+| GOV-06 — Security & Privacy Lead (AI delegate) | Designated; runtime inactive | Security challenge/HOLD recommendation | 2026-11-22 |
+| GOV-07 — Operations & Reliability Lead (AI delegate) | Designated; runtime inactive | Operational evidence/runbook preparation | 2026-11-22 |
 
 ## 9. Current disposition
 
-**ADR-011 v1.2.0 is ACCEPTED by GOV-01 as the internal application-stack and infrastructure direction for KM 1.** This authorizes the modular-monolith application foundation and its reproducible environment. It does not certify all technical acceptance tests as passed, approve production deployment, authorize spending or external commitments, or select a cloud provider, region, domain, OIDC issuer, KMS, secret manager or artifact-store vendor.
+**ADR-011 v1.2.0 is ACCEPTED by GOV-01 as the internal KM 1 application-stack baseline** under `HSMART-GOV-DEC-2026-11-22-002`. This accepts Python 3.12 + FastAPI, modular monolith, PostgreSQL, SQLAlchemy/Alembic, PostgreSQL outbox worker, OCI packaging, OIDC adapter, managed secrets/KMS conventions and OpenTelemetry-compatible observability as the internal technical direction. It does not select or procure a cloud provider, region, domain, identity provider, KMS, secret manager, artifact-store vendor or paid service.
 
-The current local proof-of-fit implementation has 11 tests passing and 2 PostgreSQL integration tests skipped locally because no PostgreSQL service was available. The dedicated PostgreSQL 16 GitHub Actions job is required before KM 1 exit. Acceptance of the ADR is not a declaration that this future CI run has already passed.
-
-**The recommended technology baseline is sufficiently specific for a reversible engineering spike. The formal ADR is not accepted.** No cloud provider, region, domain, database service, OIDC issuer, KMS, secret manager or paid service has been procured or deployed. This record must not be cited as authorization to spend money or launch production infrastructure.
+Acceptance of ADR-011 is distinct from KM 1 exit acceptance. KM 1 still requires passing contract, application/PostgreSQL and repository-governance CI; AI assurance evidence; and a separate GOV-01 decision on the exact implementation commit. This record does not certify production deployment or approve spending/external commitments.

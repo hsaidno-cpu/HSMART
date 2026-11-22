@@ -37,5 +37,15 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
+  worker:
+    build: .
+    environment:
+      HSMART_ENV: development
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-hsmart_dev}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-hsmart_dev}
+    command: ["python", "-m", "hsmart_platform.worker"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
 volumes:
   hsmart-postgres:

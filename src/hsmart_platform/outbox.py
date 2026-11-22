@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from sqlalchemy import or_, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from .models import OutboxMessage
@@ -33,8 +34,22 @@ def enqueue(
         idempotency_key=idempotency_key,
         status="pending",
     )
-    session.add(message)
-    session.flush()
+    try:
+        # A savepoint preserves the caller's outer transaction if another
+        # transaction wins the same tenant/idempotency-key race.
+        with session.begin_nested():
+            session.add(message)
+            session.flush()
+    except IntegrityError:
+        existing = session.scalar(
+            select(OutboxMessage).where(
+                OutboxMessage.tenant_id == tenant_id,
+                OutboxMessage.idempotency_key == idempotency_key,
+            )
+        )
+        if existing is None:
+            raise
+        return existing, False
     return message, True
 
 

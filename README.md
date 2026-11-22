@@ -39,14 +39,15 @@ This repository currently contains the architecture and implementation contracts
 | docs/planning/ | Prioritized KM 0–KM 2 backlog and dependencies |
 | docs/engineering/ | Contract tooling and KM 1 application development environment |
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
-| src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |\n| src/hsmart_platform/ | KM 1 FastAPI/SQLAlchemy/Alembic application foundation; not KM 2 services |
+| src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |
+| src/hsmart_platform/ | KM 1 FastAPI/SQLAlchemy/Alembic application foundation; not KM 2 services |
 | docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
 | docs/data/ | Logical data model and governance |
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
-| docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-06 activation/evidence plan |
+| docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-12 activation/evidence plan |
 | docs/governance/ | Ownership, human authority, AI Functional Delegation Charter, delegate registry, permission/approval policy, cross-evaluation and audit governance |
 | docs/roadmap/ | Implementation phases and acceptance criteria |
 | docs/operations/ | Production-readiness and operations |

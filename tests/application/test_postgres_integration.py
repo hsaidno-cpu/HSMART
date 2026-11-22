@@ -1,5 +1,7 @@
 """Executed by the PostgreSQL CI service after Alembic upgrade head."""
 import os
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
 import pytest
 from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session
@@ -36,4 +38,45 @@ def test_postgres_tenant_scoped_idempotent_outbox_transaction():
         assert created_a is True and created_b is True and created_retry is False
         assert event_a.id == retry_a.id and event_a.id != event_b.id
         assert session.scalar(select(OutboxMessage).where(OutboxMessage.id == event_a.id)).tenant_id == tenant_a.id
+    engine.dispose()
+
+
+def test_postgres_concurrent_duplicate_enqueue_is_idempotent():
+    """Two independent transactions racing on one key converge on one row."""
+    engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_size=4)
+    with Session(engine) as setup:
+        tenant = Tenant(slug="pg-concurrent", display_name="Concurrent Tenant")
+        setup.add(tenant)
+        setup.commit()
+        tenant_id = tenant.id
+
+    barrier = Barrier(2)
+
+    def enqueue_from_independent_transaction(_):
+        with Session(engine) as session:
+            barrier.wait(timeout=10)
+            with session.begin():
+                message, created = enqueue(
+                    session,
+                    tenant_id=tenant_id,
+                    topic="test.concurrent",
+                    aggregate_id="aggregate-race",
+                    payload={"value": "same"},
+                    idempotency_key="same-concurrent-key",
+                )
+                return message.id, created
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        first, second = list(pool.map(enqueue_from_independent_transaction, range(2)))
+
+    assert first[0] == second[0]
+    assert sorted([first[1], second[1]]) == [False, True]
+    with Session(engine) as verify:
+        rows = verify.scalars(
+            select(OutboxMessage).where(
+                OutboxMessage.tenant_id == tenant_id,
+                OutboxMessage.idempotency_key == "same-concurrent-key",
+            )
+        ).all()
+        assert len(rows) == 1
     engine.dispose()

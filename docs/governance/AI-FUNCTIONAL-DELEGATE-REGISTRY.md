@@ -39,7 +39,7 @@ If a runtime does not expose a value, record `unknown` and the reason. Never inv
 | REVOKED | Mandate withdrawn; credentials and runtime bindings must be disabled |
 | RETIRED | Replaced profile kept for historical provenance |
 
-The five entries below are **DESIGNATED**. Their runtime status is **NOT PROVISIONED / NOT VERIFIED**. They must not be represented as ACTIVE.
+All eleven entries below are **DESIGNATED**. Their runtime status is **NOT PROVISIONED / NOT VERIFIED**. They must not be represented as ACTIVE.
 
 ## 2. Executive registry
 
@@ -49,9 +49,15 @@ The five entries below are **DESIGNATED**. Their runtime status is **NOT PROVISI
 | GOV-03 | `hsmart.gov03.product-owner.orchestrator` | product-owner-orchestrator | VACANT | DESIGNATED — runtime pending |
 | GOV-04 | `hsmart.gov04.architecture.orchestrator` | architecture-orchestrator | VACANT | DESIGNATED — runtime pending |
 | GOV-05 | `hsmart.gov05.engineering.orchestrator` | engineering-orchestrator | VACANT | DESIGNATED — runtime pending |
-| GOV-06 | `hsmart.gov06.security-privacy.orchestrator` | security-privacy-orchestrator | VACANT | DESIGNATED — runtime pending |
+| GOV-06 | `hsmart.gov06.security-privacy.orchestrator` | security-privacy-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-07 | `hsmart.gov07.operations-reliability.orchestrator` | operations-reliability-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-08 | `hsmart.gov08.legal-commercial-research.orchestrator` | legal-commercial-research-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-09 | `hsmart.gov09.entitlement-governance.orchestrator` | entitlement-governance-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-10 | `hsmart.gov10.repository-governance.orchestrator` | repository-governance-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-11 | `hsmart.gov11.independent-assurance-reviewer.orchestrator` | independent-assurance-reviewer-orchestrator | No human seat | DESIGNATED — runtime pending |
+| GOV-12 | `hsmart.gov12.business-continuity.orchestrator` | business-continuity-orchestrator | No human seat | DESIGNATED — runtime pending |
 
-All five delegates report through the centralized policy enforcement boundary. This registry does not place them in a chain of authority over GOV-01.
+All eleven delegates report through the centralized policy enforcement boundary. This registry does not place them in a chain of authority over GOV-01.
 
 ## 3. Shared control-plane profiles
 
@@ -81,7 +87,7 @@ This component is not a sixth GOV role. It is a technical enforcement point. Onl
 | Prohibition | Cannot edit the target artifact, approve its own report or merge/release |
 | Runtime state | DESIGN SPECIFICATION ONLY — not deployed or verified |
 
-The cross-evaluation service is separate from all five delivery orchestrators. Independence requires separate execution context and evidence. Model/provider diversity is preferred but not assumed; shared dependencies must be disclosed.
+The cross-evaluation service is separate from all eleven delivery orchestrators. Independence requires separate execution context and evidence. Model/provider diversity is preferred but not assumed; shared dependencies must be disclosed.
 
 ## 4. GOV-02 — Project Owner Functional Delegate
 
