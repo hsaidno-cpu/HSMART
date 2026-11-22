@@ -12,7 +12,7 @@
 
 ## 1. Decision requested
 
-Approve one narrow MVP: a secure, observable, repeatable end-to-end lifecycle for one deterministic demonstration capability, \`hsmart:demo:text-transformer\`, exposed through both REST/HTTP and Remote MCP.
+Approve one narrow MVP: a secure, observable, repeatable end-to-end lifecycle for one deterministic demonstration capability, `hsmart:demo:text-transformer`, exposed through both REST/HTTP and Remote MCP.
 
 The MVP is intended to prove HSMART's infrastructure and governance proposition. It is not a marketplace launch, a universal compatibility claim, or a production-scale service.
 
@@ -20,7 +20,7 @@ The MVP is intended to prove HSMART's infrastructure and governance proposition.
 
 | Dimension | MVP boundary |
 |---|---|
-| Capability | One deterministic demonstration capability: \`hsmart:demo:text-transformer\` |
+| Capability | One deterministic demonstration capability: `hsmart:demo:text-transformer` |
 | Publisher | One first-party test publisher |
 | Control plane | One logical HSMART control-plane deployment |
 | Execution | One isolated managed worker class |
