@@ -10,10 +10,23 @@ permissions:
 
 jobs:
   validate-contracts:
-    name: Validate JSON and OpenAPI contracts
+    name: Validate JSON Schema, OpenAPI and repository contracts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12 contract toolchain
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install pinned contract-validation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
       - name: Validate JSON syntax
         run: |
           python - <<'PY'
@@ -30,6 +43,10 @@ jobs:
                   json.load(handle)
               print(f"valid JSON: {path}")
           PY
+
+      - name: Run JSON Schema and OpenAPI contract tests
+        run: python -m pytest -q
+
       - name: Validate OpenAPI YAML structure
         run: |
           ruby -ryaml -e '
@@ -42,14 +59,21 @@ jobs:
             abort "Missing bearer security scheme" unless document.dig("components", "securitySchemes", "bearerAuth").is_a?(Hash)
             puts "OpenAPI YAML parsed and required contract sections found"
           '
-      - name: Check required architecture files
+
+      - name: Check required architecture and engineering files
         run: |
           test -s README.md
+          test -s CONTRIBUTING.md
           test -s docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md
           test -s docs/architecture/DOMAIN-BOUNDARIES.md
           test -s docs/architecture/ECOSYSTEM-INTEGRATION.md
           test -s docs/access/UNIVERSAL-ACCESS-MANAGER.md
           test -s docs/security/THREAT-MODEL.md
+          test -s docs/security/RISK-REGISTER.md
           test -s docs/data/DATA-MODEL.md
           test -s docs/contracts/openapi.yaml
           test -s docs/contracts/capability-manifest.schema.json
+          test -s docs/contracts/event-envelope.schema.json
+          test -s docs/foundation/MVP-DECISION-RECORD.md
+          test -s docs/planning/BACKLOG-KM0-KM2.md
+          test -s docs/engineering/DEVELOPMENT-ENVIRONMENT.md
