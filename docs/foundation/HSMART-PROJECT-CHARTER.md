@@ -2,8 +2,9 @@
 
 **Project:** HSMART — Hypersystem Synchronization & Management Architecture for Revolutionary Technology  
 **Document ID:** HSMART-GOV-CHARTER-001  
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Document date:** 2026-11-21  
+**Last updated:** 2026-11-22  
 **Document owner:** HSMART Project Owner — appointment required  
 **Status:** Project governance baseline; formal owner ratification pending  
 **Authority:** Governs project scope, delivery priorities, decision rights, and acceptance rules after adoption
@@ -113,115 +114,46 @@ Unless explicitly agreed through a separate contract, HSMART does not:
 - Guarantee that a third-party model or capability produces correct, safe, or legally compliant outputs.
 - Control refresh behavior of independently managed client applications.
 - Override the security, policy, or operational controls of external platforms.
-- Automatically acquire rights to submitted code, prompts, datasets, or artifacts.
-- Guarantee uninterrupted availability of external APIs or model providers.
-- Treat all imported, discovered, or registered capabilities as trusted or executable.
+- Automatically acquire rights to submit, distribute, host, modify, or commercialize third-party work.
+- Acquire ownership of a contributor's work merely because it is stored in an HSMART repository.
 
-Responsibility for capability behavior, data processing, licensing, support, and liability must be allocated contractually between the relevant publisher, operator, provider, and consumer.
+## 6. Users and stakeholders
 
-## 6. Strategic decisions established as the project baseline
+Initial stakeholders include:
 
-The following are the agreed product and architecture direction for planning and implementation. They are not, by themselves, legal incorporation documents or proof that infrastructure has been procured.
+- Project founder and accountable project sponsor.
+- Product and engineering contributors.
+- AI capability authors and publishers.
+- Platform and integration operators.
+- Organizations deploying governed capabilities.
+- End users invoking capabilities through compatible clients.
+- Legal, privacy, security, and operational reviewers.
 
-| Decision area | Established baseline | Constraint |
-|---|---|---|
-| Ownership direction | Hybrid Foundation + Commercial Operator | Exact entities, IP ownership, control, and contracts require legal design |
-| Execution model | Hybrid managed cloud + self-hosted | Managed execution is the first implementation path |
-| Distribution | Universal, protocol- and adapter-based | Support is declared and tested per client/platform |
-| Initial protocols | REST/HTTP and Remote MCP | SDKs, webhooks, and adapters expand incrementally |
-| Synchronization | Adaptive and risk-based | High-risk and breaking changes require explicit controls |
-| Ecosystem | Multi-publisher, internal and external | External publishing is deferred until governance gates exist |
-| Architecture style | Modular monolith with separable workers | No premature microservices or Kubernetes requirement |
-| Logical planes | Control Plane, Execution Plane, Data Plane | Boundaries are enforced even when deployed together |
-| Contracts | Canonical capability manifest and versioned API/event contracts | Published contract changes require compatibility assessment |
-| Artifacts | Immutable published versions with digest/provenance | New content creates a new version; no silent mutation |
-| Security | Zero Trust, least privilege, tenant isolation | Authorization is evaluated on every invocation |
-| Marketplace | Governed discovery and entitlement | Listing visibility never grants execution authorization |
+Stakeholder participation, access, rights, and responsibilities must be explicitly agreed. This Charter does not appoint or bind any stakeholder by implication.
 
-## 7. Target users and primary use cases
+## 7. MVP objective
 
-### 7.1 Target user groups
+The MVP must prove one bounded capability lifecycle end to end. The initial demonstrator is intentionally narrow and deterministic. It should establish the canonical contract, artifact identity, registry behavior, authentication and authorization path, invocation, controlled execution, evaluation evidence, observability, and a safe synchronization/rollback demonstration.
 
-- **Capability developers and publishers:** create, package, describe, version, and distribute capabilities.
-- **Organizations and platform operators:** govern identities, policies, connectors, runtime, and synchronization.
-- **AI platform integrators:** connect compatible client environments through MCP, REST, SDKs, or supported adapters.
-- **Capability consumers:** discover and invoke capabilities they are authorized to use.
-- **Security and governance reviewers:** evaluate provenance, permissions, evidence, policy, and operational risk.
-- **Marketplace participants:** publish, license, obtain, and consume externally supplied capabilities after marketplace launch.
+The MVP is not the commercial marketplace, a general-purpose agent runtime, or a complete migration of every existing skill/plugin.
 
-### 7.2 Primary use cases
+The approved MVP scope and acceptance measures are controlled by the current MVP Decision Record. A prepared proposal is not approval; approval must be recorded by the accountable project roles.
 
-1. Register a capability with a stable ID, publisher, manifest, version, dependencies, permissions, and provenance.
-2. Validate and publish an immutable capability artifact.
-3. Discover a capability according to tenant, visibility, and entitlement.
-4. Invoke a permitted capability through REST or Remote MCP.
-5. Execute it in a constrained runtime.
-6. Trace the invocation and inspect evaluation and audit evidence.
-7. publish a compatible update and synchronize it under release policy.
-8. Block a high-risk or incompatible update pending required evaluation and approval.
-9. Roll back a failed deployment to a known-good artifact.
-10. Connect a self-hosted runtime without granting it broad administrative access.
-11. Onboard an external publisher under explicit identity, licensing, and security requirements.
+## 8. Non-goals for the initial release
 
-## 8. Scope
+The initial release does not require:
 
-### 8.1 MVP scope
+- A public marketplace or payment processing.
+- Full multi-region high availability.
+- Kubernetes or microservices without a demonstrated need.
+- Support for every AI client, vendor, protocol, or model.
+- Automatic execution of untrusted imported capabilities.
+- Bulk migration of unverified capability inventories.
+- Production SLO, RPO, RTO, or unit-cost commitments before workload and infrastructure baselines exist.
 
-The MVP is the smallest complete proof of HSMART's core infrastructure lifecycle.
+## 9. Strategic ecosystem integration
 
-**Included:**
-
-- A canonical capability manifest and validation rules.
-- Stable capability identity and publisher identity.
-- Registry registration, discovery, and immutable version metadata.
-- Artifact metadata, digest, and provenance representation.
-- Basic authentication and authorization policy enforcement.
-- API key lifecycle minimum and OIDC integration path.
-- REST invocation and Remote MCP invocation through a shared policy core.
-- Managed execution of a deterministic demonstration capability.
-- Tenant context and enforceable resource limits.
-- Invocation result and lifecycle contracts.
-- Basic evaluation gate and evidence linked to artifact version/digest.
-- Structured logs, correlation, traceability, and security audit events.
-- A minimal risk-aware synchronization path, including approval behavior and rollback.
-- Negative tests for unauthorized access, invalid manifest, failure, and policy denial.
-
-**First demonstration capability:**
-
-\`hsmart:demo:text-transformer\`
-
-This deterministic demonstration capability exists to prove registration, authorization, execution, and lifecycle infrastructure. It is not intended to demonstrate advanced AI intelligence.
-
-### 8.2 Post-MVP scope
-
-These areas are part of the broader HSMART direction but must follow the MVP proof:
-
-- A.S.F.R.E.E Canonical integration as a first-party evaluation capability.
-- A.S.F.R.E.E Legacy through an explicit compatibility adapter.
-- Skill Analyzer integration.
-- Anatomi Prompt v3 / Octa-Prompt integration.
-- Self-hosted runtime agent and enrollment.
-- SDKs and additional client/platform adapters.
-- Full adaptive synchronization and expanded risk policy.
-- External publisher onboarding and marketplace.
-- Usage metering, billing, and commercial settlement.
-- Multi-region, advanced resilience, and enterprise-scale operations.
-
-### 8.3 Explicit non-goals for MVP
-
-- Building all twelve domains as separately deployed microservices.
-- Making Kubernetes a prerequisite.
-- Supporting every AI platform or client from the first release.
-- Building a full marketplace and payment settlement before core entitlement and authorization work.
-- Migrating all planned skill records directly into a published state.
-- Autonomous self-modification or unrestricted self-healing in production.
-- Multi-region active-active architecture without a demonstrated requirement.
-- Guaranteeing the quality or safety of outputs generated by external AI models.
-- Building a general-purpose model hosting platform.
-
-## 9. First-party ecosystem integration policy
-
-The following capabilities are intended to be integrated into the HSMART ecosystem through the same canonical registry, access, execution, evaluation, and synchronization governance.
+The following capabilities may be integrated into the HSMART ecosystem through the same canonical registry, access, execution, evaluation, and synchronization governance.
 
 | Capability | Integration policy |
 |---|---|
@@ -235,7 +167,7 @@ Any planned bulk migration, including the previously discussed inventory of 427 
 
 ## 10. Delivery strategy and stage gates
 
-The implementation follows the HSMART KM 0–10 roadmap in \`docs/roadmap/IMPLEMENTATION-ROADMAP.md\`.
+The implementation follows the HSMART KM 0–10 roadmap in docs/roadmap/IMPLEMENTATION-ROADMAP.md.
 
 | Stage | Objective | Minimum exit evidence |
 |---|---|---|
@@ -317,12 +249,12 @@ A stage is not complete because its planned duration elapsed. It is complete onl
 
 ### 13.1 Required accountable roles
 
-Names are deliberately not fabricated. The project owner must appoint accountable people before implementation work expands beyond the initial foundation.
+The project is currently founder-led and has no legal-entity structure. GOV-01 is recorded through a founder self-declaration for internal project governance only. This does not appoint the remaining roles or create authority over third parties.
 
 | Role | Accountability | Current status |
 |---|---|---|
-| Project Sponsor / Accountable Owner | Strategic direction, funding/resources, major scope and risk decisions | To appoint |
-| Project Owner | Overall delivery accountability and charter maintenance | To appoint |
+| Project Sponsor / Accountable Owner | Strategic direction, internal project scope, priorities, and stewardship of resources actually controlled by the holder | Appointed: Harysaidno — HSMART-GOV-FOUNDER-001; internal project authority only |
+| Project Owner | Overall delivery accountability and Charter maintenance | To appoint |
 | Product Owner | User needs, priorities, acceptance, roadmap trade-offs | To appoint |
 | Architecture Lead | Architecture integrity, contracts, ADRs, technical boundaries | To appoint |
 | Engineering Lead | Implementation quality, delivery planning, code review | To appoint |
@@ -331,7 +263,7 @@ Names are deliberately not fabricated. The project owner must appoint accountabl
 | Legal / Commercial Advisor | Entity, IP, licensing, publisher, privacy, and commerce review | To appoint / engage when needed |
 | Capability Publisher Owner | Accuracy and lifecycle of each published capability | Per publisher |
 
-In an early single-person or small-team phase, one person may hold multiple roles. The responsibilities must still be explicitly assigned. High-impact security, production, data-destruction, and commercial decisions should receive independent review wherever practical.
+In an early single-person or small-team phase, one person may hold multiple roles only through explicit appointment or documented role-combination. GOV-01 appointment does not automatically make the holder Project Owner, Product Owner, Architect, Engineer, or Security Lead. High-impact security, production, data-destruction, and commercial decisions should receive independent review wherever practical.
 
 ### 13.2 Decision classes
 
@@ -339,8 +271,10 @@ In an early single-person or small-team phase, one person may hold multiple role
 |---|---|---|
 | D0 — Editorial | Typo, formatting, non-normative clarification | Maintainer review |
 | D1 — Component | Internal implementation detail within approved contracts | Component owner review and tests |
-| D2 — Architecture | Domain boundary, canonical schema, protocol, major dependency, data model | ADR, architecture review, compatibility assessment |
-| D3 — Critical | Security boundary, privilege model, production release, data retention, legal/commercial policy | Named accountable approval, documented risk review, and independent review where practical |
+| D2 — Architecture | Domain boundary, canonical schema, protocol, major dependency, data model | ADR, architecture review, compatibility assessment, and approval within the recorded internal project authority |
+| D3 — Critical | Security boundary, privilege model, production release, data retention, legal/commercial policy | Named accountable approval, documented risk review, and independent review where practical; external legal/commercial commitments require the legally authorized person/entity |
+
+GOV-01 may decide internal project-governance matters within the limits of HSMART-GOV-FOUNDER-001. Neither this Charter nor the role register grants authority to bind another person or legal entity, assign third-party IP, or override applicable law, contract, platform policy, or independent security requirements.
 
 ### 13.3 Change control
 
@@ -474,7 +408,7 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 | Approval role | Name / authority | Decision | Date |
 |---|---|---|---|
-| Project Sponsor / Accountable Owner | To be appointed | Pending | Pending |
+| Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001, internal project authority only | Appointment recorded; Charter ratification pending | 2026-11-22 |
 | Project Owner | To be appointed | Pending | Pending |
 | Product Owner | To be appointed | Pending | Pending |
 | Architecture Lead | To be appointed | Pending | Pending |
@@ -494,7 +428,7 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 The next execution sequence is:
 
-1. Appoint the Project Sponsor and Project Owner.
+1. Appoint the Project Owner.
 2. Assign the initial Product, Architecture, Engineering, and Security responsibilities.
 3. Approve the MVP demo capability and its acceptance tests.
 4. Open and prioritize KM 0–2 backlog issues with dependencies and owners.
