@@ -67,7 +67,7 @@ A successful HTTP response alone is not acceptance evidence.
 
 ## Repository protection operation
 
-Use **Actions → Repository Main Protection → Run workflow** to read current status, preview a dry run, or apply both branch protection and the HSMART ruleset. The manual workflow is restricted to `hsaidno-cpu`, requires the current full `main` SHA, and reads `HSMART_REPOSITORY_ADMIN_TOKEN` from repository Secrets. Create that fine-grained token with repository **Administration: write** before selecting Apply. Never put the token in ChatGPT, Notion, source files or workflow inputs. Installing the workflow does not itself protect `main`; verify GitHub's API read-back after executing it.
+**First-time bootstrap:** because the workflow itself is still on PR #28, it is not yet available from the default branch. Apply the initial protection from a local checkout using the exact commands in `docs/governance/REPOSITORY-BASELINE-CONTROLS.md` and a local-only token with repository **Administration: write**. After PR #28 merges, use **Actions → Repository Main Protection → Run workflow** for status, dry-run and later changes; that workflow is restricted to `hsaidno-cpu`, reads `HSMART_REPOSITORY_ADMIN_TOKEN` from repository Secrets and requires the current full `main` SHA. Never put the token in ChatGPT, Notion, source files or workflow inputs. Installing a workflow does not itself protect `main`; verify GitHub's API read-back and negative test.
 
 ## Contributing
 

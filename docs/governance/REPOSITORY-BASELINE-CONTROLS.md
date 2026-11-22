@@ -32,8 +32,18 @@ Native GitHub approving-review count is intentionally zero. GOV-11's AI assuranc
 - `apply-branch-protection`: dry-run by default; apply only with `--apply --confirm-main`.
 - `apply-ruleset`: dry-run by default; create/update the named HSMART ruleset.
 
-A repository administrator must create a fine-grained token or GitHub App installation token with repository `Administration: write`, store it as the repository secret `HSMART_REPOSITORY_ADMIN_TOKEN`, and run the `Repository Main Protection` workflow. The workflow passes this secret transiently as `GH_TOKEN`; it never logs or writes the token. Never paste the token into ChatGPT, Notion or source files. Every write requires the current expected main SHA and a manual `workflow_dispatch` by `hsaidno-cpu`.
+**Initial bootstrap before PR #28 is merged:** the workflow file is not yet on the default branch, so first apply must be run locally from a checkout of this branch. Create a fine-grained token or GitHub App installation token with repository `Administration: write`, store it in a local environment variable `GH_TOKEN`, and run:
+
+```bash
+export GH_TOKEN='<token entered locally, never into chat or source files>'
+MAIN_SHA=$(git ls-remote origin refs/heads/main | cut -f1)
+python scripts/github-governance.py apply-branch-protection --apply --confirm-main --expected-main-sha "$MAIN_SHA"
+python scripts/github-governance.py apply-ruleset --apply --confirm-main --expected-main-sha "$MAIN_SHA"
+unset GH_TOKEN
+```
+
+Then read back protection and rulesets and execute the negative-control verification in section 4. **After PR #28 merges**, store an appropriately scoped token as repository secret `HSMART_REPOSITORY_ADMIN_TOKEN` and run the `Repository Main Protection` `workflow_dispatch` workflow for subsequent status/dry-run/apply changes. It passes the secret transiently as `GH_TOKEN`; it never logs or writes the token. Never paste the token into ChatGPT, Notion or source files. Every write requires the current expected main SHA and a manual run by `hsaidno-cpu`.
 
 ## 4. Verification
 
-After apply, independently read back branch protection and rulesets. Prove all seven required contexts, admin enforcement, no bypass, no force-push/deletion and direct-push restrictions. Run a disposable negative-control PR/branch to prove missing checks and forbidden pushes are blocked. Until these results exist, status remains NOT_APPLIED / NOT_VERIFIED.
+After apply, independently read back branch protection and rulesets. Prove all seven required contexts, admin enforcement, no bypass, no force-push/deletion and pull-request-only updates. Personal-repository user/team/app push-restriction lists are not available. Run a disposable negative-control PR/branch to prove missing checks and forbidden pushes are blocked. Until these results exist, status remains NOT_APPLIED / NOT_VERIFIED.

@@ -8,10 +8,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPORT_PATH = "docs/reviews/PR-28-AI-ASSURANCE.json"
+REPORT_DIR = "docs/reviews"
+
+def report_path_for_pr(pr_number: int) -> str:
+    return f"{REPORT_DIR}/PR-{pr_number}-AI-ASSURANCE.json"
+
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
-def validate_report(report: dict, *, pr_number: int, head_sha: str, changed_paths: list[str]) -> list[str]:
+def validate_report(report: dict, *, pr_number: int, head_sha: str, changed_paths: list[str], expected_report_path: str | None = None) -> list[str]:
     errors: list[str] = []
     if report.get("pr_number") != pr_number:
         errors.append("PR number mismatch")
@@ -37,8 +41,9 @@ def validate_report(report: dict, *, pr_number: int, head_sha: str, changed_path
             errors.append("open critical/high finding blocks review gate")
     if report.get("open_blocking_findings") != 0:
         errors.append("open_blocking_findings must be zero")
-    if sorted(set(changed_paths)) != [REPORT_PATH]:
-        errors.append("only the AI review report may change after reviewed_head_sha; code changes require a new review")
+    expected_path = expected_report_path or report_path_for_pr(pr_number)
+    if sorted(set(changed_paths)) != [expected_path]:
+        errors.append(f"only {expected_path} may change after reviewed_head_sha; code changes require a new review")
     if reviewed == head_sha:
         errors.append("reviewed_head_sha must precede the report-only evidence commit")
     return errors
@@ -47,9 +52,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pr-number", type=int, required=True)
     parser.add_argument("--head-sha", required=True)
-    parser.add_argument("--report", default=REPORT_PATH)
+    parser.add_argument("--report", default="")
     args = parser.parse_args()
-    report = json.loads(Path(args.report).read_text(encoding="utf-8"))
+    report_path = args.report or report_path_for_pr(args.pr_number)
+    report = json.loads(Path(report_path).read_text(encoding="utf-8"))
     reviewed = report.get("reviewed_head_sha", "")
     if not SHA_RE.fullmatch(reviewed):
         print("invalid reviewed_head_sha", file=sys.stderr)
@@ -59,7 +65,7 @@ def main() -> int:
         check=True, capture_output=True, text=True,
     )
     changed = [line for line in result.stdout.splitlines() if line]
-    errors = validate_report(report, pr_number=args.pr_number, head_sha=args.head_sha, changed_paths=changed)
+    errors = validate_report(report, pr_number=args.pr_number, head_sha=args.head_sha, changed_paths=changed, expected_report_path=report_path)
     if errors:
         for error in errors:
             print(f"ERROR: {error}", file=sys.stderr)
