@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -35,16 +36,28 @@ def reject_nonfinite(value: str) -> None:
     raise ValueError(f"non-standard numeric constant is not valid JSON: {value}")
 
 
-def is_excluded(path: Path) -> bool:
-    try:
-        relative = path.relative_to(ROOT)
-    except ValueError:
-        return True
-    return any(part in EXCLUDED_DIRS for part in relative.parts)
+def discover_json_files(root: Path | None = None) -> list[Path]:
+    """Find repository JSON files while pruning generated/vendor directories."""
+    search_root = root or ROOT
+    files: list[Path] = []
+
+    for current, directories, filenames in os.walk(search_root, followlinks=False):
+        current_path = Path(current)
+        directories[:] = [
+            name
+            for name in directories
+            if name not in EXCLUDED_DIRS and not (current_path / name).is_symlink()
+        ]
+        for filename in filenames:
+            path = current_path / filename
+            if filename.endswith(".json") and not path.is_symlink():
+                files.append(path)
+
+    return sorted(files)
 
 
 def main() -> int:
-    files = sorted(path for path in ROOT.rglob("*.json") if path.is_file() and not is_excluded(path))
+    files = discover_json_files()
     if not files:
         print("ERROR: no JSON files found under repository root", file=sys.stderr)
         return 1
