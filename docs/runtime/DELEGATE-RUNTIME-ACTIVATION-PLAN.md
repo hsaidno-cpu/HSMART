@@ -73,8 +73,8 @@ The reference engine is not yet a production authorization service. Production i
 | A6 Fail-closed | Policy service outage, identity outage, grant-store outage and audit outage all deny mutation | NOT_PASSED |
 | A7 Audit | Separate append-only/WORM store, retention lock, protected signing, integrity verification and restore test | NOT_PROVISIONED |
 | A8 Delegate validation | Per-agent identity, model, Skills, tools, scope, cross-evaluation and incident-suspension tests | NOT_VERIFIED |
-| A9 MVP | GOV-01 decision on exact MVP version, boundaries, success measures, exceptions and effective date | PENDING_GOV01 |
-| A10 Charter | GOV-01 explicit RATIFY / RATIFY WITH CONDITIONS / RETURN FOR AMENDMENT decision with durable evidence | PENDING_GOV01 |
+| A9 MVP | GOV-01 decision on exact MVP version, boundaries, success measures, exceptions and effective date | SATISFIED — HSMART-GOV-DEC-2026-11-22-001; MVP v1.1.0 APPROVED AS WRITTEN (2026-11-22) |
+| A10 Charter | GOV-01 explicit RATIFY / RATIFY WITH CONDITIONS / RETURN FOR AMENDMENT decision with durable evidence | SATISFIED WITH CONDITIONS — Charter v1.0.2 RATIFIED WITH CONDITIONS (2026-11-22); HSMART-GOV-RAT-001 v1.4.0 |
 
 No single gate may be waived by an AI delegate. Any exception requires a specific GOV-01 decision and must not weaken reserved human-only actions.
 
@@ -99,7 +99,7 @@ Credentials must be entered directly into the chosen provider's secure connectio
 
 ## 9. MVP and Charter decisions
 
-The MVP Decision Record v1.1.0 is an approval-ready proposal, not an approved baseline. GOV-01 must explicitly accept or amend the bounded vertical slice and its measurable acceptance criteria. Charter v1.0.2 must separately receive an explicit adoption decision. Neither approval is implied by a request to provision agents or by CI success.
+The MVP Decision Record v1.1.0 was APPROVED AS WRITTEN by GOV-01 on 2026-11-22. Charter v1.0.2 was RATIFIED WITH CONDITIONS by GOV-01 on 2026-11-22 for internal HSMART project governance only. These decisions satisfy A9 and A10 as governance decision gates, but do not waive A1–A8, certify delivery, approve cloud expenditure, or activate any delegate. All five delegate runtimes remain NOT_PROVISIONED / NOT_ACTIVE until their individual technical evidence gates pass.
 
 ## 10. Per-delegate activation ledger
 
@@ -112,3 +112,21 @@ The MVP Decision Record v1.1.0 is an approval-ready proposal, not an approved ba
 | GOV-06 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
 
 Update this ledger only from deployment and test evidence. A successful local unit test does not prove hosted runtime activation.
+
+
+## 11. Provisioning execution status — 2026-11-22
+
+| Workstream | Verified current state | Evidence required to close |
+|---|---|---|
+| Compute and workload identity | No hosting project/account or five hosted service instances provisioned through the available connected tools | Select and connect an authorized provider account; create five isolated services with separate workload identities, resource/network policies, health checks and deploy provenance |
+| Model/provider and credentials | No provider, exact model ID/snapshot, endpoint region or active model credential bound | GOV-01 selects provider/model and region; enter credential directly into the provider secret manager; record secret reference only and run a redacted inference test |
+| Skill/Sub-Skill installation | Skill lock records/runtime installation/digests not evidenced by the merged reference foundation | Approve exact Skill sources/revisions, generate immutable lockfiles, verify artifact/dependency digests, license/provenance and compatibility/regression results per delegate |
+| Technical policy enforcement | Local reference evaluator and 13 unit tests are in repository; no external gateway interception or bypass control is deployed | Deploy central authorization enforcement outside agents; cryptographically authenticate workload identities; mediate every connector/tool mutation; prove no bypass and policy outage DENY |
+| Permission and fail-closed validation | Local reference tests exist; hosted integration matrix and outage tests not verified in this record | Prove positive/negative scopes, revoked/expired grants, role mismatch, branch/path escape, reserved human actions and fail-closed behavior for identity, policy, grant store and audit outages |
+| Production audit | WORM design and event schema exist; no production object-lock storage provisioned | Connect WORM-capable storage; set retention only after GOV-01 decision; prove object-lock mode, protected signing, write-only ingestion, deletion-denial, integrity, backup/restore and independent read |
+| Operations | GOV-07 Operations/Reliability remains unassigned | Appoint an operations owner or record human-approved interim coverage before production workloads |
+| Deployment authority and budget | No hosting-provider connection, resource-creation authorization or budget ceiling recorded in this session | GOV-01 separately approves selected provider, project, region, expected spend ceiling and production/non-production scope |
+
+**Connection finding:** The current session has GitHub and Notion project access, but no connected hosting/deployment, cloud IAM, model-provider, secret-manager or WORM-storage control-plane action. Provider discovery returned Railway and Render as available but not installed; no deployment action has been performed. Do not treat plugin discovery as an authenticated provider connection.
+
+**Runtime disposition:** all five delegates remain DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE. This plan is an evidence register, not a deployment claim. Secrets must never be placed in GitHub, Notion or chat.
