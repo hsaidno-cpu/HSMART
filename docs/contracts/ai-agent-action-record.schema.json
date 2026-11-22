@@ -1,0 +1,879 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/contracts/ai-agent-action-record.schema.json",
+  "title": "HSMART AI Agent Action Audit Record",
+  "description": "Append-only, provenance-rich audit event for AI assistant, orchestrator, sub-agent, tool, connector and human approval actions. Use the literal string 'unknown' when a runtime value is unavailable; do not infer it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "occurred_at_utc",
+    "event_type",
+    "actor",
+    "task",
+    "authorization",
+    "policy_decision",
+    "target",
+    "action",
+    "provenance",
+    "tool_invocations",
+    "evidence",
+    "outcome",
+    "audit_integrity"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 160
+    },
+    "occurred_at_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC RFC 3339 timestamp; use Z or +00:00."
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_type",
+        "actor_id",
+        "role_id",
+        "orchestrator_id",
+        "sub_agent_ids"
+      ],
+      "properties": {
+        "actor_type": {
+          "enum": [
+            "human",
+            "ai_assistant",
+            "orchestrator",
+            "sub_agent",
+            "system",
+            "connector"
+          ]
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "orchestrator_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sub_agent_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "human_approver_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session_or_runtime_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_id",
+        "objective",
+        "request_reference"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "request_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issue_or_ticket_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent_task_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "urgency": {
+          "enum": [
+            "routine",
+            "expedited",
+            "emergency",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant_id",
+        "approved_by",
+        "approval_reference",
+        "scope_digest",
+        "grant_valid_until_utc"
+      ],
+      "properties": {
+        "grant_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approved_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approval_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope_digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+        },
+        "grant_valid_until_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "revocation_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorization_mode": {
+          "enum": [
+            "explicit_grant",
+            "standing_bounded_policy",
+            "human_reserved_action",
+            "none",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "policy_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_id",
+        "policy_version",
+        "decision_id",
+        "outcome",
+        "reason_code"
+      ],
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "enum": [
+            "allow",
+            "deny",
+            "hold",
+            "not_evaluated"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "risk_class": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2",
+            "R3",
+            "R4",
+            "unknown"
+          ]
+        },
+        "evaluated_at_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system",
+        "resource"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "github",
+            "notion",
+            "ci_cd",
+            "runtime",
+            "secrets_broker",
+            "external_api",
+            "local_sandbox",
+            "other"
+          ]
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository_full_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "base_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "base_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "file_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notion_page_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notion_property_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "commit_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pull_request_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "category",
+        "mutating",
+        "result"
+      ],
+      "properties": {
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "enum": [
+            "read",
+            "draft",
+            "branch_write",
+            "pull_request_create",
+            "ci_run",
+            "notion_update",
+            "policy_change",
+            "permission_change",
+            "secret_action",
+            "merge",
+            "production_release",
+            "production_deploy",
+            "data_delete",
+            "external_commitment",
+            "evaluation",
+            "other"
+          ]
+        },
+        "mutating": {
+          "type": "boolean"
+        },
+        "result": {
+          "enum": [
+            "success",
+            "failure",
+            "denied",
+            "held",
+            "partial",
+            "skipped",
+            "unknown"
+          ]
+        },
+        "before_content_digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+        },
+        "after_content_digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+        },
+        "change_summary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope_deviation": {
+          "type": "boolean"
+        },
+        "scope_deviation_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_provider",
+        "model_id",
+        "model_version",
+        "deployment_id",
+        "prompt_template_id",
+        "prompt_template_version",
+        "policy_config_digest",
+        "skills",
+        "tools"
+      ],
+      "properties": {
+        "model_provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deployment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_template_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_template_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_config_digest": {
+          "type": "string",
+          "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "skill_id",
+              "version",
+              "content_digest",
+              "source_reference"
+            ],
+            "properties": {
+              "skill_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "content_digest": {
+                "type": "string",
+                "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+              },
+              "source_reference": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sub_skill_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tool_id",
+              "version",
+              "connector_id"
+            ],
+            "properties": {
+              "tool_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "connector_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "permission_scope_reference": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "retrieval_source_snapshot": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "configuration_digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+        }
+      }
+    },
+    "tool_invocations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool_id",
+          "operation",
+          "request_id",
+          "result",
+          "started_at_utc",
+          "finished_at_utc",
+          "input_digest",
+          "output_digest",
+          "secret_material_exposed"
+        ],
+        "properties": {
+          "tool_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "connector_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tool_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "enum": [
+              "success",
+              "failure",
+              "denied",
+              "held",
+              "unknown"
+            ]
+          },
+          "started_at_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finished_at_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "input_digest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+          },
+          "output_digest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+          },
+          "secret_material_exposed": {
+            "type": "boolean",
+            "const": false
+          },
+          "redaction_applied": {
+            "type": "boolean"
+          },
+          "trace_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_references",
+        "test_runs",
+        "evaluation_references",
+        "finding_references"
+      ],
+      "properties": {
+        "source_references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "test_runs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evaluation_references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "finding_references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "artifact_digests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64}|unknown|not_applicable)$"
+          }
+        },
+        "human_decision_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "summary",
+        "escalated"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "denied",
+            "held",
+            "partial",
+            "cancelled",
+            "unknown"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "escalated": {
+          "type": "boolean"
+        },
+        "escalation_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "human_disposition": {
+          "enum": [
+            "accepted",
+            "rejected",
+            "rework",
+            "hold",
+            "not_required",
+            "pending",
+            "unknown"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "audit_integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hash_algorithm",
+        "previous_event_hash",
+        "event_hash",
+        "append_only_store_reference"
+      ],
+      "properties": {
+        "hash_algorithm": {
+          "type": "string",
+          "const": "SHA-256"
+        },
+        "previous_event_hash": {
+          "type": "string",
+          "pattern": "^(sha256:[0-9a-f]{64}|genesis|unknown)$"
+        },
+        "event_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "signature_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "append_only_store_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "integrity_verified_at_utc": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "properties": {
+              "mutating": {
+                "const": true
+              }
+            }
+          },
+          "policy_decision": {
+            "properties": {
+              "outcome": {
+                "const": "allow"
+              }
+            }
+          }
+        },
+        "required": [
+          "action",
+          "policy_decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authorization": {
+            "properties": {
+              "grant_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approved_by": {
+                "type": "string",
+                "minLength": 1
+              },
+              "approval_reference": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "properties": {
+              "category": {
+                "const": "merge"
+              }
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "then": {
+        "properties": {
+          "actor": {
+            "properties": {
+              "actor_type": {
+                "const": "human"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action": {
+            "properties": {
+              "category": {
+                "const": "production_deploy"
+              }
+            }
+          }
+        },
+        "required": [
+          "action"
+        ]
+      },
+      "then": {
+        "properties": {
+          "actor": {
+            "properties": {
+              "actor_type": {
+                "const": "human"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
