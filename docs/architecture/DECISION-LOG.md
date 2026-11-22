@@ -12,6 +12,7 @@
 | ADR-008 | Tenant isolation and domain-owned data | Accepted baseline |
 | ADR-009 | Governed multi-publisher marketplace | Accepted baseline |
 | ADR-010 | Immutable release artifacts and provenance | Accepted baseline |
+| ADR-011 | Initial implementation stack and infrastructure direction | Proposed; not accepted pending role appointments, team/workload evidence and budget approval |
 
 ## Open decisions
 
