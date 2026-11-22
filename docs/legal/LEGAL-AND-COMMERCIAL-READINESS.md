@@ -20,3 +20,7 @@ Before a commercial/public launch, obtain appropriate qualified review of:
 Do not accept publishers, distribute third-party artifacts, process customer data, collect payment or make service-level commitments until the relevant rights, authority and evidence have been verified. Retain sources and dates; recheck current law and platform terms before use.
 
 **Disposition:** issue register only. No legal entity formation, IP title opinion, regulatory compliance certification, tax approval or commercial terms approval is claimed.
+
+## 8. Indonesia legal-basis map
+
+The jurisdictional research baseline and formal-entity boundary are recorded in [INDONESIA-LEGAL-BASIS-AND-ENTITY-BOUNDARIES.md](INDONESIA-LEGAL-BASIS-AND-ENTITY-BOUNDARIES.md). It maps Indonesian Foundation and PT law, risk-based business licensing, personal-data protection, private PSE registration, copyright/chain-of-title and third-party capability rights using official primary-source references. The memorandum is an issue-spotting baseline only, not a legal opinion or compliance approval. The one-human internal GOV-01 model cannot replace natural-person statutory organs or external professional signatories where law requires them.
