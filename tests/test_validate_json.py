@@ -30,3 +30,16 @@ def test_unique_object_keys_are_preserved() -> None:
         "first": 1,
         "second": 2,
     }
+
+
+def test_json_discovery_prunes_generated_and_vendor_directories(tmp_path: Path) -> None:
+    source = tmp_path / "contracts"
+    source.mkdir()
+    (source / "valid.json").write_text('{"valid": true}', encoding="utf-8")
+
+    generated = tmp_path / ".venv" / "site-packages" / "sample"
+    generated.mkdir(parents=True)
+    (generated / "must-not-scan.json").write_text("{}", encoding="utf-8")
+
+    files = VALIDATOR.discover_json_files(tmp_path)
+    assert files == [source / "valid.json"]
