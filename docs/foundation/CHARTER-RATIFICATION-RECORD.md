@@ -78,10 +78,10 @@ The following conditions are part of GOV-01's conditional adoption decision and 
 2. Before any Agent executes mutating work, provision its runtime, exact model and Skill provenance, least-privilege tool scopes, central policy enforcement and audit path; pass the activation gate in the AI Delegate Registry.
 3. GOV-01 reviews Charter v1.0.2, MVP Decision Record v1.1.0 and the initial risk register. The AI delegates may prepare evidence but cannot approve these baselines.
 4. GOV-01 has accepted the internal AI-only role-allocation model. This does not activate runtimes or waive external professional-review obligations where law or contract requires them.
-5. Record one of the three Charter adoption decisions in section 3, including approver identity, authority basis, date, conditions and evidence reference.
-5. If conditions require normative changes, create or update the appropriate document in a reviewed PR. Do not silently rewrite the adopted baseline.
-6. Update the Charter's status and ratification table only after the approval evidence is durable and read back.
-7. Mark ratification complete only after the canonical repository reflects the same decision.
+5. Record the Charter adoption decision in section 3, including approver identity, authority basis, date, conditions and evidence reference.
+6. If conditions require normative changes, create or update the appropriate document in a reviewed PR. Do not silently rewrite the adopted baseline.
+7. Update the Charter's status and ratification table only after the approval evidence is durable and read back.
+8. Mark ratification complete only after the canonical repository reflects the same decision.
 
 An explicit chat instruction may record a project-governance decision when the authorized human identifies themselves and the scope of their authority. It is not a cryptographic signature and is not a substitute for any legal instrument required by law or contract. The GOV-01 appointment and AI Functional Delegate designation recorded here are not themselves a Charter ratification instruction.
 

@@ -1,8 +1,8 @@
 # HSMART Legal and Commercial Readiness Register
 
 **ID:** HSMART-LEGAL-001  
-**Version:** 1.0.0  
-**Status:** INTERNAL ISSUE REGISTER — EXTERNAL LEGAL READINESS NOT ESTABLISHED  
+**Version:** 1.1.0  
+**Status:** INTERNAL ISSUE REGISTER — INDONESIA LEGAL BASIS MAPPED; EXTERNAL LEGAL READINESS NOT ESTABLISHED  
 **Functional delegate:** GOV-08 Legal / Commercial Research (AI; not legal counsel)
 
 HSMART is treated as an unincorporated founder-led personal project for internal governance. GOV-01's project authority does not create a company, foundation, partnership, statutory office, IP title or power to bind third parties.
