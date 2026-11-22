@@ -6,7 +6,7 @@
 **Document date:** 2026-11-21  
 **Last updated:** 2026-11-22  
 **Document owner:** HSMART Project Owner — appointment required  
-**Status:** Project governance baseline; formal owner ratification pending  
+**Status:** RATIFIED WITH CONDITIONS — internal HSMART project governance only; see HSMART-GOV-RAT-001 v1.4.0 and HSMART-GOV-DEC-2026-11-22-001  
 **Authority:** Governs project scope, delivery priorities, decision rights, and acceptance rules after adoption
 
 ---
@@ -493,11 +493,13 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 | Approval role | Name / authority | Decision | Date |
 |---|---|---|---|
-| Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001, internal project authority only | Appointment recorded; Charter ratification pending | 2026-11-22 |
+| Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001, internal project authority only | RATIFY WITH CONDITIONS — HSMART-GOV-RAT-001 v1.4.0; internal adoption only | 2026-11-22 |
 | Project Owner | Human seat vacant; interim AI delegate GOV-02 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
 | Product Owner | Human seat vacant; interim AI delegate GOV-03 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
 | Architecture Lead | Human seat vacant; interim AI delegate GOV-04 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
 | Security & Privacy Lead | Human seat vacant; interim AI delegate GOV-06 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
+
+**GOV-01 conditional adoption decision (2026-11-22):** Charter v1.0.2 is RATIFIED WITH CONDITIONS for internal HSMART project governance. The MVP v1.1.0 baseline is APPROVED AS WRITTEN. Conditions C-01 through C-09 and their open closure evidence are maintained in CHARTER-RATIFICATION-RECORD.md v1.4.0. This conditional adoption does not activate any AI runtime or authorize production use, external legal/commercial commitments, or paid cloud provisioning.
 
 ### 20.3 Amendment policy
 
