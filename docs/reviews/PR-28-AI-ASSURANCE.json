@@ -5,7 +5,6 @@
   "repository": "hsaidno-cpu/HSMART",
   "reviewed_base_sha": "17c78dcd2ea59c6d40f9a07d188bab6f829f0596",
   "reviewed_head_sha": "0dc9a03530c2b614299586a6598d3c8500440708",
-  "review_timestamp_utc": "2026-11-23T00:00:00Z",
   "review_result": "PASS_WITH_CAVEATS",
   "merge_authorization": "HOLD_UNTIL_MAIN_PROTECTION_APPLIED_AND_VERIFIED_AND_GOV01_FINAL_DISPOSITION",
   "reviewer": {
@@ -168,5 +167,6 @@
     "GOV-11 has been designated as a logical profile but has not been provisioned as a separate execution runtime.",
     "A successful CI check proves only the named workflow's tests on its exact commit; it does not prove production deployment, DR, WORM, legal compliance or platform-service operation."
   ],
-  "disposition": "The reviewed change set is acceptable with caveats as a KM 1 foundation and governance implementation proposal. Merge, KM 0/KM 1 closure, production release and downstream KM 2 work remain on HOLD until their separate gates pass."
+  "disposition": "The reviewed change set is acceptable with caveats as a KM 1 foundation and governance implementation proposal. Merge, KM 0/KM 1 closure, production release and downstream KM 2 work remain on HOLD until their separate gates pass.",
+  "reviewed_local_date": "2026-11-23"
 }
