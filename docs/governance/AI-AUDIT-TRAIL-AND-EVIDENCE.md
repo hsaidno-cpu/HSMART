@@ -231,3 +231,34 @@ Before HSMART may claim an immutable audit system is operational, implement and 
 - Independent evidence review and GOV-01 acceptance.
 
 Until then, the repository/Notion records are a governance evidence trail, not a production-grade immutable runtime audit service.
+
+
+## 10.4 AI delegation package merge and validation evidence
+
+| Field | Record |
+|---|---|
+| Event ID | `HSMART-EVT-GOV01-20261122-AI-DELEGATION-MERGE` |
+| Pull request | [PR #10 — Governance/AI functional delegation](https://github.com/hsaidno-cpu/HSMART/pull/10) |
+| Approved scope reference | `HSMART-AUTH-GOV01-20261122-002` — GOV-01 instruction to designate interim AI Functional Delegates and establish their policy package |
+| Head SHA merged | `d2142f70f1a0b0a3c55f2cc8f684d68cbae27ce1` |
+| Merge commit | `16976a974747d3c59e2839eccf67ca1202117e05` |
+| Merge timestamp | 2026-11-22T02:53:44Z |
+| GitHub merged-by identity | `hsaidno-cpu` (GitHub account recorded by GitHub; physical operator identity is not independently verified by this audit record) |
+| PR validation | [CI run #26](https://github.com/hsaidno-cpu/HSMART/actions/runs/44978117836) — all four jobs passed |
+| Main push validation | [CI run #27](https://github.com/hsaidno-cpu/HSMART/actions/runs/44978154679) — all four jobs passed on merge commit SHA |
+| Outcome | AI Functional Delegation Charter, registry, permission policy, cross-evaluation policy, audit policy, JSON registry/schema, role register, Charter, ratification record and README index are present on main |
+| Limitation | The GitHub merge event is attributed to the repository owner's GitHub account. This assistant did not invoke a merge operation for PR #10; the account event alone does not prove which human physically operated the account. |
+
+## 10.5 Audit schema test PR
+
+| Field | Record |
+|---|---|
+| Event ID | `HSMART-EVT-ASSURANCE-20261122-AUDIT-SCHEMA-TEST` |
+| Authorization | `HSMART-AUTH-GOV01-20261122-002` — limited to validation of the delegate/audit policy package |
+| Pull request | [PR #11 — AI audit schema tests](https://github.com/hsaidno-cpu/HSMART/pull/11) |
+| Branch head at initial PR | `17c5cf5fecd243bb5b2e057af2c96290067380e3` |
+| Change | Adds `tests/test_ai_agent_action_record_schema.py` to validate the JSON Schema and reject missing approval grant, AI merge, raw secret exposure and missing model-version provenance |
+| CI | [Run #28](https://github.com/hsaidno-cpu/HSMART/actions/runs/44978178926) — all four jobs passed |
+| Merge state | OPEN / DRAFT at the time of this record; no merge to main performed by the assistant |
+
+These bootstrap entries are evidence links and event summaries. They are not signed runtime audit events and do not substitute for deployment of the append-only audit system specified above.
