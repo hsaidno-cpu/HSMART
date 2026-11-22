@@ -46,7 +46,7 @@ This repository currently contains the architecture and implementation contracts
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
 | docs/runtime/ | Hybrid runtime and execution contracts |
-| docs/governance/ | Ownership, role appointments, publisher and marketplace governance |
+| docs/governance/ | Ownership, human authority, AI Functional Delegation Charter, GOV-02..GOV-06 delegate registry, permission/approval policy, cross-evaluation and audit governance |
 | docs/roadmap/ | Implementation phases and acceptance criteria |
 | docs/operations/ | Production-readiness and operations |
 
