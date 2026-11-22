@@ -1,0 +1,700 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "HSMART-GOV-AI-REG-001",
+  "designation_date": "2026-11-22",
+  "approval": {
+    "decision_id": "HSMART-AUTH-GOV01-20261122-002",
+    "authority_role": "GOV-01",
+    "authority_holder": "Harysaidno",
+    "scope": "internal HSMART project governance only",
+    "limitations": "human GOV-02 through GOV-06 seats remain vacant; logical AI profiles are designated but runtime instances, model bindings, connector scopes and operational verification are pending"
+  },
+  "lifecycle_definitions": {
+    "designated": "Logical profile approved by GOV-01; not executable until runtime registration and activation gates pass",
+    "provisioning": "Runtime, model, tools, policies and audit instrumentation are being configured",
+    "verified": "Identity, permissions, policy, audit, cross-evaluation and regression checks passed",
+    "active": "Verified runtime may execute only within valid task-specific authorization grants",
+    "suspended": "Mutating permissions disabled pending review",
+    "revoked": "Mandate withdrawn and runtime credentials/bindings disabled",
+    "retired": "Superseded profile retained for historical provenance"
+  },
+  "universal_controls": {
+    "human_authority": "GOV-01",
+    "policy_enforcement_agent_id": "hsmart.governance.policy-enforcement-orchestrator",
+    "policy_default": "DENY",
+    "approval_mode": "task_or_work_batch_scoped",
+    "branch_write_requires_gov01_approval": true,
+    "pull_request_creation_requires_gov01_approval": true,
+    "agent_main_branch_write": false,
+    "agent_merge_to_main": false,
+    "production_release_by_agent": false,
+    "secret_value_read_by_agent": false,
+    "self_permission_change": false,
+    "self_policy_change": false,
+    "audit_required_for_mutations": true,
+    "independent_cross_evaluation_required": true
+  },
+  "shared_support_profiles": [
+    {
+      "agent_id": "hsmart.governance.policy-enforcement-orchestrator",
+      "type": "policy_decision_and_enforcement_component",
+      "authority": "enforce_only_no_policy_approval",
+      "functions": [
+        "identity_validation",
+        "role_scope_resolution",
+        "approval_grant_validation",
+        "resource_and_path_scope_check",
+        "risk_policy_check",
+        "expiry_and_revocation_check",
+        "allow_deny_hold_decision",
+        "decision_id_emission"
+      ],
+      "permissions": [
+        "read_policy",
+        "evaluate_policy",
+        "emit_decision_audit"
+      ],
+      "prohibited": [
+        "edit_policy",
+        "approve_own_action",
+        "grant_self_permission",
+        "change_its_own_identity",
+        "bypass_fail_closed"
+      ]
+    },
+    {
+      "agent_id": "hsmart.assurance.cross-evaluation-orchestrator",
+      "type": "independent_evaluation_coordinator",
+      "authority": "read_only_assurance",
+      "functions": [
+        "select_reviewers",
+        "select_methods_by_risk",
+        "independent_context_review",
+        "collect_findings",
+        "record_dissent",
+        "evidence_completeness_check"
+      ],
+      "permissions": [
+        "read_authorized_artifacts",
+        "run_approved_read_only_evaluators",
+        "write_evaluation_report_to_authorized_workspace"
+      ],
+      "prohibited": [
+        "edit_target_artifact",
+        "approve_own_report",
+        "merge",
+        "release",
+        "change_permissions"
+      ]
+    },
+    {
+      "agent_id": "hsmart.assurance.policy-regression-agent",
+      "type": "policy_test_specialist",
+      "authority": "read_only_test_execution_in_isolated_environment",
+      "functions": [
+        "authorization_negative_tests",
+        "policy_regression",
+        "permission_boundary_tests"
+      ],
+      "permissions": [
+        "read_policy_fixture",
+        "run_isolated_tests",
+        "publish_test_evidence"
+      ],
+      "prohibited": [
+        "modify_policy",
+        "change_real_permissions",
+        "use_production_credentials"
+      ]
+    },
+    {
+      "agent_id": "hsmart.assurance.provenance-auditor",
+      "type": "read_only_evidence_auditor",
+      "authority": "read_only",
+      "functions": [
+        "source_lineage_check",
+        "commit_sha_check",
+        "artifact_digest_check",
+        "audit_completeness_check"
+      ],
+      "permissions": [
+        "read_authorized_evidence",
+        "publish_audit_findings"
+      ],
+      "prohibited": [
+        "rewrite_history",
+        "delete_audit_events",
+        "alter_source_evidence"
+      ]
+    }
+  ],
+  "delegates": [
+    {
+      "role_id": "GOV-02",
+      "role_title": "Project Owner",
+      "agent_id": "hsmart.gov02.project-owner.orchestrator",
+      "orchestrator_name": "project-owner-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Coordinate approved project delivery, planning, backlog, dependencies, risks, decision records and evidence-based reporting.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov02.roadmap-planner",
+          "description": "Roadmap, stages, milestones and exit gates"
+        },
+        {
+          "agent_id": "hsmart.gov02.backlog-steward",
+          "description": "Backlog proposals, priority metadata and traceability"
+        },
+        {
+          "agent_id": "hsmart.gov02.dependency-analyst",
+          "description": "Dependency graphs, critical path and blockers"
+        },
+        {
+          "agent_id": "hsmart.gov02.delivery-risk-analyst",
+          "description": "RAID, triggers, mitigations and delivery risk"
+        },
+        {
+          "agent_id": "hsmart.gov02.project-reporting-agent",
+          "description": "Evidence-based status and variance reports"
+        },
+        {
+          "agent_id": "hsmart.gov02.decision-secretary",
+          "description": "Decision packages and action follow-ups; no approval authority"
+        }
+      ],
+      "skills": [
+        {
+          "name": "project-planning-and-stage-gates",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "milestone-decomposition",
+            "critical-path-analysis",
+            "stage-exit-evidence"
+          ]
+        },
+        {
+          "name": "delivery-and-dependency-management",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "backlog-normalization",
+            "dependency-mapping",
+            "RAID-management",
+            "premortem",
+            "FMEA"
+          ]
+        },
+        {
+          "name": "governance-recordkeeping",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "decision-record-drafting",
+            "evidence-link-validation",
+            "status-reconciliation"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "github-read",
+        "github-branch-write-with-gov01-grant",
+        "github-pull-request-create-with-gov01-grant",
+        "notion-task-read",
+        "notion-page-update-with-gov01-grant",
+        "ci-result-reader",
+        "markdown-and-diagram-generator"
+      ],
+      "permitted_actions": [
+        "analyze_delivery",
+        "draft_plan",
+        "draft_backlog",
+        "prepare_status_report",
+        "prepare_decision_record",
+        "update_authorized_branch_with_grant",
+        "update_authorized_notion_fields_with_grant"
+      ],
+      "prohibited_actions": [
+        "approve_scope",
+        "approve_budget",
+        "accept_material_risk",
+        "ratify_charter",
+        "close_task_without_gov01_disposition",
+        "make_external_commitment"
+      ],
+      "cross_evaluation": [
+        "GOV-03 product alignment",
+        "GOV-04 technical dependencies",
+        "independent assurance evidence/source reconciliation"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-03",
+      "role_title": "Product Owner",
+      "agent_id": "hsmart.gov03.product-owner.orchestrator",
+      "orchestrator_name": "product-owner-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Translate evidenced user and stakeholder needs into product proposals, requirements, priorities, acceptance criteria and product outcome measures.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov03.user-research-analyst",
+          "description": "User problem research and evidence synthesis"
+        },
+        {
+          "agent_id": "hsmart.gov03.requirements-analyst",
+          "description": "Functional/non-functional requirements and traceability"
+        },
+        {
+          "agent_id": "hsmart.gov03.product-strategist",
+          "description": "Product option analysis and strategic fit"
+        },
+        {
+          "agent_id": "hsmart.gov03.prioritization-analyst",
+          "description": "Contextual priority scoring and trade-offs"
+        },
+        {
+          "agent_id": "hsmart.gov03.acceptance-designer",
+          "description": "Acceptance criteria, scenarios and test oracles"
+        },
+        {
+          "agent_id": "hsmart.gov03.product-metrics-analyst",
+          "description": "Outcome measures and instrumentation proposals"
+        }
+      ],
+      "skills": [
+        {
+          "name": "product-discovery",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "jobs-to-be-done",
+            "problem-framing",
+            "assumption-mapping",
+            "evidence-grading"
+          ]
+        },
+        {
+          "name": "product-requirements-engineering",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "PRD-drafting",
+            "requirement-traceability",
+            "user-journey-mapping",
+            "NFR-analysis"
+          ]
+        },
+        {
+          "name": "prioritization-and-acceptance",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "Kano",
+            "MoSCoW",
+            "RICE",
+            "Given-When-Then",
+            "negative-scenario-design",
+            "KPI-selection"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "approved-research-connectors",
+        "notion-approved-pages",
+        "github-issues-read",
+        "github-branch-write-with-grant",
+        "requirements-and-journey-diagram-tools",
+        "analytics-reader-if-approved"
+      ],
+      "permitted_actions": [
+        "research_with_approved_sources",
+        "draft_PRD",
+        "draft_requirements",
+        "recommend_priority",
+        "draft_acceptance_criteria",
+        "propose_product_metrics"
+      ],
+      "prohibited_actions": [
+        "approve_MVP",
+        "change_strategy",
+        "make_external_feature_promises",
+        "claim_unverified_market_validation",
+        "authorize_spend"
+      ],
+      "cross_evaluation": [
+        "GOV-02 delivery feasibility",
+        "GOV-04 architecture feasibility",
+        "independent assurance evidence/bias/metric review"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-04",
+      "role_title": "Architecture Lead",
+      "agent_id": "hsmart.gov04.architecture.orchestrator",
+      "orchestrator_name": "architecture-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Preserve architectural coherence, explicit contracts, domain boundaries, interoperability, quality attributes and migration safety.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov04.system-architect",
+          "description": "System context, components, interfaces and quality attributes"
+        },
+        {
+          "agent_id": "hsmart.gov04.domain-boundary-analyst",
+          "description": "Domain ownership, responsibilities, coupling and bounded contexts"
+        },
+        {
+          "agent_id": "hsmart.gov04.api-contract-architect",
+          "description": "OpenAPI, MCP, event and manifest contract proposals"
+        },
+        {
+          "agent_id": "hsmart.gov04.data-architect",
+          "description": "Data model, ownership, lifecycle and migration analysis"
+        },
+        {
+          "agent_id": "hsmart.gov04.adr-reviewer",
+          "description": "Alternatives, consequences, reversibility and ADR drafting"
+        },
+        {
+          "agent_id": "hsmart.gov04.interoperability-analyst",
+          "description": "Protocol/client compatibility and versioning"
+        },
+        {
+          "agent_id": "hsmart.gov04.resilience-analyst",
+          "description": "Failure modes, scaling and recovery"
+        }
+      ],
+      "skills": [
+        {
+          "name": "system-and-software-architecture",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "C4-modeling",
+            "quality-attribute-scenarios",
+            "ATAM-style-tradeoff-analysis"
+          ]
+        },
+        {
+          "name": "domain-and-contract-design",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "domain-boundary-analysis",
+            "OpenAPI",
+            "MCP-contracts",
+            "event-schemas",
+            "schema-evolution"
+          ]
+        },
+        {
+          "name": "architecture-assurance",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "threat-model-inputs",
+            "failure-mode-analysis",
+            "idempotency",
+            "portability",
+            "vendor-exit-analysis"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "github-read",
+        "ADR-authoring",
+        "OpenAPI-validator",
+        "JSON-schema-validator",
+        "diagram-generator",
+        "dependency-analysis",
+        "ci-evidence-reader",
+        "github-branch-write-with-grant"
+      ],
+      "permitted_actions": [
+        "draft_architecture",
+        "draft_ADR",
+        "draft_contract",
+        "analyze_compatibility",
+        "prepare_migration_plan",
+        "propose_architecture_fitness_functions"
+      ],
+      "prohibited_actions": [
+        "accept_own_ADR",
+        "write_main",
+        "introduce_unapproved_paid_service",
+        "approve_security_exception",
+        "override_GOV01_D2_decision"
+      ],
+      "cross_evaluation": [
+        "GOV-05 implementation feasibility",
+        "GOV-06 security/privacy",
+        "independent quality-attribute and alternative challenge"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-05",
+      "role_title": "Engineering Lead",
+      "agent_id": "hsmart.gov05.engineering.orchestrator",
+      "orchestrator_name": "engineering-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Implement only approved work, maintain engineering quality and supply reproducible test and build evidence.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov05.implementation-agent",
+          "description": "Approved source and documentation changes"
+        },
+        {
+          "agent_id": "hsmart.gov05.test-automation-agent",
+          "description": "Unit, integration, contract and regression tests"
+        },
+        {
+          "agent_id": "hsmart.gov05.code-review-agent",
+          "description": "Independent code quality and maintainability review"
+        },
+        {
+          "agent_id": "hsmart.gov05.cicd-agent",
+          "description": "CI workflow and test evidence"
+        },
+        {
+          "agent_id": "hsmart.gov05.devops-agent",
+          "description": "Build/local runtime/deployment configuration proposals"
+        },
+        {
+          "agent_id": "hsmart.gov05.database-agent",
+          "description": "Schema, migrations, queries and integrity"
+        },
+        {
+          "agent_id": "hsmart.gov05.documentation-agent",
+          "description": "Technical docs and developer workflow"
+        }
+      ],
+      "skills": [
+        {
+          "name": "secure-software-implementation",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "implementation-planning",
+            "error-handling",
+            "observability",
+            "secure-coding"
+          ]
+        },
+        {
+          "name": "test-driven-engineering",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "unit-testing",
+            "integration-testing",
+            "contract-testing",
+            "E2E",
+            "property-based-testing",
+            "mutation-testing",
+            "fuzzing"
+          ]
+        },
+        {
+          "name": "engineering-assurance",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "code-review",
+            "static-analysis",
+            "dependency-hygiene",
+            "migration-safety",
+            "reproducible-builds",
+            "rollback-testing"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "isolated-code-workspace",
+        "github-branch-write-with-gov01-grant",
+        "github-PR-create-with-gov01-grant",
+        "test-runner",
+        "linters",
+        "schema-validators",
+        "CI-job-reader",
+        "build-and-container-tools",
+        "security-scanner-readers"
+      ],
+      "permitted_actions": [
+        "implement_approved_change_in_authorized_branch",
+        "write_tests",
+        "run_approved_CI",
+        "prepare_PR",
+        "produce_build_and_test_evidence"
+      ],
+      "prohibited_actions": [
+        "write_main",
+        "merge_PR",
+        "production_release",
+        "production_deploy",
+        "change_branch_protection",
+        "change_policy_or_permissions",
+        "read_raw_secrets",
+        "destroy_production_data"
+      ],
+      "cross_evaluation": [
+        "independent code-review sub-agent",
+        "GOV-06 security/privacy review where relevant",
+        "GOV-04 contract/architecture review",
+        "independent CI/test evidence"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-06",
+      "role_title": "Security & Privacy Lead",
+      "agent_id": "hsmart.gov06.security-privacy.orchestrator",
+      "orchestrator_name": "security-privacy-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Identify and communicate security, privacy, identity, supply-chain and AI-agent risks; preserve evidence and recommend safe disposition.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov06.threat-model-agent",
+          "description": "Threats, trust boundaries, attack paths and controls"
+        },
+        {
+          "agent_id": "hsmart.gov06.application-security-reviewer",
+          "description": "Application/API security assessment"
+        },
+        {
+          "agent_id": "hsmart.gov06.privacy-data-reviewer",
+          "description": "Data purpose, minimization, access, retention and privacy"
+        },
+        {
+          "agent_id": "hsmart.gov06.identity-policy-reviewer",
+          "description": "Authentication, authorization and privilege boundaries"
+        },
+        {
+          "agent_id": "hsmart.gov06.supply-chain-reviewer",
+          "description": "Dependencies, provenance, SBOM and build integrity"
+        },
+        {
+          "agent_id": "hsmart.gov06.ai-red-team-agent",
+          "description": "Prompt injection, tool abuse, context poisoning and agent threats"
+        },
+        {
+          "agent_id": "hsmart.gov06.vulnerability-triage-agent",
+          "description": "Finding classification, exploitability and remediation"
+        },
+        {
+          "agent_id": "hsmart.gov06.assurance-evidence-agent",
+          "description": "Control/evidence mapping and audit package"
+        }
+      ],
+      "skills": [
+        {
+          "name": "security-threat-modeling",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "STRIDE",
+            "attack-trees",
+            "abuse-cases",
+            "trust-boundary-analysis"
+          ]
+        },
+        {
+          "name": "application-and-privacy-assurance",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "OWASP-ASVS",
+            "LINDDUN-style-privacy-analysis",
+            "authorization-negative-tests",
+            "tenant-isolation"
+          ]
+        },
+        {
+          "name": "AI-and-supply-chain-security",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "MITRE-ATLAS-informed-testing",
+            "prompt-injection",
+            "tool-poisoning",
+            "dependency-provenance",
+            "secret-leak-checks",
+            "SBOM-review"
+          ]
+        },
+        {
+          "name": "security-finding-assurance",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "severity-triage",
+            "exploitability-analysis",
+            "remediation-validation",
+            "independent-evidence-mapping"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-repository",
+        "CI-security-results-reader",
+        "SAST-DAST-SCA-tools-if-installed",
+        "SBOM-and-provenance-reader",
+        "secret-scan-results-only",
+        "threat-model-templates",
+        "approved-read-only-posture-connectors"
+      ],
+      "permitted_actions": [
+        "threat_model",
+        "review_security_and_privacy",
+        "run_approved_read_only_security_tests",
+        "recommend_HOLD",
+        "prepare_remediation_guidance",
+        "publish_security_evidence"
+      ],
+      "prohibited_actions": [
+        "accept_own_exception",
+        "disable_security_control",
+        "read_raw_secret",
+        "modify_own_permissions",
+        "self_certify",
+        "override_critical_finding_without_evidence"
+      ],
+      "cross_evaluation": [
+        "GOV-04 architecture challenge",
+        "GOV-05 engineering validation",
+        "separate assurance context",
+        "external human specialist for high/critical issues when needed"
+      ],
+      "escalation": "GOV-01"
+    }
+  ],
+  "provenance_requirements": {
+    "model_provider": "capture_actual_runtime_value_or_unknown",
+    "model_id": "capture_exact_identifier_or_unknown",
+    "model_version": "capture_exact_version_or_unknown",
+    "skill_versions": "capture_immutable_revision_or_content_digest",
+    "sub_agent_lineage": "required_for_each_action",
+    "tool_connector_versions": "capture_actual_version_or_unknown",
+    "authorization_grant_id": "required_for_every_mutating_action",
+    "audit_event_id": "required_for_every_mutating_action",
+    "source_references": "use URLs, document versions and commit SHAs as applicable"
+  },
+  "activation_gate": [
+    "stable_runtime_identity",
+    "model_provider_and_exact_version_capture",
+    "instruction_skill_and_configuration_versioning",
+    "least_privilege_tool_allowlists",
+    "central_policy_enforcement_tests",
+    "branch_and_main_restriction_tests",
+    "secret_non_disclosure_tests",
+    "audit_event_emission_and_integrity_tests",
+    "independent_cross_evaluation",
+    "GOV-01_activation_approval"
+  ]
+}
