@@ -1,7 +1,7 @@
 # HSMART Repository Governance — Main Branch Controls
 
 **ID:** HSMART-GOV-REPO-001  
-**Version:** 1.1.0  
+**Version:** 1.2.0  
 **Target:** `hsaidno-cpu/HSMART`, branch `main`  
 **Status:** TARGET CONFIGURATION — NOT APPLIED / NOT VERIFIED  
 **Authority:** GOV-01; preparation and drift checks delegated to GOV-10
@@ -19,10 +19,11 @@ Require a PR for main changes; strict required status checks for:
 - `OpenAPI and required repository files`
 - `KM1 application integration (PostgreSQL 16)`
 - `Repository Governance Review`
+- `AI Reviewer Evidence`
 
-Also require up-to-date branch, resolved conversations, linear history and admin enforcement. Prohibit force pushes and branch deletion. Keep ruleset bypass actors empty. Restrict direct push access to the repository owner account `hsaidno-cpu` where branch-protection restrictions permit.
+Also require up-to-date branch, resolved conversations, linear history and admin enforcement. Prohibit force pushes and branch deletion. Keep ruleset bypass actors empty. This is a personal repository. GitHub's branch-protection push-restriction list for named users/teams/apps is not available here; rely on required PRs, strict checks, admin enforcement and an empty bypass list.
 
-Native GitHub approving-review count is intentionally zero. GOV-11 and domain reviewers provide separate AI reports; they cannot be represented as native GitHub human approvals. GOV-01 retains final human merge authority.
+Native GitHub approving-review count is intentionally zero. GOV-11's AI assurance report is verified by the `AI Reviewer Evidence` CI job, but neither the report nor that job is a GitHub-native approving review. GOV-01 retains final human merge authorization.
 
 ## 3. Administrative operation
 
@@ -31,8 +32,8 @@ Native GitHub approving-review count is intentionally zero. GOV-11 and domain re
 - `apply-branch-protection`: dry-run by default; apply only with `--apply --confirm-main`.
 - `apply-ruleset`: dry-run by default; create/update the named HSMART ruleset.
 
-A repository administrator must provide `GH_TOKEN` or `GITHUB_TOKEN` with repository `Administration: write` in a local secure environment. Never paste the token into ChatGPT, Notion or Git. Every write requires the current expected main SHA.
+A repository administrator must create a fine-grained token or GitHub App installation token with repository `Administration: write`, store it as the repository secret `HSMART_REPOSITORY_ADMIN_TOKEN`, and run the `Repository Main Protection` workflow. The workflow passes this secret transiently as `GH_TOKEN`; it never logs or writes the token. Never paste the token into ChatGPT, Notion or source files. Every write requires the current expected main SHA and a manual `workflow_dispatch` by `hsaidno-cpu`.
 
 ## 4. Verification
 
-After apply, independently read back branch protection and rulesets. Prove the six required contexts, admin enforcement, no bypass, no force-push/deletion and direct-push restrictions. Run a disposable negative-control PR/branch to prove missing checks and forbidden pushes are blocked. Until these results exist, status remains NOT_APPLIED / NOT_VERIFIED.
+After apply, independently read back branch protection and rulesets. Prove all seven required contexts, admin enforcement, no bypass, no force-push/deletion and direct-push restrictions. Run a disposable negative-control PR/branch to prove missing checks and forbidden pushes are blocked. Until these results exist, status remains NOT_APPLIED / NOT_VERIFIED.

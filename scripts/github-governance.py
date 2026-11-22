@@ -2,7 +2,7 @@
 """Apply/read HSMART GitHub main protection. Dry-run is the default.
 
 Requires an administrator token with repository Administration: write to apply.
-The token is read from GH_TOKEN/GITHUB_TOKEN and is never printed or written.
+The token is read only from GH_TOKEN and is never printed or written. Do not use the workflow's default GITHUB_TOKEN for repository administration.
 """
 from __future__ import annotations
 
@@ -24,6 +24,7 @@ REQUIRED_CHECKS = [
     "OpenAPI and required repository files",
     "KM1 application integration (PostgreSQL 16)",
     "Repository Governance Review",
+    "AI Reviewer Evidence",
 ]
 RULESET_NAME = "HSMART Main Governance"
 
@@ -42,7 +43,6 @@ def branch_protection_payload() -> dict:
             "required_approving_review_count": 0,
             "bypass_pull_request_allowances": {"users": [], "teams": [], "apps": []},
         },
-        "restrictions": {"users": ["hsaidno-cpu"], "teams": [], "apps": []},
         "required_linear_history": True,
         "allow_force_pushes": False,
         "allow_deletions": False,
@@ -175,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--confirm-main", action="store_true", help="required together with --apply")
     args = parser.parse_args(argv)
 
-    token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
+    token = os.getenv("GH_TOKEN")
     try:
         if args.command == "status":
             print(json.dumps(read_status(args.repo, token), indent=2))
@@ -183,7 +183,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.apply and not args.confirm_main:
             parser.error("--apply requires --confirm-main")
         if args.apply and not token:
-            parser.error("--apply requires GH_TOKEN or GITHUB_TOKEN with Administration: write")
+            parser.error("--apply requires GH_TOKEN with repository Administration: write")
         if not args.expected_main_sha:
             parser.error("--expected-main-sha is required for a protection mutation")
         if args.command == "apply-branch-protection":

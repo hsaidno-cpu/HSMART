@@ -65,6 +65,10 @@ A successful HTTP response alone is not acceptance evidence.
 - The baseline does not require microservices, Kubernetes, multi-region deployment, or autonomous code modification in the MVP.
 - External clients may need adapter refresh or reconnection for changed tool manifests. HSMART cannot force an independently managed client to refresh.
 
+## Repository protection operation
+
+Use **Actions → Repository Main Protection → Run workflow** to read current status, preview a dry run, or apply both branch protection and the HSMART ruleset. The manual workflow is restricted to `hsaidno-cpu`, requires the current full `main` SHA, and reads `HSMART_REPOSITORY_ADMIN_TOKEN` from repository Secrets. Create that fine-grained token with repository **Administration: write** before selecting Apply. Never put the token in ChatGPT, Notion, source files or workflow inputs. Installing the workflow does not itself protect `main`; verify GitHub's API read-back after executing it.
+
 ## Contributing
 
 See CONTRIBUTING.md. Normative architecture or contract changes require an ADR, validation evidence, and compatibility assessment. Project scope and governance changes must follow the Project Charter.
