@@ -112,3 +112,36 @@ def test_worker_does_not_acknowledge_event_without_handler():
         stored = session.scalar(select(OutboxMessage).where(OutboxMessage.id == message.id))
         assert stored.status == "pending"
         assert stored.attempts == 1
+
+
+
+def test_worker_handler_database_error_is_rolled_back_and_retried():
+    from hsmart_platform.worker import run_once
+
+    engine = make_db()
+    with Session(engine) as session:
+        tenant = Tenant(slug="worker-failure", display_name="Worker Failure")
+        session.add(tenant)
+        session.flush()
+        message, _ = enqueue(
+            session,
+            tenant_id=tenant.id,
+            topic="test.database_failure",
+            aggregate_id="aggregate-1",
+            payload={},
+            idempotency_key="database-failure-1",
+        )
+        session.commit()
+        message_id = message.id
+
+        def failing_handler(_message):
+            session.add(Tenant(slug="worker-failure", display_name="Duplicate tenant"))
+            session.flush()  # UNIQUE violation invalidates the transaction.
+
+        assert run_once(session, handlers={"test.database_failure": failing_handler}) is True
+        stored = session.get(OutboxMessage, message_id)
+        assert stored is not None
+        assert stored.status == "pending"
+        assert stored.attempts == 1
+        assert stored.last_error == "handler_failed:IntegrityError"
+    engine.dispose()
