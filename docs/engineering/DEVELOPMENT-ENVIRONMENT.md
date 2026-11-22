@@ -1,7 +1,7 @@
 # HSMART Development Environment — Contract Tooling Baseline
 
 **Document ID:** HSMART-ENG-DEV-001  
-**Version:** 1.1.0  
+**Version:** 1.1.1  
 **Prepared:** 2026-11-22  
 **Status:** IMPLEMENTED CONTRACT-TOOLING BASELINE — APPLICATION ENVIRONMENT DEPENDS ON ACCEPTED ADR-011
 
@@ -25,21 +25,21 @@ The Python 3.12 branch is in security-fixes-only maintenance. Python.org records
 
 ### macOS / Linux
 
-\`\`\`bash
+~~~bash
 bash scripts/bootstrap-dev.sh
 .venv/bin/python scripts/validate-json.py
 .venv/bin/python -m pip check
 .venv/bin/python -m pytest -q
-\`\`\`
+~~~
 
 ### Windows PowerShell
 
-\`\`\`powershell
-.\\scripts\\bootstrap-dev.ps1
-.\\.venv\\Scripts\\python.exe scripts\\validate-json.py
-.\\.venv\\Scripts\\python.exe -m pip check
-.\\.venv\\Scripts\\python.exe -m pytest -q
-\`\`\`
+~~~powershell
+.\scripts\bootstrap-dev.ps1
+.\.venv\Scripts\python.exe scripts\validate-json.py
+.\.venv\Scripts\python.exe -m pip check
+.\.venv\Scripts\python.exe -m pytest -q
+~~~
 
 The bootstrap scripts create a project-local virtual environment and install requirements-dev.txt into that environment. They do not upgrade pip to an unbounded latest version during every setup. GNU Make is optional; it is a convenience on platforms where it is available.
 
