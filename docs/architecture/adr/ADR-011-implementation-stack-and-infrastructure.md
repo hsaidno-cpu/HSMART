@@ -1,121 +1,101 @@
-# ADR-011 — Initial Implementation Stack & Infrastructure Direction
+# ADR-011 — MVP Application Stack & Infrastructure Direction
 
-- **Status:** PROPOSED — NOT ACCEPTED
+- **Status:** RECOMMENDED BASELINE — FORMAL ACCEPTANCE PENDING
+- **Version:** 1.1.0
 - **Date:** 2026-11-22
 - **Decision class:** D2
 - **Decision owner:** Architecture Lead; accountable approval by Project Sponsor/Owner — appointments pending
-- **Related:** ADR-001 through ADR-010; Project Charter v1.0.0; KM 1 roadmap
+- **Related:** ADR-001 through ADR-010; Project Charter v1.0.0; MVP Decision Record v1.1.0
 - **Supersedes:** None
 
 ## 1. Context
 
-HSMART has accepted logical architecture decisions but has not selected the concrete application stack, database/migration tool, queue, OIDC issuer, secret manager/KMS, artifact storage provider, cloud region or deployment runtime.
+HSMART's logical architecture is established, but its application stack, infrastructure provider, cloud region, identity provider, secret manager/KMS, object-storage provider, domain and production deployment target have not been selected.
 
-Choosing vendors or frameworks without confirmed team skills, workload, budget, data classification, residency and operational responsibility would create avoidable lock-in. This ADR separates a recommended default direction from decisions that require evidence or explicit approval.
+The MVP requires one vertical slice with REST and Remote MCP distribution, durable registry metadata, immutable artifacts, policy enforcement, isolated execution, audit evidence and a basic synchronization/rollback path. A small-team-first design is preferable to premature microservices and infrastructure sprawl.
+
+This ADR therefore separates (a) a recommended technology baseline for an engineering spike from (b) vendor, region, procurement and production decisions that require team, security, residency, budget and operating evidence.
 
 ## 2. Decision drivers
 
-1. Preserve modular-monolith architecture and separable workers.
+1. Preserve modular-monolith architecture and separable worker processes.
 2. Support REST and Remote MCP through shared contracts and policy decisions.
 3. Support immutable artifacts, provenance and digest verification.
-4. Make local development and CI reproducible.
+4. Make local development and CI straightforward to reproduce.
 5. Keep tenant, identity, runtime and data boundaries enforceable.
 6. Minimize operational burden for an initially small team.
-7. Keep provider-specific integrations behind adapters.
+7. Keep provider-specific integrations behind narrow adapters.
 8. Avoid paid commitments or production resource creation before authority and budget approval.
+9. Prefer reversible, evidence-tested choices over broad vendor commitments.
 
-## 3. Alternatives considered
+## 3. Recommended MVP technology baseline
 
-### Application backend
+These are the recommended defaults to validate in a short vertical-slice spike. They are not an accepted procurement decision.
 
-| Option | Strengths | Costs / risks | Fit |
-|---|---|---|---|
-| Python + FastAPI | Strong AI/tooling ecosystem, direct JSON Schema support, async API support, concise service development | Team typing discipline and architecture boundaries must be enforced; async/concurrency design still needs review | Preferred candidate if team capability is confirmed |
-| TypeScript + NestJS | Strong types, modular application patterns, broad web/backend ecosystem | Additional adapter/SDK boundary work may be needed for Python-native AI tooling; team familiarity unknown | Viable alternative |
-| Other framework | May fit team or deployment constraints | Requires a concrete capability/maintenance rationale | Keep open |
-
-Provisional recommendation: Python 3.12 + FastAPI as the first backend candidate, conditional on Engineering Lead confirmation of team proficiency and a short vertical-slice spike. This is not an accepted final stack decision.
-
-### Persistence
-
-| Option | Strengths | Risks / conditions | Provisional direction |
-|---|---|---|---|
-| PostgreSQL | Relational constraints, transactions, JSON support, mature migrations and multi-tenant modeling options | Requires careful tenant isolation, migration ownership, backups and connection management | Preferred primary system of record |
-| SQLite | Very low local friction | Not the initial multi-tenant/operational system of record for a hosted service | Local-only testing convenience |
-| Other relational store | Could fit team/provider constraints | Must demonstrate equivalent constraints, operations and portability | Revisit with evidence |
-
-### Queue / background work
-
-- Do not select a broker solely because the target architecture mentions workers.
-- Start with a database-backed job/outbox strategy or a simple in-process development worker only if it satisfies the first workload and failure model.
-- Introduce Redis Streams, RabbitMQ, NATS or a managed queue only after a spike establishes delivery semantics, retry/dead-letter, ordering, throughput and operational needs.
-- A cache must not be mistaken for durable workflow state.
-
-### Artifact storage
-
-- Use an S3-compatible object-storage abstraction for immutable artifacts and metadata references.
-- Require versioning/object-lock or an equivalent immutable retention control where the selected provider supports it.
-- Keep digest/signature/provenance metadata in the control plane; verify content on publish and before trusted execution.
-- Select the concrete provider only after region, residency, cost and recovery requirements are approved.
-
-### Identity and secrets
-
-- Use OIDC/OAuth-compatible issuer integration with audience/resource binding and workload identity where required.
-- Use a managed secret manager/KMS-backed service; do not build a home-grown root-key vault.
-- Select the concrete OIDC issuer, KMS and secret provider only after ownership, region, recovery, cost and compliance review.
-- Keep key verifier/hash records separate from recoverable secret material.
-
-### Deployment and observability
-
-- Containerized modular monolith plus separable worker process is the initial deployment shape.
-- Do not require Kubernetes for MVP.
-- Keep separate local, test and hosted environment configurations; production isolation and secret boundaries are mandatory.
-- Instrument service boundaries using portable trace/log/metric conventions (OpenTelemetry-compatible); select backend vendors later.
-- No production domain, cloud account, DNS/TLS, database, OAuth issuer or paid service is assumed to exist.
-
-## 4. Proposed baseline
-
-| Concern | Candidate baseline | Decision status |
+| Concern | Recommended baseline | Rationale / guardrail |
 |---|---|---|
-| Backend | Python 3.12 + FastAPI | PROPOSED |
-| Primary database | PostgreSQL | PROPOSED |
-| Migration tool | Alembic if SQLAlchemy is selected; otherwise equivalent versioned migrations | CONDITIONAL |
-| Artifact store | S3-compatible immutable/versioned object storage | PROPOSED |
-| Job queue | Defer concrete broker until workload spike | DEFERRED |
-| Identity | OIDC/OAuth issuer adapter | REQUIRED CONTRACT; provider open |
-| Secrets | Managed secret manager/KMS adapter | REQUIRED CONTROL; provider open |
-| Packaging | OCI/container image for service/worker | PROPOSED |
-| Deployment | Single-region managed container runtime first | PROPOSED; vendor/region open |
-| Observability | OpenTelemetry-compatible traces/logs/metrics | PROPOSED |
-| Infrastructure as code | Select after cloud/provider decision | OPEN |
+| Backend | Python 3.12 + FastAPI | Fits the AI/tooling ecosystem and existing Python contract harness; accept only after Engineering Lead confirms team capability |
+| Application shape | Modular monolith with explicit domain modules and separate worker process | Matches ADR-001 and avoids premature distributed-systems overhead |
+| Primary database | PostgreSQL | Transactions, relational constraints, JSON support and durable system-of-record behavior |
+| Data access/migrations | SQLAlchemy 2.x + Alembic, subject to a minimal proof-of-fit spike | Mature typed persistence and explicit versioned migrations; do not hide SQL or tenant boundaries behind repository magic |
+| Job orchestration | PostgreSQL-backed job/outbox table plus independently restartable worker | Supports initial durability/idempotency without introducing a broker before workload and retry semantics are measured |
+| Artifact storage | S3-compatible object storage with versioning and provider-supported retention/Object Lock where appropriate | Keeps large immutable artifacts outside relational records; digest/provenance remain in the control plane |
+| Identity | External OIDC/OAuth issuer behind a provider adapter | Avoid building a home-grown identity provider; bind token audience, issuer, principal and scopes |
+| Application secrets | Managed secret manager and KMS-backed key operations | No home-grown root-key vault and no plaintext production secret in the database or Git |
+| Packaging | OCI container images for API and worker | Portable build/deploy boundary; worker gets narrower credentials and network access than API |
+| Deployment | One region and one managed container service for the first hosted acceptance environment | Lower operational load; exact provider and region remain undecided |
+| Observability | OpenTelemetry-compatible traces, metrics and structured logs | Portable telemetry conventions; redact credentials and sensitive payloads |
+| Infrastructure as code | Terraform or OpenTofu only after provider selection and ownership are confirmed | Avoid writing provider-specific infrastructure that cannot yet be run or reviewed |
 
-## 5. Consequences
+## 4. Explicitly deferred choices
 
-### Positive
-- A concrete candidate path exists for engineering spikes without pretending a vendor has been procured.
-- Portable adapters avoid binding core contracts to a single OIDC, storage or cloud vendor.
-- Modular monolith keeps operational complexity proportionate.
-- Queue selection is deferred until an actual workload/failure contract exists.
+- **Message broker:** do not add Redis, RabbitMQ, NATS or a managed queue to the MVP by default. Revisit only when measured throughput, ordering, delayed delivery, retry/dead-letter or independent scaling needs exceed the database-backed outbox design.
+- **Kubernetes:** not an MVP prerequisite. Revisit only if deployment topology, isolation, scheduling or operations demonstrably require it.
+- **Microservices:** no service extraction until a domain or operational boundary justifies the distributed-system cost.
+- **Cloud provider and region:** open until data classification/residency, team operations, cost, backup/restore, networking and legal requirements are documented.
+- **OIDC vendor, KMS and secret manager:** open until identity lifecycle, recovery, key custody, region, audit and cost are assessed.
+- **Artifact store vendor:** open until durability, immutability, lifecycle, egress, recovery and cost are compared.
+- **Public domain/DNS/TLS and production endpoint:** no purchase or deployment until an authorized owner approves budget and legal responsibility.
 
-### Negative / risks
-- Python/FastAPI may be wrong if team proficiency or consumer SDK requirements favor TypeScript.
-- Provider-neutral abstractions can become over-engineered if too many adapters are designed before one integration works.
-- Deferring a broker requires the first execution design to be explicit about durability, retries and job recovery.
-- Object-store immutability and signature semantics vary by provider and must be tested, not assumed.
+## 5. Alternatives considered
 
-## 6. Required evidence before acceptance
+### Backend
 
-- Engineering Lead confirms team proficiency and maintains a short comparative spike.
-- Project Sponsor/Owner confirms budget envelope and authority for any paid services.
-- Architecture Lead evaluates data model, migration, transaction, outbox and tenancy requirements.
-- Security & Privacy Lead confirms identity, secrets, region, data residency and threat-model implications.
-- Operations Lead confirms deployment, backup/restore, observability and incident ownership.
-- Concrete providers and regions are selected only after the above evidence exists.
-- Decision log and implementation roadmap are updated to the accepted ADR.
+| Option | Strengths | Costs / risks | Current disposition |
+|---|---|---|---|
+| Python + FastAPI | Python-native AI ecosystem, JSON Schema support, async API support, fast vertical-slice development | Requires typed contracts, code review and domain-boundary discipline | Recommended; team capability spike required |
+| TypeScript + NestJS | Strong typing, modular conventions, broad web ecosystem | More cross-language adapters may be needed for Python-native tools and workers | Viable fallback if team skills or client integration favor TypeScript |
+| Other framework | May fit a verified team or deployment constraint | Must prove material benefit and long-term maintenance support | Not selected |
+
+### Persistence and asynchronous work
+
+- PostgreSQL is preferred over SQLite as the hosted system of record.
+- SQLite may be used for isolated unit tests only when its behavior does not substitute for PostgreSQL integration tests.
+- A database-backed outbox/job table is the default MVP approach; durable state must not depend on an in-process memory queue.
+- A broker is a future optimization, not an architectural checkbox.
+
+### Infrastructure model
+
+- Use provider adapters and avoid provider-specific APIs in domain logic.
+- Start with one non-production hosted environment and one region after approval.
+- Separate local, CI and hosted environment configuration and credentials.
+- Keep API and worker identities separate; default-deny worker egress except explicitly required endpoints.
+- Backups are not accepted until restoration has been tested.
+- Object versioning alone is not proof of immutability; verify provider retention controls and digest behavior with an integration test.
+
+## 6. Required proof-of-fit before acceptance
+
+1. Engineering Lead records team capability and completes a small FastAPI vertical-slice spike against the canonical OpenAPI contract. If the team cannot own it, compare NestJS before acceptance.
+2. Architecture Lead proves PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
+3. Security & Privacy Lead reviews OIDC audience/issuer handling, worker identity, key lifecycle, secrets, data residency and default-deny egress.
+4. Operations/Reliability Lead demonstrates deployment, backup/restore, logs/metrics/traces and recovery ownership.
+5. Project Sponsor/Owner sets a budget envelope and approves any paid resource.
+6. Candidate cloud providers/regions are compared against documented criteria: Indonesia/data residency needs, latency, availability, managed services, security controls, recovery, support, portability and total cost.
+7. ADR approval is recorded by the roles with authority; the accepted ADR and decision log are updated in the same reviewed change.
 
 ## 7. Rollback / reconsideration
 
-Reconsider before production if the selected backend, data store or deployment model fails the vertical-slice acceptance criteria, produces unacceptable operational burden, violates data-residency/security requirements, or makes adapter portability materially worse. Reconsideration requires an ADR amendment and migration plan; do not silently change stack.
+Reconsider before production if the selected stack fails the vertical-slice acceptance criteria, creates unacceptable operational burden, violates data-residency/security requirements or materially harms portability. Reconsideration requires an ADR amendment and migration plan; do not silently change the stack.
 
 ## 8. Approval record
 
@@ -127,4 +107,6 @@ Reconsider before production if the selected backend, data store or deployment m
 | Security & Privacy Lead | NOT APPOINTED | PENDING | — |
 | Operations / Reliability Lead | NOT APPOINTED | PENDING | — |
 
-Until the approval record is completed, this file is a proposal and must not be cited as an accepted implementation-stack decision.
+## 9. Current disposition
+
+**The recommended technology baseline is sufficiently specific for a reversible engineering spike. The formal ADR is not accepted.** No cloud provider, region, domain, database service, OIDC issuer, KMS, secret manager or paid service has been procured or deployed. This record must not be cited as authorization to spend money or launch production infrastructure.
