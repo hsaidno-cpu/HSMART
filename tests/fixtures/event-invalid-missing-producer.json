@@ -1,0 +1,8 @@
+{
+  "eventId": "evt-invalid",
+  "eventType": "registry.capability.registered",
+  "eventVersion": "1.0",
+  "occurredAt": "2026-11-22T01:00:00Z",
+  "aggregateId": "hsmart:demo:text-transformer",
+  "data": {}
+}
