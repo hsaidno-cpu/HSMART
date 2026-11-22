@@ -7,7 +7,7 @@ from typing import Any
 import pytest
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
-from openapi_spec_validator import validate_spec
+from openapi_spec_validator import validate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,7 +86,7 @@ def test_openapi_document_is_valid_and_has_core_invocation_contract() -> None:
     with OPENAPI_PATH.open("r", encoding="utf-8") as handle:
         spec = yaml.safe_load(handle)
 
-    validate_spec(spec)
+    validate(spec)
 
     assert spec["openapi"] == "3.1.0"
     assert "/v1/capabilities" in spec["paths"]
