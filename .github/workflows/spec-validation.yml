@@ -10,12 +10,12 @@ permissions:
 
 jobs:
   contract-tests:
-    name: Contract tests (\${"$" + "{{ matrix.os }}"})
+    name: Contract tests (${{ matrix.os }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-2025, macos-15]
-    runs-on: \${"$" + "{{ matrix.os }}"}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -37,28 +37,35 @@ jobs:
         shell: bash
         run: sh scripts/bootstrap-dev.sh
 
-      - name: Record toolchain versions
-        shell: bash
+      - name: Record Windows toolchain versions
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          if [ "\${"$" + "{{ runner.os }}"}" = "Windows" ]; then
-            .venv/Scripts/python.exe --version
-            .venv/Scripts/python.exe -m pip --version
-          else
-            .venv/bin/python --version
-            .venv/bin/python -m pip --version
-          fi
+          & .\.venv\Scripts\python.exe --version
+          & .\.venv\Scripts\python.exe -m pip --version
 
-      - name: Validate dependencies, JSON and contract tests
+      - name: Record Unix toolchain versions
+        if: runner.os != 'Windows'
         shell: bash
         run: |
-          if [ "\${"$" + "{{ runner.os }}"}" = "Windows" ]; then
-            PYTHON=".venv/Scripts/python.exe"
-          else
-            PYTHON=".venv/bin/python"
-          fi
-          "$PYTHON" -m pip check
-          "$PYTHON" scripts/validate-json.py
-          "$PYTHON" -m pytest -q
+          .venv/bin/python --version
+          .venv/bin/python -m pip --version
+
+      - name: Validate contracts on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & .\.venv\Scripts\python.exe -m pip check
+          & .\.venv\Scripts\python.exe scripts\validate-json.py
+          & .\.venv\Scripts\python.exe -m pytest -q
+
+      - name: Validate contracts on macOS/Linux
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          .venv/bin/python -m pip check
+          .venv/bin/python scripts/validate-json.py
+          .venv/bin/python -m pytest -q
 
   repository-integrity:
     name: OpenAPI and required repository files
