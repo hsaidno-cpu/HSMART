@@ -35,6 +35,20 @@ This is a documentation and contract baseline. It does **not** mean that HSMART 
 
 The next action is therefore KM 0: establish execution governance and measurable acceptance criteria.
 
+### Verified execution snapshot — 22 November 2026
+
+The canonical repository snapshot inspected for this control plan is main @ e796b5842f98277716fc5d81026ac175d0591f36. The current verified stage state is recorded in [PROGRESSIVE-COMPLETION-ROADMAP.md](../planning/PROGRESSIVE-COMPLETION-ROADMAP.md).
+
+- KM 0 remains OPEN. GOV-01's MVP/Charter decisions are recorded in PR #13 but are not yet canonical on main.
+- KM 1 is PARTIAL: contract schemas, fixtures and cross-platform contract CI exist; ADR-011 remains a recommendation and the full application environment is not yet delivered.
+- KM 2–KM 8 application services are NOT STARTED on the inspected main baseline.
+- KM 9 is DEFERRED; KM 10 is NOT STARTED.
+- The main branch was observed unprotected. The required repository controls are specified in [REPOSITORY-BASELINE-CONTROLS.md](../governance/REPOSITORY-BASELINE-CONTROLS.md), but have not been applied or verified.
+- The local policy reference evaluator is not a deployed authorization gateway; no production WORM storage or hosted delegate runtime is evidenced.
+
+Reconcile this snapshot after PR #13 and the next accepted changes merge. Never infer deployment or stage completion from documentation or CI alone.
+
+
 ## 3. Executive roadmap map
 
 \`\`\`mermaid

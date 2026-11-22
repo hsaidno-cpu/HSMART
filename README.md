@@ -36,7 +36,7 @@ This repository currently contains the architecture and implementation contracts
 | Path | Purpose |
 |---|---|
 | docs/foundation/ | Project Charter, ratification record, MVP boundary and acceptance decision |
-| docs/planning/ | Prioritized KM 0–KM 2 backlog and dependencies |
+| docs/planning/ | Prioritized KM 0–KM 2 backlog, progressive completion roadmap and execution dependencies |
 | docs/engineering/ | Reproducible contract-validation development environment |
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
 | src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |
@@ -47,7 +47,7 @@ This repository currently contains the architecture and implementation contracts
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
 | docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-06 activation/evidence plan |
-| docs/governance/ | Ownership, human authority, AI Functional Delegation Charter, delegate registry, permission/approval policy, cross-evaluation and audit governance |
+| docs/governance/ | Ownership, human authority, AI delegate governance, permission/approval policy, audit evidence and main-branch controls |
 | docs/roadmap/ | Implementation phases and acceptance criteria |
 | docs/operations/ | Production-readiness and operations |
 
