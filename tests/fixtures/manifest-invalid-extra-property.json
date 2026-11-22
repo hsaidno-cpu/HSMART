@@ -1,0 +1,21 @@
+{
+  "apiVersion": "hsmart.io/v1",
+  "kind": "Capability",
+  "metadata": {
+    "id": "hsmart:demo:text-transformer",
+    "name": "HSMART Demo Text Transformer",
+    "version": "1.0.0",
+    "publisher": "hsmart-core",
+    "description": "Invalid fixture includes a forbidden top-level property."
+  },
+  "spec": {
+    "capabilityType": "tool",
+    "interfaces": [{ "protocol": "rest" }],
+    "runtime": { "mode": "managed" },
+    "security": {
+      "artifactSignatureRequired": true,
+      "sandboxRequired": true
+    }
+  },
+  "debug": true
+}
