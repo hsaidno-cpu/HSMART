@@ -2,7 +2,7 @@
 
 **Project:** HSMART — Hypersystem Synchronization & Management Architecture for Revolutionary Technology  
 **Document ID:** HSMART-GOV-CHARTER-001  
-**Version:** 1.0.1  
+**Version:** 1.0.2  
 **Document date:** 2026-11-21  
 **Last updated:** 2026-11-22  
 **Document owner:** HSMART Project Owner — appointment required  
@@ -323,16 +323,16 @@ The project is currently founder-led and has no legal-entity structure. GOV-01 i
 | Role | Accountability | Current status |
 |---|---|---|
 | Project Sponsor / Accountable Owner | Strategic direction, internal project scope, priorities, and stewardship of resources actually controlled by the holder | Appointed: Harysaidno — HSMART-GOV-FOUNDER-001; internal project authority only |
-| Project Owner | Overall delivery accountability and charter maintenance | To appoint |
-| Product Owner | User needs, priorities, acceptance, roadmap trade-offs | To appoint |
-| Architecture Lead | Architecture integrity, contracts, ADRs, technical boundaries | To appoint |
-| Engineering Lead | Implementation quality, delivery planning, code review | To appoint |
-| Security & Privacy Lead | Threat model, security requirements, risk acceptance | To appoint |
+| Project Owner | Human role seat vacant; interim functional coverage through AI Delegate GOV-02 under HSMART-GOV-AI-DEL-001 | AI functional delegate designated; runtime pending; human seat vacant |
+| Product Owner | Human role seat vacant; interim functional coverage through AI Delegate GOV-03 under HSMART-GOV-AI-DEL-001 | AI functional delegate designated; runtime pending; human seat vacant |
+| Architecture Lead | Human role seat vacant; interim functional coverage through AI Delegate GOV-04 under HSMART-GOV-AI-DEL-001 | AI functional delegate designated; runtime pending; human seat vacant |
+| Engineering Lead | Human role seat vacant; interim functional coverage through AI Delegate GOV-05 under HSMART-GOV-AI-DEL-001 | AI functional delegate designated; runtime pending; human seat vacant |
+| Security & Privacy Lead | Human role seat vacant; interim functional coverage through AI Delegate GOV-06 under HSMART-GOV-AI-DEL-001 | AI functional delegate designated; runtime pending; human seat vacant |
 | Operations / Reliability Lead | Deployment, monitoring, backup, incident and recovery readiness | To appoint |
 | Legal / Commercial Advisor | Entity, IP, licensing, publisher, privacy, and commerce review | To appoint / engage when needed |
 | Capability Publisher Owner | Accuracy and lifecycle of each published capability | Per publisher |
 
-In an early single-person or small-team phase, one person may hold multiple roles. The responsibilities must still be explicitly assigned. High-impact security, production, data-destruction, and commercial decisions should receive independent review wherever practical.
+In an early founder-led phase, operational responsibilities may be covered by the AI Functional Delegates defined in HSMART-GOV-AI-DEL-001 while human role seats remain vacant. An AI designation is not a human appointment or legal office. GOV-01 retains final internal authority; each Agent action is subject to a task-scoped approval grant and centralized policy enforcement. High-impact security, production, data-destruction, privacy and commercial matters require independent evaluation and human/expert review where appropriate.
 
 ### 13.2 Decision classes
 
@@ -342,6 +342,24 @@ In an early single-person or small-team phase, one person may hold multiple role
 | D1 — Component | Internal implementation detail within approved contracts | Component owner review and tests |
 | D2 — Architecture | Domain boundary, canonical schema, protocol, major dependency, data model | ADR, architecture review, compatibility assessment, and approval within recorded internal project authority |
 | D3 — Critical | Security boundary, privilege model, production release, data retention, legal/commercial policy | Named accountable approval, documented risk review, and independent review where practical; external legal/commercial commitments require the legally authorized person/entity |
+
+### 13.4 Interim AI functional delegation
+
+HSMART is currently founder-led and does not yet have sufficient human capacity to fill GOV-02 through GOV-06. GOV-01 has therefore designated five logical AI Functional Delegates under the [AI Functional Delegation Charter](../governance/AI-FUNCTIONAL-DELEGATION-CHARTER.md) and [AI Functional Delegate Registry](../governance/AI-FUNCTIONAL-DELEGATE-REGISTRY.md):
+
+- GOV-02: `hsmart.gov02.project-owner.orchestrator`
+- GOV-03: `hsmart.gov03.product-owner.orchestrator`
+- GOV-04: `hsmart.gov04.architecture.orchestrator`
+- GOV-05: `hsmart.gov05.engineering.orchestrator`
+- GOV-06: `hsmart.gov06.security-privacy.orchestrator`
+
+These are interim operational delegates, not natural persons, corporate officers, statutory representatives or human role appointments. Their human seats remain vacant. The logical profiles are designated, but runtime provisioning, model/Skill version capture, scoped tool authorization, policy enforcement and operational verification are still pending.
+
+The model is governed by five controls: (1) Single Human Authority, with GOV-01 holding final internal approval; (2) Distributed AI Execution through domain orchestrators and specialist sub-agents, Skills, Sub-Skills and tools; (3) Centralized Policy Enforcement with default deny and task-scoped grants; (4) Independent Cross-Evaluation using separate contexts, multiple perspectives, suitable methodologies and objective tests; and (5) Immutable Audit Trail requirements that bind every action to identity, model, Skill, source, approval and evidence.
+
+GitHub/Notion mutation requires explicit GOV-01 authorization. Agents may write only to authorized working branches or named Notion resources. Agents cannot write or merge to `main`, release/deploy production, change their own policy/permissions or access raw secrets. Merge, production and privileged changes remain human-reserved actions.
+
+The delegation is an interim capacity model. When qualified humans join, GOV-01 may appoint them through separate acceptance records and transition the AI delegates into support roles. This section does not create a legal entity, transfer IP, authorize third-party commitments or claim that the AI runtime has been deployed.
 
 ### 13.3 Change control
 
@@ -464,7 +482,7 @@ A project deliverable is complete only when all applicable conditions are met:
 This charter becomes the adopted project governance baseline when all of the following are true:
 
 - The Project Sponsor / Accountable Owner is explicitly appointed.
-- The Project Owner and initial Product, Architecture, Engineering, and Security accountabilities are assigned.
+- The Project Owner and initial Product, Architecture, Engineering, and Security accountabilities are covered under the GOV-01-approved interim AI Functional Delegation model; this does not appoint human occupants or create legal authority.
 - The MVP boundary and initial success measures are accepted.
 - The document is approved through the repository's review and merge process.
 - Any material legal or commercial assumption is marked as pending until reviewed by a qualified advisor.
@@ -476,10 +494,10 @@ The repository merge records adoption of this project baseline. It does **not** 
 | Approval role | Name / authority | Decision | Date |
 |---|---|---|---|
 | Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001, internal project authority only | Appointment recorded; Charter ratification pending | 2026-11-22 |
-| Project Owner | To be appointed | Pending | Pending |
-| Product Owner | To be appointed | Pending | Pending |
-| Architecture Lead | To be appointed | Pending | Pending |
-| Security & Privacy Lead | To be appointed | Pending | Pending |
+| Project Owner | Human seat vacant; interim AI delegate GOV-02 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
+| Product Owner | Human seat vacant; interim AI delegate GOV-03 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
+| Architecture Lead | Human seat vacant; interim AI delegate GOV-04 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
+| Security & Privacy Lead | Human seat vacant; interim AI delegate GOV-06 designated under HSMART-GOV-AI-DEL-001 | Interim function designated; human appointment pending | 2026-11-22 |
 
 ### 20.3 Amendment policy
 
@@ -495,7 +513,7 @@ The repository merge records adoption of this project baseline. It does **not** 
 
 The next execution sequence is:
 
-1. GOV-01 is appointed for internal project governance; appoint the Project Owner (GOV-02).
+1. Provision and verify the GOV-02 through GOV-06 AI Functional Delegates under task-scoped permissions; appoint human role holders when qualified contributors become available.
 2. Assign the initial Product, Architecture, Engineering, and Security responsibilities.
 3. Approve the MVP demo capability and its acceptance tests.
 4. Open and prioritize KM 0–2 backlog issues with dependencies and owners.

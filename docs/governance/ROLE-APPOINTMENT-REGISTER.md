@@ -1,10 +1,10 @@
 # HSMART Accountable Role Appointment Register
 
 **Register ID:** HSMART-GOV-ROLE-001  
-**Version:** 1.2.0  
+**Version:** 1.3.0  
 **Prepared:** 2026-11-22  
-**Status:** PARTIALLY APPOINTED — GOV-01 APPOINTED; OTHER CORE ROLES PENDING  
-**Authority:** Project Charter v1.0.1 and Founder & Project Initiator Authority Declaration HSMART-GOV-FOUNDER-001
+**Status:** GOV-01 HUMAN AUTHORITY APPOINTED; GOV-02..GOV-06 AI FUNCTIONAL DELEGATES DESIGNATED; HUMAN ROLE SEATS VACANT  
+**Authority:** Project Charter v1.0.2; Founder & Project Initiator Authority Declaration HSMART-GOV-FOUNDER-001; AI Functional Delegation Charter HSMART-GOV-AI-DEL-001
 
 ## 1. Operating rule
 
@@ -19,16 +19,33 @@ Each role must be read according to its recorded scope. An appointment to one ro
 | Role ID | Role | Accountability | Decision rights | Appointment |
 |---|---|---|---|---|
 | GOV-01 | Project Sponsor / Accountable Owner | Strategic direction, internal project scope, priorities, and stewardship of resources actually controlled by the holder | D2 approval within internal project scope; D3 only for internal project-governance decisions and never to bind a third party or legal entity | APPOINTED — Harysaidno; founder self-declaration; internal project authority only |
-| GOV-02 | Project Owner | Delivery accountability, Charter maintenance, escalation and project records | D0/D1 within delegated scope; escalates D2/D3 | UNASSIGNED |
-| GOV-03 | Product Owner | User needs, product priorities, MVP scope, acceptance and roadmap trade-offs | Product decisions within the approved Charter and budget | UNASSIGNED |
-| GOV-04 | Architecture Lead | Architecture integrity, contracts, ADRs, domain boundaries and compatibility | Technical recommendation; D2 approval only if expressly delegated | UNASSIGNED |
-| GOV-05 | Engineering Lead | Engineering practices, implementation quality, delivery plan and code review | D1 implementation within approved contracts and ADRs | UNASSIGNED |
-| GOV-06 | Security & Privacy Lead | Threat model, privacy/security controls, risk review and incident escalation | Independent security review; may place a safety/security hold on release pending accountable disposition | UNASSIGNED |
+| GOV-02 | Project Owner | Delivery coordination, Charter maintenance proposals, backlog, milestones, dependencies, risk tracking and evidence reporting | D0/D1 only within a GOV-01 authorization grant; escalates D2/D3 | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov02.project-owner.orchestrator`; human seat VACANT; runtime pending |
+| GOV-03 | Product Owner | User needs, product discovery, requirement drafts, product priorities, acceptance proposals and product metrics | Product recommendations only; MVP/scope approval remains GOV-01 | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov03.product-owner.orchestrator`; human seat VACANT; runtime pending |
+| GOV-04 | Architecture Lead | Architecture integrity, contracts, ADR proposals, domain boundaries, interoperability and quality attributes | Technical recommendation only; GOV-01 approves material D2 decisions | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov04.architecture.orchestrator`; human seat VACANT; runtime pending |
+| GOV-05 | Engineering Lead | Engineering practices, implementation of approved work, code quality, tests, CI and technical documentation | Branch-scoped D1 only under explicit GOV-01 grant; no main write, merge or production release | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov05.engineering.orchestrator`; human seat VACANT; runtime pending |
+| GOV-06 | Security & Privacy Lead | Threat modeling, security/privacy review, identity/policy assessment, supply-chain assurance and incident escalation | May recommend/maintain HOLD; cannot waive or accept its own finding or risk | AI FUNCTIONAL DELEGATE DESIGNATED: `hsmart.gov06.security-privacy.orchestrator`; human seat VACANT; runtime pending |
 | GOV-07 | Operations / Reliability Lead | Deployment, monitoring, backup, restore, incident and recovery readiness | Operational readiness recommendation and stop authority for unsafe operations under approved policy | UNASSIGNED |
 | GOV-08 | Legal / Commercial Advisor | Entity, IP, licensing, publisher terms, privacy, tax and commerce review | Professional advice; legal approval remains with the legally authorized person/entity | TO ENGAGE WHEN NEEDED |
 | GOV-09 | Capability Publisher Owner | Accuracy, provenance, permissions and lifecycle of each published capability | Publisher-level content and release attestations within policy | PER PUBLISHER / NOT APPLICABLE YET |
 
 ### 2.1 GOV-01 appointment record
+
+### 2.2 GOV-02 through GOV-06 AI Functional Delegate designation
+
+| GOV | Stable Agent ID | Human role seat | Designation status | Authority boundary |
+|---|---|---|---|---|
+| GOV-02 | `hsmart.gov02.project-owner.orchestrator` | VACANT | DESIGNATED — runtime pending | Delivery coordination and evidence within grant; no scope, budget or risk approval |
+| GOV-03 | `hsmart.gov03.product-owner.orchestrator` | VACANT | DESIGNATED — runtime pending | Product research and recommendation; no MVP/strategy approval |
+| GOV-04 | `hsmart.gov04.architecture.orchestrator` | VACANT | DESIGNATED — runtime pending | Architecture and ADR proposals; no final material architecture approval |
+| GOV-05 | `hsmart.gov05.engineering.orchestrator` | VACANT | DESIGNATED — runtime pending | Approved branch-scoped implementation, tests and PR preparation; no merge/release |
+| GOV-06 | `hsmart.gov06.security-privacy.orchestrator` | VACANT | DESIGNATED — runtime pending | Security/privacy assessment and HOLD recommendation; no self-certification or self-risk-acceptance |
+
+**Designation basis:** GOV-01 instruction dated 2026-11-22, approval `HSMART-AUTH-GOV01-20261122-002`, and AI Functional Delegation Charter `HSMART-GOV-AI-DEL-001`.
+
+**Important distinction:** these are logical AI functional delegate profiles, not natural persons or human statutory role appointments. Runtime state is NOT PROVISIONED / NOT VERIFIED. Exact model, Skill, Sub-Skill and tool versions must be captured from a future runtime; until then they remain unknown or pending runtime binding.
+
+The detailed mandates, sub-agent trees, Skills/Sub-Skills, logical tools, activation gates and lifecycle states are maintained in the [AI Functional Delegate Registry](AI-FUNCTIONAL-DELEGATE-REGISTRY.md) and machine-readable [registry JSON](AI-FUNCTIONAL-DELEGATE-REGISTRY.json). Permissions, cross-evaluation and audit rules are governed by the linked AI policies.
+
 
 | Field | Recorded value |
 |---|---|
@@ -55,7 +72,7 @@ Each role must be read according to its recorded scope. An appointment to one ro
 | D2 — Baseline | Internal MVP scope/acceptance, architecture baseline, material risk treatment or project-resource changes | GOV-01 for internal project approval, with Product or technical owner for their domain | Written rationale, alternatives, risk and impact analysis, explicit approval |
 | D3 — Project commitment | Internal Charter adoption/amendment or project termination; separately, any external legal/commercial, ownership/IP or contractual commitment | GOV-01 may decide internal project-governance matters only. External commitments require the legally authorized person/entity and applicable professional review | Durable internal decision record; for external matters, separate authority, legal review and valid instrument |
 
-This matrix defines HSMART's intended decision routing. A role may exercise only the authority explicitly recorded and lawfully available to its holder. No entry in this register creates legal, statutory, contractual, platform-owner, intellectual-property, or third-party authority. HSMART is currently a personal project and must not be represented as a legal entity.
+This matrix defines HSMART's intended decision routing. The AI Functional Delegates provide operational capacity only; they are not natural persons or legal officeholders and do not receive independent final decision authority. Every mutating operation remains subject to the centralized policy and a valid GOV-01 grant. A role may exercise only the authority explicitly recorded and lawfully available to its holder. No entry in this register creates legal, statutory, contractual, platform-owner, intellectual-property, or third-party authority. HSMART is currently a personal project and must not be represented as a legal entity.
 
 ## 4. Appointment evidence required
 
@@ -73,18 +90,20 @@ For each appointment, record:
 
 For a founder's internal self-appointment in an unincorporated personal project, the evidence must explicitly state the founder/initiator capacity and must preserve the limitations in HSMART-GOV-FOUNDER-001.
 
+For an AI Functional Delegate designation, additionally record the stable Agent ID, profile version, human role-seat status, exact mandate, runtime state, model/provider/version or `unknown`, Skill/Sub-Skill revisions and digests, tool/connector scopes, policy version, approval-grant lineage, independent evaluation results and audit-event references. A logical designation does not prove a runtime exists or is active.
+
 ## 5. Minimum governance before KM 0 exit
 
-The following remain blocking:
+The interim operating coverage is now recorded as follows:
 
-1. GOV-01 Project Sponsor / Accountable Owner — **APPOINTED** to Harysaidno for internal project governance only.
-2. GOV-02 Project Owner — UNASSIGNED.
-3. GOV-03 Product Owner — UNASSIGNED.
-4. GOV-04 Architecture Lead — UNASSIGNED.
-5. GOV-05 Engineering Lead — UNASSIGNED.
-6. GOV-06 Security & Privacy Lead — UNASSIGNED.
+1. GOV-01 Project Sponsor / Accountable Owner — **HUMAN APPOINTED** to Harysaidno for internal project governance only.
+2. GOV-02 Project Owner — **AI FUNCTIONAL DELEGATE DESIGNATED**; human role seat VACANT; runtime not provisioned/verified.
+3. GOV-03 Product Owner — **AI FUNCTIONAL DELEGATE DESIGNATED**; human role seat VACANT; runtime not provisioned/verified.
+4. GOV-04 Architecture Lead — **AI FUNCTIONAL DELEGATE DESIGNATED**; human role seat VACANT; runtime not provisioned/verified.
+5. GOV-05 Engineering Lead — **AI FUNCTIONAL DELEGATE DESIGNATED**; human role seat VACANT; runtime not provisioned/verified.
+6. GOV-06 Security & Privacy Lead — **AI FUNCTIONAL DELEGATE DESIGNATED**; human role seat VACANT; runtime not provisioned/verified.
 
-GOV-01 being appointed does not satisfy the remaining role appointments, MVP approval, or Charter ratification requirements.
+The five AI designations provide interim functional coverage only. They do not appoint human occupants, confer legal capacity or satisfy any human-specific approval requirement. MVP approval, Charter ratification and technical acceptance remain separate decisions.
 
 Operations/Reliability (GOV-07) must be appointed before hosted runtime or production operations. Legal/Commercial advice must be engaged before entity, IP, publisher, licensing or marketplace commitments.
 
@@ -92,10 +111,10 @@ Operations/Reliability (GOV-07) must be appointed before hosted runtime or produ
 
 A small founding team may combine responsibilities, but combining roles does not erase independent review requirements.
 
-- GOV-01 and GOV-02 may be held by one person during an early founder-led stage only when the appointment and authority are explicit. GOV-01 appointment does not itself appoint GOV-02.
+- GOV-01 and GOV-02 may be held by one human during an early founder-led stage only when the appointment and authority are explicit. GOV-01 appointment does not itself appoint GOV-02. The GOV-02 AI Functional Delegate provides interim delivery coordination but does not become a human Project Owner.
 - GOV-03 may be combined with GOV-02 when product scope and delivery trade-offs are documented.
 - GOV-04 and GOV-05 may be combined during prototyping, but material architecture changes require independent review before release.
-- GOV-06 should remain independent of the person implementing the security-sensitive change whenever feasible. If staffing makes this impossible, record the conflict and obtain an external review for high-risk releases.
+- GOV-06 is an AI security/privacy functional delegate, not a substitute for independent human expertise. It must not be the sole reviewer of its own work or the GOV-05 implementation it reviews. Use a separate evaluation context, appropriate automated tests and external human review for high/critical issues.
 - GOV-07 may be combined with GOV-05 for local development only; hosted/production operations require explicit operational ownership.
 - Legal advice must not be represented as legal approval by a person without the relevant authority.
 
@@ -103,8 +122,8 @@ No one may approve their own material security exception, production data-destru
 
 ## 7. Separation of duties and escalation
 
-Where staffing is limited, role combinations must be visible in this register. Security-sensitive, production, data-destruction and commercial decisions require independent review where feasible. A disagreement over security, privacy, legal exposure or data integrity defaults to HOLD until the accountable authority records a reasoned disposition. GOV-01 cannot override an independent security hold merely by virtue of being the project sponsor.
+Where staffing is limited, operational functions may be delegated to AI profiles, but authority remains centralized in GOV-01. Cross-evaluation must use multiple perspectives and context-appropriate methods; a model/persona vote is not sufficient evidence. Security-sensitive, production, data-destruction and commercial decisions require independent review and a human gate where applicable. A disagreement over security, privacy, legal exposure or data integrity defaults to HOLD until GOV-01 records a reasoned disposition and required expert review is complete. GOV-01 cannot change a test result or erase an unresolved critical finding merely by virtue of being the project sponsor.
 
 ## 8. Closure condition
 
-The GOV-01 appointment is recorded and effective for internal project governance as of 2026-11-22. The overall core-role appointment task remains IN_PROGRESS because GOV-02 through GOV-06 remain unassigned and the required role, review, and decision evidence is incomplete. No additional person or role has been silently appointed.
+The GOV-01 human appointment is recorded and effective for internal project governance as of 2026-11-22. GOV-02 through GOV-06 have been designated as interim AI Functional Delegates by GOV-01 under HSMART-AUTH-GOV01-20261122-002. Their human role seats remain VACANT and their runtime instances are not provisioned or verified. The core-role task is therefore PARTIALLY COVERED / IN_PROGRESS, not fully complete. MVP approval, Charter ratification, policy enforcement implementation and Agent activation remain separate gates.
