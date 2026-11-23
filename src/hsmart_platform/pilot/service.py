@@ -122,6 +122,28 @@ def list_capabilities(session: Session, principal: Principal) -> list[dict[str, 
     return result
 
 
+def _deny_invocation(
+    session: Session,
+    principal: Principal,
+    *,
+    capability_key: str,
+    reason_code: str,
+    payload_sha256: str,
+) -> None:
+    append_audit(
+        session,
+        tenant_id=principal.tenant_id,
+        actor=principal.subject,
+        action="CAPABILITY_INVOCATION_DENIED",
+        resource=capability_key,
+        outcome="DENY",
+        reason_code=reason_code,
+        payload_sha256=payload_sha256,
+    )
+    session.commit()
+    raise AuthorizationError(reason_code)
+
+
 def invoke_capability(
     session: Session,
     settings: Settings,
@@ -133,12 +155,6 @@ def invoke_capability(
     idempotency_key: str,
     host_id: str | None = None,
 ) -> dict[str, Any]:
-    require_scope(principal, "capability.invoke")
-    if not idempotency_key or len(idempotency_key) > 200:
-        raise PilotError("valid_idempotency_key_required", 422)
-    if not isinstance(payload, dict):
-        raise PilotError("payload_must_be_object", 422)
-
     actual_host = host_id or settings.pilot_host_id
     request_digest = _digest({
         "capability_id": capability_key,
@@ -146,24 +162,15 @@ def invoke_capability(
         "payload": payload,
         "host_id": actual_host,
     })
-    existing = session.scalar(
-        select(Invocation).where(
-            Invocation.tenant_id == principal.tenant_id,
-            Invocation.idempotency_key == idempotency_key,
+    if "capability.invoke" not in principal.scopes:
+        _deny_invocation(
+            session, principal, capability_key=capability_key,
+            reason_code="required_scope_missing", payload_sha256=request_digest,
         )
-    )
-    if existing is not None:
-        if existing.request_sha256 != request_digest:
-            raise ConflictError("idempotency_key_reused_with_different_request")
-        if existing.status != "COMPLETED" or existing.result is None:
-            raise ConflictError("invocation_not_complete")
-        return {
-            "invocation_id": existing.id,
-            "status": existing.status,
-            "result": existing.result,
-            "trace_id": existing.trace_id,
-            "idempotent_replay": True,
-        }
+    if not idempotency_key or len(idempotency_key) > 200:
+        raise PilotError("valid_idempotency_key_required", 422)
+    if not isinstance(payload, dict):
+        raise PilotError("payload_must_be_object", 422)
 
     capability = session.scalar(
         select(Capability).where(
@@ -183,9 +190,15 @@ def invoke_capability(
     if version_record is None or version_record.status != "PUBLISHED":
         raise PilotError("capability_version_not_published", 404)
     if version_record.rights_status != "CLEARED" or not version_record.rights_evidence_ref:
-        raise AuthorizationError("distribution_rights_not_cleared")
+        _deny_invocation(
+            session, principal, capability_key=capability_key,
+            reason_code="distribution_rights_not_cleared", payload_sha256=request_digest,
+        )
     if not _has_grant(session, principal, capability, "capability.invoke"):
-        raise AuthorizationError("capability_entitlement_missing")
+        _deny_invocation(
+            session, principal, capability_key=capability_key,
+            reason_code="capability_entitlement_missing", payload_sha256=request_digest,
+        )
     installation = session.scalar(
         select(Installation).where(
             Installation.tenant_id == principal.tenant_id,
@@ -196,7 +209,31 @@ def invoke_capability(
         )
     )
     if installation is None:
-        raise AuthorizationError("capability_not_active_on_host")
+        _deny_invocation(
+            session, principal, capability_key=capability_key,
+            reason_code="capability_not_active_on_host", payload_sha256=request_digest,
+        )
+
+    # Replays are returned only after current scope, rights, entitlement and installation
+    # state have been checked. Revocation must take effect even for prior idempotent requests.
+    existing = session.scalar(
+        select(Invocation).where(
+            Invocation.tenant_id == principal.tenant_id,
+            Invocation.idempotency_key == idempotency_key,
+        )
+    )
+    if existing is not None:
+        if existing.request_sha256 != request_digest:
+            raise ConflictError("idempotency_key_reused_with_different_request")
+        if existing.status != "COMPLETED" or existing.result is None:
+            raise ConflictError("invocation_not_complete")
+        return {
+            "invocation_id": existing.id,
+            "status": existing.status,
+            "result": existing.result,
+            "trace_id": existing.trace_id,
+            "idempotent_replay": True,
+        }
 
     invocation = Invocation(
         tenant_id=principal.tenant_id,
