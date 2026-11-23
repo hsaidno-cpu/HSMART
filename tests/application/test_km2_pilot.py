@@ -242,7 +242,7 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
         assert verified.artifact_sha256 == digest
         install = install_package(
             session,
-            tenant_id=tenant.id,
+            tenant_id=tenant_id,
             host_id=HOST_ID,
             bundle_path=bundle,
             public_key_path=public_path,
@@ -306,12 +306,13 @@ def test_api_denies_missing_token_and_requires_entitlement(tmp_path):
         tenant = Tenant(slug="api-tenant", display_name="API Tenant")
         session.add(tenant)
         session.commit()
-        seed_active_capability(session, tenant.id)
+        tenant_id = tenant.id
+        seed_active_capability(session, tenant_id)
         # Remove entitlement to ensure a valid token alone does not grant execution.
         session.query(CapabilityGrant).delete()
         session.commit()
     app = create_app(settings, engine)
-    token = make_token(private_path, tenant.id, ["capability.invoke"])
+    token = make_token(private_path, tenant_id, ["capability.invoke"])
     with TestClient(app) as client:
         assert client.post("/v1/invoke", json={
             "capability_id": "hsmart.echo",
@@ -467,6 +468,7 @@ def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
         tenant = Tenant(slug="mcp-tenant", display_name="MCP Tenant")
         session.add(tenant)
         session.commit()
+        tenant_id = tenant.id
         bundle, _, package_public_key, trust_path, _ = create_package(tmp_path)
         installation = install_package(
             session,
@@ -480,19 +482,19 @@ def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
         )
         transition_installation(session, installation.id, "ACTIVE", "mcp-pilot-admin")
         capability = session.scalar(select(Capability).where(
-            Capability.tenant_id == tenant.id,
+            Capability.tenant_id == tenant_id,
             Capability.capability_key == "hsmart.echo",
         ))
         grant_capability(
             session,
-            tenant_id=tenant.id,
+            tenant_id=tenant_id,
             capability_key="hsmart.echo",
             subject=SUBJECT,
             permission="capability.invoke",
             granted_by="mcp-pilot-admin",
             evidence_ref="ticket:mcp-pilot-allow",
         )
-    token = make_token(private_path, tenant.id, ["capability.read", "capability.invoke"])
+    token = make_token(private_path, tenant_id, ["capability.read", "capability.invoke"])
     env = {
         "PYTHONPATH": str(ROOT / "src"),
         "DATABASE_URL": settings.database_url,
@@ -543,11 +545,12 @@ def test_api_grant_and_revoke_routes_require_scope_and_emit_audit(tmp_path):
         tenant = Tenant(slug="grant-api-tenant", display_name="Grant API Tenant")
         session.add(tenant)
         session.commit()
-        seed_active_capability(session, tenant.id)
+        tenant_id = tenant.id
+        seed_active_capability(session, tenant_id)
         session.query(CapabilityGrant).delete()
         session.commit()
     app = create_app(settings, engine)
-    token = make_token(private_path, tenant.id, ["entitlement.grant"])
+    token = make_token(private_path, tenant_id, ["entitlement.grant"])
     with TestClient(app) as client:
         created = client.post(
             "/v1/registry/grants",
