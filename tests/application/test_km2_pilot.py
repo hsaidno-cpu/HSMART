@@ -15,6 +15,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 
@@ -453,6 +454,59 @@ def test_entitlement_revocation_blocks_idempotent_replay(tmp_path):
             )
         assert verify_audit_chain(session, tenant.id)
     engine.dispose()
+
+
+def test_concurrent_idempotency_insert_race_returns_winning_replay(tmp_path, monkeypatch):
+    from hsmart_platform.pilot.auth import Principal
+
+    engine = make_engine()
+    private_path, public_path = make_keys(tmp_path)
+    settings = make_settings("sqlite://", public_path)
+    with Session(engine) as session:
+        tenant = Tenant(slug="concurrent-replay-tenant", display_name="Concurrent Replay Tenant")
+        session.add(tenant)
+        session.commit()
+        tenant_id = tenant.id
+        seed_active_capability(session, tenant_id)
+        principal = Principal(SUBJECT, tenant_id, frozenset({"capability.invoke"}), ISSUER)
+        original = invoke_capability(
+            session, settings, principal,
+            capability_key="hsmart.echo", version="0.1.0",
+            payload={"message": "same request"}, idempotency_key="concurrent-replay-0001",
+        )
+
+        real_scalar = session.scalar
+        invocation_lookup_count = {"value": 0}
+
+        def hide_first_invocation_lookup(statement, *args, **kwargs):
+            if "FROM invocations" in str(statement) and invocation_lookup_count["value"] == 0:
+                invocation_lookup_count["value"] += 1
+                return None
+            return real_scalar(statement, *args, **kwargs)
+
+        real_flush = session.flush
+        flush_count = {"value": 0}
+
+        def simulate_unique_insert_race(*args, **kwargs):
+            if flush_count["value"] == 0:
+                flush_count["value"] += 1
+                raise IntegrityError("INSERT invocation", {}, RuntimeError("duplicate tenant/idempotency key"))
+            return real_flush(*args, **kwargs)
+
+        monkeypatch.setattr(session, "scalar", hide_first_invocation_lookup)
+        monkeypatch.setattr(session, "flush", simulate_unique_insert_race)
+
+        replay = invoke_capability(
+            session, settings, principal,
+            capability_key="hsmart.echo", version="0.1.0",
+            payload={"message": "same request"}, idempotency_key="concurrent-replay-0001",
+        )
+        assert replay["idempotent_replay"] is True
+        assert replay["invocation_id"] == original["invocation_id"]
+        assert replay["result"] == original["result"]
+        assert verify_audit_chain(session, tenant_id)
+    engine.dispose()
+
 
 def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
     from mcp.client.session import ClientSession
