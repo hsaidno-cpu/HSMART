@@ -47,12 +47,13 @@
       "state": "OPEN",
       "mergeable": true,
       "base_sha": "543bef61f1fd1ce3a736bd107857bee0b244c388",
-      "head_sha": "3e72b1704b068d405a8a653805b92f8fb05f55bd",
+      "head_sha": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
       "changed_files": 17,
       "additions": 3645,
       "deletions": 23,
-      "reviewed_code_sha": "9f610af081e51f47f58faf1158c2a7685b85b77e",
-      "assurance_report_commit": "3e72b1704b068d405a8a653805b92f8fb05f55bd"
+      "reviewed_code_sha": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
+      "assurance_report_commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
+      "observed_report_only_head": "aa691639a4dc7ad1c54138e16c94739276e3e48a"
     },
     "registry_seed_terms": 25,
     "sdgds_unit_tests": {
@@ -63,31 +64,31 @@
     "workflow_groups": {
       "passed": 5,
       "total": 5,
-      "commit": "3e72b1704b068d405a8a653805b92f8fb05f55bd",
+      "commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
       "items": [
         {
           "name": "SDGDS Terminology Registry",
-          "run_id": 45103158772,
+          "run_id": 45103450442,
           "result": "PASS"
         },
         {
           "name": "Repository Governance",
-          "run_id": 45103158791,
+          "run_id": 45103450305,
           "result": "PASS"
         },
         {
           "name": "AI Reviewer Evidence",
-          "run_id": 45103158802,
+          "run_id": 45103450292,
           "result": "PASS"
         },
         {
           "name": "Specification Validation",
-          "run_id": 45103158746,
+          "run_id": 45103450407,
           "result": "PASS"
         },
         {
           "name": "KM1 Application Foundation",
-          "run_id": 45103158812,
+          "run_id": 45103450328,
           "result": "PASS"
         }
       ]
@@ -105,37 +106,37 @@
     "production_state": "No deployed glossary runtime or autonomous discovery service evidenced.",
     "roadmap_revision_head_sha": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb",
     "roadmap_revision_workflows": {
-      "commit": "3e72b1704b068d405a8a653805b92f8fb05f55bd",
+      "commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
       "passed": 5,
       "total": 5,
       "items": [
         {
           "name": "SDGDS Terminology Registry",
-          "run_id": 45103158772,
+          "run_id": 45103450442,
           "result": "PASS"
         },
         {
           "name": "Repository Governance",
-          "run_id": 45103158791,
+          "run_id": 45103450305,
           "result": "PASS"
         },
         {
           "name": "AI Reviewer Evidence",
-          "run_id": 45103158802,
+          "run_id": 45103450292,
           "result": "PASS"
         },
         {
           "name": "Specification Validation",
-          "run_id": 45103158746,
+          "run_id": 45103450407,
           "result": "PASS"
         },
         {
           "name": "KM1 Application Foundation",
-          "run_id": 45103158812,
+          "run_id": 45103450328,
           "result": "PASS"
         }
       ],
-      "note": "The exact PR head completed all five workflow groups successfully; Notion sync steps were skipped because integration secrets and access are not configured."
+      "note": "All five workflow groups passed on the exact report-only PR commit; Notion sync steps skipped without configured secrets."
     },
     "notion_roadmap_ledger": {
       "records": 20,
@@ -155,7 +156,7 @@
     "overall_completion_reason": "No GOV-01-approved frozen work-item denominator or comparable weighting exists. A single percentage would be misleading.",
     "delivery_completion": "NOT_COMPUTABLE",
     "milestone_acceptance": "NOT_ASSESSED",
-    "verification_coverage": "13/13 SDGDS unit tests and 5/5 workflow groups passed on exact PR #29 head 3e72b1704b068d405a8a653805b92f8fb05f55bd.",
+    "verification_coverage": "13/13 SDGDS unit tests and 5/5 workflow groups passed on exact report-only PR head aa691639a4dc7ad1c54138e16c94739276e3e48a.",
     "notion_sync_successes": 0,
     "term_inventory_coverage": "UNKNOWN; 25 is the seed count, not total ecosystem vocabulary.",
     "outcome_attainment": "NOT_ASSESSED; user lookup, comprehension, onboarding and consistency baselines have not been measured.",
@@ -325,7 +326,7 @@
       "external": [
         "GOV-01 review and explicit disposition of exact PR #29 head and roadmap revision 0.1.0."
       ],
-      "acceptance": "GOV-01 records approve, revise or reject decision for exact roadmap revision and PR; scope, non-goals, residual risks and decision rights are visible.",
+      "acceptance": "GOV-01 records approve, revise or reject decision against exact PR report-only head aa691639a4dc7ad1c54138e16c94739276e3e48a and roadmap revision 0.1.0; scope, non-goals, residual risks and decision rights are visible.",
       "next": "GOV-01 reviews PR #29 and roadmap; merge only through the authorized repository process.",
       "notes": "PR #29 is open and mergeable, not merged. Green CI is not human approval.",
       "evidence": [
@@ -580,7 +581,7 @@
       "external": [],
       "acceptance": "Progress dimensions and evidence limitations are recorded separately; no unqualified overall percentage is published.",
       "next": "Re-evaluate after GOV-01 disposition and after first authenticated Notion sync.",
-      "notes": "13/13 SDGDS unit tests and 5/5 workflow groups passed on PR head 3e72b1704b068d405a8a653805b92f8fb05f55bd. Notion saved views verify 25 terminology records (one Proposed) and 20 roadmap rows (12 milestones, 4 risks). Both automated sync steps were skipped without secrets. Inventory denominator and user outcomes remain unknown.",
+      "notes": "13/13 SDGDS unit tests and 5/5 workflow groups passed on exact report-only PR head aa691639a4dc7ad1c54138e16c94739276e3e48a. Notion saved views verify 25 terminology rows (one Proposed) and 20 roadmap rows (12 milestones, 4 risks, 2 dependencies, 1 evaluation). Both automated Notion sync steps were skipped without secrets. Inventory denominator and user outcomes remain unknown.",
       "evidence": [
         "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
         "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423077",
@@ -702,9 +703,9 @@
       "external": [
         "Explicit GOV-01 review/approval is required."
       ],
-      "acceptance": "Decision is recorded against the exact PR head 3e72b1704b068d405a8a653805b92f8fb05f55bd and roadmap revision 0.1.0.",
+      "acceptance": "Decision is recorded against the exact PR report-only head aa691639a4dc7ad1c54138e16c94739276e3e48a and roadmap revision 0.1.0.",
       "next": "GOV-01 reviews exact PR and accepts, requests changes, or rejects.",
-      "notes": "PR #29 is open, mergeable, and all five workflow groups passed on the exact PR head 3e72b1704b068d405a8a653805b92f8fb05f55bd; this is not GOV-01 approval.",
+      "notes": "PR #29 is open, mergeable, and all five workflow groups passed on exact report-only commit aa691639a4dc7ad1c54138e16c94739276e3e48a. This is not GOV-01 approval.",
       "evidence": [
         "https://github.com/hsaidno-cpu/HSMART/pull/29",
         "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
@@ -791,6 +792,6 @@
       "url": "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
     }
   ],
-  "source_commit": "3e72b1704b068d405a8a653805b92f8fb05f55bd",
+  "source_commit": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
   "last_evaluated": "2026-11-23"
 }
