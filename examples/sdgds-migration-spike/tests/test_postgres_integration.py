@@ -82,12 +82,14 @@ def test_postgres_16_installs_schema_and_preserves_hsmart_string_ids():
 
 def test_case_insensitive_unique_label_and_slug_constraints():
     with psycopg.connect(DATABASE_URL) as conn:
-        insert_term(conn, "HSMART-0001", "Capability", "capability")
-        with pytest.raises(psycopg.errors.UniqueViolation):
-            insert_term(conn, "HSMART-0002", "CAPABILITY", "capability-two")
-        conn.rollback()
-        with pytest.raises(psycopg.errors.UniqueViolation):
-            insert_term(conn, "HSMART-0003", "Different Label", "CAPABILITY")
+        with conn.transaction():
+            insert_term(conn, "HSMART-0001", "Capability", "capability")
+            with pytest.raises(psycopg.errors.UniqueViolation):
+                with conn.transaction():
+                    insert_term(conn, "HSMART-0002", "CAPABILITY", "capability-two")
+            with pytest.raises(psycopg.errors.UniqueViolation):
+                with conn.transaction():
+                    insert_term(conn, "HSMART-0003", "Different Label", "CAPABILITY")
 
 
 def test_jsonb_status_and_term_id_constraints():
@@ -116,46 +118,50 @@ def test_jsonb_status_and_term_id_constraints():
 
 def test_alias_relation_foreign_key_and_self_relation_constraints():
     with psycopg.connect(DATABASE_URL) as conn:
-        insert_term(conn, "HSMART-0001", "Capability", "capability")
-        insert_term(conn, "HSMART-0002", "Capability Version", "capability-version")
-        conn.execute(
-            "INSERT INTO sdgds_term_aliases(term_id, alias, language) VALUES (%s,%s,%s)",
-            ("HSMART-0001", "AI capability", "English"),
-        )
-        with pytest.raises(psycopg.errors.ForeignKeyViolation):
+        with conn.transaction():
+            insert_term(conn, "HSMART-0001", "Capability", "capability")
+            insert_term(conn, "HSMART-0002", "Capability Version", "capability-version")
             conn.execute(
-                "INSERT INTO sdgds_term_aliases(term_id, alias) VALUES (%s,%s)",
-                ("HSMART-9999", "orphan alias"),
+                "INSERT INTO sdgds_term_aliases(term_id, alias, language) VALUES (%s,%s,%s)",
+                ("HSMART-0001", "AI capability", "English"),
             )
-        conn.rollback()
-        with pytest.raises(psycopg.errors.CheckViolation):
-            conn.execute(
-                """INSERT INTO sdgds_term_relations(source_term_id,target_term_id,relation_type)
-                   VALUES (%s,%s,%s)""",
-                ("HSMART-0001", "HSMART-0001", "parent"),
-            )
-        conn.rollback()
-        with pytest.raises(psycopg.errors.CheckViolation):
-            conn.execute(
-                """INSERT INTO sdgds_term_relations(source_term_id,target_term_id,relation_type)
-                   VALUES (%s,%s,%s)""",
-                ("HSMART-0001", "HSMART-0002", "made_up_relation"),
-            )
+            with pytest.raises(psycopg.errors.ForeignKeyViolation):
+                with conn.transaction():
+                    conn.execute(
+                        "INSERT INTO sdgds_term_aliases(term_id, alias) VALUES (%s,%s)",
+                        ("HSMART-9999", "orphan alias"),
+                    )
+            with pytest.raises(psycopg.errors.CheckViolation):
+                with conn.transaction():
+                    conn.execute(
+                        """INSERT INTO sdgds_term_relations(source_term_id,target_term_id,relation_type)
+                           VALUES (%s,%s,%s)""",
+                        ("HSMART-0001", "HSMART-0001", "parent"),
+                    )
+            with pytest.raises(psycopg.errors.CheckViolation):
+                with conn.transaction():
+                    conn.execute(
+                        """INSERT INTO sdgds_term_relations(source_term_id,target_term_id,relation_type)
+                           VALUES (%s,%s,%s)""",
+                        ("HSMART-0001", "HSMART-0002", "made_up_relation"),
+                    )
 
 
 def test_outbox_idempotency_key_is_unique():
     with psycopg.connect(DATABASE_URL) as conn:
-        conn.execute(
-            """INSERT INTO sdgds_outbox_events
-               (aggregate_type,aggregate_id,event_type,payload,idempotency_key)
-               VALUES ('term','HSMART-0001','term.proposed','{"term_id":"HSMART-0001"}','idem-1')"""
-        )
-        with pytest.raises(psycopg.errors.UniqueViolation):
+        with conn.transaction():
             conn.execute(
                 """INSERT INTO sdgds_outbox_events
                    (aggregate_type,aggregate_id,event_type,payload,idempotency_key)
-                   VALUES ('term','HSMART-0002','term.proposed','{"term_id":"HSMART-0002"}','idem-1')"""
+                   VALUES ('term','HSMART-0001','term.proposed','{"term_id":"HSMART-0001"}','idem-1')"""
             )
+            with pytest.raises(psycopg.errors.UniqueViolation):
+                with conn.transaction():
+                    conn.execute(
+                        """INSERT INTO sdgds_outbox_events
+                           (aggregate_type,aggregate_id,event_type,payload,idempotency_key)
+                           VALUES ('term','HSMART-0002','term.proposed','{"term_id":"HSMART-0002"}','idem-1')"""
+                    )
 
 
 def test_term_audit_and_outbox_share_transaction_boundary():
