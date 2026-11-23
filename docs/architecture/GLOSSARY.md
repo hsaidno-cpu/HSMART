@@ -1,25 +1,33 @@
 # HSMART Glossary
 
-| Term | Meaning |
-|---|---|
-| Capability | Registerable unit of AI functionality: skill, plugin, agent, tool, workflow, or orchestrator |
-| Canonical Manifest | Platform-neutral metadata contract for a capability |
-| Capability ID | Stable global identity that does not change with version |
-| Release | Immutable, validated version of a capability |
-| Artifact | Executable or distributable package associated with a release |
-| Publisher | Verified person or organization authorized to publish a capability |
-| Tenant | Security and billing boundary for a consumer organization/environment |
-| Control Plane | Identity, governance, registry, release, and synchronization control |
-| Execution Plane | Runtime workers and isolated task execution |
-| Data Plane | Controlled transfer of artifacts and invocation data |
-| Desired State | Version/configuration a target is intended to run |
-| Observed State | Version/configuration verified as actually running |
-| Adaptive Sync | Risk- and policy-aware reconciliation of desired/observed state |
-| MCP | Model Context Protocol, an interface for tools and context |
-| Adapter | Translation layer for platform-specific protocol or client behavior |
-| Workload Identity | Machine identity assigned to a runtime or service |
-| Entitlement | Current right for a tenant/principal to invoke a capability |
-| Quarantine | State preventing a capability, release, or connector from use pending review |
-| Provenance | Evidence of source, build process, and artifact origin |
-| SBOM | Software Bill of Materials describing artifact dependencies |
-| ADR | Architecture Decision Record documenting decision and consequences |
+Generated index. Full definitions, aliases, evidence, relationships, and review metadata live in [SDGDS](../glossary/README.md) and [terms.json](../glossary/terms.json). Do not edit manually.
+
+| Term ID | Canonical term | Type | Domain | Concise definition | Status |
+|---|---|---|---|---|---|
+| HSMART-0011 | Adapter | Technical Term | Distribution & Packaging, Ecosystem & Platform Architecture | Lapisan penerjemah yang menyesuaikan kontrak, protokol, autentikasi, atau perilaku client spesifik-platform ke interface kanonis tanpa mengubah definisi capability sumber. | Canonical |
+| HSMART-0014 | Adaptive Synchronization | Process | Synchronization & Lifecycle, Governance & Policy, Evaluation & Assurance | Proses rekonsiliasi desired state dan observed state yang menyesuaikan validasi, approval, rollout, dan rollback berdasarkan risiko, kompatibilitas, kebijakan, serta bukti. | Canonical |
+| HSMART-0020 | Architecture Decision Record (ADR) | Artifact/Schema | Governance & Policy, Ecosystem & Platform Architecture, Documentation & Knowledge | Dokumen terstruktur yang merekam konteks, keputusan arsitektur, alternatif, alasan, konsekuensi, dan status keputusan agar perubahan memiliki dasar yang dapat ditelusuri. | Canonical |
+| HSMART-0005 | Canonical Manifest | Artifact/Schema | Registry & Capability, Data & Contracts | Kontrak metadata platform-netral yang mendeskripsikan capability agar dapat diidentifikasi, divalidasi, ditemukan, diberi kebijakan, dan diproses konsisten oleh registry serta sistem distribusi. | Canonical |
+| HSMART-0004 | Capability | Technical Term | Registry & Capability, Orchestration & Workflow | Unit fungsional AI yang dapat diidentifikasi, didaftarkan, diberi metadata, divalidasi, dirilis, ditemukan, diotorisasi, dijalankan, dievaluasi, dan disinkronkan. Bentuknya dapat berupa skill, plugin, agent, tool, wor... | Canonical |
+| HSMART-0006 | Capability ID | Technical Term | Registry & Capability, Data & Contracts | Identitas global yang stabil untuk satu capability dan tidak berubah hanya karena capability menerbitkan versi baru. | Canonical |
+| HSMART-0007 | Control Plane | Architecture Concept | Ecosystem & Platform Architecture, Governance & Policy, Identity & Access | Bidang logis yang menangani identitas, governance, registry, lifecycle release, policy, entitlement, dan kontrol sinkronisasi. | Canonical |
+| HSMART-0009 | Data Plane | Architecture Concept | Data & Contracts, Runtime & Execution | Bidang logis yang mengelola transfer artefak, transport request/response, delivery event, dan perpindahan data yang telah disetujui. | Canonical |
+| HSMART-0012 | Desired State | Technical Term | Synchronization & Lifecycle, Runtime & Execution | Representasi versi atau konfigurasi capability yang menurut policy dan deklarasi pengelola seharusnya dijalankan target tertentu. | Canonical |
+| HSMART-0022 | Distribution Gateway | System Component | Distribution & Packaging, Ecosystem & Platform Architecture, Identity & Access | Komponen yang menyediakan discovery dan invocation capability melalui Remote MCP, REST/HTTP, SDK, webhook/event, serta platform adapters dengan authentication dan policy enforcement. | Canonical |
+| HSMART-0015 | Entitlement | Governance Term | Identity & Access, Governance & Policy, Distribution & Packaging | Hak terkontrol yang mengizinkan principal atau tenant menggunakan capability tertentu dalam scope, periode, lingkungan, dan batas yang ditentukan. | Canonical |
+| HSMART-0023 | Evaluation & Assurance | System Component | Evaluation & Assurance, Governance & Policy, Security & Operations | Domain yang melakukan functional, security, compatibility, regression, dan release-gate evaluation serta menyimpan evidence untuk keputusan lifecycle. | Canonical |
+| HSMART-0008 | Execution Plane | Architecture Concept | Runtime & Execution, Ecosystem & Platform Architecture | Bidang logis yang menangani invocation dispatch, scheduling worker, sandbox/resource control, eksekusi capability, hasil, dan telemetry runtime. | Canonical |
+| HSMART-0001 | HSMART | Acronym | Ecosystem & Platform Architecture, Cross-Ecosystem | Platform infrastruktur ekosistem AI universal untuk mendaftarkan, mengatur, mendistribusikan, menjalankan, mengevaluasi, dan menyinkronkan capability AI lintas platform dan lingkungan deployment. | Canonical |
+| HSMART-0002 | Hypersystem Orchestrator | System Component | Ecosystem & Platform Architecture, Orchestration & Workflow, Cross-Ecosystem | Repository/arsitektur pusat yang mengelola katalog identitas plugin, arsitektur dan governance lintas proyek, kontrak integrasi, dependensi, kompatibilitas, distribusi, serta referensi source repository. Setiap plugin... | Canonical |
+| HSMART-0010 | Model Context Protocol (MCP) | Acronym | Distribution & Packaging, Ecosystem & Platform Architecture | Protokol interoperabilitas untuk menghubungkan aplikasi AI dengan server penyedia tools dan/atau context melalui kontrak komunikasi terstruktur. | Canonical |
+| HSMART-0013 | Observed State | Technical Term | Synchronization & Lifecycle, Runtime & Execution, Evaluation & Assurance | Representasi versi atau konfigurasi yang benar-benar teramati pada target berdasarkan bukti runtime, health check, atau laporan tervalidasi. | Canonical |
+| HSMART-0017 | Provenance | Technical Term | Registry & Capability, Security & Operations, Evaluation & Assurance | Jejak bukti dari mana source dan artifact berasal, siapa publisher-nya, bagaimana build dilakukan, commit apa yang digunakan, dan bagaimana artifact dapat diverifikasi. | Canonical |
+| HSMART-0025 | Publisher | Role/Actor | Registry & Capability, Governance & Policy, Security & Operations | Orang atau organisasi yang identitasnya diverifikasi dan diberi kewenangan menerbitkan capability atau release dalam namespace tertentu. | Canonical |
+| HSMART-0018 | Quarantine | Governance Term | Security & Operations, Governance & Policy, Registry & Capability | Status isolasi yang mencegah capability, release, artifact, atau connector digunakan sementara menunggu review, investigasi, verifikasi, atau keputusan otorisasi. | Canonical |
+| HSMART-0003 | SDGDS | System Component | Documentation & Knowledge, Data & Contracts, Cross-Ecosystem | Sistem pengelolaan terminologi kanonis lintas HSMART dan Hypersystem-Orchestrator. Menyimpan identitas istilah, definisi berlapis, etimologi, konteks, analogi, alasan penggunaan, sumber, perspektif ahli terverifikasi,... | Proposed |
+| HSMART-0019 | Software Bill of Materials (SBOM) | Acronym | Security & Operations, Evaluation & Assurance, Registry & Capability | Daftar terstruktur komponen perangkat lunak, paket, versi, dan relasi dependensi yang menyusun artifact atau release. | Canonical |
+| HSMART-0024 | Tenant | Technical Term | Identity & Access, Governance & Policy, Security & Operations | Boundary isolasi logis yang mengikat data, principal, konfigurasi, entitlement, quota, invocation, dan audit pada organisasi atau environment konsumen. | Canonical |
+| HSMART-0021 | Universal Capability Registry | System Component | Registry & Capability, Data & Contracts, Ecosystem & Platform Architecture | Domain/layanan yang mengelola stable capability identities, manifests, versions, dependencies, interfaces, permissions, provenance, dan release channels. | Canonical |
+| HSMART-0016 | Workload Identity | Technical Term | Identity & Access, Security & Operations, Runtime & Execution | Identitas mesin yang dilekatkan pada service, worker, runtime, atau workload untuk mengautentikasi dirinya dan memperoleh akses terikat principal, audience, scope, serta policy. | Canonical |
+
+_Generated from SDGDS dataset version 0.1.0._

@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDGDS Terminology Registry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dataset",
+    "dataset_version",
+    "terms"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "dataset": {
+      "const": "HSMART-SDGDS"
+    },
+    "dataset_version": {
+      "type": "string"
+    },
+    "source_of_truth": {
+      "type": "string"
+    },
+    "last_curated": {
+      "type": "string",
+      "format": "date"
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/term"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "term": {
+      "type": "object",
+      "required": [
+        "term_id",
+        "slug",
+        "term",
+        "aliases",
+        "term_type",
+        "domains",
+        "status",
+        "language",
+        "confidence",
+        "verification",
+        "etymology",
+        "terminological_definition",
+        "general_meaning",
+        "plain_language_explanation",
+        "analogy",
+        "why_this_term",
+        "operational_context",
+        "usage_examples",
+        "boundaries",
+        "expert_perspectives",
+        "related_term_ids",
+        "sources",
+        "last_reviewed",
+        "version"
+      ],
+      "properties": {
+        "term_id": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]+-[0-9]{4,}$"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "term": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expansion": {
+          "type": "string"
+        },
+        "term_type": {
+          "enum": [
+            "Acronym",
+            "Architecture Concept",
+            "Technical Term",
+            "Governance Term",
+            "System Component",
+            "Process",
+            "Artifact/Schema",
+            "Role/Actor"
+          ]
+        },
+        "domains": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "Canonical",
+            "Proposed",
+            "Needs Review",
+            "Deprecated",
+            "Historical"
+          ]
+        },
+        "language": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "English",
+              "Indonesian",
+              "Mixed"
+            ]
+          }
+        },
+        "confidence": {
+          "enum": [
+            "High",
+            "Medium",
+            "Low",
+            "Unverified"
+          ]
+        },
+        "verification": {
+          "enum": [
+            "Verified against internal source",
+            "Externally verified",
+            "Needs review",
+            "Unverified"
+          ]
+        },
+        "etymology": {
+          "type": "string"
+        },
+        "terminological_definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "general_meaning": {
+          "type": "string"
+        },
+        "plain_language_explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "analogy": {
+          "type": "string"
+        },
+        "why_this_term": {
+          "type": "string"
+        },
+        "operational_context": {
+          "type": "string"
+        },
+        "usage_examples": {
+          "type": "string"
+        },
+        "boundaries": {
+          "type": "string"
+        },
+        "expert_perspectives": {
+          "type": "string"
+        },
+        "related_term_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "url",
+              "role"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "role": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

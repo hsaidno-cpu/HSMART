@@ -1,0 +1,1252 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "HSMART-SDGDS",
+  "dataset_version": "0.1.0",
+  "source_of_truth": "docs/glossary/terms.json",
+  "last_curated": "2026-11-23",
+  "terms": [
+    {
+      "term_id": "HSMART-0011",
+      "slug": "adapter",
+      "term": "Adapter",
+      "aliases": [
+        "Platform adapter",
+        "Protocol adapter"
+      ],
+      "expansion": "Translation layer for platform-specific protocol or client behavior",
+      "term_type": "Technical Term",
+      "domains": [
+        "Distribution & Packaging",
+        "Ecosystem & Platform Architecture"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata 'adapter' berasal dari gagasan adaptasi/penyesuaian; dalam rekayasa perangkat lunak menjadi pola integrasi.",
+      "terminological_definition": "Lapisan penerjemah yang menyesuaikan kontrak, protokol, autentikasi, atau perilaku client spesifik-platform ke interface kanonis tanpa mengubah definisi capability sumber.",
+      "general_meaning": "Adapter membuat dua sistem dengan interface berbeda dapat bekerja bersama.",
+      "plain_language_explanation": "Penerjemah antarformat dan aturan teknis.",
+      "analogy": "Seperti adaptor listrik atau penerjemah bahasa: konektor disesuaikan, tetapi perangkat asal tetap sama.",
+      "why_this_term": "Perbedaan tool schema, auth, refresh, dan client behavior diserap adapter tanpa mencemari core architecture.",
+      "operational_context": "Dapat menangani authentication handoff, schema conversion, client refresh, transport mapping, dan error normalization.",
+      "usage_examples": "Adapter AI client menerjemahkan capability contract menjadi format tools yang dimengerti client tersebut.",
+      "boundaries": "Bukan capability sumber, bukan izin akses, dan tidak boleh mengubah semantics atau menghapus kontrol keamanan.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0010",
+        "HSMART-0015",
+        "HSMART-0022"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0014",
+      "slug": "adaptive-synchronization",
+      "term": "Adaptive Synchronization",
+      "aliases": [
+        "Adaptive Sync",
+        "Adaptive synchronization engine"
+      ],
+      "expansion": "Risk- and policy-aware reconciliation of desired and observed state",
+      "term_type": "Process",
+      "domains": [
+        "Synchronization & Lifecycle",
+        "Governance & Policy",
+        "Evaluation & Assurance"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'adaptive' (menyesuaikan menurut kondisi) dan 'synchronization' (penyelarasan keadaan). Adaptive Sync adalah alias ringkas.",
+      "terminological_definition": "Proses rekonsiliasi desired state dan observed state yang menyesuaikan validasi, approval, rollout, dan rollback berdasarkan risiko, kompatibilitas, kebijakan, serta bukti.",
+      "general_meaning": "Synchronization menyelaraskan keadaan; adaptive berarti strategi penyelarasan berubah sesuai konteks.",
+      "plain_language_explanation": "Bukan menyalin versi terbaru ke semua target. Sistem menilai perubahan, memeriksa keamanan dan kompatibilitas, lalu menentukan langkah sesuai risiko.",
+      "analogy": "Seperti dokter yang tidak memberi dosis identik kepada semua pasien: keputusan bergantung pada kondisi dan bukti.",
+      "why_this_term": "Menghindari forced update yang merusak kompatibilitas, izin, data, atau operasi target.",
+      "operational_context": "Tahapnya meliputi deteksi perubahan, provenance verification, risk classification, compatibility/evaluation, approval, staged rollout, health verification, promote/rollback, dan audit.",
+      "usage_examples": "Perubahan dokumentasi dapat divalidasi otomatis; perubahan permission, schema, atau execution behavior memerlukan kontrol lebih ketat.",
+      "boundaries": "Bukan file sync biasa, bukan jaminan semua target selalu versi terbaru, dan bukan kewenangan model AI melewati approval/security gate.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0012",
+        "HSMART-0013",
+        "HSMART-0017"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/synchronization/ADAPTIVE-SYNCHRONIZATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0020",
+      "slug": "architecture-decision-record-adr",
+      "term": "Architecture Decision Record (ADR)",
+      "aliases": [
+        "ADR",
+        "Architecture Decision"
+      ],
+      "expansion": "Architecture Decision Record",
+      "term_type": "Artifact/Schema",
+      "domains": [
+        "Governance & Policy",
+        "Ecosystem & Platform Architecture",
+        "Documentation & Knowledge"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Akronim dari 'Architecture Decision Record'; dokumen untuk merekam keputusan arsitektur dan konsekuensinya.",
+      "terminological_definition": "Dokumen terstruktur yang merekam konteks, keputusan arsitektur, alternatif, alasan, konsekuensi, dan status keputusan agar perubahan memiliki dasar yang dapat ditelusuri.",
+      "general_meaning": "Catatan resmi tentang keputusan dan alasan yang mendasarinya.",
+      "plain_language_explanation": "ADR menjawab mengapa keputusan teknis diambil, bukan hanya apa yang akhirnya dibangun.",
+      "analogy": "Seperti catatan keputusan desain bangunan: memuat batasan, pilihan yang ditolak, dan konsekuensi pilihan final.",
+      "why_this_term": "Mencegah keputusan penting hilang dalam percakapan dan memungkinkan evaluasi ulang saat asumsi berubah.",
+      "operational_context": "Menjadi rujukan implementation contract, review, roadmap, migration, dan governance.",
+      "usage_examples": "ADR mencatat pemilihan database, pola deployment, atau pemisahan control plane dan execution plane.",
+      "boundaries": "Bukan sekadar catatan ide dan bukan bukti implementasi sukses. Status accepted tidak otomatis berarti production-ready.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0007",
+        "HSMART-0008",
+        "HSMART-0003"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/DECISION-LOG.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0005",
+      "slug": "canonical-manifest",
+      "term": "Canonical Manifest",
+      "aliases": [
+        "Capability manifest"
+      ],
+      "expansion": "Manifest metadata platform-netral untuk capability",
+      "term_type": "Artifact/Schema",
+      "domains": [
+        "Registry & Capability",
+        "Data & Contracts"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'canonical' (rujukan yang ditetapkan) dan 'manifest' (deklarasi/daftar metadata).",
+      "terminological_definition": "Kontrak metadata platform-netral yang mendeskripsikan capability agar dapat diidentifikasi, divalidasi, ditemukan, diberi kebijakan, dan diproses konsisten oleh registry serta sistem distribusi.",
+      "general_meaning": "Manifest adalah dokumen terstruktur yang menyatakan metadata suatu objek; canonical berarti menjadi rujukan utama.",
+      "plain_language_explanation": "Formulir standar yang menjelaskan capability dalam format yang dipahami sistem, bukan instruksi menjalankannya.",
+      "analogy": "Seperti paspor dan lembar spesifikasi alat: identitas, asal, fitur, dan batasnya dicatat seragam.",
+      "why_this_term": "Mencegah tiap plugin menggunakan format deskripsi berbeda dan memungkinkan validasi otomatis.",
+      "operational_context": "Menjadi input registry, schema validation, dependency resolution, distribution packaging, dan release audit.",
+      "usage_examples": "Metadata capability seperti nama, publisher, version, interfaces, dependencies, permissions, dan source provenance.",
+      "boundaries": "Manifest bukan executable artifact, tidak membuktikan keamanan dengan sendirinya, dan tidak memberikan entitlement otomatis.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0004",
+        "HSMART-0006",
+        "HSMART-0017"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/contracts/capability-manifest.schema.json",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0004",
+      "slug": "capability",
+      "term": "Capability",
+      "aliases": [
+        "AI capability",
+        "Registerable capability"
+      ],
+      "expansion": "Unit fungsional AI yang dapat diregistrasi dan dikelola",
+      "term_type": "Technical Term",
+      "domains": [
+        "Registry & Capability",
+        "Orchestration & Workflow"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata Inggris 'capability' dibentuk dari 'capable' dan akhiran '-ity'. Dalam HSMART, maknanya lebih spesifik daripada arti umum kemampuan.",
+      "terminological_definition": "Unit fungsional AI yang dapat diidentifikasi, didaftarkan, diberi metadata, divalidasi, dirilis, ditemukan, diotorisasi, dijalankan, dievaluasi, dan disinkronkan. Bentuknya dapat berupa skill, plugin, agent, tool, workflow, atau orchestrator.",
+      "general_meaning": "Kemampuan atau kapasitas untuk melakukan sesuatu.",
+      "plain_language_explanation": "Satu unit kemampuan yang bisa dikenali dan dikelola sebagai objek tersendiri, bukan hanya ide atau instruksi bebas.",
+      "analogy": "Seperti alat di bengkel: setiap alat punya identitas, spesifikasi, izin penggunaan, versi, dan cara pemeriksaan.",
+      "why_this_term": "Abstraksi netral memungkinkan banyak jenis komponen AI menggunakan lifecycle dan kontrak registry yang sama tanpa menyamakan implementasi internal.",
+      "operational_context": "Direpresentasikan melalui capability ID dan canonical manifest; dapat memiliki versi, artefak, dependensi, interface, permission, dan provenance.",
+      "usage_examples": "Skill analisis, plugin, agent khusus, tool API, workflow, atau orchestrator didaftarkan sebagai capability.",
+      "boundaries": "Tidak setiap teks prompt otomatis merupakan capability terdaftar. Capability terkelola harus memenuhi identitas, metadata, dan lifecycle contract.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0005",
+        "HSMART-0006",
+        "HSMART-0021"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0006",
+      "slug": "capability-id",
+      "term": "Capability ID",
+      "aliases": [
+        "Stable capability identity"
+      ],
+      "expansion": "Stable global identity of a capability",
+      "term_type": "Technical Term",
+      "domains": [
+        "Registry & Capability",
+        "Data & Contracts"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'capability' dan 'ID' (identifier). ID merupakan singkatan umum untuk identifier.",
+      "terminological_definition": "Identitas global yang stabil untuk satu capability dan tidak berubah hanya karena capability menerbitkan versi baru.",
+      "general_meaning": "ID adalah nilai pembeda satu objek dari objek lain.",
+      "plain_language_explanation": "Nama atau nomor versi dapat berubah, tetapi ID tetap menunjuk capability yang sama.",
+      "analogy": "Seperti nomor rangka kendaraan: warna dan komponennya dapat berubah, tetapi identitas dasarnya tetap.",
+      "why_this_term": "Memisahkan identitas capability dari versi release, nama tampilan, dan lokasi repository agar relasi serta audit tidak rapuh.",
+      "operational_context": "Digunakan sebagai key pada registry, version records, dependency, entitlement, deployment, invocation, dan audit.",
+      "usage_examples": "Satu capability\\_id dapat memiliki beberapa capability\\_versions.",
+      "boundaries": "Bukan versi release, bukan display name, dan bukan checksum artefak.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0004",
+        "HSMART-0005",
+        "HSMART-0017"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0007",
+      "slug": "control-plane",
+      "term": "Control Plane",
+      "aliases": [
+        "Control layer"
+      ],
+      "expansion": "Logical plane untuk identitas, governance, registry, release, dan synchronization control",
+      "term_type": "Architecture Concept",
+      "domains": [
+        "Ecosystem & Platform Architecture",
+        "Governance & Policy",
+        "Identity & Access"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Komposisi istilah 'control' dan 'plane'. Plane berarti lapisan tanggung jawab logis, bukan bidang geometris.",
+      "terminological_definition": "Bidang logis yang menangani identitas, governance, registry, lifecycle release, policy, entitlement, dan kontrol sinkronisasi.",
+      "general_meaning": "Lapisan yang menentukan konfigurasi, policy, dan pengaturan sistem.",
+      "plain_language_explanation": "Bagian yang memutuskan apa yang diizinkan, versi apa yang seharusnya aktif, dan kebijakan mana yang berlaku.",
+      "analogy": "Seperti pusat kendali bandara: mengatur rute, izin, dan koordinasi, bukan menjadi pesawat yang terbang.",
+      "why_this_term": "Memisahkan keputusan kontrol dan kebijakan dari eksekusi capability yang bisa berasal dari publisher berbeda.",
+      "operational_context": "Menangani pendaftaran, kebijakan akses, release approvals, desired-state changes, dan synchronization policies.",
+      "usage_examples": "Access & Identity memverifikasi principal; Registry mengelola identity dan versi capability.",
+      "boundaries": "Bukan runtime worker, bukan data transfer path, dan tidak mengharuskan semua komponen ditempatkan pada server terpisah.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0008",
+        "HSMART-0009",
+        "HSMART-0012"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0009",
+      "slug": "data-plane",
+      "term": "Data Plane",
+      "aliases": [
+        "Data transfer plane"
+      ],
+      "expansion": "Logical plane untuk transfer artefak dan data invocation",
+      "term_type": "Architecture Concept",
+      "domains": [
+        "Data & Contracts",
+        "Runtime & Execution"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'data' dan 'plane', dipakai untuk menandai jalur pemindahan data.",
+      "terminological_definition": "Bidang logis yang mengelola transfer artefak, transport request/response, delivery event, dan perpindahan data yang telah disetujui.",
+      "general_meaning": "Data plane adalah jalur yang membawa data aktual antarkomponen.",
+      "plain_language_explanation": "Bagian yang memindahkan isi dan hasil, bukan yang memutuskan siapa yang boleh mengaksesnya.",
+      "analogy": "Seperti jaringan pipa: control plane mengatur katup dan izin; data plane mengalirkan air.",
+      "why_this_term": "Memisahkan keputusan policy dari transport aktual agar jalur data dapat dioptimalkan dan diawasi.",
+      "operational_context": "Meliputi artifact transfer, invocation payload transport, event delivery, dan data movement yang policy-approved.",
+      "usage_examples": "Pengunduhan artefak terverifikasi, pengiriman request ke runtime, dan pengembalian hasil.",
+      "boundaries": "Tidak menetapkan entitlement sendiri dan tidak boleh mengabaikan tenant isolation, klasifikasi data, atau retention policy.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0007",
+        "HSMART-0008",
+        "HSMART-0015"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0012",
+      "slug": "desired-state",
+      "term": "Desired State",
+      "aliases": [
+        "Intended state",
+        "Target state"
+      ],
+      "expansion": "The version/configuration a target is intended to run",
+      "term_type": "Technical Term",
+      "domains": [
+        "Synchronization & Lifecycle",
+        "Runtime & Execution"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'desired' (yang diinginkan/ditetapkan) dan 'state' (keadaan).",
+      "terminological_definition": "Representasi versi atau konfigurasi capability yang menurut policy dan deklarasi pengelola seharusnya dijalankan target tertentu.",
+      "general_meaning": "Kondisi sasaran yang ditetapkan untuk sistem.",
+      "plain_language_explanation": "Kondisi yang diharapkan, bukan bukti kondisi aktual.",
+      "analogy": "Seperti tujuan perjalanan pada GPS: tujuan ditetapkan, tetapi kendaraan belum tentu sudah sampai.",
+      "why_this_term": "Rekonsiliasi memerlukan sasaran eksplisit agar update tidak bergantung pada tebakan atau pemindaian versi saja.",
+      "operational_context": "Disimpan terpisah dari observed state dan diperbarui melalui kebijakan atau keputusan release/synchronization.",
+      "usage_examples": "Target runtime ditetapkan menjalankan capability v2.4.1 pada staging.",
+      "boundaries": "Bukan bukti deployment berhasil, bukan observed state, dan bukan perintah memaksa update tanpa policy.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0013",
+        "HSMART-0014"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/synchronization/ADAPTIVE-SYNCHRONIZATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0022",
+      "slug": "distribution-gateway",
+      "term": "Distribution Gateway",
+      "aliases": [
+        "Universal Distribution Gateway",
+        "Gateway"
+      ],
+      "expansion": "Gateway exposing capabilities through protocols and adapters",
+      "term_type": "System Component",
+      "domains": [
+        "Distribution & Packaging",
+        "Ecosystem & Platform Architecture",
+        "Identity & Access"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'distribution' (penyaluran) dan 'gateway' (gerbang perlintasan).",
+      "terminological_definition": "Komponen yang menyediakan discovery dan invocation capability melalui Remote MCP, REST/HTTP, SDK, webhook/event, serta platform adapters dengan authentication dan policy enforcement.",
+      "general_meaning": "Gateway adalah titik masuk terkontrol antara client dan layanan di belakangnya.",
+      "plain_language_explanation": "Gerbang yang menerima permintaan dari beragam AI client, memeriksanya, lalu mengarahkan ke layanan yang sesuai.",
+      "analogy": "Seperti terminal terpadu yang menerima penumpang, memeriksa tiket, dan mengarahkan ke jalur yang benar.",
+      "why_this_term": "Mengurangi integrasi langsung berbeda untuk setiap platform sambil menjaga kontrak akses dan observability.",
+      "operational_context": "Menangani protocol, authentication handoff, routing, rate limiting, request validation, dan transport ke registry/runtime.",
+      "usage_examples": "Client mengakses capability via MCP atau REST dengan hak akses tenant dan scope.",
+      "boundaries": "Bukan registry, bukan worker executor, bukan marketplace, dan bukan satu-satunya tempat menyimpan identity policy.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0010",
+        "HSMART-0011",
+        "HSMART-0015",
+        "HSMART-0008"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0015",
+      "slug": "entitlement",
+      "term": "Entitlement",
+      "aliases": [
+        "Capability entitlement",
+        "Usage entitlement"
+      ],
+      "expansion": "Current right for a tenant/principal to invoke a capability",
+      "term_type": "Governance Term",
+      "domains": [
+        "Identity & Access",
+        "Governance & Policy",
+        "Distribution & Packaging"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata 'entitlement' berasal dari 'entitle' dan akhiran '-ment'; di sini berarti hak yang diberikan dan masih berlaku.",
+      "terminological_definition": "Hak terkontrol yang mengizinkan principal atau tenant menggunakan capability tertentu dalam scope, periode, lingkungan, dan batas yang ditentukan.",
+      "general_meaning": "Hak atau kelayakan untuk mengakses layanan atau manfaat.",
+      "plain_language_explanation": "Tiket izin yang menjelaskan siapa boleh memakai apa, pada kondisi apa, dan sampai kapan.",
+      "analogy": "Seperti tiket masuk: harus cocok dengan acara, zona, waktu, dan pemegangnya.",
+      "why_this_term": "Memisahkan authentication (siapa kamu) dari authorization (apa yang boleh kamu lakukan) serta dari hak penggunaan produk/komersial.",
+      "operational_context": "Diperiksa oleh Access & Identity sebelum invocation; dapat terikat tenant, capability, scope, masa berlaku, quota, dan status revocation.",
+      "usage_examples": "Tenant memiliki entitlement untuk memanggil capability tertentu dengan scope read selama periode tertentu.",
+      "boundaries": "Bukan API key, bukan login, dan bukan sekadar subscription aktif. Tidak otomatis berarti capability aman atau tersedia.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0016",
+        "HSMART-0024",
+        "HSMART-0022"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0023",
+      "slug": "evaluation-assurance",
+      "term": "Evaluation & Assurance",
+      "aliases": [
+        "Evaluation domain",
+        "Assurance"
+      ],
+      "expansion": "Domain for functional, security, compatibility and release evidence",
+      "term_type": "System Component",
+      "domains": [
+        "Evaluation & Assurance",
+        "Governance & Policy",
+        "Security & Operations"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Evaluation berarti penilaian; assurance membangun keyakinan berdasarkan proses dan bukti.",
+      "terminological_definition": "Domain yang melakukan functional, security, compatibility, regression, dan release-gate evaluation serta menyimpan evidence untuk keputusan lifecycle.",
+      "general_meaning": "Evaluation menilai; assurance memastikan proses dan bukti memenuhi kriteria.",
+      "plain_language_explanation": "Laboratorium pengujian dan berkas bukti untuk mengetahui apakah release memenuhi kriteria.",
+      "analogy": "Seperti inspeksi kendaraan: hasil tes dan bukti dicatat sebelum kendaraan dinyatakan layak digunakan.",
+      "why_this_term": "Menghindari keputusan release hanya berdasarkan klaim pembuat atau tes yang tidak relevan.",
+      "operational_context": "Meliputi test suites, evaluation runs, evidence artifacts, risk assessments, dan release approvals.",
+      "usage_examples": "Schema, compatibility, regression, dan security checks dijalankan sebelum release dipromosikan.",
+      "boundaries": "Bukan jaminan keamanan absolut, bukan persetujuan manusia otomatis, dan bukan implementer yang mengesahkan pekerjaannya sendiri tanpa independensi.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0017",
+        "HSMART-0018",
+        "HSMART-0020"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0008",
+      "slug": "execution-plane",
+      "term": "Execution Plane",
+      "aliases": [
+        "Execution layer"
+      ],
+      "expansion": "Logical plane untuk dispatch dan eksekusi capability",
+      "term_type": "Architecture Concept",
+      "domains": [
+        "Runtime & Execution",
+        "Ecosystem & Platform Architecture"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'execution' dan 'plane'; plane menandai lapisan tanggung jawab arsitektur.",
+      "terminological_definition": "Bidang logis yang menangani invocation dispatch, scheduling worker, sandbox/resource control, eksekusi capability, hasil, dan telemetry runtime.",
+      "general_meaning": "Execution berarti pelaksanaan tindakan atau proses.",
+      "plain_language_explanation": "Bagian yang menjalankan pekerjaan setelah identitas, izin, dan kebijakan diperiksa.",
+      "analogy": "Seperti bengkel produksi: pusat administrasi memberikan job dan batas keselamatan, bengkel menjalankan pekerjaan.",
+      "why_this_term": "Memisahkan eksekusi yang berpotensi tidak tepercaya dari layanan kontrol dan governance.",
+      "operational_context": "Meliputi invocation dispatch, worker scheduling, sandbox, resource limits, execution, dan result handling.",
+      "usage_examples": "Worker menjalankan capability versi tertentu dalam sandbox dan mengirim status hasil.",
+      "boundaries": "Bukan Control Plane, bukan otoritas admin, dan bukan seluruh backend secara generik.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0007",
+        "HSMART-0009",
+        "HSMART-0016"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0001",
+      "slug": "hsmart",
+      "term": "HSMART",
+      "aliases": [
+        "Hypersystem Synchronization & Management Architecture for Revolutionary Technology"
+      ],
+      "expansion": "Hypersystem Synchronization & Management Architecture for Revolutionary Technology",
+      "term_type": "Acronym",
+      "domains": [
+        "Ecosystem & Platform Architecture",
+        "Cross-Ecosystem"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Akronim yang dibentuk dari huruf awal nama resmi proyek; bukan klaim etimologi historis.",
+      "terminological_definition": "Platform infrastruktur ekosistem AI universal untuk mendaftarkan, mengatur, mendistribusikan, menjalankan, mengevaluasi, dan menyinkronkan capability AI lintas platform dan lingkungan deployment.",
+      "general_meaning": "Nama proyek/produk untuk lapisan infrastruktur dan governance yang menghubungkan capability AI.",
+      "plain_language_explanation": "Fondasi bersama yang mengatur katalog, akses, distribusi, eksekusi, evaluasi, dan pembaruan komponen AI yang tetap dapat dimiliki pihak berbeda.",
+      "analogy": "Seperti sistem jalan tol dan pengatur lalu lintas: ia menyediakan jalur, aturan akses, dan pengawasan, bukan membuat semua kendaraan.",
+      "why_this_term": "Banyak publisher dan platform memerlukan identitas, aturan, akses, distribusi, dan sinkronisasi yang konsisten tanpa melebur semua capability menjadi satu produk atau repository.",
+      "operational_context": "Mencakup Universal Capability Registry, Distribution Gateway, Execution Runtime, Adaptive Synchronization, Access & Identity, Evaluation & Assurance, Marketplace, dan Observability & Governance.",
+      "usage_examples": "Mendaftarkan capability, menerbitkan release immutable, memeriksa entitlement, mengirim invocation via MCP/REST, lalu merekonsiliasi desired state dan observed state.",
+      "boundaries": "Bukan model AI, bukan satu plugin, bukan marketplace semata. Desain arsitektur tidak membuktikan bahwa seluruh layanan sudah beroperasi.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0002",
+        "HSMART-0004",
+        "HSMART-0021",
+        "HSMART-0022"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/README.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0002",
+      "slug": "hypersystem-orchestrator",
+      "term": "Hypersystem Orchestrator",
+      "aliases": [
+        "Hypersystem-Orchestrator",
+        "Parent ecosystem repository"
+      ],
+      "expansion": "Nama arsitektur dan repository pusat ekosistem plugin, skill, agent, dan workflow",
+      "term_type": "System Component",
+      "domains": [
+        "Ecosystem & Platform Architecture",
+        "Orchestration & Workflow",
+        "Cross-Ecosystem"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'hyper', 'system', dan 'orchestrator'. Ini menjelaskan komposisi nama, sedangkan arti kanonis ditentukan oleh arsitektur ekosistem.",
+      "terminological_definition": "Repository/arsitektur pusat yang mengelola katalog identitas plugin, arsitektur dan governance lintas proyek, kontrak integrasi, dependensi, kompatibilitas, distribusi, serta referensi source repository. Setiap plugin tetap memiliki repository sumber independen.",
+      "general_meaning": "Orchestrator mengoordinasikan beberapa komponen atau proses; dalam ekosistem ini istilah juga menunjuk repository induk tata kelola.",
+      "plain_language_explanation": "Seperti kantor pusat yang menetapkan standar dan mencatat unit-unit mandiri tanpa otomatis memiliki atau menjalankan setiap unit.",
+      "analogy": "Seperti federasi: setiap anggota memiliki operasi dan source sendiri, sedangkan federasi mengelola identitas, aturan bersama, dan standar pertukaran.",
+      "why_this_term": "Menghindari katalog, routing, governance, dan kontrak lintas proyek berkembang tanpa koordinasi, sambil mempertahankan kemandirian setiap plugin.",
+      "operational_context": "Mengelola plugin identities, repository pins, catalog metadata, compatibility matrix, cross-plugin routing, distribution eligibility dan kontrak ekosistem.",
+      "usage_examples": "Mendaftarkan identitas plugin, mengikat canonical source repository, menetapkan posisi dan membedakan source yang siap distribusi dari yang belum siap.",
+      "boundaries": "Bukan sinonim HSMART. Hypersystem Orchestrator mengatur ekosistem dan repository; HSMART adalah platform infrastruktur untuk registry, gateway, runtime, evaluation, dan synchronization. Bukan monorepo.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0001",
+        "HSMART-0004",
+        "HSMART-0021"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/README.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/architecture/ECOSYSTEM-ARCHITECTURE.md](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/architecture/ECOSYSTEM-ARCHITECTURE.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0010",
+      "slug": "model-context-protocol-mcp",
+      "term": "Model Context Protocol (MCP)",
+      "aliases": [
+        "MCP"
+      ],
+      "expansion": "Model Context Protocol",
+      "term_type": "Acronym",
+      "domains": [
+        "Distribution & Packaging",
+        "Ecosystem & Platform Architecture"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Akronim dari 'Model Context Protocol'. Sejarah dan makna normatif protokol harus mengacu ke spesifikasi resmi.",
+      "terminological_definition": "Protokol interoperabilitas untuk menghubungkan aplikasi AI dengan server penyedia tools dan/atau context melalui kontrak komunikasi terstruktur.",
+      "general_meaning": "Protocol adalah seperangkat aturan komunikasi antarsistem.",
+      "plain_language_explanation": "Aturan bersama agar aplikasi AI dapat meminta kemampuan atau konteks dari server dengan cara terstruktur.",
+      "analogy": "Seperti standar colokan dan komunikasi perangkat: alat dari vendor berbeda tetap dapat berkomunikasi melalui aturan bersama.",
+      "why_this_term": "Mengurangi integrasi khusus per platform dan menyediakan salah satu jalur interoperabilitas utama dalam HSMART.",
+      "operational_context": "HSMART menempatkan Remote MCP sebagai interface distribusi berdampingan dengan REST/HTTP, SDK, dan event.",
+      "usage_examples": "AI client menemukan tool pada MCP server lalu mengirim invocation sesuai kontrak protokol.",
+      "boundaries": "Bukan model AI, bukan plugin, bukan registry, bukan jaminan keamanan, dan bukan satu-satunya protokol HSMART.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0011",
+        "HSMART-0022",
+        "HSMART-0004"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0013",
+      "slug": "observed-state",
+      "term": "Observed State",
+      "aliases": [
+        "Actual state",
+        "Observed runtime state"
+      ],
+      "expansion": "The version/configuration verified as actually running",
+      "term_type": "Technical Term",
+      "domains": [
+        "Synchronization & Lifecycle",
+        "Runtime & Execution",
+        "Evaluation & Assurance"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'observed' (diamati/dibuktikan) dan 'state' (keadaan).",
+      "terminological_definition": "Representasi versi atau konfigurasi yang benar-benar teramati pada target berdasarkan bukti runtime, health check, atau laporan tervalidasi.",
+      "general_meaning": "Kondisi aktual yang diketahui melalui observasi.",
+      "plain_language_explanation": "Catatan apa yang sedang berjalan, bukan apa yang kita inginkan berjalan.",
+      "analogy": "Seperti posisi GPS aktual: menunjukkan posisi sekarang meskipun tujuan perjalanan berbeda.",
+      "why_this_term": "Memungkinkan sistem mendeteksi drift, deployment gagal, target offline, atau ketidaksesuaian kondisi aktual.",
+      "operational_context": "Direkam dengan timestamp, target identity, capability version, health, dan evidence sesuai kontrak.",
+      "usage_examples": "Desired version v2.4.1 tetapi runtime melaporkan observed version v2.3.0.",
+      "boundaries": "Tidak boleh disimpulkan dari desired config; laporan tanpa sumber bukti dan identity tidak otomatis dipercaya.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0012",
+        "HSMART-0014"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/synchronization/ADAPTIVE-SYNCHRONIZATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0017",
+      "slug": "provenance",
+      "term": "Provenance",
+      "aliases": [
+        "Source provenance",
+        "Artifact provenance"
+      ],
+      "expansion": "Evidence of source, build process, and artifact origin",
+      "term_type": "Technical Term",
+      "domains": [
+        "Registry & Capability",
+        "Security & Operations",
+        "Evaluation & Assurance"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Istilah untuk asal-usul dan riwayat pembentukan suatu objek; definisi domain lebih penting daripada klaim etimologi historis.",
+      "terminological_definition": "Jejak bukti dari mana source dan artifact berasal, siapa publisher-nya, bagaimana build dilakukan, commit apa yang digunakan, dan bagaimana artifact dapat diverifikasi.",
+      "general_meaning": "Asal, riwayat, dan proses pembentukan sesuatu.",
+      "plain_language_explanation": "Rantai bukti yang menjawab: file ini datang dari mana, dibuat dari source apa, dan apakah proses build dapat ditelusuri?",
+      "analogy": "Seperti rantai asal barang dari produsen hingga toko, lengkap dengan batch dan sertifikat.",
+      "why_this_term": "Dibutuhkan untuk audit, supply-chain security, reproduktibilitas, verifikasi publisher, dan keputusan release.",
+      "operational_context": "Mencatat source reference, commit, build reference, SBOM, digest, dan signature evidence.",
+      "usage_examples": "Release mengikat repository source, immutable commit, build job, artifact digest, dan SBOM.",
+      "boundaries": "Bukan checksum saja, bukan signature saja, dan bukan jaminan keamanan tanpa pemeriksaan tambahan.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0005",
+        "HSMART-0018",
+        "HSMART-0019"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0025",
+      "slug": "publisher",
+      "term": "Publisher",
+      "aliases": [
+        "Capability publisher",
+        "Verified publisher"
+      ],
+      "expansion": "Verified person or organization authorized to publish a capability",
+      "term_type": "Role/Actor",
+      "domains": [
+        "Registry & Capability",
+        "Governance & Policy",
+        "Security & Operations"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata 'publisher' berasal dari aktivitas publish, yaitu menerbitkan atau memublikasikan.",
+      "terminological_definition": "Orang atau organisasi yang identitasnya diverifikasi dan diberi kewenangan menerbitkan capability atau release dalam namespace tertentu.",
+      "general_meaning": "Pihak yang menerbitkan produk atau informasi.",
+      "plain_language_explanation": "Bukan sekadar pengunggah file: publisher adalah pihak yang memiliki identitas, namespace, dan tanggung jawab atas publikasi.",
+      "analogy": "Seperti penerbit buku yang memiliki identitas, katalog, edisi, dan tanggung jawab publikasi.",
+      "why_this_term": "Menetapkan accountability, source ownership, provenance, dan hak distribusi untuk capability.",
+      "operational_context": "Terhubung dengan organization, namespace, verification status, capability records, dan release provenance.",
+      "usage_examples": "Publisher terverifikasi menerbitkan capability dengan manifest dan artefak bertanda tangan.",
+      "boundaries": "Bukan tenant consumer, tidak otomatis menjadi administrator platform, dan tidak memiliki semua capability yang terdaftar.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0004",
+        "HSMART-0017",
+        "HSMART-0024"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0018",
+      "slug": "quarantine",
+      "term": "Quarantine",
+      "aliases": [
+        "Quarantined release",
+        "Quarantined connector"
+      ],
+      "expansion": "State preventing use pending review",
+      "term_type": "Governance Term",
+      "domains": [
+        "Security & Operations",
+        "Governance & Policy",
+        "Registry & Capability"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata 'quarantine' digunakan dalam keamanan untuk penahanan sementara guna mencegah risiko menyebar.",
+      "terminological_definition": "Status isolasi yang mencegah capability, release, artifact, atau connector digunakan sementara menunggu review, investigasi, verifikasi, atau keputusan otorisasi.",
+      "general_meaning": "Penempatan sementara dalam kondisi terpisah untuk mengendalikan risiko.",
+      "plain_language_explanation": "Komponen mencurigakan tidak langsung dihapus, tetapi ditahan agar tidak digunakan sampai pemeriksaan selesai.",
+      "analogy": "Seperti ruang isolasi barang yang belum lolos pemeriksaan kualitas.",
+      "why_this_term": "Mencegah source, release, atau connector yang belum tepercaya berdampak pada tenant, runtime, atau sistem lain.",
+      "operational_context": "Dapat dipicu signature invalid, provenance tidak lengkap, publisher anomaly, security finding, atau policy violation.",
+      "usage_examples": "Release yang digest-nya tidak cocok dimasukkan ke quarantine dan tidak dapat didistribusikan.",
+      "boundaries": "Bukan sekadar status administratif, bukan delete, dan tidak boleh dilepas tanpa bukti serta otorisasi.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0017",
+        "HSMART-0019",
+        "HSMART-0015"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0003",
+      "slug": "sdgds",
+      "term": "SDGDS",
+      "aliases": [
+        "Smart Dictionary & Glossary Database System"
+      ],
+      "expansion": "Smart Dictionary & Glossary Database System",
+      "term_type": "System Component",
+      "domains": [
+        "Documentation & Knowledge",
+        "Data & Contracts",
+        "Cross-Ecosystem"
+      ],
+      "status": "Proposed",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "Medium",
+      "verification": "Needs review",
+      "etymology": "Akronim yang dibentuk dari nama sistem. Dictionary menekankan lookup makna; glossary menekankan istilah khusus domain; database system menandai registry terstruktur dan tata kelolanya.",
+      "terminological_definition": "Sistem pengelolaan terminologi kanonis lintas HSMART dan Hypersystem-Orchestrator. Menyimpan identitas istilah, definisi berlapis, etimologi, konteks, analogi, alasan penggunaan, sumber, perspektif ahli terverifikasi, relasi, status, versi, dan sinkronisasi dokumentasi.",
+      "general_meaning": "Dictionary memberi arti kata; glossary memberi arti istilah khusus domain. SDGDS menggabungkan keduanya dengan governance data dan provenance.",
+      "plain_language_explanation": "Ensiklopedia teknis internal dengan identitas unik bagi setiap konsep, rujukan bukti, relasi, dan riwayat perubahan.",
+      "analogy": "Seperti kamus, katalog komponen, dan sistem manajemen perubahan dalam satu sistem.",
+      "why_this_term": "Banyak istilah lintas repository dan versi menimbulkan ambiguitas, duplikasi, dan pergeseran makna. SDGDS menjaga satu makna kanonis dan memudahkan onboarding.",
+      "operational_context": "GitHub menjadi source of truth untuk registry JSON, schema, validator, renderer, dan workflow. Notion menjadi mirror untuk discovery, dokumentasi, dan review.",
+      "usage_examples": "Istilah baru diusulkan, dicek duplikasi dan alias, diberi sumber, direview, diterima melalui perubahan GitHub, lalu disinkronkan ke Notion.",
+      "boundaries": "Database dan workflow awal bukan bukti layanan produksi. Sinkronisasi otomatis memerlukan token, database access, GitHub secrets, dan bukti workflow berhasil.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0001",
+        "HSMART-0002"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/GLOSSARY.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0019",
+      "slug": "software-bill-of-materials-sbom",
+      "term": "Software Bill of Materials (SBOM)",
+      "aliases": [
+        "SBOM",
+        "Software BOM"
+      ],
+      "expansion": "Software Bill of Materials",
+      "term_type": "Acronym",
+      "domains": [
+        "Security & Operations",
+        "Evaluation & Assurance",
+        "Registry & Capability"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Akronim SBOM berasal dari 'Software Bill of Materials', analog dengan bill of materials dalam manufaktur.",
+      "terminological_definition": "Daftar terstruktur komponen perangkat lunak, paket, versi, dan relasi dependensi yang menyusun artifact atau release.",
+      "general_meaning": "Bill of Materials adalah daftar komponen pembentuk suatu produk.",
+      "plain_language_explanation": "Daftar isi teknis paket software agar komponen dan dependensinya dapat diketahui.",
+      "analogy": "Seperti daftar bahan produk makanan atau suku cadang kendaraan.",
+      "why_this_term": "Membantu analisis kerentanan, license compliance, supply-chain review, dan keputusan saat dependensi bermasalah.",
+      "operational_context": "Disimpan sebagai evidence yang terikat release/artifact dan digest; digunakan oleh evaluation dan security review.",
+      "usage_examples": "Release menyertakan SBOM untuk mendeskripsikan dependency dan versi library yang dibundel.",
+      "boundaries": "Bukan audit keamanan lengkap, bukan bukti bebas kerentanan, dan akurasinya bergantung pada kelengkapan proses build.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0017",
+        "HSMART-0018"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0024",
+      "slug": "tenant",
+      "term": "Tenant",
+      "aliases": [
+        "Tenant boundary",
+        "Consumer tenant"
+      ],
+      "expansion": "Security and billing boundary for a consumer organization/environment",
+      "term_type": "Technical Term",
+      "domains": [
+        "Identity & Access",
+        "Governance & Policy",
+        "Security & Operations"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Kata 'tenant' berasal dari konsep pihak yang menempati/menyewa ruang; dalam sistem multi-tenant menunjuk boundary pelanggan/organisasi.",
+      "terminological_definition": "Boundary isolasi logis yang mengikat data, principal, konfigurasi, entitlement, quota, invocation, dan audit pada organisasi atau environment konsumen.",
+      "general_meaning": "Ruang kerja atau lingkungan terpisah bagi satu pelanggan/organisasi dalam layanan bersama.",
+      "plain_language_explanation": "Beberapa organisasi memakai platform bersama tanpa boleh melihat atau mengubah data satu sama lain.",
+      "analogy": "Seperti beberapa penyewa gedung: fasilitas bersama, tetapi ruang, akses, dan tagihan masing-masing terpisah.",
+      "why_this_term": "Menjaga isolasi data dan policy, mendukung billing, serta membatasi risiko lintas organisasi.",
+      "operational_context": "Tenant identity diverifikasi pada query dan invocation tenant-scoped; record memiliki tenant context.",
+      "usage_examples": "Satu organisasi memiliki tenant environment development dan production.",
+      "boundaries": "Bukan user, bukan publisher, dan bukan server fisik tersendiri. Isolasi tidak boleh hanya mengandalkan filter tampilan.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0015",
+        "HSMART-0016",
+        "HSMART-0025"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0021",
+      "slug": "universal-capability-registry",
+      "term": "Universal Capability Registry",
+      "aliases": [
+        "Capability Registry",
+        "Registry"
+      ],
+      "expansion": "Registry for stable identities, manifests, versions, dependencies and provenance",
+      "term_type": "System Component",
+      "domains": [
+        "Registry & Capability",
+        "Data & Contracts",
+        "Ecosystem & Platform Architecture"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'universal', 'capability', dan 'registry'. Registry berarti sistem pendaftaran terstruktur, bukan sekadar daftar statis.",
+      "terminological_definition": "Domain/layanan yang mengelola stable capability identities, manifests, versions, dependencies, interfaces, permissions, provenance, dan release channels.",
+      "general_meaning": "Registry adalah daftar terkelola untuk mendaftarkan, mencari, dan memverifikasi objek.",
+      "plain_language_explanation": "Katalog resmi yang menyimpan capability, versi, dependency, dan bukti sumbernya.",
+      "analogy": "Seperti katalog perpustakaan yang menyimpan metadata buku, edisi, pemilik, dan lokasi.",
+      "why_this_term": "Membuat capability dapat ditemukan serta diproses lintas client tanpa menghilangkan ownership publisher dan immutability release.",
+      "operational_context": "Mengelola capability records, version records, dependency graph, artifact metadata, signatures, SBOM, dan provenance.",
+      "usage_examples": "Capability didaftarkan dengan manifest; release v1.0.0 diterbitkan dengan digest immutable.",
+      "boundaries": "Bukan marketplace listing, bukan file storage, bukan runtime execution service, dan tidak memberikan entitlement sendiri.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0004",
+        "HSMART-0005",
+        "HSMART-0017"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    },
+    {
+      "term_id": "HSMART-0016",
+      "slug": "workload-identity",
+      "term": "Workload Identity",
+      "aliases": [
+        "Machine identity",
+        "Service workload identity"
+      ],
+      "expansion": "Machine identity assigned to a runtime or service",
+      "term_type": "Technical Term",
+      "domains": [
+        "Identity & Access",
+        "Security & Operations",
+        "Runtime & Execution"
+      ],
+      "status": "Canonical",
+      "language": [
+        "English",
+        "Indonesian"
+      ],
+      "confidence": "High",
+      "verification": "Verified against internal source",
+      "etymology": "Gabungan 'workload' (beban kerja/proses layanan) dan 'identity' (identitas).",
+      "terminological_definition": "Identitas mesin yang dilekatkan pada service, worker, runtime, atau workload untuk mengautentikasi dirinya dan memperoleh akses terikat principal, audience, scope, serta policy.",
+      "general_meaning": "Identitas digital bagi proses atau layanan, bukan orang.",
+      "plain_language_explanation": "Kartu identitas milik aplikasi atau worker saat berkomunikasi dengan layanan lain.",
+      "analogy": "Seperti kartu akses pegawai, tetapi milik mesin dan haknya dibatasi sesuai tugas dan masa berlaku.",
+      "why_this_term": "Menghindari API key statis tersebar luas dan mendukung autentikasi machine-to-machine dengan least privilege.",
+      "operational_context": "Dapat memakai OIDC atau kredensial jangka pendek/sertifikat; dikaitkan dengan environment, runtime, dan policy.",
+      "usage_examples": "Worker self-hosted menerima instruksi bertanda tangan dan mengirim health telemetry dengan scope terbatas.",
+      "boundaries": "Bukan API key semata, bukan identitas manusia, dan pendaftaran runtime tidak memberi hak administrator Control Plane.",
+      "expert_perspectives": "Belum ditemukan atribusi atau kutipan ahli individual yang dapat diverifikasi dari sumber internal yang diperiksa. Perspektif ahli akan ditambahkan hanya jika karya primer dan atribusinya dapat dibuktikan; tidak ada kutipan yang direkayasa.",
+      "related_term_ids": [
+        "HSMART-0015",
+        "HSMART-0007",
+        "HSMART-0008"
+      ],
+      "sources": [
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
+          "role": "Primary internal source"
+        },
+        {
+          "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md](https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
+          "role": "Supporting internal source"
+        }
+      ],
+      "last_reviewed": "2026-11-23",
+      "version": "0.1.0"
+    }
+  ]
+}
