@@ -85,3 +85,52 @@ Docker/Compose and `psql` are unavailable in the execution environment. No Postg
 5. Keep M2+ proposed until provider, OIDC, secrets/KMS, network, budget, retention, SLO/RPO/RTO and operational ownership are explicitly approved.
 
 **No aggregate completion percentage is reported.** The approved denominator and weights do not exist, and M1's recursive asset scope is incomplete.
+
+
+## 7. Follow-up qualification — 23 November 2026
+
+### Read-only Notion checksum manifest
+
+A SHA-256 manifest now fingerprints all **45 active database rows** returned by the two saved views:
+- `docs/sdgds-migration/NOTION-READONLY-CHECKSUM-MANIFEST-2026-11-23.json`
+- 25 terminology rows and 20 roadmap ledger rows.
+- Each digest covers the entire row property object returned by the saved-view query, with recursively sorted JSON object keys and preserved array order, encoded as UTF-8. It includes the Notion page URL.
+- This is a row-property checksum manifest, **not** a recursive block or binary attachment checksum export.
+
+Scoped Notion search returned 50 matching pages and all 50 were fetched. No `notion-file-block://` references or visible discussion references were found in those page contents. The current connector did not expose a recursive block-children traversal operation. Notion's comments endpoint returned `upgrade_required` for the checked pages. Thus this improves row-level integrity evidence, but does not close the full recursive inventory. The search result limit/permission boundary also means no claim is made that all inaccessible or unindexed pages have been discovered.
+
+### PostgreSQL 16 real integration lane
+
+A disposable GitHub Actions service using `postgres:16` was started and the DDL was applied. The first run proved that schema creation succeeded and that JSONB/status/ID, foreign-key, self-relation and outbox-idempotency constraints fired as designed, but **1 of 6 tests failed** because an expected constraint violation aborted the whole test transaction and the test then incorrectly assumed earlier seed rows still existed.
+
+The test harness was corrected to isolate expected constraint failures inside savepoints. The rerun for the new PR head is pending at the time of this record. Do not mark the PostgreSQL lane PASS until the latest commit's result is completed and all six tests pass.
+
+### Synthetic OIDC tests
+
+The local suite now reports **20 passed, 1 skipped**. The passing OIDC tests use a generated RSA keypair and in-memory synthetic JWKS at `https://issuer.synthetic.test`, audience `sdgds-api`, and a synthetic test subject. They validate RS256 signature, `kid`, issuer, audience, expiry, required claims, subject and scope enforcement. This is not an external IdP integration, real user provisioning, production JWKS rotation or token revocation test. The one local skip is the PostgreSQL integration module, which runs only when `SDGDS_TEST_DATABASE_URL` points to a disposable PostgreSQL 16 instance.
+
+### AppFlowy/Baserow build and licensing disposition
+
+- **AppFlowy:** active self-host deployment uses `AppFlowy-IO/AppFlowy-SelfHost-Commercial`, not the archived old `AppFlowy-Cloud` repository. The inspected Compose manifest at commit `f58f4ffafab79f11bf895b0bfeb4ec9548223baa` pins the Cloud/Worker/Search/AI family at `0.21.8` and Web at `0.20.15`, with image digests. The current server is under a commercial per-server license, not FLOSS. Its advertised Free Tier is one seat plus up to three guest editors. OIDC/SAML/LDAP requires Seed tier or higher. Its documented API is `/api/docs/openapi.json`; page creation is `POST /api/workspace/{workspace_id}/page-view` with a GoTrue user access token. Adapter tests use a mock; no live instance was provisioned.
+- **Baserow:** candidate is OSE release `2.4.3` (published 14 November 2026). OSE core is MIT; documentation and premium/enterprise paths carry separate licenses. Adapter tests use a mock and table-scoped synthetic token; no live instance was provisioned.
+- Exact licensing, API paths and image pin references are documented in `docs/sdgds-migration/PLATFORM-COMPATIBILITY-2026-11-23.md`.
+
+If FLOSS is a hard requirement, AppFlowy Self-Hosted Commercial is not accepted as the default workspace. Treat it as a commercial alternative only; evaluate a genuinely FLOSS wiki separately before selection.
+
+### Human ownership gate
+
+The following roles remain `UNASSIGNED`: execution owner, architecture owner, migration lead/data steward, Platform/SRE operator, security/privacy reviewer and independent verifier. The responsibility/acceptance register is `docs/sdgds-migration/OWNER-APPOINTMENT-REGISTER.md`. No AI delegate is counted as a substitute for human operational accountability.
+
+## 8. Current execution disposition
+
+| Workstream | State |
+|---|---|
+| M0 bounded non-production architecture | APPROVED |
+| M1 45-row SHA-256 manifest | CREATED; row-level scope only |
+| M1 recursive blocks/comments/files | PARTIAL / NOT VERIFIED |
+| Local API/MCP/OIDC synthetic suite | 20 PASS, 1 SKIPPED (PostgreSQL lane) |
+| PostgreSQL 16 disposable CI lane | RERUN PENDING |
+| AppFlowy live API | NOT RUN; commercial build/licensing identified |
+| Baserow live API | NOT RUN; OSE 2.4.3 identified |
+| Human role appointments | UNASSIGNED |
+| Production/cutover | NOT AUTHORIZED |
