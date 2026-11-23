@@ -18,26 +18,21 @@ concurrency:
 jobs:
   baserow-ose-integration:
     runs-on: ubuntu-24.04
-    services:
-      baserow:
-        image: baserow/baserow:2.4.3
-        env:
-          BASEROW_PUBLIC_URL: http://localhost:8080
-          SECRET_KEY: disposable-ci-only-secret-8f3d7b1a2e4c6a8f0b2d5e7a9c1f3d6b
-          DISABLE_VOLUME_CHECK: "yes"
-        ports:
-          - 8080:80
-        options: >-
-          --health-cmd "curl --fail http://localhost/api/_health/ || exit 1"
-          --health-interval 10s
-          --health-timeout 10s
-          --health-retries 30
-          --health-start-period 60s
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Start disposable Baserow OSE 2.4.3 with ephemeral volume
+        run: |
+          docker volume create sdgds-baserow-data
+          docker run -d --name sdgds-baserow \
+            -p 8080:80 \
+            -e BASEROW_PUBLIC_URL=http://127.0.0.1:8080 \
+            -e SECRET_KEY=disposable-ci-only-secret-8f3d7b1a2e4c6a8f0b2d5e7a9c1f3d6b \
+            -v sdgds-baserow-data:/baserow/data \
+            baserow/baserow:2.4.3
       - name: Install integration test dependency
         run: python -m pip install "pytest>=8,<9"
       - name: Verify Baserow OSE REST API and table-scoped token permissions
@@ -45,3 +40,11 @@ jobs:
         env:
           BASEROW_BASE_URL: http://127.0.0.1:8080
         run: python -m pytest tests/test_baserow_live.py -q
+      - name: Dump Baserow logs on failure
+        if: failure()
+        run: docker logs --tail 300 sdgds-baserow || true
+      - name: Cleanup disposable Baserow environment
+        if: always()
+        run: |
+          docker rm -f sdgds-baserow || true
+          docker volume rm sdgds-baserow-data || true
