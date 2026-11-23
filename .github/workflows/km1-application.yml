@@ -53,5 +53,8 @@ jobs:
         run: |
           python tools/hsmart_package.py --help
           python tools/hsmart_pilot_admin.py --help
-      - name: Validate Compose syntax
-        run: docker compose config --quiet
+      - name: Validate Compose syntax and build local pilot image
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
+          docker build --tag hsmart-km2-pilot:ci .
