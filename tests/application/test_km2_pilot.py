@@ -490,6 +490,11 @@ def test_concurrent_idempotency_insert_race_returns_winning_replay(tmp_path, mon
         def simulate_unique_insert_race(*args, **kwargs):
             if flush_count["value"] == 0:
                 flush_count["value"] += 1
+                # Emulate the failed INSERT being rolled back by the database.
+                # The injected exception occurs before SQLAlchemy's real flush,
+                # so explicitly detach pending objects to model that rollback.
+                for pending in list(session.new):
+                    session.expunge(pending)
                 raise IntegrityError("INSERT invocation", {}, RuntimeError("duplicate tenant/idempotency key"))
             return real_flush(*args, **kwargs)
 
