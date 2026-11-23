@@ -533,3 +533,67 @@ def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
         assert stored is not None and stored.status == "COMPLETED"
         assert verify_audit_chain(session, tenant.id)
     engine.dispose()
+
+
+def test_api_grant_and_revoke_routes_require_scope_and_emit_audit(tmp_path):
+    engine = make_engine()
+    private_path, public_path = make_keys(tmp_path)
+    settings = make_settings("sqlite://", public_path)
+    with Session(engine) as session:
+        tenant = Tenant(slug="grant-api-tenant", display_name="Grant API Tenant")
+        session.add(tenant)
+        session.commit()
+        seed_active_capability(session, tenant.id)
+        session.query(CapabilityGrant).delete()
+        session.commit()
+    app = create_app(settings, engine)
+    token = make_token(private_path, tenant.id, ["entitlement.grant"])
+    with TestClient(app) as client:
+        created = client.post(
+            "/v1/registry/grants",
+            json={
+                "capability_id": "hsmart.echo",
+                "subject": SUBJECT,
+                "permission": "capability.invoke",
+                "evidence_ref": "ticket:grant-api-001",
+            },
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert created.status_code == 201
+        grant_id = created.json()["grant_id"]
+        revoked = client.post(
+            f"/v1/registry/grants/{grant_id}/revoke",
+            json={"evidence_ref": "ticket:revoke-api-001"},
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert revoked.status_code == 200
+        assert revoked.json()["status"] == "REVOKED"
+    with Session(engine) as session:
+        stored = session.get(CapabilityGrant, grant_id)
+        assert stored is not None and stored.revoked_at is not None
+        assert verify_audit_chain(session, tenant.id)
+    engine.dispose()
+
+
+def test_cross_tenant_principal_cannot_invoke_another_tenants_capability(tmp_path):
+    from hsmart_platform.pilot.auth import Principal
+    from hsmart_platform.pilot.errors import PilotError
+
+    engine = make_engine()
+    private_path, public_path = make_keys(tmp_path)
+    settings = make_settings("sqlite://", public_path)
+    with Session(engine) as session:
+        owner = Tenant(slug="owner-tenant", display_name="Owner Tenant")
+        outsider = Tenant(slug="outsider-tenant", display_name="Outsider Tenant")
+        session.add_all([owner, outsider])
+        session.commit()
+        seed_active_capability(session, owner.id)
+        principal = Principal(SUBJECT, outsider.id, frozenset({"capability.invoke"}), ISSUER)
+        with pytest.raises(PilotError, match="capability_not_found"):
+            invoke_capability(
+                session, settings, principal,
+                capability_key="hsmart.echo", version="0.1.0",
+                payload={"message": "unauthorized tenant"},
+                idempotency_key="cross-tenant-0001",
+            )
+    engine.dispose()
