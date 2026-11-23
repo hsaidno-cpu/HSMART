@@ -118,7 +118,10 @@ def verify_package(
     total_size = 0
     try:
         with tarfile.open(fileobj=io.BytesIO(bundle), mode="r:gz") as archive:
-            for member in archive.getmembers():
+            members = archive.getmembers()
+            if len(members) > 500:
+                raise PackageVerificationError("package_file_count_out_of_bounds")
+            for member in members:
                 name = PurePosixPath(member.name)
                 if name.is_absolute() or ".." in name.parts or member.issym() or member.islnk():
                     raise PackageVerificationError("unsafe_archive_member")
@@ -237,7 +240,10 @@ def install_package(
     store = Path(artifact_store_path) / "sha256"
     store.mkdir(parents=True, exist_ok=True)
     artifact_path = store / f"{verified.artifact_sha256}.tar.gz"
-    if not artifact_path.exists():
+    if artifact_path.exists():
+        if hashlib.sha256(artifact_path.read_bytes()).hexdigest() != verified.artifact_sha256:
+            raise PackageVerificationError("content_addressed_artifact_store_corruption")
+    else:
         temporary = store / f".{uuid.uuid4().hex}.tmp"
         temporary.write_bytes(Path(bundle_path).read_bytes())
         os.replace(temporary, artifact_path)
@@ -285,6 +291,8 @@ def install_package(
         )
         session.add(version)
         session.flush()
+    elif version.status != "PUBLISHED":
+        raise ConflictError("capability_version_is_not_publishable")
     elif version.artifact_sha256 != verified.artifact_sha256:
         raise ConflictError("immutable_version_already_exists_with_different_digest")
 
@@ -344,6 +352,11 @@ def transition_installation(session: Session, installation_id: str, target_state
         installation.disabled_at = now
     elif target_state == "REVOKED":
         version.status = "REVOKED"
+        installations = session.scalars(
+            select(Installation).where(Installation.capability_version_id == version.id)
+        ).all()
+        for related in installations:
+            related.state = "REVOKED"
     append_audit(
         session,
         tenant_id=installation.tenant_id,
