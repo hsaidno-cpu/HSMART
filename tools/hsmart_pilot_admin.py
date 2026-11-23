@@ -18,8 +18,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from hsmart_platform.database import build_engine
-from hsmart_platform.models import Capability, CapabilityGrant
+from hsmart_platform.models import Capability
 from hsmart_platform.pilot.seed import ensure_tenant
+from hsmart_platform.pilot.service import grant_capability
 from hsmart_platform.settings import Settings
 
 
@@ -110,15 +111,16 @@ def main() -> int:
             ))
             if capability is None:
                 raise SystemExit("capability_not_found")
-            session.add(CapabilityGrant(
+            grant = grant_capability(
+                session,
                 tenant_id=args.tenant_id,
-                capability_id=capability.id,
+                capability_key=args.capability_id,
                 subject=args.subject,
                 permission=args.permission,
                 granted_by="local-pilot-operator",
                 evidence_ref=args.evidence_ref,
-            ))
-            session.commit()
+            )
+            print(f"grant_id={grant.id}")
             print("grant_created")
     engine.dispose()
     return 0
