@@ -1,0 +1,797 @@
+{
+  "schema_version": "1.0.0",
+  "roadmap_id": "HSMART-SDGDS-ROADMAP-001",
+  "revision": "0.1.0",
+  "title": "SDGDS Progressive Roadmap & Evaluation Baseline",
+  "snapshot_date": "2026-11-23",
+  "status": "PROPOSED_NOT_FROZEN",
+  "host_mode": "OTHER_HOST_ADAPTER",
+  "procedure": "PRE R0-R9 procedures applied using installed PRE skill set; specialist runtime invocations are not claimed.",
+  "authority": {
+    "decision_owner": "GOV-01 under HSMART governance",
+    "roadmap_approval": "PENDING",
+    "merge_authority": "GOV-01",
+    "execution_owner": "UNASSIGNED",
+    "rule": "PRE supplies roadmap and evidence; it does not authorize merge, release, security acceptance or production claims."
+  },
+  "objective": "Provide an evidence-backed, versioned, accurate and discoverable terminology system for HSMART and Hypersystem-Orchestrator, with GitHub as canonical source and Notion as synchronized knowledge and governance surface.",
+  "intended_outcomes": [
+    "One stable identity and one canonical definition per concept.",
+    "Definitions understandable to technical and non-technical readers without losing precision.",
+    "Source provenance and review state visible for material claims.",
+    "Terminology changes discoverable and synchronized without duplicate records or silent drift.",
+    "Reduced lookup friction and cross-repository ambiguity, measured before outcome claims."
+  ],
+  "scope": [
+    "HSMART and explicitly approved Hypersystem-Orchestrator documentation and contracts.",
+    "Canonical JSON registry, schema, validator, generated index, curation policy and CI.",
+    "Notion terminology registry and roadmap/evaluation ledger.",
+    "Future discovery, semantic relationships, search, monitoring and outcome measurement."
+  ],
+  "non_goals": [
+    "Do not scan private plugin source or instruction repositories without explicit source allowlisting and rights review.",
+    "Do not auto-promote machine-generated candidates to Canonical.",
+    "Do not treat Notion as a competing canonical source.",
+    "Do not claim a deployed SDGDS API/MCP service or production infrastructure.",
+    "Do not claim expert endorsement without attributable primary evidence."
+  ],
+  "baseline": {
+    "parent_repository_main_sha": "543bef61f1fd1ce3a736bd107857bee0b244c388",
+    "hsmart_pr28": {
+      "number": 28,
+      "state": "MERGED",
+      "merge_commit_sha": "543bef61f1fd1ce3a736bd107857bee0b244c388"
+    },
+    "sdgds_pr29": {
+      "number": 29,
+      "state": "OPEN",
+      "mergeable": true,
+      "base_sha": "543bef61f1fd1ce3a736bd107857bee0b244c388",
+      "head_sha": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
+      "changed_files": 17,
+      "additions": 3645,
+      "deletions": 23,
+      "reviewed_code_sha": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
+      "assurance_report_commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
+      "observed_report_only_head": "aa691639a4dc7ad1c54138e16c94739276e3e48a"
+    },
+    "registry_seed_terms": 25,
+    "sdgds_unit_tests": {
+      "passed": 13,
+      "total": 13,
+      "run_id": 45103158772
+    },
+    "workflow_groups": {
+      "passed": 5,
+      "total": 5,
+      "commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
+      "items": [
+        {
+          "name": "SDGDS Terminology Registry",
+          "run_id": 45103450442,
+          "result": "PASS"
+        },
+        {
+          "name": "Repository Governance",
+          "run_id": 45103450305,
+          "result": "PASS"
+        },
+        {
+          "name": "AI Reviewer Evidence",
+          "run_id": 45103450292,
+          "result": "PASS"
+        },
+        {
+          "name": "Specification Validation",
+          "run_id": 45103450407,
+          "result": "PASS"
+        },
+        {
+          "name": "KM1 Application Foundation",
+          "run_id": 45103450328,
+          "result": "PASS"
+        }
+      ]
+    },
+    "notion_registry": {
+      "seeded_records": 25,
+      "source_reference_updates_applied": 5,
+      "last_known_full_read_count": 25,
+      "post_update_aggregate_read": "VERIFIED_VIA_SAVED_ALL_TERMS_VIEW",
+      "automated_sync": "NOT_VERIFIED",
+      "note": "25 records seeded; five source-reference updates were individually applied. Current full aggregate re-read unavailable due Notion workspace Query Data Source allowance.",
+      "review_queue_count": 1
+    },
+    "main_branch_status": "PR #28 is merged to main. PR #29 is not merged.",
+    "production_state": "No deployed glossary runtime or autonomous discovery service evidenced.",
+    "roadmap_revision_head_sha": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb",
+    "roadmap_revision_workflows": {
+      "commit": "aa691639a4dc7ad1c54138e16c94739276e3e48a",
+      "passed": 5,
+      "total": 5,
+      "items": [
+        {
+          "name": "SDGDS Terminology Registry",
+          "run_id": 45103450442,
+          "result": "PASS"
+        },
+        {
+          "name": "Repository Governance",
+          "run_id": 45103450305,
+          "result": "PASS"
+        },
+        {
+          "name": "AI Reviewer Evidence",
+          "run_id": 45103450292,
+          "result": "PASS"
+        },
+        {
+          "name": "Specification Validation",
+          "run_id": 45103450407,
+          "result": "PASS"
+        },
+        {
+          "name": "KM1 Application Foundation",
+          "run_id": 45103450328,
+          "result": "PASS"
+        }
+      ],
+      "note": "All five workflow groups passed on the exact report-only PR commit; Notion sync steps skipped without configured secrets."
+    },
+    "notion_roadmap_ledger": {
+      "records": 20,
+      "milestones": 12,
+      "risks": 4,
+      "dependencies": 2,
+      "evaluation_records": 1,
+      "verification": "VERIFIED_VIA_SAVED_VIEWS",
+      "delivery_board_view": "view://42199868-397f-8146-aa86-000c4c2a6e39",
+      "milestones_view": "view://42199868-397f-8119-8e26-000c59c5976e",
+      "risks_view": "view://42199868-397f-8140-85b2-000cb50e444f",
+      "automated_sync": "NOT_VERIFIED"
+    }
+  },
+  "progress_measurement": {
+    "overall_completion": null,
+    "overall_completion_reason": "No GOV-01-approved frozen work-item denominator or comparable weighting exists. A single percentage would be misleading.",
+    "delivery_completion": "NOT_COMPUTABLE",
+    "milestone_acceptance": "NOT_ASSESSED",
+    "verification_coverage": "13/13 SDGDS unit tests and 5/5 workflow groups passed on exact report-only PR head aa691639a4dc7ad1c54138e16c94739276e3e48a.",
+    "notion_sync_successes": 0,
+    "term_inventory_coverage": "UNKNOWN; 25 is the seed count, not total ecosystem vocabulary.",
+    "outcome_attainment": "NOT_ASSESSED; user lookup, comprehension, onboarding and consistency baselines have not been measured.",
+    "schedule_variance": "NOT_COMPUTABLE; no approved schedule baseline or committed target dates."
+  },
+  "pre_lifecycle": [
+    {
+      "stage": "R0 INTAKE",
+      "state": "PROCEDURE_APPLIED",
+      "result": "Intent, host mode, scope, decision need, authority and non-goals documented."
+    },
+    {
+      "stage": "R1 STRATEGY & BASELINE",
+      "state": "PROCEDURE_APPLIED_WITH_CAVEATS",
+      "result": "Current branch, PR, CI, Notion seed and missing dependencies reviewed; post-edit aggregate Notion re-read blocked by workspace query allowance."
+    },
+    {
+      "stage": "R2 ROADMAP DESIGN",
+      "state": "PROPOSED",
+      "result": "Roadmap v0.1.0 and work-item ledger constructed; awaiting approval."
+    },
+    {
+      "stage": "R3 APPROVAL & BASELINE FREEZE",
+      "state": "BLOCKED",
+      "result": "GOV-01 disposition required; PR #29 remains open."
+    },
+    {
+      "stage": "R4 ITERATION EXECUTION",
+      "state": "PARTIAL",
+      "result": "Registry, schema, validator, renderer, tests and workflow verified on branch; Notion sync and discovery are not operational."
+    },
+    {
+      "stage": "R5 FORMATIVE CHECK",
+      "state": "PASS_WITH_CAVEATS",
+      "result": "Foundation technically validated, with Notion activation, terminology coverage and independent review gaps."
+    },
+    {
+      "stage": "R6 MILESTONE ACCEPTANCE",
+      "state": "NOT_ASSESSED",
+      "result": "No approved frozen milestone acceptance or post-merge evidence."
+    },
+    {
+      "stage": "R7 OUTCOME & IMPACT",
+      "state": "NOT_ASSESSED",
+      "result": "No user adoption or comprehension baseline/outcome evidence."
+    },
+    {
+      "stage": "R8 ADAPTATION",
+      "state": "DELTA_APPLIED",
+      "result": "Prior iteration hardened provenance, validation and Notion retry/rate-limit behavior; no broader rebaseline justified yet."
+    },
+    {
+      "stage": "R9 CLOSURE & LEARNING",
+      "state": "NOT_STARTED",
+      "result": "Operational owner, sync proof, measured outcome and residual-risk disposition remain open."
+    }
+  ],
+  "indicators": [
+    {
+      "id": "KPI-01",
+      "name": "Registry structure validity",
+      "definition": "Seed registry passes validator on exact reviewed commit.",
+      "observed": "PASS",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+    },
+    {
+      "id": "KPI-02",
+      "name": "Unit test execution",
+      "definition": "SDGDS unit tests executed and passed.",
+      "observed": "8/8 PASS",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+    },
+    {
+      "id": "KPI-03",
+      "name": "Workflow gate success",
+      "definition": "Five associated PR workflow groups completed successfully on reviewed head.",
+      "observed": "5/5 PASS",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+    },
+    {
+      "id": "KPI-04",
+      "name": "Notion synchronization",
+      "definition": "Authenticated sync completed and create/update/no-op were evidenced.",
+      "observed": "0 verified automated sync runs; workflow skipped without secrets",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+    },
+    {
+      "id": "KPI-05",
+      "name": "Terminology inventory coverage",
+      "definition": "Seeded canonical terms divided by agreed in-scope term inventory.",
+      "observed": "25 seed terms; denominator UNKNOWN",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/pull/29"
+    },
+    {
+      "id": "KPI-06",
+      "name": "Definition evidence quality",
+      "definition": "Material claims cite authoritative sources and expert views have attributable references.",
+      "observed": "Internal sources present; external authority coverage and expert references not audited",
+      "evidence": "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+    },
+    {
+      "id": "KPI-07",
+      "name": "User comprehension and adoption",
+      "definition": "Task-based lookup success, time-to-understand and naming consistency against a pre-pilot baseline.",
+      "observed": "NOT_ASSESSED",
+      "evidence": "https://app.notion.com/p/42199868397f81a19db8dc084105ce5b"
+    }
+  ],
+  "work_items": [
+    {
+      "id": "SDGDS-M00",
+      "title": "R0–R1 Intake and evidence baseline",
+      "type": "Milestone",
+      "stage": "R1 Strategy & Baseline",
+      "status": "VERIFIED",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [],
+      "external": [],
+      "acceptance": "Intent, scope, non-goals, authority, baseline evidence, assumptions and unknowns are recorded; missing evidence remains explicit.",
+      "next": "Use this baseline as the review reference; freeze only after GOV-01 disposition.",
+      "notes": "PRE procedures applied in OTHER_HOST_ADAPTER mode. This is not evidence of a separate PRE runtime invocation.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/commit/543bef61f1fd1ce3a736bd107857bee0b244c388",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://app.notion.com/p/42199868397f81a19db8dc084105ce5b"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M01",
+      "title": "R2 Roadmap architecture and measurement contract v0.1.0",
+      "type": "Milestone",
+      "stage": "R2 Roadmap Design",
+      "status": "IMPLEMENTED",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M00"
+      ],
+      "external": [],
+      "acceptance": "Phases, milestones, dependencies, indicators, gate states, risks and acceptance criteria are stored in GitHub Markdown and JSON.",
+      "next": "Submit roadmap v0.1.0 for GOV-01 review and freeze only after accepted disposition.",
+      "notes": "Roadmap is PROPOSED, not approved or frozen. No target schedule is committed because capacity and delivery owner are unknown.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M02",
+      "title": "R3 Approval and baseline freeze",
+      "type": "Milestone",
+      "stage": "R3 Approval & Baseline Freeze",
+      "status": "BLOCKED",
+      "gate": "BLOCKED",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M01",
+        "SDGDS-M03"
+      ],
+      "external": [
+        "GOV-01 review and explicit disposition of exact PR #29 head and roadmap revision 0.1.0."
+      ],
+      "acceptance": "GOV-01 records approve, revise or reject decision against exact PR report-only head aa691639a4dc7ad1c54138e16c94739276e3e48a and roadmap revision 0.1.0; scope, non-goals, residual risks and decision rights are visible.",
+      "next": "GOV-01 reviews PR #29 and roadmap; merge only through the authorized repository process.",
+      "notes": "PR #29 is open and mergeable, not merged. Green CI is not human approval.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M03",
+      "title": "R4 Canonical registry and quality-gate foundation",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "VERIFIED",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M00"
+      ],
+      "external": [],
+      "acceptance": "Canonical JSON registry, JSON Schema, provenance, aliases, stable Term IDs, validator, deterministic index renderer, tests and GitHub Actions validation pass on exact PR head.",
+      "next": "Retain validated foundation; merge only after GOV-01 disposition.",
+      "notes": "25 seed terms; 8 unit tests pass; 5 PR workflow groups pass. Does not prove complete term coverage or production deployment.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423081"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M04",
+      "title": "R4 Activate authenticated Notion glossary synchronization",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "BLOCKED",
+      "gate": "BLOCKED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M03"
+      ],
+      "external": [
+        "Share terminology database with Notion integration; configure NOTION_API_TOKEN and NOTION_GLOSSARY_DATA_SOURCE_ID."
+      ],
+      "acceptance": "Authenticated CI run proves create, update, unchanged/no-op, pagination, retry and failure handling without duplicate Term IDs.",
+      "next": "Share terminology database with the integration; configure secrets; run end-to-end reconciliation.",
+      "notes": "Sync code exists and has passed CI validation. Actual authenticated synchronization is still unverified because credentials/database sharing are not configured. The 25 Notion seed records were manually inserted.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M05",
+      "title": "R4 Activate synchronized roadmap and evaluation ledger",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "BLOCKED",
+      "gate": "BLOCKED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M01"
+      ],
+      "external": [
+        "Share Roadmap & Evaluation Ledger with same Notion integration; configure NOTION_SDGDS_ROADMAP_DATA_SOURCE_ID."
+      ],
+      "acceptance": "GitHub progress JSON upserts by Work Item ID; changed records update; unchanged records skip; previous records are not silently deleted.",
+      "next": "Configure roadmap data-source secret and verify first create/update/no-op sync.",
+      "notes": "Roadmap ledger contains 20 manually seeded Notion rows and three saved views; saved-view reads verified 20 rows, 12 milestones and four risks. CI sync code exists but has not successfully run because credentials/database sharing are not configured.",
+      "evidence": [
+        "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M06",
+      "title": "R4 Automated cross-repository terminology discovery pilot",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "NOT_STARTED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M03",
+        "SDGDS-M04"
+      ],
+      "external": [
+        "Read access to approved HSMART and Hypersystem-Orchestrator sources; source allowlist and exclusion policy."
+      ],
+      "acceptance": "A bounded scanner extracts candidates from approved README, ADR, schemas, manifests, governance and contracts; each candidate retains repository/path/commit/source locator and enters Proposed only.",
+      "next": "Design a two-repository allowlisted pilot with a reproducible candidate report.",
+      "notes": "No autonomous term-discovery crawler or ingestion pipeline exists.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M07",
+      "title": "R4 Source provenance and expert-reference enrichment",
+      "type": "Work Item",
+      "stage": "R4 Iteration Execution",
+      "status": "PLANNED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M06"
+      ],
+      "external": [
+        "Authoritative external-source catalog and rights review for private and third-party material."
+      ],
+      "acceptance": "External-standard terms cite official or authoritative references; expert perspectives include author, work, context and verifiable source.",
+      "next": "Create source authority tiers and reviewed reference backlog for MCP, SBOM, OIDC, OAuth, provenance and semantic versioning.",
+      "notes": "Initial terms primarily cite internal repository files. Expert quotations are intentionally not fabricated.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M08",
+      "title": "R4 Typed semantic relations and ambiguity governance",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "PLANNED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P2",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M03",
+        "SDGDS-M06"
+      ],
+      "external": [],
+      "acceptance": "Relations distinguish synonym, alias, parent, child, depends-on, contrasts-with and replaces; cycles, invalid links and deprecated successors are checked.",
+      "next": "Extend untyped related_term_ids to typed relation objects; decide whether Notion should use actual relation properties.",
+      "notes": "Current relation IDs are stored as text. Suitable for a seed, insufficient for a robust concept graph.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M09",
+      "title": "R4 Search and retrieval interface",
+      "type": "Milestone",
+      "stage": "R4 Iteration Execution",
+      "status": "NOT_STARTED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P2",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M04",
+        "SDGDS-M08"
+      ],
+      "external": [],
+      "acceptance": "Users search by canonical label, alias, acronym, domain and semantic query; result exposes status, confidence, source and boundaries.",
+      "next": "Define search use cases and retrieval contract; begin with Notion views and GitHub index before a dedicated MCP/REST API.",
+      "notes": "Database browsing exists; governed search API/MCP capability is not implemented.",
+      "evidence": [
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M10",
+      "title": "R5 Quality, drift and stale-definition monitoring",
+      "type": "Milestone",
+      "stage": "R5 Formative Check",
+      "status": "PLANNED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P2",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M04",
+        "SDGDS-M06",
+        "SDGDS-M08"
+      ],
+      "external": [],
+      "acceptance": "Coverage, stale source age, missing evidence, alias collisions, orphan relations, definition conflicts, sync lag and review backlog have defined denominators and thresholds.",
+      "next": "Approve indicator definitions before dashboards; do not invent a coverage denominator before source inventory is scoped.",
+      "notes": "Current CI validates structure, not factual accuracy, comprehension or complete ecosystem coverage.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M11",
+      "title": "R7 User adoption and outcome evaluation",
+      "type": "Milestone",
+      "stage": "R7 Outcome & Impact",
+      "status": "NOT_STARTED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P2",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M09",
+        "SDGDS-M10"
+      ],
+      "external": [],
+      "acceptance": "Pilot measures lookup success, time-to-understand and cross-repository naming consistency against a pre-pilot baseline.",
+      "next": "Define a small user task set and baseline before claiming onboarding or comprehension improvement.",
+      "notes": "No user adoption or impact baseline exists.",
+      "evidence": [
+        "https://app.notion.com/p/42199868397f81a19db8dc084105ce5b"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-M12",
+      "title": "R9 Assurance, maintenance handoff and closure",
+      "type": "Milestone",
+      "stage": "R9 Closure & Learning",
+      "status": "NOT_STARTED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P3",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M02",
+        "SDGDS-M10",
+        "SDGDS-M11"
+      ],
+      "external": [],
+      "acceptance": "Final scope/evidence accepted; residual risks disposed; maintenance owner, review cadence, support and change-control handoff assigned.",
+      "next": "Keep the initiative active until synchronization, coverage, outcomes and ownership gates have evidence.",
+      "notes": "The foundation release is not eligible for roadmap closure.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-EVAL-20261123",
+      "title": "Formative evaluation snapshot — 23 November 2026",
+      "type": "Evaluation",
+      "stage": "R5 Formative Check",
+      "status": "VERIFIED",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M03"
+      ],
+      "external": [],
+      "acceptance": "Progress dimensions and evidence limitations are recorded separately; no unqualified overall percentage is published.",
+      "next": "Re-evaluate after GOV-01 disposition and after first authenticated Notion sync.",
+      "notes": "13/13 SDGDS unit tests and 5/5 workflow groups passed on exact report-only PR head aa691639a4dc7ad1c54138e16c94739276e3e48a. Notion saved views verify 25 terminology rows (one Proposed) and 20 roadmap rows (12 milestones, 4 risks, 2 dependencies, 1 evaluation). Both automated Notion sync steps were skipped without secrets. Inventory denominator and user outcomes remain unknown.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423077",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423123",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423081",
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423090",
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-RISK-001",
+      "title": "Notion sync lacks integration access and repository secrets",
+      "type": "Risk",
+      "stage": "R4 Iteration Execution",
+      "status": "BLOCKED",
+      "gate": "BLOCKED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M04",
+        "SDGDS-M05"
+      ],
+      "external": [
+        "Notion database sharing and three repository secrets."
+      ],
+      "acceptance": "Both Notion databases are shared; secrets are configured; end-to-end create/update/no-op and failure behavior are evidenced.",
+      "next": "Share both databases and configure one token plus two data-source secrets.",
+      "notes": "Workflow skip is explicit; no automated sync success may be claimed until verified.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9",
+        "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-RISK-002",
+      "title": "AI candidate definitions may hallucinate or contain unsupported attribution",
+      "type": "Risk",
+      "stage": "R4 Iteration Execution",
+      "status": "IN_PROGRESS",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M06",
+        "SDGDS-M07"
+      ],
+      "external": [],
+      "acceptance": "Candidates retain provenance/confidence; expert claims require primary sources; human review is required before Canonical.",
+      "next": "Add source tiers, evidence quality flags and reviewer-required promotion.",
+      "notes": "No-fabrication policy is documented; candidate discovery and independent review are not deployed.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-RISK-003",
+      "title": "Cross-repository discovery may cross private, confidential or licensed boundaries",
+      "type": "Risk",
+      "stage": "R4 Iteration Execution",
+      "status": "PLANNED",
+      "gate": "NOT_ASSESSED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M06"
+      ],
+      "external": [
+        "Approved repository/path allowlist and rights review."
+      ],
+      "acceptance": "Scanner reads only approved sources; secrets, private instructions and unlicensed third-party content are excluded.",
+      "next": "Create the explicit source allowlist and exclusion policy before implementing crawler.",
+      "notes": "Parent catalog or instruction snapshot is not permission to ingest all child repository contents.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-RISK-004",
+      "title": "Term identity and meaning can drift between Notion and GitHub",
+      "type": "Risk",
+      "stage": "R4 Iteration Execution",
+      "status": "IN_PROGRESS",
+      "gate": "PASS_WITH_CAVEATS",
+      "priority": "P2",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M03",
+        "SDGDS-M04",
+        "SDGDS-M08"
+      ],
+      "external": [],
+      "acceptance": "Stable IDs, aliases, idempotent upsert, duplicate detection, typed relations and reconciliation prevent drift.",
+      "next": "Verify idempotent sync and duplicate-ID detection for legacy Notion rows.",
+      "notes": "Canonical IDs and alias validator exist; post-source-update aggregate Notion re-read was blocked by workspace query allowance.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-DEP-001",
+      "title": "GOV-01 roadmap and PR disposition",
+      "type": "Dependency",
+      "stage": "R3 Approval & Baseline Freeze",
+      "status": "IN_PROGRESS",
+      "gate": "NOT_ASSESSED",
+      "priority": "P0",
+      "owner": "Not assigned unless stated: GOV-01 is final authority; execution owner not assigned.",
+      "deps": [
+        "SDGDS-M02"
+      ],
+      "external": [
+        "Explicit GOV-01 review/approval is required."
+      ],
+      "acceptance": "Decision is recorded against the exact PR report-only head aa691639a4dc7ad1c54138e16c94739276e3e48a and roadmap revision 0.1.0.",
+      "next": "GOV-01 reviews exact PR and accepts, requests changes, or rejects.",
+      "notes": "PR #29 is open, mergeable, and all five workflow groups passed on exact report-only commit aa691639a4dc7ad1c54138e16c94739276e3e48a. This is not GOV-01 approval.",
+      "evidence": [
+        "https://github.com/hsaidno-cpu/HSMART/pull/29",
+        "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+      ],
+      "last_evaluated": "2026-11-23"
+    },
+    {
+      "id": "SDGDS-DEP-002",
+      "title": "Notion integration identity and data-source permissions",
+      "type": "Dependency",
+      "stage": "R4 Iteration Execution",
+      "status": "BLOCKED",
+      "gate": "BLOCKED",
+      "priority": "P1",
+      "owner": "Not assigned unless stated: No accountable delivery role recorded.",
+      "deps": [
+        "SDGDS-M04",
+        "SDGDS-M05"
+      ],
+      "external": [
+        "One Notion integration must be invited to both SDGDS databases."
+      ],
+      "acceptance": "Integration can query/update both data sources with least privilege; token remains only in GitHub Actions secrets.",
+      "next": "Share both databases and configure repository secret values.",
+      "notes": "The Notion Query Data Source allowance is exhausted in this workspace; that does not prove API integration access.",
+      "evidence": [
+        "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9",
+        "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
+      ],
+      "last_evaluated": "2026-11-23"
+    }
+  ],
+  "limitations": [
+    "This is a proposal and formative review, not a GOV-01-approved or frozen roadmap.",
+    "Notion Query Data Source allowance is exhausted; five post-seed edits have no current aggregate read-back.",
+    "Notion sync secrets and integration sharing are not evidenced; no automated sync success is claimed.",
+    "The current 25 terms are a seed, not a complete inventory.",
+    "A separate PRE runtime or independent Evaluator Team was not invoked; PRE procedures were applied by the current assistant execution.",
+    "No delivery owner, resource capacity or target date was assigned; no schedule commitment is inferred."
+  ],
+  "evidence_register": [
+    {
+      "id": "pr",
+      "url": "https://github.com/hsaidno-cpu/HSMART/pull/29"
+    },
+    {
+      "id": "parent",
+      "url": "https://github.com/hsaidno-cpu/HSMART/commit/543bef61f1fd1ce3a736bd107857bee0b244c388"
+    },
+    {
+      "id": "sdgds",
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084"
+    },
+    {
+      "id": "gov",
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423077"
+    },
+    {
+      "id": "assurance",
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423123"
+    },
+    {
+      "id": "spec",
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423081"
+    },
+    {
+      "id": "km",
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423090"
+    },
+    {
+      "id": "report",
+      "url": "https://github.com/hsaidno-cpu/HSMART/blob/sdgds/implementation-20261123/docs/reviews/PR-29-AI-ASSURANCE.json"
+    },
+    {
+      "id": "home",
+      "url": "https://app.notion.com/p/42199868397f81a19db8dc084105ce5b"
+    },
+    {
+      "id": "terms",
+      "url": "https://app.notion.com/p/42199868397f81878cd6c5de0b2f20b9"
+    },
+    {
+      "id": "ledger",
+      "url": "https://app.notion.com/p/42199868397f81e7a6bbcc4ab3f075cb"
+    }
+  ],
+  "source_commit": "5140343f7e229b8a18eeae5df29179695ed6ba7c",
+  "last_evaluated": "2026-11-23"
+}

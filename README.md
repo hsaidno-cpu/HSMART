@@ -45,6 +45,7 @@ This repository currently contains the architecture and implementation contracts
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
 | docs/data/ | Logical data model and governance |
+| docs/glossary/ | SDGDS terminology registry, schema, curation policy and synchronization tooling |
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
 | docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-12 activation/evidence plan |

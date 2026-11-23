@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDGDS Progress and Roadmap Ledger",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "roadmap_id",
+    "revision",
+    "snapshot_date",
+    "status",
+    "authority",
+    "baseline",
+    "progress_measurement",
+    "pre_lifecycle",
+    "indicators",
+    "work_items",
+    "limitations",
+    "source_commit",
+    "last_evaluated"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "roadmap_id": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "snapshot_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "PROPOSED_NOT_FROZEN",
+        "APPROVED",
+        "ACTIVE",
+        "CLOSED",
+        "RETIRED"
+      ]
+    },
+    "host_mode": {
+      "enum": [
+        "STANDALONE",
+        "ASFREE_SUBORDINATE",
+        "OTHER_HOST_ADAPTER"
+      ]
+    },
+    "procedure": {
+      "type": "string"
+    },
+    "authority": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "intended_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "baseline": {
+      "type": "object"
+    },
+    "progress_measurement": {
+      "type": "object",
+      "required": [
+        "overall_completion",
+        "overall_completion_reason"
+      ]
+    },
+    "pre_lifecycle": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "indicators": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "work_items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/workItem"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_commit": {
+      "type": "string"
+    },
+    "last_evaluated": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "workItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "type",
+        "stage",
+        "status",
+        "gate",
+        "priority",
+        "owner",
+        "deps",
+        "external",
+        "acceptance",
+        "evidence",
+        "next",
+        "notes",
+        "last_evaluated"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^SDGDS-[A-Z0-9-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "Milestone",
+            "Work Item",
+            "Evaluation",
+            "Risk",
+            "Decision",
+            "Dependency"
+          ]
+        },
+        "stage": {
+          "enum": [
+            "R0 Intake",
+            "R1 Strategy & Baseline",
+            "R2 Roadmap Design",
+            "R3 Approval & Baseline Freeze",
+            "R4 Iteration Execution",
+            "R5 Formative Check",
+            "R6 Milestone Acceptance",
+            "R7 Outcome & Impact",
+            "R8 Adaptation",
+            "R9 Closure & Learning"
+          ]
+        },
+        "status": {
+          "enum": [
+            "NOT_STARTED",
+            "PLANNED",
+            "IN_PROGRESS",
+            "BLOCKED",
+            "IMPLEMENTED",
+            "VERIFIED",
+            "ACCEPTED",
+            "MERGED",
+            "DEFERRED",
+            "CANCELLED"
+          ]
+        },
+        "gate": {
+          "enum": [
+            "NOT_RUN",
+            "NOT_ASSESSED",
+            "PASS",
+            "PASS_WITH_CAVEATS",
+            "HOLD",
+            "FAIL",
+            "BLOCKED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "priority": {
+          "enum": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        "owner": {
+          "type": "string"
+        },
+        "deps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "external": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptance": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "next": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "last_evaluated": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
