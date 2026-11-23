@@ -1,23 +1,22 @@
-# SDGDS Human Owner Appointment Register
+# SDGDS Migration — GOV Delegate Mapping
 
-**Decision authority:** GOV-01  
-**State:** All execution/assurance seats below remain UNASSIGNED until named humans explicitly accept the responsibilities.  
-**Restriction:** AI agents may prepare analysis, code, tests, evidence and runbooks. They do not fill human accountability seats.
+**Authority:** HSMART GOV-01 Decision Addendum `HSMART-GOV-DEC-2026-11-22-002`  
+**Snapshot:** 23 November 2026  
+**Lifecycle:** DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE
 
-| Role | Required responsibility | Minimum acceptance evidence | State |
+GOV-01 is the sole human internal decision authority. SDGDS migration work is mapped to existing HSMART functional delegates; this does not create new GOV seats or activate any runtime.
+
+| SDGDS workstream | Delegate | Scope | Reserved authority |
 |---|---|---|---|
-| GOV-01 | Final decision authority for scope, architecture, risk acceptance, cutover and retirement | Decision record with scope and limits | Existing authority; approval must be recorded per gate |
-| Execution owner | Coordinate delivery, dependencies, scope, reporting and escalation | Named individual, acceptance, authority, capacity and escalation route | UNASSIGNED |
-| Architecture owner | Own ADRs, module boundaries, API/data contracts and design consistency | Named individual, experience evidence and architecture review acceptance | UNASSIGNED |
-| Migration lead / Data steward | Inventory, mapping, IDs, provenance, reconciliation, exceptions and data-quality disposition | Named individual, migration method, quality gates and exception approval boundary | UNASSIGNED |
-| Platform/SRE operator | Runtime, database, network, secrets, observability, backups, restore, incidents and service recovery | Named individual, access boundary, on-call/availability model, restore and incident acceptance | UNASSIGNED |
-| Security/privacy reviewer | Threat model, OIDC/JWKS, authorization, secrets, data classification, retention and security testing | Named independent reviewer, review scope and sign-off evidence | UNASSIGNED |
-| Independent verifier | Reproduce gate tests and challenge evidence independently of implementation author | Named reviewer, independence statement, test plan and gate report | UNASSIGNED |
+| Execution owner / delivery coordination | `hsmart.gov02.project-owner.orchestrator` | Critical path, dependencies, backlog, status and escalation | Cannot approve own baseline, accept risk or change scope |
+| Architecture owner | `hsmart.gov04.architecture.orchestrator` | Domain boundaries, ADR, data/API/MCP contracts and compatibility | Prepares decisions; GOV-01 approves |
+| Migration lead / data steward | `hsmart.gov05.database-agent` under `hsmart.gov05.engineering.orchestrator` | Read-only export mapping, stable IDs, ETL, schema migration, quality checks, reconciliation and exception reports | Cannot promote Proposed terms to Canonical or authorize source changes without grant |
+| Platform / SRE operator | `hsmart.gov07.operations-reliability.orchestrator` | Disposable runtime, runbooks, service health, incidents and backup/restore evidence | No production deployment, destructive action or external procurement |
+| Security / privacy reviewer | `hsmart.gov06.security-privacy.orchestrator` | Threat model, OIDC, authorization, least privilege, privacy and security HOLD recommendations | Cannot waive own findings or accept a security exception |
+| Independent verifier | `hsmart.gov11.independent-assurance-reviewer.orchestrator`, coordinated by `hsmart.assurance.cross-evaluation-orchestrator` | Separate-context review, evidence completeness and challenge tests | Cannot self-approve, impersonate GitHub human review or merge/release |
 
-## Appointment rules
+## Activation gates
 
-1. GOV-01 records a person's name, role, responsibilities, authority limits, access scope, availability and date of acceptance.
-2. A person cannot independently verify their own implementation as the sole verifier.
-3. Platform/SRE must explicitly accept backup, restore, recovery, incident response, credential rotation and emergency suspension.
-4. A security reviewer must not be the sole implementation author for the controls being approved.
-5. Until these seats are assigned and accepted, production readiness remains BLOCKED. Do not infer ownership from commit authorship, repository admin permission or AI-agent activity.
+All delegates remain logical designations until each profile has a stable runtime identity, exact model/provider/version binding, versioned instructions and Skills, task-scoped tool grants, policy enforcement, positive/negative authorization tests, audit logging, fail-closed behaviour and GOV-01 activation approval.
+
+No agent has been marked ACTIVE by this package. Production readiness remains blocked until delegate runtimes, tools, identity, audit and recovery evidence are provisioned and verified. GOV-01 retains final internal approval. External legal/commercial commitments and resources outside the project's controlled accounts remain subject to the legally authorized person/entity and qualified professional review where applicable.

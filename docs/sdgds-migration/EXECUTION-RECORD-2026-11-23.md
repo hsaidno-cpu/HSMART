@@ -5,7 +5,7 @@
 **Snapshot:** 23 November 2026  
 **Disposition:** M0 approved for bounded non-production design, read-only inventory and synthetic spike. Production is NOT approved.  
 **Decision authority:** GOV-01  
-**Execution owner:** UNASSIGNED  
+**Execution owner:** `hsmart.gov02.project-owner.orchestrator` (DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE)  
 **Baseline:** HSMART main @ `ce0e83b864f5fe6e958c978080cbbfcf7a813e72`
 
 ## 1. M0 — Charter and architecture
@@ -28,7 +28,7 @@ HSMART main already contains Python/FastAPI, SQLAlchemy, Alembic, PostgreSQL 16,
 | Baserow | Review queue and dashboard projection; no direct writes to canonical SDGDS tables |
 | Outbox worker | Idempotent projection and reconciliation to Baserow |
 
-No dual-writer pattern. Redis, if later introduced, is cache/coordination only, never canonical storage. ADR-011 remains a recommended stack direction with formal acceptance pending; this execution does not convert it into production procurement approval.
+No dual-writer pattern. Redis, if later introduced, is cache/coordination only, never canonical storage. ADR-011 v1.2.0 was accepted by GOV-01 as HSMART's internal KM1 technology direction under `HSMART-GOV-DEC-2026-11-22-002`; this does not authorize production procurement or deployment.
 
 ## 2. M1 — Read-only Notion inventory
 
@@ -52,16 +52,16 @@ The old PR #29 status in Notion is stale and must be reconciled through the cano
 
 Local synthetic package is supplied as a downloadable conversation artifact. The repository PR records the execution findings; the downloadable package is kept separate until source-level review and import into the repository are approved.
 
-- **Tests:** 11 passed; `compileall` passed; Compose YAML parsed; synthetic secret-placeholder scan passed.
+- **Local tests:** 20 passed, 2 skipped; `compileall` passed. PostgreSQL and Baserow live services are tested in separate disposable GitHub Actions jobs.
 - **API Gateway:** FastAPI read/search and Proposed-only candidate creation with explicit synthetic scopes.
 - **MCP:** narrow `initialize`, `tools/list` and `tools/call` JSON-RPC smoke test. Not full MCP conformance.
-- **Baserow:** REST path, `Authorization: Token` header, bounded pagination and synthetic projection mapping tested against an HTTP mock.
+- **Baserow OSE 2.4.3:** live disposable API/ACL integration passed 1/1: synthetic user/JWT, explicit workspace, database/table, one-table create/read token, row create/read allowed, delete denied. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
 - **AppFlowy:** OpenAPI discovery, operationId lookup, path substitution and synthetic page creation tested against an HTTP mock.
-- **PostgreSQL:** PostgreSQL 16 DDL prepared and statically checked; the local API CRUD tests used SQLite as a portable test double.
+- **PostgreSQL 16.16:** disposable CI service applied DDL and passed 6/6 integration tests. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465115/job/137764609621
 
 ### Environment limitations
 
-Docker/Compose and `psql` are unavailable in the execution environment. No PostgreSQL server, AppFlowy instance, Baserow instance, OIDC issuer or staging gateway was provisioned. Live integration, actual DDL execution, OIDC/JWKS validation, backup/restore, DR, load, security and production gates remain NOT_RUN. The spike contains synthetic records and fake tokens only; no real Notion records or credentials were used.
+Local environment has no Docker/Compose or `psql`, so live database and Baserow tests ran in disposable GitHub Actions environments. AppFlowy remains mock-tested because no licensed live instance was provisioned. OIDC/JWKS validation used synthetic identity only; no external IdP was provisioned. Backup/restore, DR, load, production security and cutover remain NOT_RUN. Only synthetic records and fake tokens were used.
 
 ## 4. Gate disposition
 
@@ -70,8 +70,8 @@ Docker/Compose and `psql` are unavailable in the execution environment. No Postg
 | M0 bounded charter/design approval | APPROVED |
 | M1 database/schema/record inventory | VERIFIED READ-ONLY |
 | M1 recursive block/file/attachment inventory | PARTIAL / NOT VERIFIED |
-| Synthetic API/MCP/adapter contract checks | PASS — 11 tests |
-| Live PostgreSQL/AppFlowy/Baserow integration | NOT_RUN |
+| Local synthetic API/MCP/OIDC suite | PASS — 20 passed, 2 skipped |
+| PostgreSQL 16.16 live CI integration | PASS — 6/6 |\n| Baserow OSE 2.4.3 live API/ACL integration | PASS — 1/1 |\n| AppFlowy live API | NOT RUN — commercial licensing/instance not provisioned |
 | M2 production infrastructure | NOT_STARTED |
 | M7 production readiness / DR | NOT_RUN |
 | M8 cutover | NOT_AUTHORIZED |
@@ -134,3 +134,30 @@ The following roles remain `UNASSIGNED`: execution owner, architecture owner, mi
 | Baserow live API | LIVE CI LANE RUNNING; latest result pending |
 | Human role appointments | UNASSIGNED |
 | Production/cutover | NOT AUTHORIZED |
+
+
+## 9. Final live-integration and governance update — 23 November 2026
+
+### Baserow final result
+
+The third disposable OSE 2.4.3 run passed: **1 passed in 134.93 seconds**. The test registered and authenticated a synthetic user, created a workspace through `POST /api/workspaces/`, created a database application and table, minted a database token scoped to that table, verified row creation and read, and verified delete was denied when `delete:false`. The disposable container and volume were removed after the job.
+
+Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
+
+Two earlier harness assumptions were corrected, not ignored: `/api/_health/` can return an empty/plain-text body rather than JSON; and a user created via API may have no workspace until the workspace endpoint is called explicitly.
+
+### GOV delegate assignment
+
+The owner model is reconciled with GOV-01 Decision Addendum `HSMART-GOV-DEC-2026-11-22-002`. GOV-01 is the sole human internal authority; existing bounded AI delegates are mapped as follows:
+- Execution/delivery: `hsmart.gov02.project-owner.orchestrator`
+- Architecture: `hsmart.gov04.architecture.orchestrator`
+- Migration/data stewardship: `hsmart.gov05.database-agent` under GOV-05 engineering
+- Platform/SRE operations: `hsmart.gov07.operations-reliability.orchestrator`
+- Security/privacy: `hsmart.gov06.security-privacy.orchestrator`
+- Independent assurance: `hsmart.gov11.independent-assurance-reviewer.orchestrator`, coordinated by `hsmart.assurance.cross-evaluation-orchestrator`
+
+All are DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE. No agent runtime, model binding, grants, audit namespace or fail-closed enforcement is claimed as active. GOV-01 retains final approval.
+
+### Current review disposition
+
+PR #31 is still OPEN and DRAFT. On head `bf33c0079b77f628a45b342d7ea8239e125d5c23`, PostgreSQL 16, Baserow OSE, Ubuntu/Windows/macOS contract tests, OpenAPI checks and Repository Governance Review passed; AI Reviewer Evidence remains failing and must be resolved before PR acceptance. Production and cutover remain NOT AUTHORIZED.

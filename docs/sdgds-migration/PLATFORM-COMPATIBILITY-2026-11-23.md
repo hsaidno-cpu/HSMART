@@ -43,3 +43,12 @@ Local tests use a generated RSA keypair, synthetic JWKS, issuer `https://issuer.
 - AppFlowy release image pins: https://github.com/AppFlowy-IO/AppFlowy-SelfHost-Commercial/blob/main/docs/RELEASE_IMAGES.md
 - Baserow 2.4.3: https://github.com/baserow/baserow/releases/tag/2.4.3
 - Baserow license: https://github.com/baserow/baserow/blob/develop/LICENSE
+
+
+## Baserow live qualification addendum
+
+The candidate Baserow OSE 2.4.3 image passed a disposable GitHub Actions integration. The test created a synthetic user, JWT session, workspace, database application and table; created a database token; constrained the token to create/read on one table; verified row create/read; and confirmed a delete request was denied. Result: **1 passed in 134.93 seconds**.
+
+Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
+
+The Baserow all-in-one image's bundled PostgreSQL/Redis are internal to Baserow and are not the SDGDS PostgreSQL 16.16 instance. Startup emitted a `vector` extension permission warning, but the tested REST/ACL operation completed successfully. Vector/AI features remain untested.
