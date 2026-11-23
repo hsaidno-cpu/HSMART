@@ -78,6 +78,18 @@ Configure repository Actions secrets \`NOTION_API_TOKEN\` and \`NOTION_GLOSSARY_
 
 The initial 25-term registry and a successful validation workflow do not prove the entire ecosystem has been inventoried or that Notion automation has run. Production synchronization is verified only after secrets and permissions are configured and a successful workflow run demonstrates create/update/no-op behavior.
 
+## Roadmap and progress ledger
+
+The SDGDS roadmap and progress baseline are maintained separately from terminology records:
+
+- \`docs/roadmap/SDGDS-ROADMAP.md\` — phase, milestone, dependency, risk and evaluation plan.
+- \`docs/roadmap/SDGDS-PROGRESS.json\` — canonical structured progress, evidence, risk and work-item ledger.
+- \`docs/roadmap/SDGDS-PROGRESS.schema.json\` — data contract.
+- \`scripts/sdgds/validate_roadmap.py\` — progress/dependency validator.
+- \`scripts/sdgds/sync_roadmap_notion.py\` — idempotent one-way ledger sync.
+
+The Notion Roadmap & Evaluation Ledger is separate from the terminology registry. Configure \`NOTION_SDGDS_ROADMAP_DATA_SOURCE_ID\` as a repository Actions secret and share that database with the same Notion integration. GitHub is canonical; Notion is a mirror. Overall completion remains null until a GOV-01-approved denominator and measurement method exist.
+
 ## Contribution workflow
 
 1. Search canonical labels, acronyms, aliases and IDs.
