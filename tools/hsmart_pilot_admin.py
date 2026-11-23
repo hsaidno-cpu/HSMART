@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sys
@@ -40,6 +41,7 @@ def generate_oidc_test_keys(output_dir: Path) -> None:
     public_path.chmod(0o644)
     print(f"private_key={private_path}")
     print(f"public_key={public_path}")
+    print(f"public_key_sha256={hashlib.sha256(public_path.read_bytes()).hexdigest()}")
     print("LOCAL/TEST ONLY. Hosted environments must use an external OIDC issuer and HTTPS JWKS.")
 
 
