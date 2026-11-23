@@ -45,3 +45,7 @@ class Settings:
                 raise ValueError("Production requires an HTTPS OIDC JWKS URL")
             if self.oidc_public_key_file:
                 raise ValueError("Production must use an external OIDC JWKS issuer, not a local test key")
+        supported_algorithms = {"EdDSA", "RS256", "ES256"}
+        configured = {value.strip() for value in self.oidc_algorithms.split(",") if value.strip()}
+        if not configured or not configured.issubset(supported_algorithms):
+            raise ValueError("OIDC algorithms must be a non-empty subset of EdDSA, RS256, ES256")
