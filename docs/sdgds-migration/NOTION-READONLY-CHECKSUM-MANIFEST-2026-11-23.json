@@ -1,0 +1,442 @@
+{
+  "manifest_schema": "sdgds-notion-readonly-checksum-manifest/1.0.0",
+  "snapshot_date": "2026-11-23",
+  "generated_at": "2026-11-23T21:00:00+08:00",
+  "mode": "READ_ONLY",
+  "source": {
+    "terminology_data_source": "collection://42199868-397f-81dd-b181-000b869e30f3",
+    "terminology_view": "view://42199868-397f-8113-910c-000c80758f39",
+    "roadmap_data_source": "collection://42199868-397f-8101-b322-000bd60f9787",
+    "roadmap_view": "view://42199868-397f-8114-b5ed-000c12fc509c"
+  },
+  "counts": {
+    "terminology_active": 25,
+    "terminology_archived": 0,
+    "roadmap_active": 20,
+    "roadmap_archived": 0,
+    "total_records": 45
+  },
+  "hash_method": {
+    "algorithm": "SHA-256",
+    "serialization": "UTF-8 JSON; object keys sorted lexicographically recursively; array order preserved; no added whitespace",
+    "digest_scope": "Full row property object returned by the saved view query, including Notion page URL; no Notion block body, comment, binary file or hidden subtree bytes"
+  },
+  "coverage": {
+    "search_matches": 50,
+    "matched_pages_fetched": 50,
+    "attachment_references_seen": 0,
+    "visible_discussion_references_seen": 0,
+    "comment_api_status": "upgrade_required",
+    "recursive_block_children": "NOT_EXPOSED_BY_CURRENT_CONNECTOR",
+    "binary_attachments": "NO_NOTION_FILE_BLOCK_REFERENCES_IN_FETCHED_CONTENT",
+    "caveat": "This manifest fingerprints the 45 active database rows only. It is not a complete recursive block/file export and does not prove that no inaccessible, unindexed, hidden or externally linked assets exist."
+  },
+  "records": [
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0001",
+      "title": "HSMART",
+      "notion_page_url": "https://app.notion.com/p/42199868397f815e9b65d97f5aa7b52d",
+      "sha256_canonical_properties": "6b1cc4180b522082e39dfd70942abafcaad2c389ae9ad9112da402325bf91795",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0002",
+      "title": "Hypersystem Orchestrator",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a88aedfbf648955b9f",
+      "sha256_canonical_properties": "0f57379aae73ebb7167109a18ed674674e8c127a34a868960bc76d4b8af8fceb",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0003",
+      "title": "SDGDS",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81688b07d775153bcd73",
+      "sha256_canonical_properties": "5679a2c2a8ffa46ccbfabf92a9bcc5e4acf9c144cfc92cb4a1dd88089b27e326",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Notion seed source references aligned with SDGDS; automated sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0004",
+      "title": "Capability",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a8a2a3e7a660795d56",
+      "sha256_canonical_properties": "31b55ef46b2c274ee49b0c4d50e2f755f814116f86b767efd63c1ee05d0bcb4d",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Notion seed source references aligned with SDGDS; automated sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0005",
+      "title": "Canonical Manifest",
+      "notion_page_url": "https://app.notion.com/p/42199868397f812aac91f9a06455776f",
+      "sha256_canonical_properties": "7252fd3f9fd42dcbdfb67c223fe8c9c25c98807695d989d2f6bd218fb6046e50",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0006",
+      "title": "Capability ID",
+      "notion_page_url": "https://app.notion.com/p/42199868397f812fa1f5cac037e6c470",
+      "sha256_canonical_properties": "2f7f29295e9a276b9a968e95f11cb49112b3ab9dc4ac1934db3d39e3ff10bf7c",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0007",
+      "title": "Control Plane",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a6984fc940cdeb19f5",
+      "sha256_canonical_properties": "28bb9f23322b327ec544740acfa40065e252521ba5e0c72b36acbd293b0cd4ba",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0008",
+      "title": "Execution Plane",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81559d06e1813b12d65a",
+      "sha256_canonical_properties": "ed26b2ad5bcfb7c6a25a2516a0dbce7bbbbfbf4380c4d9783aa55fd3c0977071",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0009",
+      "title": "Data Plane",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8110afe8ce56ffd0e6a1",
+      "sha256_canonical_properties": "cb8dcf186e4d26e3fdfacf7dfd50e77482f243a4403ee97df13cc84efbc86bfa",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0010",
+      "title": "Model Context Protocol (MCP)",
+      "notion_page_url": "https://app.notion.com/p/42199868397f817f998cdb196a0ee0a8",
+      "sha256_canonical_properties": "7aa58567d34b8eeb6a747cea583ec9d4ce9fbbbd59549997746582acf92c09ff",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Notion seed source references aligned with SDGDS; automated sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0011",
+      "title": "Adapter",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8161b6bae6c9a48644aa",
+      "sha256_canonical_properties": "fd58e1d7488f31b01fc8ff5d654c74099ff6933c014cb6e064e23040d1961731",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Notion seed source references aligned with SDGDS; automated sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0012",
+      "title": "Desired State",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8139823ec75871bddba9",
+      "sha256_canonical_properties": "f692a3d1d091dcb9287426bdcf2aa2efee7e4e6fd48a496375ab558c363fef24",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0013",
+      "title": "Observed State",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81e1a51bf272492a4e33",
+      "sha256_canonical_properties": "2de6352babb823648ce795f863e6197006ad869f6bfeb744f0f57ca50aff7a77",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0014",
+      "title": "Adaptive Synchronization",
+      "notion_page_url": "https://app.notion.com/p/42199868397f818cb74bfea0ebb51def",
+      "sha256_canonical_properties": "1f077e8df4d0964015a24a0bced714d8dd5e6e69b1381664c7b3baaaec94b52c",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0015",
+      "title": "Entitlement",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81da833ae6b361c3d8ba",
+      "sha256_canonical_properties": "2bae54eb9c1ab6936a4593d687e708b2ea3e24508707f28f6b2cf6dea334834f",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0016",
+      "title": "Workload Identity",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81ee9bd9ecb7a03d0756",
+      "sha256_canonical_properties": "f4f5cf4ceda3dbaebf53758134685c18d93ad87cefaf5483856ce58c6b02ece5",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0017",
+      "title": "Provenance",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8189a999f52122a0d4a7",
+      "sha256_canonical_properties": "f3be5fc4019152c0e9d831a1b41fe0a584916cd2ad0f781636a6617555a2d81a",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0018",
+      "title": "Quarantine",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81d2adf2e937dbcf0907",
+      "sha256_canonical_properties": "e1401fc8a393d30fb2e8ef88754ef5d5dc5aeca5455a4c0b18c162e00bd25008",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Notion seed source references aligned with SDGDS; automated sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0019",
+      "title": "Software Bill of Materials (SBOM)",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81bfbad9cac1ffd5955d",
+      "sha256_canonical_properties": "932a5351ebc787df7b15297da377ea76fa376b2dbb9eced27d2608c322e33bad",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0020",
+      "title": "Architecture Decision Record (ADR)",
+      "notion_page_url": "https://app.notion.com/p/42199868397f817db5f2c7b7ff986a23",
+      "sha256_canonical_properties": "8dffcf69bebf6442a20bf55a72165924a2b25799c40a05a43d12ea71284f08d1",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0021",
+      "title": "Universal Capability Registry",
+      "notion_page_url": "https://app.notion.com/p/42199868397f814296e9c582e115c00c",
+      "sha256_canonical_properties": "2fa7b4852c21bdb9b1edb6418b3d3485ea5296c431493962ec6d108be092e98a",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0022",
+      "title": "Distribution Gateway",
+      "notion_page_url": "https://app.notion.com/p/42199868397f812ca937c64f295429a5",
+      "sha256_canonical_properties": "15126bf9231db61a6bc59e8aa0c6700529dc8c7596a31b8a85c6c9c5fab4a4a2",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0023",
+      "title": "Evaluation & Assurance",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81b0bf91da0c07c3cfd0",
+      "sha256_canonical_properties": "d7ec3b589625a64254edce942da1e2a340b7c4186933bbacef1d22f240b3a993",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0024",
+      "title": "Tenant",
+      "notion_page_url": "https://app.notion.com/p/42199868397f813eb58dc96dbd90a507",
+      "sha256_canonical_properties": "1ffeb1d305fe0ddfc336df14b117ceff44474a72065cc450006781f234d37ab0",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "terminology",
+      "record_id": "HSMART-0025",
+      "title": "Publisher",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a0bb31e40803d56ff6",
+      "sha256_canonical_properties": "143f0049703ac5b5afc12e6031b074316af991e12960b2dfd70ab94d70572164",
+      "notion_content_hash_property": "Pending first GitHub Actions synchronization",
+      "notion_last_synced_commit_property": "Seeded in Notion; automated GitHub sync not yet verified"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-DEP-001",
+      "title": "GOV-01 roadmap and PR disposition",
+      "notion_page_url": "https://app.notion.com/p/42199868397f816f9a4ae185c871d65c",
+      "sha256_canonical_properties": "df733711ec6111aae3b53fd4dcac3a23171a18e8392f0576515dde7d336b5298",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-DEP-002",
+      "title": "Notion integration identity and data-source permissions",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81739eafc5b5f574830d",
+      "sha256_canonical_properties": "aadb51340ae0272db756f8bfb01e6b5cb9ed07759cd5f121f2cd1af7b9666a95",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-EVAL-20261123",
+      "title": "Formative evaluation snapshot — 23 November 2026",
+      "notion_page_url": "https://app.notion.com/p/42199868397f814facdece3c79b29420",
+      "sha256_canonical_properties": "de6412b7a09b250e97541fa097a5735ec870ffe823775822055c1bf7c929e2c4",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M00",
+      "title": "R0–R1 Intake and evidence baseline",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8179af2de919685ed282",
+      "sha256_canonical_properties": "69387fe49ab168d6ba2d91e3a813b467a5fe1f34d7d81a28b65bf28ac0285b63",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M01",
+      "title": "R2 Roadmap architecture and measurement contract v0.1.0",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81f290ecf9945471635a",
+      "sha256_canonical_properties": "a9bed359f3513ba9497cae9e9fdecd3798a3165c5ef1fe34b72836f618a0f9bb",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M02",
+      "title": "R3 Approval and baseline freeze",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81fb8e0aec07d2c85077",
+      "sha256_canonical_properties": "cb33c65551dc624464a02157cf206ff37bc15c48bcaf4fed1a71db9862a1ee38",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M03",
+      "title": "R4 Canonical registry and quality-gate foundation",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81e9a044f536648558ef",
+      "sha256_canonical_properties": "9065a208de8f3bf6b05d5bffd06a29305c217b97775bc72bd39b9feea9c2ab97",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M04",
+      "title": "R4 Activate authenticated Notion glossary synchronization",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a09725c835fb0ec7c6",
+      "sha256_canonical_properties": "2bec54fce53545a5e68603a88f06d091f4a3af293d636e787309f90edf5e3e0c",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M05",
+      "title": "R4 Activate synchronized roadmap and evaluation ledger",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8131a919f60bfdb4cd1d",
+      "sha256_canonical_properties": "e8bad34e4866c0447b5ced35c8c869e16836c5785ecdc70ee83528ade7c9db0c",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M06",
+      "title": "R4 Automated cross-repository terminology discovery pilot",
+      "notion_page_url": "https://app.notion.com/p/42199868397f819597c6f90d8299a161",
+      "sha256_canonical_properties": "02437f8adb3346c8829d3408e6af4561ac5850cd86cf6ae79c803eeff45e051c",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M07",
+      "title": "R4 Source provenance and expert-reference enrichment",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81a5a277d4a94c2b6ffe",
+      "sha256_canonical_properties": "16681f194554d112ca6c6244aa9f95d2b3ad7a5448e0610567cbe9ec188e24cf",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M08",
+      "title": "R4 Typed semantic relations and ambiguity governance",
+      "notion_page_url": "https://app.notion.com/p/42199868397f814b9505fffdba75dbe4",
+      "sha256_canonical_properties": "08dc41da06a3d21738e68bb9f4b1c525d2d756d80836d59d79d5b9ca7018f338",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M09",
+      "title": "R4 Search and retrieval interface",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81f796e9f574c5de1520",
+      "sha256_canonical_properties": "d0b055deb76cea94f465ef884bc476b109853522dc50930322e26bfeea1e73a3",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M10",
+      "title": "R5 Quality, drift and stale-definition monitoring",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8172b397d492b72595ab",
+      "sha256_canonical_properties": "63d210e7ef009e5d347ae4521161c2ad47bacced60798a87081eca9a3bb8991d",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M11",
+      "title": "R7 User adoption and outcome evaluation",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81f0b888c3f70d0fbbb1",
+      "sha256_canonical_properties": "de8b60a6afe5ccf227640fe19cc352f024dc58d883779d3fcc7c617beb16016a",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-M12",
+      "title": "R9 Assurance, maintenance handoff and closure",
+      "notion_page_url": "https://app.notion.com/p/42199868397f8154812fe1c7e6883eb3",
+      "sha256_canonical_properties": "663321a5591a801e02a2f95d7a1e46455824366cdc38daa042f8d1aa113511e1",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-RISK-001",
+      "title": "Notion sync lacks integration access and repository secrets",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81bb94f7c80417c9d946",
+      "sha256_canonical_properties": "c9a51fc585b7a60daa9f32737020d1d4300fb2b5b4ddfc9da7aaedcb32187d5b",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-RISK-002",
+      "title": "AI candidate definitions may hallucinate or contain unsupported attribution",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81e2bc2ff3c63a963ae2",
+      "sha256_canonical_properties": "a9d5a471b4c4a485dc7b27d3901c20a8e2df2a689ee32625602c11d2b894af2f",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-RISK-003",
+      "title": "Cross-repository discovery may cross private, confidential or licensed boundaries",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81948731ec1d0d744c10",
+      "sha256_canonical_properties": "15f97ded53bf8ebe22d7ad1d3b9917ec8d67dde92e66b66c87aad074600d5e73",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    },
+    {
+      "record_type": "roadmap_ledger",
+      "record_id": "SDGDS-RISK-004",
+      "title": "Term identity and meaning can drift between Notion and GitHub",
+      "notion_page_url": "https://app.notion.com/p/42199868397f81c09201ef019b690b20",
+      "sha256_canonical_properties": "ed272046721f3772aeaab4aa912b21eb827a8e7d769aa7d30380a45359fd6338",
+      "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
+      "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
+    }
+  ],
+  "aggregate_sha256": "3ddd7ca69d435d8733bb1966456ab03b90c82b71a02c66a5f39552a315da71c9"
+}
