@@ -479,27 +479,20 @@ def test_concurrent_idempotency_insert_race_returns_winning_replay(tmp_path, mon
         invocation_lookup_count = {"value": 0}
 
         def hide_first_invocation_lookup(statement, *args, **kwargs):
-            if "FROM invocations" in str(statement) and invocation_lookup_count["value"] == 0:
+            # Target the ORM entity, not a brittle SQL string representation.
+            entities = [
+                column.get("entity")
+                for column in getattr(statement, "column_descriptions", [])
+            ]
+            if Invocation in entities and invocation_lookup_count["value"] == 0:
                 invocation_lookup_count["value"] += 1
                 return None
             return real_scalar(statement, *args, **kwargs)
 
-        real_flush = session.flush
-        flush_count = {"value": 0}
-
-        def simulate_unique_insert_race(*args, **kwargs):
-            if flush_count["value"] == 0:
-                flush_count["value"] += 1
-                # Emulate the failed INSERT being rolled back by the database.
-                # The injected exception occurs before SQLAlchemy's real flush,
-                # so explicitly detach pending objects to model that rollback.
-                for pending in list(session.new):
-                    session.expunge(pending)
-                raise IntegrityError("INSERT invocation", {}, RuntimeError("duplicate tenant/idempotency key"))
-            return real_flush(*args, **kwargs)
-
+        # The existing row already owns the unique tenant/idempotency key.
+        # Hiding only the first lookup forces the next real INSERT to hit the
+        # database unique constraint, exercising the genuine IntegrityError path.
         monkeypatch.setattr(session, "scalar", hide_first_invocation_lookup)
-        monkeypatch.setattr(session, "flush", simulate_unique_insert_race)
 
         replay = invoke_capability(
             session, settings, principal,
