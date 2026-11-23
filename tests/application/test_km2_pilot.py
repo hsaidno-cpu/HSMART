@@ -4,6 +4,7 @@ from __future__ import annotations
 import asyncio
 from datetime import datetime, timedelta, timezone
 import json
+import hashlib
 import os
 from pathlib import Path
 import sys
@@ -187,8 +188,27 @@ def create_package(tmp_path: Path, *, rights_status: str = "CLEARED"):
         signer_key_id="test-package-key",
         source_commit=GIT_SHA,
         output_path=bundle,
+        license_file_path=ROOT / "LICENSE",
     )
-    return bundle, private_path, public_path, digest
+    trust_policy_path = tmp_path / "publisher-trust.json"
+    trust_policy_path.write_text(json.dumps({
+        "schema_version": "1.0.0",
+        "trusted_signers": {
+            "test-package-key": {
+                "public_key_sha256": hashlib.sha256(public_path.read_bytes()).hexdigest()
+            }
+        },
+        "publishers": {
+            "hsmart-first-party": {
+                "source_repository": metadata["source_repository"],
+                "allowed_capabilities": ["hsmart.echo"],
+                "allowed_license_ids": ["Apache-2.0"],
+                "rights_evidence_ref": metadata["rights_evidence_ref"],
+                "license_file_path": str(ROOT / "LICENSE")
+            }
+        }
+    }), encoding="utf-8")
+    return bundle, private_path, public_path, trust_policy_path, digest
 
 
 def test_oidc_verification_fails_closed_on_bad_issuer_audience_and_expiry(tmp_path):
@@ -216,8 +236,8 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
         tenant = Tenant(slug="tenant-package", display_name="Package Tenant")
         session.add(tenant)
         session.commit()
-        bundle, _, public_path, digest = create_package(tmp_path)
-        verified = verify_package(bundle, public_path)
+        bundle, _, public_path, trust_path, digest = create_package(tmp_path)
+        verified = verify_package(bundle, public_path, trust_path)
         assert verified.artifact_sha256 == digest
         install = install_package(
             session,
@@ -227,6 +247,7 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
             public_key_path=public_path,
             artifact_store_path=tmp_path / "artifacts",
             installer_subject="publisher",
+            trust_policy_path=trust_path,
         )
         assert install.state == "INSTALLED"
         activated = transition_installation(session, install.id, "ACTIVE", "admin")
@@ -265,15 +286,15 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
             with gzip.GzipFile(filename="", mode="wb", fileobj=stream, mtime=0) as compressed:
                 compressed.write(tampered_raw.getvalue())
         with pytest.raises(PackageVerificationError):
-            verify_package(tampered, public_path)
+            verify_package(tampered, public_path, trust_path)
 
 
 def test_unassessed_distribution_rights_are_not_installable(tmp_path):
     from hsmart_platform.pilot.errors import PackageVerificationError
 
-    bundle, _, public_path, _ = create_package(tmp_path, rights_status="NOT_ASSESSED")
+    bundle, _, public_path, trust_path, _ = create_package(tmp_path, rights_status="NOT_ASSESSED")
     with pytest.raises(PackageVerificationError, match="distribution_rights_not_cleared"):
-        verify_package(bundle, public_path)
+        verify_package(bundle, public_path, trust_path)
 
 
 def test_api_denies_missing_token_and_requires_entitlement(tmp_path):
