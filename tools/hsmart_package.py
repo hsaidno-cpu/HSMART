@@ -74,7 +74,7 @@ def main() -> int:
 
     transition_parser = commands.add_parser("transition")
     transition_parser.add_argument("--installation-id", required=True)
-    transition_parser.add_argument("--state", choices=["ACTIVE", "DISABLED", "REVOKED"], required=True)
+    transition_parser.add_argument("--state", choices=["ACTIVE", "DISABLED", "REVOKED", "UNINSTALLED"], required=True)
     transition_parser.add_argument("--actor", required=True)
 
     args = parser.parse_args()
