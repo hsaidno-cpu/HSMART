@@ -5,7 +5,7 @@
 **Effective policy date:** 2026-11-22  
 **Authority:** GOV-01 — Founder & Project Initiator Authority Declaration HSMART-GOV-FOUNDER-001  
 **Status:** APPROVED AS INTERNAL PROJECT POLICY BY GOV-01; RUNTIME IMPLEMENTATION NOT YET VERIFIED  
-**Scope:** Interim AI-supported governance for GOV-02 through GOV-06 in the unincorporated, founder-led HSMART project
+**Scope:** Interim AI-supported governance for GOV-02 through GOV-12 in the unincorporated, founder-led HSMART project
 
 ## 1. Purpose
 
@@ -256,3 +256,12 @@ Suspension freezes mutating permissions until investigation and explicit reinsta
 Review this Charter when GOV-01 changes the authority model, AI runtime is provisioned, an Agent/model/tool is replaced, a material security incident occurs, a human is appointed to a GOV role, HSMART enters a legal entity, or community governance is introduced.
 
 No version of this Charter may be altered by an AI delegate to weaken the limits that govern that delegate. Changes require an explicit GOV-01 authorization and reviewed repository change.
+
+
+## 10. GOV-01 addendum — AI-only functional roles beyond GOV-01
+
+By decision `HSMART-GOV-DEC-2026-11-22-002`, GOV-01 is the only human authority in the internal HSMART role model. GOV-02 through GOV-12 are bounded AI Functional Delegates. GOV-07 covers Operations/Reliability, GOV-08 legal/commercial research only, GOV-09 entitlement governance, GOV-10 repository governance, GOV-11 independent assurance and GOV-12 business continuity/DR.
+
+Designation is not activation. No role gains an executable runtime, model or tool scope until its own A1–A8 gates pass. AI reviewers may publish reports, but they cannot be represented as human GitHub reviewers or native approving actors. GOV-01 remains final internal human approval authority.
+
+GOV-08 is not legal counsel, a qualified attorney or an authorized signatory. Binding legal, tax, regulated privacy, ownership/IP and external commercial decisions remain with an appropriately authorized person/entity and qualified professional.

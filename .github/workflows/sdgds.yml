@@ -1,0 +1,65 @@
+name: SDGDS Terminology Registry
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/glossary/**"
+      - "docs/roadmap/SDGDS-ROADMAP.md"
+      - "docs/roadmap/SDGDS-PROGRESS.json"
+      - "docs/roadmap/SDGDS-PROGRESS.schema.json"
+      - "docs/architecture/GLOSSARY.md"
+      - "scripts/sdgds/**"
+      - "tests/test_sdgds.py"
+      - "tests/test_sdgds_roadmap.py"
+      - ".github/workflows/sdgds.yml"
+  pull_request:
+    paths:
+      - "docs/glossary/**"
+      - "docs/roadmap/SDGDS-ROADMAP.md"
+      - "docs/roadmap/SDGDS-PROGRESS.json"
+      - "docs/roadmap/SDGDS-PROGRESS.schema.json"
+      - "docs/architecture/GLOSSARY.md"
+      - "scripts/sdgds/**"
+      - "tests/test_sdgds.py"
+      - "tests/test_sdgds_roadmap.py"
+      - ".github/workflows/sdgds.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+permissions:
+  contents: read
+concurrency:
+  group: sdgds-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate canonical terminology registry
+        run: python scripts/sdgds/validate_glossary.py
+      - name: Validate roadmap and progress ledger
+        run: python scripts/sdgds/validate_roadmap.py
+      - name: Check generated glossary index
+        run: python scripts/sdgds/render_glossary.py --check
+      - name: Run SDGDS tests
+        run: python -m unittest discover -s tests -p "test_sdgds*.py" -v
+      - name: Synchronize Notion terminology mirror
+        if: github.event_name != 'pull_request'
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+          NOTION_GLOSSARY_DATA_SOURCE_ID: ${{ secrets.NOTION_GLOSSARY_DATA_SOURCE_ID }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: python scripts/sdgds/sync_notion.py
+      - name: Synchronize Notion roadmap and evaluation ledger
+        if: github.event_name != 'pull_request'
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+          NOTION_SDGDS_ROADMAP_DATA_SOURCE_ID: ${{ secrets.NOTION_SDGDS_ROADMAP_DATA_SOURCE_ID }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: python scripts/sdgds/sync_roadmap_notion.py

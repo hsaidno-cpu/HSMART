@@ -1,3 +1,15 @@
+## Current execution snapshot — 23 November 2026
+
+- PR #13 merged; GOV-01 MVP/Charter decisions are canonical on main (`17c78dcd2ea59c6d40f9a07d188bab6f829f0596`).
+- GOV-01 is the only human internal authority; GOV-02..GOV-12 are AI Functional Delegates designated but all runtimes remain NOT_PROVISIONED / NOT_ACTIVE.
+- GOV-07 role allocation is resolved as an AI delegate; production operations controls remain unprovisioned.
+- ADR-011 v1.2.0 accepted by GOV-01; acceptance is not production procurement approval.
+- PR #28 contains the KM 1 app foundation. Contract/OpenAPI, PostgreSQL 16 integration and repository governance CI passed on the inspected PR head; the AI Reviewer Evidence gate awaits a report-only commit.
+- Main is still unprotected. Desired controls and local admin bootstrap are in `docs/governance/REPOSITORY-BASELINE-CONTROLS.md`; apply and read back with repository Administration: write privileges before merging.
+- KM 0 OPEN; KM 1 IN PROGRESS; KM 2+ blocked until the exact KM 1 exit decision.
+- No Registry/Gateway/managed Runtime/Evaluation/Synchronization service, production deployment, WORM audit store, disaster recovery exercise or production security certification is evidenced.
+- Indonesian legal basis is mapped in `docs/legal/INDONESIA-LEGAL-BASIS-AND-ENTITY-BOUNDARIES.md`; it is not a legal opinion or formation/registration evidence.
+
 # HSMART Execution Roadmap
 
 **Document status:** Execution planning baseline  
@@ -13,7 +25,7 @@ This roadmap translates the approved HSMART architecture baseline into an execut
 
 The objective is not to implement all twelve domains simultaneously. The objective is to prove one complete, secure, observable capability lifecycle, then expand that proven path.
 
-## 2. Current baseline and starting position
+## 2. Current baseline and starting position (historical; see current execution snapshot below)
 
 The architecture baseline has been merged into \`main\` through PR #1. It includes the master architecture, domain boundaries, ADRs, access-management design, contracts, security baseline, runtime and synchronization specifications, governance, and an initial implementation roadmap.
 

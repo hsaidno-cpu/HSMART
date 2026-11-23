@@ -1,0 +1,47 @@
+{
+  "name": "HSMART Main Governance",
+  "target": "branch",
+  "enforcement": "active",
+  "bypass_actors": [],
+  "conditions": {
+    "ref_name": {
+      "include": [
+        "refs/heads/main"
+      ],
+      "exclude": []
+    }
+  },
+  "policy": {
+    "pull_request_required": true,
+    "required_approving_reviews": 0,
+    "ai_review_model": "AI Functional Delegate GOV-11, separate review context and evidence record",
+    "gov01_merge_authorization": "required outside GitHub native approval because GOV-01 is the sole human authority",
+    "dismiss_stale_reviews": true,
+    "require_conversation_resolution": true,
+    "require_up_to_date_branch": true,
+    "require_linear_history": true,
+    "enforce_administrators": true,
+    "allow_force_pushes": false,
+    "allow_deletions": false,
+    "required_status_checks": [
+      "Contract tests (ubuntu-24.04)",
+      "Contract tests (windows-2025)",
+      "Contract tests (macos-15)",
+      "OpenAPI and required repository files",
+      "KM1 application integration (PostgreSQL 16)",
+      "Repository Governance Review",
+      "AI Reviewer Evidence"
+    ],
+    "native_review_required_approvals": 0,
+    "human_merge_authority": "GOV-01 only; no logical AI identity is misrepresented as a native GitHub approving actor",
+    "deterministic_review_job": "Repository Governance Review",
+    "ai_review_evidence_job": "AI Reviewer Evidence"
+  },
+  "limitations": [
+    "GitHub native approving reviews represent GitHub actors, not logical AI profiles.",
+    "Repository Governance Review is a deterministic policy/secret-pattern pre-review, not a generative AI model review.",
+    "GOV-11 AI review report is separate evidence and requires actual model/context provenance; runtime is currently not provisioned.",
+    "GOV-01 retains final human merge authorization.",
+    "This desired configuration remains NOT_APPLIED until GitHub API read-back and a negative enforcement test confirm it."
+  ]
+}

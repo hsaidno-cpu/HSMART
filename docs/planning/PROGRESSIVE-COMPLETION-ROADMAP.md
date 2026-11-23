@@ -6,6 +6,39 @@
 **Status:** ACTIVE EXECUTION CONTROL BASELINE — KM 0 OPEN / KM 1 PARTIAL  
 **Authority:** Project Charter v1.0.2, subject to canonical synchronization through PR #13  
 **Repository baseline inspected:** main @ e796b5842f98277716fc5d81026ac175d0591f36  
+## Current evidence snapshot — 23 November 2026
+
+This section supersedes the 22 November baseline and older state text below.
+
+| Workstream | Current evidence | Current state |
+|---|---|---|
+| Canonical GOV-01 decisions | PR #13 merged to main at `17c78dcd2ea59c6d40f9a07d188bab6f829f0596`; MVP v1.1.0 and Charter v1.0.2 decisions canonical | MERGED / CANONICAL |
+| GOV-07 | AI delegate `hsmart.gov07.operations-reliability.orchestrator` designated; no separate human GOV-07 seat | DESIGNATED; runtime NOT_PROVISIONED |
+| Main protection | Desired config, CLI operator and manual Actions workflow in PR #28; GitHub still reports `protected=false` | NOT_APPLIED / NOT_VERIFIED |
+| ADR-011 | v1.2.0 accepted by GOV-01 under `HSMART-GOV-DEC-2026-11-22-002` | DECISION ACCEPTED |
+| KM 1 application foundation | FastAPI, SQLAlchemy/Alembic, PostgreSQL 16, migration CI, Compose API/worker and outbox concurrency test | IMPLEMENTED ON PR #28 BRANCH; HOSTED CI PASSED |
+| AI assurance | GOV-11 report is bound to exact reviewed SHA; report-only commit and AI Reviewer Evidence CI still pending | IN PROGRESS |
+| KM 0 | Repository protection and evidence-based exit decision not complete | OPEN |
+| KM 1 | Proof-of-fit accepted; application environment/evaluation and exact-commit GOV-01 exit decision remain | IN PROGRESS |
+| KM 2–KM 8 | Registry, Gateway, managed Runtime, Evaluation and Synchronization not operational | BLOCKED UNTIL KM 1 ACCEPTED |
+| Production/legal | No production deployment, WORM store, restore exercise, PSE registration, entity formation or commercial approval evidenced | NOT VERIFIED |
+
+PR #28: https://github.com/hsaidno-cpu/HSMART/pull/28  
+Specification validation: https://github.com/hsaidno-cpu/HSMART/actions/runs/45081190812  
+PostgreSQL 16 application CI: https://github.com/hsaidno-cpu/HSMART/actions/runs/45081190720  
+Repository Governance Review: https://github.com/hsaidno-cpu/HSMART/actions/runs/45081190729  
+AI Reviewer Evidence (pre-report expected failure): https://github.com/hsaidno-cpu/HSMART/actions/runs/45081190713
+
+---
+
+# HSMART Progressive Completion Roadmap
+
+**Document ID:** HSMART-ROADMAP-PC-001  
+**Version:** 1.1.0  
+**Prepared:** 2026-11-23  
+**Status:** ACTIVE EXECUTION CONTROL BASELINE — KM 0 OPEN / KM 1 IN PROGRESS  
+**Authority:** Project Charter v1.0.2 and GOV-01 decisions canonical on main via merged PR #13; ADR-011 acceptance recorded in PR #28  
+**Repository main:** 17c78dcd2ea59c6d40f9a07d188bab6f829f0596; active implementation branch `governance/km1-ops-adr011-20261122`  
 **Related:** IMPLEMENTATION-ROADMAP.md; BACKLOG-KM0-KM2.md; MVP-DECISION-RECORD.md; ADR-011; DELEGATE-RUNTIME-ACTIVATION-PLAN.md
 
 ---
@@ -42,6 +75,22 @@ Snapshot date: 22 November 2026. Re-check branch and PR state before each conseq
 | KM 0 | Governance baseline and initial backlog exist; PR #13 and operational accountability remain open | OPEN |
 | KM 1 | JSON/schema/OpenAPI contract suite, fixtures, Python contract-tooling environment, and local policy reference evaluator exist | PARTIAL |
 | KM 2–KM 8 | Architecture/contracts documented; production application services not evidenced | NOT STARTED |
+Snapshot date: 23 November 2026. Re-check branch and PR state before each consequential write.
+
+| Area | Observed baseline | Disposition |
+|---|---|---|
+| Repository main | Commit 17c78dcd2ea59c6d40f9a07d188bab6f829f0596; default branch main; protected=false | Current inspected baseline |
+| PR #13 | GOV-01 decision record; MERGED; merge commit 17c78dcd2ea59c6d40f9a07d188bab6f829f0596 | Governance decisions canonical |
+| PR #13 CI | Four jobs passed on the exact observed head | Repository checks only |
+| Charter | v1.0.2; RATIFIED WITH CONDITIONS and canonical on main | Decision recorded; activation gates remain |
+| MVP | v1.1.0 APPROVED AS WRITTEN and canonical on main | Approval recorded; delivery acceptance remains evidence-gated |
+| GOV-01 | Appointed for internal project governance | Recorded |
+| GOV-02..GOV-12 | AI Functional Delegates designated; GOV-01 is the only human internal authority; all runtimes NOT_PROVISIONED / NOT_ACTIVE | Designation only, not activation |
+| GOV-07 Operations/Reliability | AI delegate designated by GOV-01; runtime NOT_PROVISIONED / NOT_ACTIVE | Internal role allocation resolved; operational activation still open |
+| Main branch protection | GitHub reports main protected=false; admin operator and workflow are in PR #28; application requires Administration: write | P0 repository-control gap; NOT_APPLIED / NOT_VERIFIED |
+| KM 0 | PR #13 canonical; AI role allocation recorded; branch protection and KM 0 exit evidence remain open | OPEN |
+| KM 1 | ADR-011 v1.2.0 accepted; FastAPI/SQLAlchemy/Alembic app foundation, Compose worker and PostgreSQL 16 integration CI pass on PR #28; AI evidence and exact-commit acceptance pending | IN PROGRESS |
+| KM 2–KM 8 | Registry/Gateway/managed Runtime/Evaluation/Synchronization services not operational; wait for KM 1 acceptance | BLOCKED / NOT STARTED |
 | KM 9 | Marketplace intentionally deferred | DEFERRED |
 | KM 10 | Production hardening not evidenced | NOT STARTED |
 
@@ -162,6 +211,36 @@ Required repository controls:
 - Do not configure a broad AI/delegate bypass. Keep administrator bypass disabled where repository settings permit.
 - Add a qualified independent human reviewer before enforcing an approval rule that cannot be satisfied by the sole repository owner.
 - Verify the active ruleset/branch protection from GitHub after configuration; a documentation checkbox is not evidence.
+### G0.2 GOV-07 Operations/Reliability AI accountability
+
+**Current status:** INTERNAL ROLE ALLOCATION RESOLVED; RUNTIME / OPERATIONAL EVIDENCE BLOCKED.
+
+GOV-01 designated `hsmart.gov07.operations-reliability.orchestrator` as the AI Functional Delegate for GOV-07. No separate human GOV-07 seat is part of the internal HSMART model. GOV-01 remains the single human accountable authority internally. Designation does not mean an on-call runtime, telemetry, backup/restore, incident runbook or recovery action is available.
+
+Before hosted production workloads, provision and verify:
+- Isolated runtime identity, exact model, pinned Skills/Sub-Skills and task-scoped tools.
+- Health, metrics, alerts, incident evidence scopes and emergency suspension controls.
+- Approved runbooks for service restart, restore, credential revocation/rotation and incident containment.
+- Tested backup restoration, RPO/RTO evidence and WORM audit integration where privileged production operations require it.
+
+Acceptance:
+- GOV-07 passes A1–A8 and is read back VERIFIED/ACTIVE before operational mutations.
+- Monitoring, escalation and runbooks are exercised in a non-production environment.
+- Restore evidence and recovery ownership are verified.
+- Charter C-07 remains open for production until these controls pass.
+
+### G0.3 Repository governance and AI review evidence
+
+**Current status:** NOT_APPLIED / NOT_VERIFIED — main remains unprotected.
+
+Required controls:
+- All changes to main enter through pull requests; direct-to-main changes must be prohibited.
+- Require strict/up-to-date status checks, conversation resolution and administrator enforcement.
+- Require seven exact contexts: Contract tests (ubuntu-24.04), Contract tests (windows-2025), Contract tests (macos-15), OpenAPI and required repository files, KM1 application integration (PostgreSQL 16), Repository Governance Review and AI Reviewer Evidence.
+- Require no force-push and no branch deletion; keep ruleset bypass actors empty.
+- Native GitHub approving-review count is zero by design: GOV-01 is the only human internal authority; AI delegates are not GitHub human actors. GOV-11 supplies a transparent report validated by CI; GOV-01 retains the final merge decision.
+- Personal-repository GitHub push-restriction lists for named users/teams/apps are not available; enforce PR-only changes and no bypass instead.
+- Initial bootstrap before PR #28 merges uses the local admin script with a repository token carrying Administration: write. After merge, the Repository Main Protection workflow can manage later changes. Never paste the token into chat or commit it.
 
 The current connected GitHub action surface does not expose branch-protection/ruleset mutation. Therefore this roadmap records the exact target configuration but does not claim to have applied it.
 
@@ -180,6 +259,8 @@ KM 0 may be ACCEPTED only when:
 - GOV-01 authority and delegate limits are recorded.
 - Every critical governance/operational decision has an accountable human owner or explicitly accepted interim human coverage.
 - GOV-07 operational accountability is resolved for the next intended environment.
+- Every internal workstream has a designated GOV role; GOV-01 is the only human decision authority and the other roles are AI delegates. Production operational controls must be provisioned and tested before workloads.
+- GOV-07 role allocation is resolved; its runtime, monitoring, backup/restore and incident controls must be verified before production.
 - Repository controls are enforced or a documented, human-approved exception defines a safe non-production-only scope and expiry.
 - Initial risk register, prioritized backlog, dependencies and change control are active.
 - Every P0 item has passed or a specific authorized decision explicitly defers it without misrepresenting KM 0 as closed.

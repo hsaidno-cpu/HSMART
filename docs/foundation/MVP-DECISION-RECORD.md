@@ -3,12 +3,12 @@
 **Document ID:** HSMART-PRODUCT-MVP-001  
 **Version:** 1.1.0  
 **Prepared:** 2026-11-22  
-**Status:** APPROVAL-READY — PENDING ACCOUNTABLE DECISION  
+**Status:** APPROVED AS WRITTEN — GOV-01 DECISION RECORDED 2026-11-22  
 **Decision class:** D2 (product scope and acceptance baseline)  
-**Decision owner:** Project Sponsor / Accountable Owner and Product Owner — appointments pending  
-**Related:** Project Charter v1.0.0; Implementation Roadmap; ADR-001 through ADR-011
+**Decision owner:** GOV-01 Project Sponsor / Accountable Owner — Harysaidno (internal project authority only); Product Owner human seat VACANT  
+**Related:** Project Charter v1.0.2; Formal Ratification Record HSMART-GOV-RAT-001 v1.4.0; GOV-01 Decision Record HSMART-GOV-DEC-2026-11-22-001; Implementation Roadmap; ADR-001 through ADR-011
 
-> This record is a complete decision package, not evidence of approval. It becomes an approved product baseline only after the appointed accountable people record their decisions below.
+> **Approval recorded:** On 2026-11-22, GOV-01 accepted MVP v1.1.0 as written, covering sections 2–7, including the operating envelope, in-scope capabilities, explicit non-goals, acceptance criteria AC-01 through AC-12, and initial success measures. The durable decision and authority limits are recorded in HSMART-GOV-DEC-2026-11-22-001. This approval adopts the product boundary; it does not certify implementation, release readiness, production operation, cloud expenditure, or delegate runtime activation.
 
 ## 1. Decision requested
 
@@ -115,11 +115,10 @@ No throughput, latency percentile, availability, unit-cost, ROI or production su
 | Decision field | Value |
 |---|---|
 | Proposed boundary | This document, sections 2–7 |
-| Decision | PENDING |
-| Project Sponsor / Accountable Owner | NOT APPOINTED |
-| Product Owner | NOT APPOINTED |
-| Approval date | NOT RECORDED |
-| Conditions / exceptions | Must be recorded here before the baseline is treated as approved |
-| Effective version | 1.1.0 only after approval |
-
-A proposed scope is not an approved scope. Record the named approver, authority, date, decision, accepted exceptions and effective version before changing status to APPROVED.
+| Decision | **APPROVED AS WRITTEN** |
+| Project Sponsor / Accountable Owner | Harysaidno — GOV-01; HSMART-GOV-FOUNDER-001 v1.0.0; internal project authority only |
+| Product Owner | Human role seat VACANT; interim AI delegate GOV-03 designated but runtime not active and has no independent approval authority |
+| Approval date | 2026-11-22 |
+| Conditions / exceptions | Sections 2–7 accepted without scope amendment. This approval does not waive any acceptance criterion, certify delivery, authorize production use, select a hosting/model provider, approve paid cloud resources, or approve third-party/legal commitments. Scope changes remain D2 decisions for GOV-01. |
+| Approval evidence | HSMART-GOV-DEC-2026-11-22-001; explicit written GOV-01 instruction dated 2026-11-22; not a cryptographic signature and no separate civil-identity verification is claimed |
+| Effective version | 1.1.0 — approved as the internal product baseline on 2026-11-22 |

@@ -3,11 +3,11 @@
   "registry_id": "HSMART-GOV-AI-REG-001",
   "designation_date": "2026-11-22",
   "approval": {
-    "decision_id": "HSMART-AUTH-GOV01-20261122-002",
+    "decision_id": "HSMART-GOV-DEC-2026-11-22-002",
     "authority_role": "GOV-01",
     "authority_holder": "Harysaidno",
     "scope": "internal HSMART project governance only",
-    "limitations": "human GOV-02 through GOV-06 seats remain vacant; logical AI profiles are designated but runtime instances, model bindings, connector scopes and operational verification are pending"
+    "limitations": "GOV-01 is the only human authority in the internal HSMART role model. GOV-02 through GOV-12 are logical AI functional delegates designated but NOT_PROVISIONED / NOT_ACTIVE pending individual A1-A8 activation evidence. GOV-08 is research/drafting only and not legal counsel or a signatory; GOV-11 AI review is not a GitHub-native human approval."
   },
   "lifecycle_definitions": {
     "designated": "Logical profile approved by GOV-01; not executable until runtime registration and activation gates pass",
@@ -32,7 +32,11 @@
     "self_permission_change": false,
     "self_policy_change": false,
     "audit_required_for_mutations": true,
-    "independent_cross_evaluation_required": true
+    "independent_cross_evaluation_required": true,
+    "gov01_final_human_approval": true,
+    "native_github_ai_approval": false,
+    "ai_delegate_main_branch_write": false,
+    "ai_delegate_merge_to_main": false
   },
   "shared_support_profiles": [
     {
@@ -670,6 +674,396 @@
         "GOV-05 engineering validation",
         "separate assurance context",
         "external human specialist for high/critical issues when needed"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-07",
+      "role_title": "Operations / Reliability Lead",
+      "agent_id": "hsmart.gov07.operations-reliability.orchestrator",
+      "orchestrator_name": "operations-reliability-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Maintain operational runbooks, service health, incident triage, backup/restore exercises and readiness evidence under GOV-01-approved playbooks.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov07.operations-reliability.health-and-readiness",
+          "description": "health and readiness"
+        },
+        {
+          "agent_id": "hsmart.gov07.operations-reliability.incident-triage",
+          "description": "incident triage"
+        },
+        {
+          "agent_id": "hsmart.gov07.operations-reliability.backup-restore-evidence",
+          "description": "backup restore evidence"
+        },
+        {
+          "agent_id": "hsmart.gov07.operations-reliability.runbook-maintenance",
+          "description": "runbook maintenance"
+        }
+      ],
+      "skills": [
+        {
+          "name": "operations-reliability-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "health_and_readiness",
+            "incident_triage",
+            "backup_restore_evidence",
+            "runbook_maintenance"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "read_approved_operational_telemetry",
+        "prepare_restore_tests",
+        "maintain_runbooks",
+        "publish_operational_evidence"
+      ],
+      "prohibited_actions": [
+        "production_release",
+        "unapproved_failover",
+        "destructive_data_action",
+        "self_accept_risk"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-08",
+      "role_title": "Legal / Commercial Research",
+      "agent_id": "hsmart.gov08.legal-commercial-research.orchestrator",
+      "orchestrator_name": "legal-commercial-research-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Research legal and commercial issues, compare cited public sources, prepare draft documents and identify questions for qualified counsel.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov08.legal-commercial-research.jurisdiction-research",
+          "description": "jurisdiction research"
+        },
+        {
+          "agent_id": "hsmart.gov08.legal-commercial-research.ip-license-issue-spotting",
+          "description": "ip license issue spotting"
+        },
+        {
+          "agent_id": "hsmart.gov08.legal-commercial-research.contract-drafting-support",
+          "description": "contract drafting support"
+        },
+        {
+          "agent_id": "hsmart.gov08.legal-commercial-research.privacy-tax-research",
+          "description": "privacy tax research"
+        }
+      ],
+      "skills": [
+        {
+          "name": "legal-commercial-research-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "jurisdiction_research",
+            "ip_license_issue_spotting",
+            "contract_drafting_support",
+            "privacy_tax_research"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "read_approved_sources",
+        "draft_legal_checklists",
+        "prepare_counsel_questions",
+        "publish_research_evidence"
+      ],
+      "prohibited_actions": [
+        "claim_lawyer_status",
+        "binding_legal_opinion",
+        "sign_or_bind_third_party",
+        "approve_external_terms"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-09",
+      "role_title": "Entitlement Governance Steward",
+      "agent_id": "hsmart.gov09.entitlement-governance.orchestrator",
+      "orchestrator_name": "entitlement-governance-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Maintain internal entitlement semantics, license-to-permission mapping, quota, expiry, revocation and evidence requirements.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov09.entitlement-governance.entitlement-model",
+          "description": "entitlement model"
+        },
+        {
+          "agent_id": "hsmart.gov09.entitlement-governance.rights-evidence-mapping",
+          "description": "rights evidence mapping"
+        },
+        {
+          "agent_id": "hsmart.gov09.entitlement-governance.quota-policy-analysis",
+          "description": "quota policy analysis"
+        },
+        {
+          "agent_id": "hsmart.gov09.entitlement-governance.negative-entitlement-tests",
+          "description": "negative entitlement tests"
+        }
+      ],
+      "skills": [
+        {
+          "name": "entitlement-governance-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "entitlement_model",
+            "rights_evidence_mapping",
+            "quota_policy_analysis",
+            "negative_entitlement_tests"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "draft_policy",
+        "run_entitlement_fixtures",
+        "read_publisher_rights_evidence",
+        "publish_test_report"
+      ],
+      "prohibited_actions": [
+        "grant_self_entitlement",
+        "approve_own_policy",
+        "create_external_rights",
+        "bypass_license_check"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-10",
+      "role_title": "Repository Governance Lead",
+      "agent_id": "hsmart.gov10.repository-governance.orchestrator",
+      "orchestrator_name": "repository-governance-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Prepare and verify GitHub repository governance configuration, branch rules, change-control and protection-drift evidence.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov10.repository-governance.branch-ruleset-design",
+          "description": "branch ruleset design"
+        },
+        {
+          "agent_id": "hsmart.gov10.repository-governance.protection-drift-review",
+          "description": "protection drift review"
+        },
+        {
+          "agent_id": "hsmart.gov10.repository-governance.workflow-gate-review",
+          "description": "workflow gate review"
+        },
+        {
+          "agent_id": "hsmart.gov10.repository-governance.repository-audit",
+          "description": "repository audit"
+        }
+      ],
+      "skills": [
+        {
+          "name": "repository-governance-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "branch_ruleset_design",
+            "protection_drift_review",
+            "workflow_gate_review",
+            "repository_audit"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "read_rulesets",
+        "prepare_ruleset_dry_run",
+        "run_governance_checks",
+        "publish_drift_report"
+      ],
+      "prohibited_actions": [
+        "self_grant_admin",
+        "add_bypass_actor",
+        "disable_required_checks",
+        "push_or_merge_main"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-11",
+      "role_title": "Independent Assurance Reviewer",
+      "agent_id": "hsmart.gov11.independent-assurance-reviewer.orchestrator",
+      "orchestrator_name": "independent-assurance-reviewer-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Challenge deliverables in a separate read-only context, verify tests/evidence and preserve dissent.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov11.independent-assurance-reviewer.independent-context-review",
+          "description": "independent context review"
+        },
+        {
+          "agent_id": "hsmart.gov11.independent-assurance-reviewer.security-challenge",
+          "description": "security challenge"
+        },
+        {
+          "agent_id": "hsmart.gov11.independent-assurance-reviewer.evidence-completeness",
+          "description": "evidence completeness"
+        },
+        {
+          "agent_id": "hsmart.gov11.independent-assurance-reviewer.regression-assurance",
+          "description": "regression assurance"
+        }
+      ],
+      "skills": [
+        {
+          "name": "independent-assurance-reviewer-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "independent_context_review",
+            "security_challenge",
+            "evidence_completeness",
+            "regression_assurance"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "read_authorized_artifacts",
+        "run_read_only_tests",
+        "publish_review_report",
+        "record_dissent"
+      ],
+      "prohibited_actions": [
+        "edit_target_during_review",
+        "approve_own_report",
+        "create_fake_github_approval",
+        "merge_or_release"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
+      ],
+      "escalation": "GOV-01"
+    },
+    {
+      "role_id": "GOV-12",
+      "role_title": "Business Continuity / Disaster Recovery Lead",
+      "agent_id": "hsmart.gov12.business-continuity.orchestrator",
+      "orchestrator_name": "business-continuity-orchestrator",
+      "profile_version": "1.0.0",
+      "human_role_holder": null,
+      "appointment_type": "interim_ai_functional_delegate_designation",
+      "lifecycle_state": "designated",
+      "runtime_state": "not_provisioned",
+      "mission": "Prepare business-continuity and disaster-recovery procedures, test backups/restores and maintain measured recovery evidence.",
+      "sub_agents": [
+        {
+          "agent_id": "hsmart.gov12.business-continuity.backup-strategy",
+          "description": "backup strategy"
+        },
+        {
+          "agent_id": "hsmart.gov12.business-continuity.restore-validation",
+          "description": "restore validation"
+        },
+        {
+          "agent_id": "hsmart.gov12.business-continuity.failover-test-design",
+          "description": "failover test design"
+        },
+        {
+          "agent_id": "hsmart.gov12.business-continuity.continuity-reporting",
+          "description": "continuity reporting"
+        }
+      ],
+      "skills": [
+        {
+          "name": "business-continuity-orchestrator",
+          "version": "pending_runtime_binding",
+          "sub_skills": [
+            "backup_strategy",
+            "restore_validation",
+            "failover_test_design",
+            "continuity_reporting"
+          ]
+        }
+      ],
+      "logical_tools": [
+        "read-only-source-access",
+        "task-scoped-tools-after-GOV01-grant",
+        "audit-evidence-writer"
+      ],
+      "permitted_actions": [
+        "read_backup_status",
+        "prepare_restore_exercise",
+        "publish_recovery_evidence",
+        "recommend_hold"
+      ],
+      "prohibited_actions": [
+        "claim_untested_dr",
+        "unilateral_destructive_failover",
+        "change_retention_without_approval",
+        "self_accept_risk"
+      ],
+      "cross_evaluation": [
+        "GOV-11 assurance context where not author",
+        "GOV-06 security challenge where applicable",
+        "GOV-01 final disposition"
       ],
       "escalation": "GOV-01"
     }
