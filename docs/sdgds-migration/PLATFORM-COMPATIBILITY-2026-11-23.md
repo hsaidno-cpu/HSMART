@@ -18,9 +18,9 @@
 
 - Candidate: **Baserow Open Source Edition 2.4.3**, published 14 November 2026.
 - OSE core is MIT; docs CC BY-SA 4.0; premium and enterprise paths have separate licensing.
-- Live disposable `baserow/baserow:2.4.3` integration passed **1/1 test in 134.93 seconds**.
+- Live disposable `baserow/baserow:2.4.3` integration passed **1/1 test in 90.54 seconds on the current PR #31 head**.
 - Verified: synthetic user/JWT, explicit workspace creation, database/table creation, one-table database token with create/read only, successful row create/read, denied delete, and disposable container/volume cleanup.
-- Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
+- Exact-current-head evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922816
 - Startup emitted a permission warning when the bundled internal database role attempted to create PostgreSQL `vector` extension. Core API and table-scoped token ACL test passed; vector/AI feature was not part of the test.
 - The Baserow all-in-one image's internal PostgreSQL/Redis are separate from the SDGDS PostgreSQL 16 service.
 
@@ -28,9 +28,17 @@
 
 - Disposable GitHub Actions service used `postgres:16`, reporting PostgreSQL 16.16.
 - DDL and six tests passed on a previously tested head: string IDs, schema, JSONB/check constraints, unique labels/slugs, foreign keys and relation constraints, outbox idempotency, transaction rollback/commit.
-- Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465115/job/137764609621
-- Test reset now requires an explicit destructive opt-in and exact disposable database/user `sdgds_spike`; a fresh exact-head rerun remains pending.
+- Exact-current-head evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922794; PostgreSQL 16.16, disposable runner, **6/6 passed in 0.36 sec**.
+- Test reset requires explicit destructive opt-in and exact disposable database/user `sdgds_spike`; this guarded form passed on the current PR head.
 - This does not prove production backup/restore, HA, DR, load or security readiness.
+
+## Wiki.js FLOSS workspace candidate
+
+- Candidate: **Wiki.js 3.6.1**, released 23 November 2026; repository license AGPL-3.0.
+- Official v3 documentation lists OIDC 1.0 identity-provider configuration, issuer discovery/JWKS and a REST API documented with OpenAPI 3.0 and bearer-key scopes.
+- The documented v3 self-host deployment path uses PostgreSQL 18+; keep that database separate from HSMART PostgreSQL 16 unless a supported external connection profile is proven.
+- No live Wiki.js installation or OIDC integration test was run in this execution. It is a candidate for a follow-on FLOSS workspace spike, not an approved replacement.
+- References: https://github.com/requarks/wiki/releases/tag/3.6.1 ; https://docs.js.wiki/ ; https://docs.js.wiki/administration/authentication/oidc ; https://docs.js.wiki/guide/api
 
 ## OIDC
 
