@@ -36,6 +36,8 @@ This repository currently contains the architecture and implementation contracts
 | Path | Purpose |
 |---|---|
 | docs/foundation/ | Project Charter, ratification record, MVP boundary and acceptance decision |
+| docs/planning/ | Prioritized KM 0–KM 2 backlog, progressive completion roadmap and execution dependencies |
+| docs/engineering/ | Reproducible contract-validation development environment |
 | docs/planning/ | Progressive completion roadmap, prioritized KM 0–KM 2 backlog and dependencies |
 | docs/engineering/ | Contract tooling and KM 1 application development environment |
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
@@ -48,6 +50,8 @@ This repository currently contains the architecture and implementation contracts
 | docs/glossary/ | SDGDS terminology registry, schema, curation policy and synchronization tooling |
 | docs/contracts/ | JSON Schema, OpenAPI, event contracts |
 | docs/synchronization/ | Adaptive synchronization policy |
+| docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-06 activation/evidence plan |
+| docs/governance/ | Ownership, human authority, AI delegate governance, permission/approval policy, audit evidence and main-branch controls |
 | docs/runtime/ | Hybrid runtime contracts and GOV-02..GOV-12 activation/evidence plan |
 | docs/governance/ | Ownership, human authority, AI Functional Delegation Charter, delegate registry, permission/approval policy, cross-evaluation and audit governance |
 | docs/roadmap/ | Implementation phases and acceptance criteria |

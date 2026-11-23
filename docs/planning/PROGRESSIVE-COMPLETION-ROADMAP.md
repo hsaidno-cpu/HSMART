@@ -1,3 +1,11 @@
+# HSMART Progressive Completion Roadmap
+
+**Document ID:** HSMART-ROADMAP-PC-001  
+**Version:** 1.0.0  
+**Prepared:** 2026-11-22  
+**Status:** ACTIVE EXECUTION CONTROL BASELINE — KM 0 OPEN / KM 1 PARTIAL  
+**Authority:** Project Charter v1.0.2, subject to canonical synchronization through PR #13  
+**Repository baseline inspected:** main @ e796b5842f98277716fc5d81026ac175d0591f36  
 ## Current evidence snapshot — 23 November 2026
 
 This section supersedes the 22 November baseline and older state text below.
@@ -51,6 +59,22 @@ This roadmap is an execution-control document. The original IMPLEMENTATION-ROADM
 
 ## 2. Verified baseline and current disposition
 
+Snapshot date: 22 November 2026. Re-check branch and PR state before each consequential write.
+
+| Area | Observed baseline | Disposition |
+|---|---|---|
+| Repository main | Commit e796b5842f98277716fc5d81026ac175d0591f36; default branch main | Current inspected baseline |
+| PR #13 | GOV-01 decision record; OPEN / DRAFT / NOT MERGED; head e0082584c68b5926f976f5700552989e05176259 | Governance synchronization pending |
+| PR #13 CI | Four jobs passed on the exact observed head | Repository checks only |
+| Charter | v1.0.2 on PR #13 branch; conditional decision recorded there | Not yet canonical on main |
+| MVP | v1.1.0 approved as written on PR #13 branch | Approval recorded; acceptance tests not thereby passed |
+| GOV-01 | Appointed for internal project governance | Recorded |
+| GOV-02..GOV-06 | AI functional delegate profiles designated; human seats vacant; runtimes not provisioned | Designation only, not activation |
+| GOV-07 Operations/Reliability | Unassigned | P0 decision blocker before hosted production operations |
+| Main branch protection | GitHub reports main protected=false; required status checks are not enforced | P0 repository-control gap |
+| KM 0 | Governance baseline and initial backlog exist; PR #13 and operational accountability remain open | OPEN |
+| KM 1 | JSON/schema/OpenAPI contract suite, fixtures, Python contract-tooling environment, and local policy reference evaluator exist | PARTIAL |
+| KM 2–KM 8 | Architecture/contracts documented; production application services not evidenced | NOT STARTED |
 Snapshot date: 23 November 2026. Re-check branch and PR state before each consequential write.
 
 | Area | Observed baseline | Disposition |
@@ -155,6 +179,38 @@ Acceptance:
 - No document claims delegate activation or production readiness.
 - Notion's snapshot, task tracker and links refer to the new main commit.
 
+### G0.2 GOV-07 Operations/Reliability accountability
+
+**Current status:** BLOCKED — no accountable owner recorded.
+
+Before hosted production workloads, one of the following must be recorded:
+- A named, qualified human GOV-07 who accepts monitoring, backup, restore, incident response, credential rotation, emergency suspension and recovery responsibility; or
+- A specifically named human interim operations owner with the same bounded responsibilities, authority, availability expectations and review/expiry condition.
+
+An AI delegate may prepare runbooks, inspect telemetry and recommend actions when authorized. An AI profile alone does not satisfy human incident accountability or C-07 of the Charter ratification conditions.
+
+Acceptance:
+- Role register names the human owner and acceptance evidence.
+- Decision rights, on-call/escalation path and emergency suspension authority are explicit.
+- Backup/restore and incident responsibilities have no unowned critical gap.
+- No production workload begins before this gate passes.
+
+### G0.3 Repository governance
+
+**Current status:** BLOCKED — main is unprotected in the observed GitHub configuration.
+
+Required repository controls:
+- Require changes to enter main through pull requests.
+- Require at least one independent human approval before merge.
+- Dismiss stale approvals after new reviewable commits.
+- Require approval of the latest push where supported.
+- Require the applicable CI jobs: Contract tests (ubuntu-24.04), Contract tests (windows-2025), Contract tests (macos-15), and OpenAPI and required repository files.
+- Require conversation resolution.
+- Require the branch to be up to date with main before merge.
+- Prohibit force pushes and deletion of main.
+- Do not configure a broad AI/delegate bypass. Keep administrator bypass disabled where repository settings permit.
+- Add a qualified independent human reviewer before enforcing an approval rule that cannot be satisfied by the sole repository owner.
+- Verify the active ruleset/branch protection from GitHub after configuration; a documentation checkbox is not evidence.
 ### G0.2 GOV-07 Operations/Reliability AI accountability
 
 **Current status:** INTERNAL ROLE ALLOCATION RESOLVED; RUNTIME / OPERATIONAL EVIDENCE BLOCKED.
@@ -201,6 +257,8 @@ KM 0 may be ACCEPTED only when:
 - The canonical Charter/MVP decision state is synchronized to main.
 - Project scope, MVP non-goals and acceptance baseline are approved.
 - GOV-01 authority and delegate limits are recorded.
+- Every critical governance/operational decision has an accountable human owner or explicitly accepted interim human coverage.
+- GOV-07 operational accountability is resolved for the next intended environment.
 - Every internal workstream has a designated GOV role; GOV-01 is the only human decision authority and the other roles are AI delegates. Production operational controls must be provisioned and tested before workloads.
 - GOV-07 role allocation is resolved; its runtime, monitoring, backup/restore and incident controls must be verified before production.
 - Repository controls are enforced or a documented, human-approved exception defines a safe non-production-only scope and expiry.
