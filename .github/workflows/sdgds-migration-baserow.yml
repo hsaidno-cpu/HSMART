@@ -1,0 +1,46 @@
+name: SDGDS Migration Baserow OSE 2.4.3 Integration
+
+on:
+  pull_request:
+    paths:
+      - "examples/sdgds-migration-spike/**"
+      - ".github/workflows/sdgds-migration-baserow.yml"
+      - "docs/sdgds-migration/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sdgds-migration-baserow-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  baserow-ose-integration:
+    runs-on: ubuntu-24.04
+    services:
+      baserow:
+        image: baserow/baserow:2.4.3
+        env:
+          BASEROW_PUBLIC_URL: http://localhost:8080
+          SECRET_KEY: sdgds-disposable-ci-only-secret-key-not-for-production
+        ports:
+          - 8080:80
+        options: >-
+          --health-cmd "curl --fail http://localhost/api/_health/ || exit 1"
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 30
+          --health-start-period 60s
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install integration test dependency
+        run: python -m pip install "pytest>=8,<9"
+      - name: Verify Baserow OSE REST API and table-scoped token permissions
+        working-directory: examples/sdgds-migration-spike
+        env:
+          BASEROW_BASE_URL: http://127.0.0.1:8080
+        run: python -m pytest tests/test_baserow_live.py -q
