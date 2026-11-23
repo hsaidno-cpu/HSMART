@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR30-KM2-LOCAL-PILOT-20261123",
+  "pr_number": 30,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "ce0e83b864f5fe6e958c978080cbbfcf7a813e72",
+  "reviewed_head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "NO_AI_MERGE_AUTHORITY_GOV01_FINAL_DISPOSITION_REQUIRED",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.independent-assurance-reviewer.orchestrator",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured adversarial assurance review produced by the current GPT-6 assistant execution in this conversation; not run by a separately provisioned GOV-11 execution runtime.",
+    "decision_authority": "No GitHub-native approval, merge, release, risk-acceptance or production acceptance authority."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "The same assistant conversation participated in implementation and review. Separate model/provider/runtime/context isolation is not evidenced."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "PR #30 from base ce0e83b864f5fe6e958c978080cbbfcf7a813e72 through reviewed code head 859450cd0535185bc2133291d1c6a75ce02ad92e. Only this report file may change after the reviewed head.",
+    "focus": [
+      "PostgreSQL/Alembic registry schema for capability identities, immutable versions, grants, installations, invocations and audit events.",
+      "OIDC/JWT verification including issuer, audience, exp, iat, sub, tenant claim, asymmetric algorithm allowlist, local-test versus hosted-production key boundaries and fail-closed behavior.",
+      "Deterministic signed package build, Ed25519 signature verification, SHA-256 file inventory, immutable source commit, package bounds and archive path/symlink checks.",
+      "Publisher trust policy, signer fingerprint, publisher/source/capability/license/source-commit allowlists, rights evidence reference and byte-identical LICENSE-file verification.",
+      "Installer content-addressed storage, immutable-version behavior, install/activate/disable/uninstall/reinstall/revoke transitions and propagation of release revocation.",
+      "Tenant-scoped entitlement creation/revocation, scope checks, authorization-before-idempotent-replay, tenant isolation and deny audit events.",
+      "REST discovery/invoke/grant/revoke endpoints and shared invocation service.",
+      "MCP stdio host process, tool surface and actual client-to-host-to-installed-capability invocation/read-back integration test.",
+      "Audit event hashing, per-tenant sequence locking and explicit boundary that database hash-linking is not WORM storage.",
+      "Docker Compose loopback exposure, optional stdio host profile, Docker image build, secret exclusions and local operator runbook.",
+      "PostgreSQL 16 migration tests, 23 KM2 application/pilot tests, CLI validation and Ubuntu/macOS/Windows specification suite."
+    ],
+    "excluded": [
+      "Public cloud deployment, DNS/domain/TLS provisioning, cloud account/region selection and cost approval.",
+      "Production OIDC tenant/client provisioning, managed JWKS key rotation, KMS/HSM signer custody and secret manager provisioning.",
+      "Arbitrary uploaded-code execution, remote sandbox, multi-tenant compute isolation or plugin marketplace distribution.",
+      "External object storage with object lock/WORM audit, production telemetry/SLO alerting, backup restore, DR/failover exercise and production security acceptance.",
+      "Canonical Git source migration and redistribution-right clearance for the wider Hypersystem USER/PRIVATE plugin portfolio.",
+      "Separate independent GOV-11 runtime or GOV-01 human approval."
+    ]
+  },
+  "methods": [
+    "requirements-to-code and requirements-to-test traceability",
+    "manual review of package verifier, trust-policy enforcement and installer lifecycle",
+    "least-privilege review of JWT scopes, tenant scoping and explicit persisted entitlements",
+    "adversarial review of package archive bounds, path traversal, symlink and file-digest validation",
+    "release revocation, grant revocation and idempotent replay ordering review",
+    "MCP stdio host boundary review and actual subprocess integration-test evidence inspection",
+    "database migration and transaction/audit-path review",
+    "exact-commit GitHub Actions evidence verification"
+  ],
+  "ci_evidence": [
+    {
+      "name": "KM1 Application Foundation and KM2 Pilot — PostgreSQL 16 migrations, 23 application/pilot tests, CLI help, Compose config and Docker image build",
+      "status": "PASS",
+      "run_id": 45159322208,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322208",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "Specification Validation — Ubuntu 24.04",
+      "status": "PASS",
+      "run_id": 45159322261,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "Specification Validation — macOS 15",
+      "status": "PASS",
+      "run_id": 45159322261,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "Specification Validation — Windows 2025",
+      "status": "PASS",
+      "run_id": 45159322261,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "OpenAPI and required repository files",
+      "status": "PASS",
+      "run_id": 45159322261,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS",
+      "run_id": 45159322069,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322069",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    },
+    {
+      "name": "AI Reviewer Evidence before the report-only commit",
+      "status": "EXPECTED_FAILURE_MISSING_REPORT_ARTIFACT",
+      "run_id": 45159322229,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322229",
+      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Local trust-policy administration",
+      "finding": "The example publisher trust policy is a template. Its signer public-key fingerprint and source commit are intentionally placeholders; local package admission is denied until an operator pins the real values in an ignored local file. The trust-policy file itself is a local operator-controlled input, not a separately signed policy service.",
+      "disposition": "Do not publish or install a package from the template unchanged. For hosted environments, store and version the policy through an administrator-controlled configuration/KMS/secret-management mechanism and add policy-change approval/audit."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Runtime isolation",
+      "finding": "The pilot intentionally supports only the built-in hsmart.echo.v1 entrypoint. Package payloads are not imported or executed. This is safe for a controlled first-party pilot but is not a general-purpose plugin runtime or sandbox.",
+      "disposition": "Do not admit third-party plugin entrypoints. Before general execution, design isolated workloads, resource limits, network/filesystem policy, image provenance, tenant isolation, kill/timeout and cleanup controls."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Identity and key custody",
+      "finding": "The local integration uses a generated test Ed25519 key and a PEM verification key path. The hosted code path requires an HTTPS JWKS URL, but production issuer/client registration, JWKS rotation, workload identity and KMS/HSM signer custody are not provisioned or tested.",
+      "disposition": "Keep local test keys out of production. Provision an externally managed OIDC issuer/client, asymmetric key rotation and KMS/HSM-backed publisher signing before hosted activation."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Audit durability and observability",
+      "finding": "The audit chain is hash-linked and verified in tests, and tenant sequence allocation uses a PostgreSQL tenant-row lock. Audit rows remain in the application database; this is not an independently protected WORM/object-lock store. No production telemetry pipeline or alerting/SLO is deployed.",
+      "disposition": "Add an external append-only/WORM audit sink, independent integrity checkpointing, trace/metric export, alerts and retention/restore tests before production."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Hosted infrastructure and DR",
+      "finding": "Docker Compose and a container image are validated in CI, but no cloud provider, region, public domain, ingress/TLS, managed PostgreSQL, managed Redis, object store, backup policy, restore test or DR/failover exercise has been provisioned.",
+      "disposition": "Retain LOCAL_PILOT_ONLY. Hosted staging requires GOV-01 vendor/region/domain/identity/cost decisions; production requires backup/restore and DR proof."
+    },
+    {
+      "id": "F-06",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "External distribution rights",
+      "finding": "The sample trust policy authorizes only the first-party HSMART Echo package under the HSMART repository LICENSE and an explicit source-commit allowlist. It does not grant rights to any Hypersystem plugin, private Plugin Creator package or upstream dependency.",
+      "disposition": "Keep all wider USER/PRIVATE packages blocked from registry distribution until canonical source, publisher authorization, license/NOTICE attribution, third-party rights and package integrity are individually accepted."
+    },
+    {
+      "id": "F-07",
+      "severity": "LOW",
+      "status": "OPEN",
+      "area": "Operational hardening",
+      "finding": "The local pilot does not yet implement production rate/quotas, admin separation of duties, policy approvals, external malware scanning/SBOM/attestation pipeline, automated signer rotation or operator alert/runbook drills.",
+      "disposition": "Treat as staged production gates; do not infer these capabilities from the signed-package or CI implementation."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "GOV-01 final disposition",
+      "status": "PENDING",
+      "required": "Human GOV-01 must review the exact PR #30 head and decide whether to merge this local KM2 pilot."
+    },
+    {
+      "gate": "Hosted staging authority",
+      "status": "HOLD",
+      "required": "Select and authorize cloud provider, region, domain/DNS/TLS, OIDC tenant/client and budget; none is provisioned by this PR."
+    },
+    {
+      "gate": "Third-party source and rights migration",
+      "status": "HOLD",
+      "required": "Create/authorize canonical child repositories and approve a per-package redistribution/license decision; HSMART trust policy is limited to its own first-party sample."
+    },
+    {
+      "gate": "Production promotion",
+      "status": "HOLD",
+      "required": "Separate sandbox/runtime, managed identity/key custody, WORM audit, monitoring, backup/restore, DR, security and production acceptance evidence."
+    }
+  ],
+  "limitations": [
+    "This is a correlation-limited AI assurance review, not independent provider/model certification.",
+    "GOV-11 is a logical designation and has not been provisioned as an isolated reviewer runtime.",
+    "The same assistant conversation participated in implementation and review; native GitHub approval is false.",
+    "CI proves the named migrations/tests and build on the exact reviewed head only; it does not prove hosted or production deployment.",
+    "MCP proof is a local stdio subprocess integration test, not remote MCP/HTTP Gateway deployment or an external host integration.",
+    "The package verifier accepts only first-party built-in entrypoints; arbitrary uploaded code is deliberately out of scope.",
+    "The trust-policy template must be populated locally with exact signer/source values before a local package can be built/installed.",
+    "No third-party USER/PRIVATE plugin package is authorized by the sample publisher policy."
+  ],
+  "disposition": "The reviewed change set is acceptable with caveats as a KM2 local signed-registry, installer, entitlement and stdio MCP pilot foundation. Exact-head PostgreSQL/application tests, cross-platform specification tests, repository governance, CLI checks, Compose validation and Docker image build passed. The pilot must remain LOCAL_PILOT_ONLY; public cloud, production runtime, arbitrary package execution and third-party plugin distribution are not authorized by this evidence. GOV-01 retains final merge and risk-acceptance authority.",
+  "reviewed_local_date": "2026-11-23"
+}
