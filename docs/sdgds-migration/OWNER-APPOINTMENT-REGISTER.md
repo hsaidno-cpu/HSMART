@@ -20,3 +20,19 @@ GOV-01 is the sole human internal decision authority. SDGDS migration work is ma
 All delegates remain logical designations until each profile has a stable runtime identity, exact model/provider/version binding, versioned instructions and Skills, task-scoped tool grants, policy enforcement, positive/negative authorization tests, audit logging, fail-closed behaviour and GOV-01 activation approval.
 
 No agent has been marked ACTIVE by this package. Production readiness remains blocked until delegate runtimes, tools, identity, audit and recovery evidence are provisioned and verified. GOV-01 retains final internal approval. External legal/commercial commitments and resources outside the project's controlled accounts remain subject to the legally authorized person/entity and qualified professional review where applicable.
+
+
+## Human accountability and production-readiness gap
+
+The delegates above are **logical AI workstream mappings only**. They are not human appointees and are not active runtime instances. The existing HSMART delegation charter records GOV-02 through GOV-06 human seats as vacant; this migration package contains no acceptance record from a qualified human production operator.
+
+| Human accountability | Current disposition | Required before production |
+|---|---|---|
+| Internal final decision authority (GOV-01) | Identified in the HSMART charter | Retains approval, risk acceptance, cutover and merge authority |
+| Execution accountable human | NOT APPOINTED / NOT ACCEPTED | Name and acceptance record for schedule, delivery and escalation accountability |
+| Security/privacy human reviewer | NOT APPOINTED / NOT ACCEPTED | Qualified reviewer who can independently challenge security/privacy findings |
+| Data steward / migration accountable human | NOT APPOINTED / NOT ACCEPTED | Named owner for data meaning, provenance, exception disposition and migration sign-off |
+| Platform/SRE human operator (GOV-07 or accepted interim) | NOT APPOINTED / NOT ACCEPTED | Named qualified human accountable for monitoring, backup, restore, incident response, credential rotation, emergency suspension and recovery |
+| Independent human verifier | NOT APPOINTED / NOT ACCEPTED | Reviewer independent of implementation author and with access to the required evidence |
+
+AI delegates may prepare plans, operate authorized disposable test environments and collect evidence under scoped permissions. They cannot satisfy the human operational-accountability requirement, approve their own work, accept residual risk, authorize a production write, or replace an independent human review. Until the required human appointments and acceptances are recorded, M7 production readiness remains BLOCKED.
