@@ -15,12 +15,12 @@
 | Dimension | Observed state |
 |---|---|
 | HSMART parent foundation | PR #28 merged; current main/base is \`543bef61f1fd1ce3a736bd107857bee0b244c388\` |
-| SDGDS implementation | PR #29 open, mergeable, 11 files changed |
+| SDGDS implementation | PR #29 open, mergeable, 17 files changed; reviewed code SHA 9f610af, report-only head 3e72b17 |
 | Canonical seed | 25 terminology records |
-| SDGDS unit tests | 8/8 passed |
+| SDGDS unit tests | 13/13 passed (8 terminology + 5 roadmap tests) |
 | PR workflow groups | 5/5 succeeded on exact head \`0890bfa6538fbc7e23a61150f5a574128c4bc684\` |
-| Notion term database | 25 records seeded; five source-reference updates applied; post-update aggregate read unavailable |
-| Automated Notion sync | **Not verified**; workflow skipped because credentials/data-source access were not configured or evidenced |
+| Notion term database | 25/25 records verified via All Terms saved view; one Proposed item in Review Queue |
+| Automated Notion sync | **Not verified**; both CI sync steps were skipped because credentials/data-source access were not configured or evidenced |
 | Term discovery across repositories | Not implemented |
 | Semantic relation graph | Initial text IDs only; typed graph not implemented |
 | Search API/MCP | Not implemented; Notion browsing only |
@@ -113,8 +113,8 @@ The first dependency is a human governance decision, not more code. The second i
 | Indicator | Current observation | Interpretation |
 |---|---:|---|
 | Seed terms | 25 | Foundation seed, not total vocabulary |
-| SDGDS unit tests | 8/8 pass | Code-level checks, not definition accuracy |
-| PR workflow groups | 5/5 pass | Exact-commit repository CI evidence |
+| SDGDS unit tests | 13/13 pass | Code-level checks, not definition accuracy |
+| PR workflow groups | 5/5 pass on current PR report-only head | Exact-commit repository CI evidence |
 | PR #29 | Open, mergeable | Not merged or accepted |
 | Automated Notion sync runs | 0 verified | CI skipped without credentials |
 | Inventory coverage | Unknown | No agreed source/term denominator |
