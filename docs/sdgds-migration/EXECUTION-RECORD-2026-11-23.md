@@ -1,38 +1,41 @@
 # SDGDS Migration — M0/M1 Execution Record
 
 **Roadmap:** HSMART-SDGDS-MIGRATION-001  
-**Revision:** 0.1.0  
+**Revision:** 0.3.0  
 **Snapshot:** 23 November 2026  
-**Disposition:** M0 approved for bounded non-production design, read-only inventory and synthetic spike. Production is NOT approved.  
+**M0 disposition:** APPROVED FOR BOUNDED NON-PRODUCTION DESIGN, READ-ONLY INVENTORY AND SYNTHETIC PROOF-OF-FIT  
 **Decision authority:** GOV-01  
-**Execution owner:** `hsmart.gov02.project-owner.orchestrator` (DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE)  
-**Baseline:** HSMART main @ `ce0e83b864f5fe6e958c978080cbbfcf7a813e72`
+**AI delegate mapping:** GOV-02 / 04 / 05 / 06 / 07 / 11 — DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE  
+**Production / cutover:** NOT AUTHORIZED
 
-## 1. M0 — Charter and architecture
+## 1. Baseline and scope
 
-PR #29 is now **MERGED**, merge commit `f72e00893fab05a9b109890c55c4ea7f5c945fab`. This supersedes older Notion text and ledger entries describing PR #29 as open/pending.
+HSMART PR #29 is **MERGED**, merge commit `f72e00893fab05a9b109890c55c4ea7f5c945fab`. The inspected main baseline at the beginning of this execution was `ce0e83b864f5fe6e958c978080cbbfcf7a813e72`.
 
-M0 is accepted for the explicitly bounded scope requested: architecture design, read-only inventory and synthetic technical proof-of-fit. It does **not** authorize production deployment, cloud procurement, importing real Notion content, changing Notion permissions, production data cutover, risk acceptance or Notion retirement.
+GOV-01 accepted ADR-011 v1.2.0 as the internal HSMART KM1 technology direction under `HSMART-GOV-DEC-2026-11-22-002`. This acceptance supports internal implementation and proof-of-fit; it does not authorize production deployment, procurement or external commitments.
 
-### Architecture decision
+This execution is bounded to architecture design, read-only Notion inspection, row-property checksums and synthetic/disposable technical validation. No original Notion Terminology Registry or Roadmap Ledger rows were edited, archived, deleted or imported. No production cutover or risk acceptance is approved.
 
-HSMART main already contains Python/FastAPI, SQLAlchemy, Alembic, PostgreSQL 16, a worker pattern and ADR-001 modular-monolith-first direction. The initial SDGDS implementation should therefore be a **domain module within the existing HSMART application**, not a separately deployed microservice.
+## 2. M0 — architecture decision
 
-| Component | Approved bounded role |
+HSMART already contains Python 3.12/FastAPI, SQLAlchemy, Alembic, PostgreSQL 16 and worker/outbox patterns under ADR-001 modular-monolith-first direction. SDGDS starts as a domain module within HSMART, not a separately deployed microservice.
+
+| Component | Bounded role |
 |---|---|
-| GitHub/HSMART | Engineering source of truth: code, schemas, API/MCP contracts, migrations, policies, CI and reproducible seed/export |
-| PostgreSQL | Future operational source of truth for live SDGDS records after a separate cutover approval |
-| FastAPI SDGDS service | One governed read/write API and shared domain/policy service layer |
-| MCP adapter | Expose approved operations using the same authorization/service layer; no SQL bypass |
-| AppFlowy | Narrative documentation/wiki/ADR/SOP workspace |
-| Baserow | Review queue and dashboard projection; no direct writes to canonical SDGDS tables |
+| GitHub / HSMART | Engineering source of truth: code, schemas, API/MCP contracts, migrations, policies, CI, seed and snapshots |
+| PostgreSQL 16 | Future operational source of truth for live SDGDS data after separate cutover approval |
+| FastAPI SDGDS module | Governed API and single canonical write path |
+| MCP adapter | Expose approved operations through the same service and authorization layer; no SQL bypass |
+| AppFlowy | Documentation/wiki/ADR/SOP workspace only if licensing and identity tier are acceptable |
+| Baserow OSE | Review/dashboard projection; never a second canonical writer |
 | Outbox worker | Idempotent projection and reconciliation to Baserow |
+| Redis | Optional cache/coordination only; never canonical data storage |
 
-No dual-writer pattern. Redis, if later introduced, is cache/coordination only, never canonical storage. ADR-011 v1.2.0 was accepted by GOV-01 as HSMART's internal KM1 technology direction under `HSMART-GOV-DEC-2026-11-22-002`; this does not authorize production procurement or deployment.
+No dual-writer pattern. AppFlowy and Baserow are clients/projections, not additional sources of truth.
 
-## 2. M1 — Read-only Notion inventory
+## 3. M1 — read-only Notion inventory
 
-No source Notion records were edited, archived or deleted. Saved-view inventory returned:
+Saved-view inventory returned:
 
 | Asset | Active | Archived |
 |---|---:|---:|
@@ -40,124 +43,127 @@ No source Notion records were edited, archived or deleted. Saved-view inventory 
 | Review Queue | 1 | 0 |
 | Roadmap & Evaluation Ledger | 20 | 0 |
 
-Terminology findings: 24 Canonical, 1 Proposed; 25 unique Term IDs and labels; no missing primary source URL in the returned rows; all required alias/definition/related-term fields populated. There are **zero real 64-hex SHA-256 Content Hash values**; the field contains pending-sync placeholders. Last Synced Commit values are explanatory placeholders, not verified commit hashes. Notion schema also lacks a `slug` field present in the GitHub canonical JSON.
+Terminology findings: 24 Canonical, 1 Proposed; 25 unique Term IDs and labels; all 25 have Primary Source URL; alias, terminological definition and related-term fields are populated. The Notion schema lacks a `slug` property present in GitHub canonical JSON.
 
-Roadmap ledger findings: 12 milestones, 4 risks, 2 dependencies, 1 evaluation and 1 work item. All 20 Work Item IDs unique; all 20 have a 40-character hexadecimal Source Commit; no missing Acceptance Criteria or Evidence URL in the retrieved rows; zero real 64-hex SHA-256 Content Hash values.
+Roadmap Ledger findings: 12 milestones, 4 risks, 2 dependencies, 1 evaluation and 1 work item; all 20 Work Item IDs are unique; all 20 Source Commit values have SHA-like syntax; no missing Acceptance Criteria or Evidence URL in returned rows.
 
-The scoped SDGDS search returned 50 page/database matches. This is not a complete recursive block/file/attachment manifest. Child-block content, file binaries, MIME sizes/checksums, comments and downloadable attachment rights remain unknown. Therefore **M1 database/schema/record inventory is VERIFIED READ-ONLY; recursive page/file/attachment inventory is PARTIAL / NOT VERIFIED**.
+### Row-level checksum manifest
 
-The old PR #29 status in Notion is stale and must be reconciled through the canonical GitHub-to-Notion mechanism when that sync is configured. This task did not mutate the Notion ledger.
+Manifest: `docs/sdgds-migration/NOTION-READONLY-CHECKSUM-MANIFEST-2026-11-23.json`
 
-## 3. Synthetic technical spike
+- SHA-256 fingerprints all 45 active database rows (25 terminology + 20 ledger).
+- Digest covers the entire row-property object returned by the saved view, with recursively sorted JSON object keys, preserved array order and UTF-8 encoding. Notion page URL is included.
+- This is a row-property checksum, not a hash of block bodies or binary file bytes.
+- The original Notion Content Hash and Last Synced Commit fields still contain placeholders, not evidence of automated synchronization.
 
-Local synthetic package is supplied as a downloadable conversation artifact. The repository PR records the execution findings; the downloadable package is kept separate until source-level review and import into the repository are approved.
+### Individually fetched pages and recursive-inventory limitation
 
-- **Local tests:** 20 passed, 2 skipped; `compileall` passed. PostgreSQL and Baserow live services are tested in separate disposable GitHub Actions jobs.
-- **API Gateway:** FastAPI read/search and Proposed-only candidate creation with explicit synthetic scopes.
-- **MCP:** narrow `initialize`, `tools/list` and `tools/call` JSON-RPC smoke test. Not full MCP conformance.
-- **Baserow OSE 2.4.3:** live disposable API/ACL integration passed 1/1: synthetic user/JWT, explicit workspace, database/table, one-table create/read token, row create/read allowed, delete denied. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
-- **AppFlowy:** OpenAPI discovery, operationId lookup, path substitution and synthetic page creation tested against an HTTP mock.
-- **PostgreSQL 16.16:** disposable CI service applied DDL and passed 6/6 integration tests. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465115/job/137764609621
+A scoped SDGDS search returned 50 page/database matches. All 45 individual database record pages were fetched, along with five container/schema assets: SDGDS root, current roadmap, migration roadmap, Terminology Registry database/schema and Roadmap Ledger database/schema.
 
-### Environment limitations
+Across these fetched outputs: zero stable Notion file-block references, zero nested child database references, zero visible discussion markers, and zero unknown-block/truncation markers surfaced.
 
-Local environment has no Docker/Compose or `psql`, so live database and Baserow tests ran in disposable GitHub Actions environments. AppFlowy remains mock-tested because no licensed live instance was provisioned. OIDC/JWKS validation used synthetic identity only; no external IdP was provisioned. Backup/restore, DR, load, production security and cutover remain NOT_RUN. Only synthetic records and fake tokens were used.
+However:
+- The current connector did not expose raw recursive block-child traversal or a complete workspace export.
+- The Notion comments endpoint returned `upgrade_required`; absence of visible markers is not evidence of zero comments.
+- External URLs, inaccessible files, unindexed pages, hidden workspace assets and binary content are not included in this checksum manifest.
 
-## 4. Gate disposition
+Therefore **database/schema/record inventory is VERIFIED READ-ONLY**, while exhaustive raw block-tree, comment and binary attachment inventory remains **PARTIAL / NOT VERIFIED**. No claim of full workspace inventory is made.
 
-| Gate | State |
-|---|---|
-| M0 bounded charter/design approval | APPROVED |
-| M1 database/schema/record inventory | VERIFIED READ-ONLY |
-| M1 recursive block/file/attachment inventory | PARTIAL / NOT VERIFIED |
-| Local synthetic API/MCP/OIDC suite | PASS — 20 passed, 2 skipped |
-| PostgreSQL 16.16 live CI integration | PASS — 6/6 |\n| Baserow OSE 2.4.3 live API/ACL integration | PASS — 1/1 |\n| AppFlowy live API | NOT RUN — commercial licensing/instance not provisioned |
-| M2 production infrastructure | NOT_STARTED |
-| M7 production readiness / DR | NOT_RUN |
-| M8 cutover | NOT_AUTHORIZED |
+## 4. Technical proof-of-fit
 
-## 5. Next actions
+All payloads, user identities, credentials and tokens used below were synthetic. No real Notion rows or user secrets were copied into test fixtures.
 
-1. Finish recursive Notion page-block and attachment inventory with a checksum-based manifest, still read-only.
-2. Run a live proof-of-fit in an operator-controlled disposable environment: PostgreSQL 16 first, then exact AppFlowy/Baserow edition and API builds.
-3. Reconcile stale Notion statuses using a verified sync path only after credentials/access are authorized.
-4. Assign architecture, migration, platform/SRE, security, data-steward and independent-verification roles before production planning.
-5. Keep M2+ proposed until provider, OIDC, secrets/KMS, network, budget, retention, SLO/RPO/RTO and operational ownership are explicitly approved.
+### PostgreSQL 16.16
 
-**No aggregate completion percentage is reported.** The approved denominator and weights do not exist, and M1's recursive asset scope is incomplete.
+A disposable GitHub Actions `postgres:16` service applied `examples/sdgds-migration-spike/migrations/001_sdgds_postgres.sql`. The tested suite passed **6/6**:
 
+1. Schema installation and preservation of HSMART string IDs such as `HSMART-0001`.
+2. Case-insensitive unique labels and slugs.
+3. JSONB, status and Term ID checks.
+4. Alias/relation foreign keys, relation type and no-self-relation checks.
+5. Outbox idempotency-key uniqueness.
+6. Atomic term + audit + outbox transaction rollback/commit.
 
-## 7. Follow-up qualification — 23 November 2026
+Previous completed evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465115/job/137764609621
 
-### Read-only Notion checksum manifest
+The destructive schema reset in the test harness is now guarded by an explicit `SDGDS_TEST_ALLOW_DESTRUCTIVE_RESET=true` opt-in and exact disposable database/user identity `sdgds_spike`. The new guard was added after review to prevent accidental execution against an arbitrary database. A fresh exact-head PostgreSQL CI rerun is required for this guarded version.
 
-A SHA-256 manifest now fingerprints all **45 active database rows** returned by the two saved views:
-- `docs/sdgds-migration/NOTION-READONLY-CHECKSUM-MANIFEST-2026-11-23.json`
-- 25 terminology rows and 20 roadmap ledger rows.
-- Each digest covers the entire row property object returned by the saved-view query, with recursively sorted JSON object keys and preserved array order, encoded as UTF-8. It includes the Notion page URL.
-- This is a row-property checksum manifest, **not** a recursive block or binary attachment checksum export.
+This validates the tested DDL/constraints/transaction semantics only. It does not prove production backup/restore, HA, DR, load, database security, retention, or SLO readiness.
 
-Scoped Notion search returned 50 matching pages and all 50 were fetched. No `notion-file-block://` references or visible discussion references were found in those page contents. The current connector did not expose a recursive block-children traversal operation. Notion's comments endpoint returned `upgrade_required` for the checked pages. Thus this improves row-level integrity evidence, but does not close the full recursive inventory. The search result limit/permission boundary also means no claim is made that all inaccessible or unindexed pages have been discovered.
+### Baserow OSE 2.4.3
 
-### PostgreSQL 16 real integration lane
+A disposable `baserow/baserow:2.4.3` integration passed **1 test in 134.93 seconds**:
 
-A disposable GitHub Actions service using `postgres:16` was started and the DDL was applied. The first run proved that schema creation succeeded and that JSONB/status/ID, foreign-key, self-relation and outbox-idempotency constraints fired as designed, but **1 of 6 tests failed** because an expected constraint violation aborted the whole test transaction and the test then incorrectly assumed earlier seed rows still existed.
+- Created a synthetic user and JWT session.
+- Explicitly created a workspace through `POST /api/workspaces/` when no workspace was provisioned automatically.
+- Created a database application and synthetic table.
+- Created a database token scoped to one table with create/read only.
+- Verified token, row creation and row read.
+- Verified delete was denied with `delete:false`.
+- Removed the disposable container and volume.
 
-The test harness was corrected to isolate expected constraint failures inside savepoints. The rerun completed against disposable PostgreSQL `16.16` (image `postgres:16`) and **6/6 integration tests passed**: schema install/string IDs, case-insensitive uniqueness, JSONB/status/ID checks, alias/relation foreign keys and checks, outbox idempotency, and atomic term+audit+outbox rollback/commit. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45191111872/job/137749391539. This proves only the tested DDL and transaction semantics on the CI service, not production backup/restore, HA, DR, load or security readiness.
+Previous completed evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
 
-### Synthetic OIDC tests
+The image's startup log reported that its internal database role could not create the `vector` extension. Core API and the tested table/token ACL flow passed; Baserow vector/AI features were not tested. The all-in-one image has its own internal PostgreSQL/Redis, separate from SDGDS PostgreSQL 16.
 
-The local suite now reports **20 passed, 1 skipped**. The passing OIDC tests use a generated RSA keypair and in-memory synthetic JWKS at `https://issuer.synthetic.test`, audience `sdgds-api`, and a synthetic test subject. They validate RS256 signature, `kid`, issuer, audience, expiry, required claims, subject and scope enforcement. This is not an external IdP integration, real user provisioning, production JWKS rotation or token revocation test. The one local skip is the PostgreSQL integration module, which runs only when `SDGDS_TEST_DATABASE_URL` points to a disposable PostgreSQL 16 instance.
+A new exact-head Baserow run is required after later PR changes; previous PASS evidence above is from the completed tested head.
 
-### AppFlowy/Baserow build and licensing disposition
+### OIDC and authorization
 
-- **AppFlowy:** active self-host deployment uses `AppFlowy-IO/AppFlowy-SelfHost-Commercial`, not the archived old `AppFlowy-Cloud` repository. The inspected Compose manifest at commit `f58f4ffafab79f11bf895b0bfeb4ec9548223baa` pins the Cloud/Worker/Search/AI family at `0.21.8` and Web at `0.20.15`, with image digests. The current server is under a commercial per-server license, not FLOSS. Its advertised Free Tier is one seat plus up to three guest editors. OIDC/SAML/LDAP requires Seed tier or higher. Its documented API is `/api/docs/openapi.json`; page creation is `POST /api/workspace/{workspace_id}/page-view` with a GoTrue user access token. Adapter tests use a mock; no live instance was provisioned.
-- **Baserow:** candidate is OSE release `2.4.3` (published 14 November 2026). OSE core is MIT; documentation and premium/enterprise paths carry separate licenses. A live CI lane now starts disposable `baserow/baserow:2.4.3`, provisions a synthetic user/workspace/database/table, creates a one-table database token, verifies allowed row create/read and checks that delete is denied. The latest `baserow-ose-integration` result remains the acceptance source; this is not a persistent environment.
-- Exact licensing, API paths and image pin references are documented in `docs/sdgds-migration/PLATFORM-COMPATIBILITY-2026-11-23.md`.
+Local synthetic tests use a generated RSA key pair and in-memory JWKS, issuer `https://issuer.synthetic.test`, audience `sdgds-api` and a synthetic subject. Tests validate RS256 signature, `kid`, issuer, audience, expiry, required claims, subject and scope enforcement.
 
-If FLOSS is a hard requirement, AppFlowy Self-Hosted Commercial is not accepted as the default workspace. Treat it as a commercial alternative only; evaluate a genuinely FLOSS wiki separately before selection.
+Local suite result: **20 passed, 2 skipped**. PostgreSQL and Baserow tests skip locally without service URLs and run in separate disposable CI jobs.
 
-### Human ownership gate
+This is not an external identity-provider integration, real user provisioning, production JWKS rotation/revocation, session lifecycle or full tenant authorization certification.
 
-The following roles remain `UNASSIGNED`: execution owner, architecture owner, migration lead/data steward, Platform/SRE operator, security/privacy reviewer and independent verifier. The responsibility/acceptance register is `docs/sdgds-migration/OWNER-APPOINTMENT-REGISTER.md`. No AI delegate is counted as a substitute for human operational accountability.
+### MCP
 
-## 8. Current execution disposition
+The spike includes a narrow JSON-RPC smoke test for `initialize`, `tools/list` and `tools/call` through the shared authorization path. This is not full MCP protocol conformance or transport lifecycle validation.
+
+### AppFlowy
+
+No licensed live AppFlowy instance was provisioned or called. Current self-host server distribution is commercial, not FLOSS; OIDC/SAML/LDAP requires Seed tier or higher. Adapter proof remains mock-only. If FLOSS is a hard requirement, AppFlowy Self-Hosted Commercial is not approved as default; a genuinely FLOSS wiki such as Docmost must be separately evaluated.
+
+## 5. GOV-01 delegate mapping
+
+GOV-01 Decision Addendum `HSMART-GOV-DEC-2026-11-22-002` defines GOV-01 as the sole human internal authority; bounded AI Functional Delegates cover the other workstreams.
+
+| Workstream | Existing delegate | Lifecycle |
+|---|---|---|
+| Delivery / execution | `hsmart.gov02.project-owner.orchestrator` | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+| Architecture / ADR / contracts | `hsmart.gov04.architecture.orchestrator` | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+| Migration / data stewardship | `hsmart.gov05.database-agent` under GOV-05 Engineering | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+| Platform / SRE | `hsmart.gov07.operations-reliability.orchestrator` | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+| Security / privacy | `hsmart.gov06.security-privacy.orchestrator` | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+| Independent assurance | `hsmart.gov11.independent-assurance-reviewer.orchestrator`, coordinated by `hsmart.assurance.cross-evaluation-orchestrator` | DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE |
+
+Logical designation does not prove runtime identity, model/version binding, Skills/instructions, task-scoped tool grants, policy enforcement, audit, fail-closed behaviour or activation. No delegate was activated by this execution. GOV-01 retains final decision authority; GitHub native review and merge remain separate platform controls.
+
+## 6. Gate disposition
 
 | Workstream | State |
 |---|---|
-| M0 bounded non-production architecture | APPROVED |
-| M1 45-row SHA-256 manifest | CREATED; row-level scope only |
-| M1 recursive blocks/comments/files | PARTIAL / NOT VERIFIED |
-| Local API/MCP/OIDC synthetic suite | 20 PASS, 1 SKIPPED (PostgreSQL lane) |
-| PostgreSQL 16 disposable CI lane | PASS — 6/6 |
-| AppFlowy live API | NOT RUN; commercial build/licensing identified |
-| Baserow live API | LIVE CI LANE RUNNING; latest result pending |
-| Human role appointments | UNASSIGNED |
-| Production/cutover | NOT AUTHORIZED |
+| M0 bounded design / non-production approval | APPROVED |
+| M1 45-row SHA-256 row-property manifest | CREATED |
+| M1 individual record-page fetch (45) + container/schema fetch (5) | VERIFIED WITH SCOPE LIMITS |
+| M1 exhaustive raw block-tree / comments / binary attachment inventory | PARTIAL / NOT VERIFIED |
+| Local API/MCP/OIDC synthetic suite | PASS — 20 passed, 2 skipped |
+| PostgreSQL 16.16 disposable integration | PASS — 6/6 on previously tested head; guarded exact-head rerun pending |
+| Baserow OSE 2.4.3 disposable API/ACL integration | PASS — 1/1 on previously tested head; exact-head rerun pending |
+| AppFlowy live API / licensed SSO tier | NOT RUN |
+| GOV delegate runtime activation | NOT ACTIVE |
+| Production security / backup / DR readiness | NOT RUN |
+| Real Notion import / cutover / legacy retirement | NOT AUTHORIZED |
 
+PR #31 remains OPEN / DRAFT / NOT MERGED. A separate exact-head assurance report is still required. That report must state its correlation limits and must not claim GitHub-native approval or GOV-01 authorization.
 
-## 9. Final live-integration and governance update — 23 November 2026
+## 7. Next actions
 
-### Baserow final result
+1. Complete raw Notion block-child and attachment inventory only through an authorized read-only export route; checksum any binary assets and retain provenance/rights records.
+2. Complete exact-head CI after the PostgreSQL destructive-reset guard and latest manifest update.
+3. Create a correlation-limited GOV-11-labelled AI review artifact only as evidence from this assistant context; do not represent it as a separately provisioned independent GOV-11 runtime.
+4. Provision existing GOV delegates only after stable identity/runtime, model/Skills, scopes, policy enforcement, audit and fail-closed tests.
+5. Evaluate a genuinely FLOSS wiki if FLOSS is mandatory; do not assume AppFlowy Commercial meets that requirement.
+6. Keep M2/M7/M8 blocked until provider, identity/secrets/KMS, network, budget, retention, SLO/RPO/RTO, security, recovery and governance evidence are approved.
 
-The third disposable OSE 2.4.3 run passed: **1 passed in 134.93 seconds**. The test registered and authenticated a synthetic user, created a workspace through `POST /api/workspaces/`, created a database application and table, minted a database token scoped to that table, verified row creation and read, and verified delete was denied when `delete:false`. The disposable container and volume were removed after the job.
-
-Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
-
-Two earlier harness assumptions were corrected, not ignored: `/api/_health/` can return an empty/plain-text body rather than JSON; and a user created via API may have no workspace until the workspace endpoint is called explicitly.
-
-### GOV delegate assignment
-
-The owner model is reconciled with GOV-01 Decision Addendum `HSMART-GOV-DEC-2026-11-22-002`. GOV-01 is the sole human internal authority; existing bounded AI delegates are mapped as follows:
-- Execution/delivery: `hsmart.gov02.project-owner.orchestrator`
-- Architecture: `hsmart.gov04.architecture.orchestrator`
-- Migration/data stewardship: `hsmart.gov05.database-agent` under GOV-05 engineering
-- Platform/SRE operations: `hsmart.gov07.operations-reliability.orchestrator`
-- Security/privacy: `hsmart.gov06.security-privacy.orchestrator`
-- Independent assurance: `hsmart.gov11.independent-assurance-reviewer.orchestrator`, coordinated by `hsmart.assurance.cross-evaluation-orchestrator`
-
-All are DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE. No agent runtime, model binding, grants, audit namespace or fail-closed enforcement is claimed as active. GOV-01 retains final approval.
-
-### Current review disposition
-
-PR #31 is still OPEN and DRAFT. On head `bf33c0079b77f628a45b342d7ea8239e125d5c23`, PostgreSQL 16, Baserow OSE, Ubuntu/Windows/macOS contract tests, OpenAPI checks and Repository Governance Review passed; AI Reviewer Evidence remains failing and must be resolved before PR acceptance. Production and cutover remain NOT AUTHORIZED.
+**No aggregate completion percentage is reported.** Recursive assets are not exhaustively inventoried and no approved denominator/weighting model exists.
