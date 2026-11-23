@@ -8,6 +8,7 @@ import uuid
 from typing import Any
 
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from ..models import Capability, CapabilityGrant, CapabilityVersion, Installation, Invocation
@@ -246,7 +247,32 @@ def invoke_capability(
         trace_id=str(uuid.uuid4()),
     )
     session.add(invocation)
-    session.flush()
+    try:
+        session.flush()
+    except IntegrityError as exc:
+        # Two concurrent requests can both observe no existing invocation before
+        # either inserts. The tenant/idempotency unique constraint selects one
+        # winner. Reload the winner after rollback instead of returning an HTTP 500.
+        session.rollback()
+        winner = session.scalar(
+            select(Invocation).where(
+                Invocation.tenant_id == principal.tenant_id,
+                Invocation.idempotency_key == idempotency_key,
+            )
+        )
+        if winner is None:
+            raise ConflictError("concurrent_invocation_race_retry") from exc
+        if winner.request_sha256 != request_digest:
+            raise ConflictError("idempotency_key_reused_with_different_request") from exc
+        if winner.status != "COMPLETED" or winner.result is None:
+            raise ConflictError("invocation_not_complete") from exc
+        return {
+            "invocation_id": winner.id,
+            "status": winner.status,
+            "result": winner.result,
+            "trace_id": winner.trace_id,
+            "idempotent_replay": True,
+        }
     try:
         result = execute(version_record.entrypoint, payload)
         invocation.result = result
