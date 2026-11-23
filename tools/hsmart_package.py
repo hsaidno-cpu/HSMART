@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import sys
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -37,7 +38,8 @@ def keygen(output_dir: Path) -> None:
     public_path.chmod(0o644)
     print(f"private_key={private_path}")
     print(f"public_key={public_path}")
-    print("Keep the private key outside Git. The public key is used by installers to verify releases.")
+    print(f"public_key_sha256={hashlib.sha256(public_path.read_bytes()).hexdigest()}")
+    print("Keep the private key outside Git. Pin this public-key fingerprint in a publisher trust policy.")
 
 
 def main() -> int:
@@ -54,14 +56,17 @@ def main() -> int:
     build_parser.add_argument("--signer-key-id", default="hsmart-dev-ed25519-1")
     build_parser.add_argument("--source-commit", required=True)
     build_parser.add_argument("--output", type=Path, default=ROOT / "dist" / "hsmart-echo-0.1.0.tar.gz")
+    build_parser.add_argument("--license-file", type=Path, default=ROOT / "LICENSE")
 
     verify_parser = commands.add_parser("verify")
     verify_parser.add_argument("--bundle", type=Path, required=True)
     verify_parser.add_argument("--public-key", type=Path, required=True)
+    verify_parser.add_argument("--trust-policy", type=Path, required=True)
 
     install_parser = commands.add_parser("install")
     install_parser.add_argument("--bundle", type=Path, required=True)
     install_parser.add_argument("--public-key", type=Path, required=True)
+    install_parser.add_argument("--trust-policy", type=Path, required=True)
     install_parser.add_argument("--tenant-id", required=True)
     install_parser.add_argument("--host-id", default="hsmart-local-mcp-host-v1")
     install_parser.add_argument("--installer-subject", required=True)
@@ -83,11 +88,12 @@ def main() -> int:
             signer_key_id=args.signer_key_id,
             source_commit=args.source_commit,
             output_path=args.output,
+            license_file_path=args.license_file,
         )
         print(f"bundle={args.output}")
         print(f"sha256={digest}")
     elif args.command == "verify":
-        verified = verify_package(args.bundle, args.public_key)
+        verified = verify_package(args.bundle, args.public_key, args.trust_policy)
         manifest = verified.release["manifest"]
         print(f"PASS: {manifest['capability_id']}@{manifest['version']}")
         print(f"sha256={verified.artifact_sha256}")
@@ -108,6 +114,7 @@ def main() -> int:
                 public_key_path=args.public_key,
                 artifact_store_path=args.artifact_store,
                 installer_subject=args.installer_subject,
+                trust_policy_path=args.trust_policy,
             )
         engine.dispose()
         print(f"installation_id={installation.id}")
