@@ -100,8 +100,20 @@ def test_baserow_ose_real_api_scoped_database_token_and_row_acl():
     status, workspace_response = request("GET", "/api/workspaces/", authorization=f"JWT {jwt}")
     assert status == 200, f"list workspaces failed: {status} {workspace_response!r}"
     workspaces = results_array(workspace_response)
-    assert workspaces, f"no workspace was provisioned: {workspace_response!r}"
-    workspace_id = int(workspaces[0]["id"])
+    if workspaces:
+        workspace_id = int(workspaces[0]["id"])
+    else:
+        # API-created users may not receive the frontend's initial workspace.
+        status, created_workspace = request(
+            "POST",
+            "/api/workspaces/",
+            {"name": f"SDGDS Synthetic {suffix}"},
+            authorization=f"JWT {jwt}",
+        )
+        assert status == 200 and created_workspace and created_workspace.get("id"), (
+            f"create workspace failed: {status} {created_workspace!r}"
+        )
+        workspace_id = int(created_workspace["id"])
 
     # Create a real database application and a small synthetic table.
     status, application = request(
