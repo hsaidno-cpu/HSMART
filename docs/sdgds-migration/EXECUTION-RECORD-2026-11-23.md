@@ -103,7 +103,7 @@ Scoped Notion search returned 50 matching pages and all 50 were fetched. No `not
 
 A disposable GitHub Actions service using `postgres:16` was started and the DDL was applied. The first run proved that schema creation succeeded and that JSONB/status/ID, foreign-key, self-relation and outbox-idempotency constraints fired as designed, but **1 of 6 tests failed** because an expected constraint violation aborted the whole test transaction and the test then incorrectly assumed earlier seed rows still existed.
 
-The test harness was corrected to isolate expected constraint failures inside savepoints. The rerun for the new PR head is pending at the time of this record. Do not mark the PostgreSQL lane PASS until the latest commit's result is completed and all six tests pass.
+The test harness was corrected to isolate expected constraint failures inside savepoints. The rerun completed against disposable PostgreSQL `16.16` (image `postgres:16`) and **6/6 integration tests passed**: schema install/string IDs, case-insensitive uniqueness, JSONB/status/ID checks, alias/relation foreign keys and checks, outbox idempotency, and atomic term+audit+outbox rollback/commit. Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45191111872/job/137749391539. This proves only the tested DDL and transaction semantics on the CI service, not production backup/restore, HA, DR, load or security readiness.
 
 ### Synthetic OIDC tests
 
@@ -112,7 +112,7 @@ The local suite now reports **20 passed, 1 skipped**. The passing OIDC tests use
 ### AppFlowy/Baserow build and licensing disposition
 
 - **AppFlowy:** active self-host deployment uses `AppFlowy-IO/AppFlowy-SelfHost-Commercial`, not the archived old `AppFlowy-Cloud` repository. The inspected Compose manifest at commit `f58f4ffafab79f11bf895b0bfeb4ec9548223baa` pins the Cloud/Worker/Search/AI family at `0.21.8` and Web at `0.20.15`, with image digests. The current server is under a commercial per-server license, not FLOSS. Its advertised Free Tier is one seat plus up to three guest editors. OIDC/SAML/LDAP requires Seed tier or higher. Its documented API is `/api/docs/openapi.json`; page creation is `POST /api/workspace/{workspace_id}/page-view` with a GoTrue user access token. Adapter tests use a mock; no live instance was provisioned.
-- **Baserow:** candidate is OSE release `2.4.3` (published 14 November 2026). OSE core is MIT; documentation and premium/enterprise paths carry separate licenses. Adapter tests use a mock and table-scoped synthetic token; no live instance was provisioned.
+- **Baserow:** candidate is OSE release `2.4.3` (published 14 November 2026). OSE core is MIT; documentation and premium/enterprise paths carry separate licenses. A live CI lane now starts disposable `baserow/baserow:2.4.3`, provisions a synthetic user/workspace/database/table, creates a one-table database token, verifies allowed row create/read and checks that delete is denied. The latest `baserow-ose-integration` result remains the acceptance source; this is not a persistent environment.
 - Exact licensing, API paths and image pin references are documented in `docs/sdgds-migration/PLATFORM-COMPATIBILITY-2026-11-23.md`.
 
 If FLOSS is a hard requirement, AppFlowy Self-Hosted Commercial is not accepted as the default workspace. Treat it as a commercial alternative only; evaluate a genuinely FLOSS wiki separately before selection.
@@ -129,8 +129,8 @@ The following roles remain `UNASSIGNED`: execution owner, architecture owner, mi
 | M1 45-row SHA-256 manifest | CREATED; row-level scope only |
 | M1 recursive blocks/comments/files | PARTIAL / NOT VERIFIED |
 | Local API/MCP/OIDC synthetic suite | 20 PASS, 1 SKIPPED (PostgreSQL lane) |
-| PostgreSQL 16 disposable CI lane | RERUN PENDING |
+| PostgreSQL 16 disposable CI lane | PASS — 6/6 |
 | AppFlowy live API | NOT RUN; commercial build/licensing identified |
-| Baserow live API | NOT RUN; OSE 2.4.3 identified |
+| Baserow live API | LIVE CI LANE RUNNING; latest result pending |
 | Human role appointments | UNASSIGNED |
 | Production/cutover | NOT AUTHORIZED |
