@@ -50,7 +50,7 @@ The old PR #29 status in Notion is stale and must be reconciled through the cano
 
 ## 3. Synthetic technical spike
 
-Local package: `examples/sdgds-migration-spike/sdgds-migration-spike.zip` in this PR; a directly downloadable copy is also attached in the conversation.
+Local synthetic package is supplied as a downloadable conversation artifact. The repository PR records the execution findings; the downloadable package is kept separate until source-level review and import into the repository are approved.
 
 - **Tests:** 11 passed; `compileall` passed; Compose YAML parsed; synthetic secret-placeholder scan passed.
 - **API Gateway:** FastAPI read/search and Proposed-only candidate creation with explicit synthetic scopes.
