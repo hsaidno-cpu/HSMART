@@ -1,7 +1,7 @@
 {
   "manifest_schema": "sdgds-notion-readonly-checksum-manifest/1.0.0",
   "snapshot_date": "2026-11-23",
-  "generated_at": "2026-11-23T21:00:00+08:00",
+  "generated_at": "2026-11-23",
   "mode": "READ_ONLY",
   "source": {
     "terminology_data_source": "collection://42199868-397f-81dd-b181-000b869e30f3",
@@ -437,6 +437,5 @@
       "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
       "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
     }
-  ],
-  "aggregate_sha256": "3ddd7ca69d435d8733bb1966456ab03b90c82b71a02c66a5f39552a315da71c9"
+  ]
 }
