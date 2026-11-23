@@ -54,7 +54,8 @@ def append_audit(
         "occurred_at": occurred_at.isoformat(),
     }
     event_hash = hashlib.sha256(bytes.fromhex(previous_hash) + canonical_json(body)).hexdigest()
-    event = AuditEvent(**body, event_hash=event_hash)
+    event_body = {**body, "occurred_at": occurred_at}
+    event = AuditEvent(**event_body, event_hash=event_hash)
     session.add(event)
     session.flush()
     return event
