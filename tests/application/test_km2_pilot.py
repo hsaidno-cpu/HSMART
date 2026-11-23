@@ -534,7 +534,7 @@ def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
     with Session(engine) as session:
         stored = session.scalar(select(Invocation).where(Invocation.id == result["invocation_id"]))
         assert stored is not None and stored.status == "COMPLETED"
-        assert verify_audit_chain(session, tenant.id)
+        assert verify_audit_chain(session, tenant_id)
     engine.dispose()
 
 
@@ -575,7 +575,7 @@ def test_api_grant_and_revoke_routes_require_scope_and_emit_audit(tmp_path):
     with Session(engine) as session:
         stored = session.get(CapabilityGrant, grant_id)
         assert stored is not None and stored.revoked_at is not None
-        assert verify_audit_chain(session, tenant.id)
+        assert verify_audit_chain(session, tenant_id)
     engine.dispose()
 
 
