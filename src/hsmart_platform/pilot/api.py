@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from ..models import Capability
 from .auth import Principal, authenticate_token, require_scope
 from .errors import PilotError
-from .service import grant_capability, invoke_capability, list_capabilities
+from .service import grant_capability, invoke_capability, list_capabilities, revoke_capability_grant
 
 router = APIRouter(prefix="/v1", tags=["KM2 Pilot"])
 
@@ -107,6 +107,32 @@ def create_grant(
             expires_at=body.expires_at,
         )
         return {"grant_id": grant.id, "status": "ACTIVE"}
+    except PilotError as exc:
+        session.rollback()
+        raise HTTPException(status_code=exc.status_code, detail=exc.code) from exc
+
+ 
+class RevokeGrantRequest(BaseModel):
+    evidence_ref: str = Field(min_length=1, max_length=2000)
+
+
+@router.post("/registry/grants/{grant_id}/revoke")
+def revoke_grant(
+    grant_id: str,
+    body: RevokeGrantRequest,
+    principal: Principal = Depends(get_principal),
+    session: Session = Depends(get_db),
+):
+    try:
+        require_scope(principal, "entitlement.grant")
+        grant = revoke_capability_grant(
+            session,
+            tenant_id=principal.tenant_id,
+            grant_id=grant_id,
+            revoked_by=principal.subject,
+            evidence_ref=body.evidence_ref,
+        )
+        return {"grant_id": grant.id, "status": "REVOKED" if grant.revoked_at else "ACTIVE"}
     except PilotError as exc:
         session.rollback()
         raise HTTPException(status_code=exc.status_code, detail=exc.code) from exc
