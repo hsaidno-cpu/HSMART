@@ -245,11 +245,11 @@
       "sources": [
         {
           "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
-          "role": "Supporting internal source"
+          "role": "Primary internal source"
         },
         {
           "url": "https://github.com/hsaidno-cpu/HSMART/blob/543bef61f1fd1ce3a736bd107857bee0b244c388/docs/architecture/GLOSSARY.md",
-          "role": "Primary internal source"
+          "role": "Historical glossary baseline"
         },
         {
           "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/data/DATA-MODEL.md",
@@ -991,11 +991,11 @@
       "sources": [
         {
           "url": "https://github.com/hsaidno-cpu/HSMART/blob/main/docs/architecture/HSMART-MASTER-ARCHITECTURE-SPECIFICATION.md",
-          "role": "Supporting internal source"
+          "role": "Primary internal source"
         },
         {
           "url": "https://github.com/hsaidno-cpu/HSMART/blob/543bef61f1fd1ce3a736bd107857bee0b244c388/docs/architecture/GLOSSARY.md",
-          "role": "Primary internal source"
+          "role": "Historical glossary baseline"
         }
       ],
       "last_reviewed": "2026-11-23",
