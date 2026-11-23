@@ -4,6 +4,11 @@
 !.env.example
 .local/
 *.pem
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
 *.key
 secrets/
 config/pilot-publisher-trust.local.json
