@@ -118,10 +118,13 @@ def verify_package(
     total_size = 0
     try:
         with tarfile.open(fileobj=io.BytesIO(bundle), mode="r:gz") as archive:
-            members = archive.getmembers()
-            if len(members) > 500:
-                raise PackageVerificationError("package_file_count_out_of_bounds")
-            for member in members:
+            member_count = 0
+            # Iterate tar headers lazily. getmembers() eagerly parses and stores
+            # the full archive before any file-count or expanded-size limit applies.
+            for member in archive:
+                member_count += 1
+                if member_count > 500:
+                    raise PackageVerificationError("package_file_count_out_of_bounds")
                 name = PurePosixPath(member.name)
                 if name.is_absolute() or ".." in name.parts or member.issym() or member.islnk():
                     raise PackageVerificationError("unsafe_archive_member")
