@@ -23,7 +23,8 @@ jobs:
         image: baserow/baserow:2.4.3
         env:
           BASEROW_PUBLIC_URL: http://localhost:8080
-          SECRET_KEY: sdgds-disposable-ci-only-secret-key-not-for-production
+          SECRET_KEY: disposable-ci-only-secret-8f3d7b1a2e4c6a8f0b2d5e7a9c1f3d6b
+          DISABLE_VOLUME_CHECK: "yes"
         ports:
           - 8080:80
         options: >-
