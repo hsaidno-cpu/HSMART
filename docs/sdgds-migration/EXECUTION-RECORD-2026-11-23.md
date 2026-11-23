@@ -167,3 +167,33 @@ PR #31 remains OPEN / DRAFT / NOT MERGED. Exact-head status: Specification Valid
 6. Keep M2/M7/M8 blocked until provider, identity/secrets/KMS, network, budget, retention, SLO/RPO/RTO, security, recovery and governance evidence are approved.
 
 **No aggregate completion percentage is reported.** Recursive assets are not exhaustively inventoried and no approved denominator/weighting model exists.
+
+
+## 8. Latest exact-head validation snapshot
+
+After the compatibility and human-accountability records were updated, the branch advanced to **76f65c7b1afc0b6ca51f687d9d6d01f10d4f7b24**. The following statuses were read from GitHub Actions for that exact head on 23 November 2026:
+
+| Check | Run | State |
+|---|---:|---|
+| PostgreSQL 16.16 disposable integration | 45199123350 | PASS — 6/6 |
+| KM1 Application Foundation / PostgreSQL 16 | 45199123436 | PASS |
+| Repository Governance | 45199123393 | PASS |
+| Baserow OSE 2.4.3 disposable integration | 45199123483 | IN_PROGRESS at snapshot |
+| Specification Validation | 45199123181 | QUEUED / PARTIAL; macOS job not yet complete |
+| AI Reviewer Evidence | 45199123268 | FAIL — required `docs/reviews/PR-31-AI-ASSURANCE.json` is absent |
+
+Links:
+- PostgreSQL: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123350
+- KM1 Application Foundation: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123436
+- Repository Governance: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123393
+- Baserow: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123483
+- Specification Validation: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123181
+- AI Reviewer Evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45199123268
+
+Earlier head `3c20dd7789bb67b028563402ea5933c57a6094da` also passed PostgreSQL 16.16 6/6 and Baserow OSE 2.4.3 1/1; the exact runs were 45197922794 and 45197922816. Those results remain historical proof for that tested head and are not substituted for the latest-head checks above.
+
+**Disposition:** PR #31 remains OPEN / DRAFT / NOT MERGED. Do not merge until the latest Baserow and Specification Validation runs complete, the missing AI assurance artifact is handled through an actual review process, and GOV-01 authorizes disposition. No synthetic/self-review may be labelled independent assurance.
+
+## 9. Human accountability gate
+
+The logical AI delegate roles are mapped in `OWNER-APPOINTMENT-REGISTER.md`, but this is not a completed human appointment process. The register now explicitly records the execution accountable human, security/privacy human reviewer, data-steward accountable human, platform/SRE human operator and independent human verifier as **NOT APPOINTED / NOT ACCEPTED**. GOV-01 remains the final internal authority. A human GOV-07 or explicitly accepted interim human operator is required before hosted production operation. Therefore M7 Production Readiness remains BLOCKED.
