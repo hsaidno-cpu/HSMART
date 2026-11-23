@@ -49,6 +49,7 @@ def build_package(
     signer_key_id: str,
     source_commit: str,
     output_path: str | Path,
+    license_file_path: str | Path | None = None,
 ) -> str:
     if not SOURCE_SHA_RE.fullmatch(source_commit):
         raise PackageVerificationError("source_commit_must_be_immutable_git_sha")
@@ -63,6 +64,8 @@ def build_package(
             if not relative or relative.startswith("/") or ".." in PurePosixPath(relative).parts:
                 raise PackageVerificationError("unsafe_package_path")
             file_contents[relative] = path.read_bytes()
+    if license_file_path is not None:
+        file_contents.setdefault("LICENSE", Path(license_file_path).read_bytes())
     if not file_contents:
         raise PackageVerificationError("package_payload_empty")
     metadata["source_commit"] = source_commit
@@ -103,7 +106,11 @@ def _add_bytes(archive: tarfile.TarFile, name: str, content: bytes) -> None:
     archive.addfile(info, io.BytesIO(content))
 
 
-def verify_package(bundle_path: str | Path, public_key_path: str | Path) -> VerifiedPackage:
+def verify_package(
+    bundle_path: str | Path,
+    public_key_path: str | Path,
+    trust_policy_path: str | Path,
+) -> VerifiedPackage:
     bundle = Path(bundle_path).read_bytes()
     if not bundle or len(bundle) > MAX_PACKAGE_BYTES:
         raise PackageVerificationError("package_size_out_of_bounds")
@@ -160,6 +167,13 @@ def verify_package(bundle_path: str | Path, public_key_path: str | Path) -> Veri
         if hashlib.sha256(content).hexdigest() != file_hashes.get(relative):
             raise PackageVerificationError("package_payload_digest_mismatch")
         payloads[relative] = content
+    policy = json.loads(Path(trust_policy_path).read_text(encoding="utf-8"))
+    if policy.get("schema_version") != "1.0.0":
+        raise PackageVerificationError("publisher_trust_policy_invalid")
+    signer = policy.get("trusted_signers", {}).get(str(release.get("signer_key_id", "")))
+    public_key_bytes = Path(public_key_path).read_bytes()
+    if not isinstance(signer, dict) or signer.get("public_key_sha256") != hashlib.sha256(public_key_bytes).hexdigest():
+        raise PackageVerificationError("package_signer_not_trusted")
     required = [
         "capability_id", "version", "display_name", "description", "publisher_id",
         "entrypoint", "license_id", "rights_status", "rights_evidence_ref",
@@ -175,6 +189,29 @@ def verify_package(bundle_path: str | Path, public_key_path: str | Path) -> Veri
         raise PackageVerificationError("canonical_source_repository_required")
     if manifest["entrypoint"] not in ALLOWED_ENTRYPOINTS:
         raise PackageVerificationError("entrypoint_not_allowlisted")
+    publisher = policy.get("publishers", {}).get(manifest["publisher_id"])
+    if not isinstance(publisher, dict):
+        raise PackageVerificationError("publisher_not_approved")
+    if manifest["source_repository"] != publisher.get("source_repository"):
+        raise PackageVerificationError("publisher_source_repository_not_approved")
+    if manifest["capability_id"] not in publisher.get("allowed_capabilities", []):
+        raise PackageVerificationError("publisher_capability_not_approved")
+    if manifest["license_id"] not in publisher.get("allowed_license_ids", []):
+        raise PackageVerificationError("license_not_approved_for_publisher")
+    if manifest["rights_evidence_ref"] != publisher.get("rights_evidence_ref"):
+        raise PackageVerificationError("rights_evidence_reference_not_approved")
+    license_file = publisher.get("license_file_path")
+    if not isinstance(license_file, str) or "LICENSE" not in payloads:
+        raise PackageVerificationError("package_license_file_required")
+    license_path = Path(license_file)
+    if not license_path.is_absolute():
+        license_path = Path(trust_policy_path).resolve().parent / license_path
+    try:
+        trusted_license_bytes = license_path.read_bytes()
+    except OSError as exc:
+        raise PackageVerificationError("trusted_license_evidence_unavailable") from exc
+    if payloads["LICENSE"] != trusted_license_bytes:
+        raise PackageVerificationError("package_license_file_does_not_match_trusted_evidence")
     return VerifiedPackage(
         release=release,
         artifact_sha256=hashlib.sha256(bundle).hexdigest(),
@@ -193,8 +230,9 @@ def install_package(
     public_key_path: str | Path,
     artifact_store_path: str | Path,
     installer_subject: str,
+    trust_policy_path: str | Path,
 ) -> Installation:
-    verified = verify_package(bundle_path, public_key_path)
+    verified = verify_package(bundle_path, public_key_path, trust_policy_path)
     manifest = verified.release["manifest"]
     store = Path(artifact_store_path) / "sha256"
     store.mkdir(parents=True, exist_ok=True)
