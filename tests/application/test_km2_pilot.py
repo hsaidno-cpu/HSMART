@@ -237,6 +237,7 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
         tenant = Tenant(slug="tenant-package", display_name="Package Tenant")
         session.add(tenant)
         session.commit()
+        tenant_id = tenant.id
         bundle, _, public_path, trust_path, digest = create_package(tmp_path)
         verified = verify_package(bundle, public_path, trust_path)
         assert verified.artifact_sha256 == digest
@@ -261,7 +262,7 @@ def test_signed_package_installation_lifecycle_and_tamper_rejection(tmp_path):
         assert revoked.state == "REVOKED"
         with pytest.raises(Exception):
             transition_installation(session, install.id, "ACTIVE", "admin")
-        assert verify_audit_chain(session, tenant.id)
+        assert verify_audit_chain(session, tenant_id)
 
         # A changed payload must fail the signed file inventory even when the tar remains parseable.
         from hsmart_platform.pilot.errors import PackageVerificationError
@@ -472,7 +473,7 @@ def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
         bundle, _, package_public_key, trust_path, _ = create_package(tmp_path)
         installation = install_package(
             session,
-            tenant_id=tenant.id,
+            tenant_id=tenant_id,
             host_id=HOST_ID,
             bundle_path=bundle,
             public_key_path=package_public_key,
