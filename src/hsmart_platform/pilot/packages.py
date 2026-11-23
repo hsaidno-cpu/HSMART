@@ -203,6 +203,8 @@ def verify_package(
         raise PackageVerificationError("license_not_approved_for_publisher")
     if manifest["rights_evidence_ref"] != publisher.get("rights_evidence_ref"):
         raise PackageVerificationError("rights_evidence_reference_not_approved")
+    if manifest["source_commit"] not in publisher.get("allowed_source_commits", []):
+        raise PackageVerificationError("source_commit_not_approved_by_publisher_policy")
     license_file = publisher.get("license_file_path")
     if not isinstance(license_file, str) or "LICENSE" not in payloads:
         raise PackageVerificationError("package_license_file_required")
@@ -303,6 +305,25 @@ def install_package(
             Installation.host_id == host_id,
         )
     )
+    if installation is not None and installation.state == "REVOKED":
+        raise ConflictError("installation_has_been_revoked")
+    if installation is not None and installation.state == "UNINSTALLED":
+        installation.state = "INSTALLED"
+        installation.package_digest = verified.artifact_sha256
+        installation.installed_path = str(artifact_path)
+        installation.installed_at = datetime.now(timezone.utc)
+        installation.activated_at = None
+        installation.disabled_at = None
+        append_audit(
+            session,
+            tenant_id=tenant_id,
+            actor=installer_subject,
+            action="PACKAGE_REINSTALLED",
+            resource=f"{manifest['capability_id']}@{manifest['version']}",
+            outcome="ALLOW",
+            reason_code="SIGNATURE_DIGEST_AND_RIGHTS_REVERIFIED",
+            payload_sha256=verified.artifact_sha256,
+        )
     if installation is None:
         installation = Installation(
             tenant_id=tenant_id,
@@ -330,9 +351,10 @@ def install_package(
 
 def transition_installation(session: Session, installation_id: str, target_state: str, actor: str) -> Installation:
     allowed = {
-        "INSTALLED": {"ACTIVE", "REVOKED"},
-        "ACTIVE": {"DISABLED", "REVOKED"},
-        "DISABLED": {"ACTIVE", "REVOKED"},
+        "INSTALLED": {"ACTIVE", "REVOKED", "UNINSTALLED"},
+        "ACTIVE": {"DISABLED", "REVOKED", "UNINSTALLED"},
+        "DISABLED": {"ACTIVE", "REVOKED", "UNINSTALLED"},
+        "UNINSTALLED": set(),
         "REVOKED": set(),
     }
     installation = session.get(Installation, installation_id)
