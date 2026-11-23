@@ -20,9 +20,20 @@ def install_schema():
     if not DATABASE_URL:
         yield
         return
+    if os.getenv("SDGDS_TEST_ALLOW_DESTRUCTIVE_RESET") != "true":
+        pytest.fail(
+            "Refusing destructive schema reset: set SDGDS_TEST_ALLOW_DESTRUCTIVE_RESET=true "
+            "only for a disposable SDGDS test database."
+        )
+    conninfo = psycopg.conninfo.conninfo_to_dict(DATABASE_URL)
+    if conninfo.get("dbname") != "sdgds_spike" or conninfo.get("user") != "sdgds_spike":
+        pytest.fail(
+            "Refusing destructive schema reset: database/user must be the isolated "
+            "sdgds_spike CI identity."
+        )
     ddl = (ROOT / "migrations" / "001_sdgds_postgres.sql").read_text(encoding="utf-8")
     with psycopg.connect(DATABASE_URL, autocommit=True) as conn:
-        # Destructive reset is restricted to the ephemeral CI service database.
+        # Destructive reset is gated and restricted to the disposable CI service identity.
         conn.execute("DROP SCHEMA public CASCADE; CREATE SCHEMA public;", prepare=False)
         conn.execute(ddl, prepare=False)
     yield
