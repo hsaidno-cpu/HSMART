@@ -27,7 +27,15 @@ def request(method: str, path: str, body=None, authorization: str | None = None)
     try:
         with urllib.request.urlopen(req, timeout=25) as response:
             payload = response.read()
-            parsed = json.loads(payload.decode("utf-8")) if payload else None
+            if not payload:
+                parsed = None
+            else:
+                text = payload.decode("utf-8", errors="replace")
+                try:
+                    parsed = json.loads(text)
+                except json.JSONDecodeError:
+                    # Health endpoints may return plain text or an empty body.
+                    parsed = text
             return response.status, parsed
     except urllib.error.HTTPError as exc:
         payload = exc.read()
@@ -38,7 +46,7 @@ def request(method: str, path: str, body=None, authorization: str | None = None)
         return exc.code, parsed
 
 
-def wait_for_baserow(timeout_seconds: int = 240):
+def wait_for_baserow(timeout_seconds: int = 360):
     deadline = time.time() + timeout_seconds
     last = None
     while time.time() < deadline:
