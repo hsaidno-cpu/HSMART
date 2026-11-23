@@ -4,7 +4,7 @@
   "pr_number": 30,
   "repository": "hsaidno-cpu/HSMART",
   "reviewed_base_sha": "ce0e83b864f5fe6e958c978080cbbfcf7a813e72",
-  "reviewed_head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e",
+  "reviewed_head_sha": "0d19637d0f5b07726799957a2b92b75917990bed",
   "review_result": "PASS_WITH_CAVEATS",
   "merge_authorization": "NO_AI_MERGE_AUTHORITY_GOV01_FINAL_DISPOSITION_REQUIRED",
   "reviewer": {
@@ -24,7 +24,7 @@
   "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
   "github_native_approval": false,
   "review_scope": {
-    "changeset": "PR #30 from base ce0e83b864f5fe6e958c978080cbbfcf7a813e72 through reviewed code head 859450cd0535185bc2133291d1c6a75ce02ad92e. Only this report file may change after the reviewed head.",
+    "changeset": "PR #30 from base ce0e83b864f5fe6e958c978080cbbfcf7a813e72 through exact reviewed code head 0d19637d0f5b07726799957a2b92b75917990bed. Only this report file may change after the reviewed head.",
     "focus": [
       "PostgreSQL/Alembic registry schema for capability identities, immutable versions, grants, installations, invocations and audit events.",
       "OIDC/JWT verification including issuer, audience, exp, iat, sub, tenant claim, asymmetric algorithm allowlist, local-test versus hosted-production key boundaries and fail-closed behavior.",
@@ -36,7 +36,7 @@
       "MCP stdio host process, tool surface and actual client-to-host-to-installed-capability invocation/read-back integration test.",
       "Audit event hashing, per-tenant sequence locking and explicit boundary that database hash-linking is not WORM storage.",
       "Docker Compose loopback exposure, optional stdio host profile, Docker image build, secret exclusions and local operator runbook.",
-      "PostgreSQL 16 migration tests, 23 KM2 application/pilot tests, CLI validation and Ubuntu/macOS/Windows specification suite."
+      "24 KM2 application/pilot tests, including a real SQLite unique-constraint conflict/replay test that exercises the concurrent idempotency insert recovery path."
     ],
     "excluded": [
       "Public cloud deployment, DNS/domain/TLS provisioning, cloud account/region selection and cost approval.",
@@ -55,57 +55,58 @@
     "release revocation, grant revocation and idempotent replay ordering review",
     "MCP stdio host boundary review and actual subprocess integration-test evidence inspection",
     "database migration and transaction/audit-path review",
-    "exact-commit GitHub Actions evidence verification"
+    "exact-commit GitHub Actions evidence verification",
+    "resolution traceability against four prior Codex review findings and current exact-head CI"
   ],
   "ci_evidence": [
     {
-      "name": "KM1 Application Foundation and KM2 Pilot — PostgreSQL 16 migrations, 23 application/pilot tests, CLI help, Compose config and Docker image build",
+      "name": "KM1 Application Foundation and KM2 Pilot — PostgreSQL 16 migration, 24 application/pilot tests, CLI help, Compose validation and Docker image build",
       "status": "PASS",
-      "run_id": 45159322208,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322208",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020015,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020015",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
       "name": "Specification Validation — Ubuntu 24.04",
       "status": "PASS",
-      "run_id": 45159322261,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020185,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020185",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
       "name": "Specification Validation — macOS 15",
       "status": "PASS",
-      "run_id": 45159322261,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020185,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020185",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
       "name": "Specification Validation — Windows 2025",
       "status": "PASS",
-      "run_id": 45159322261,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020185,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020185",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
       "name": "OpenAPI and required repository files",
       "status": "PASS",
-      "run_id": 45159322261,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322261",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020185,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020185",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
       "name": "Repository Governance Review",
       "status": "PASS",
-      "run_id": 45159322069,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322069",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "run_id": 45163020136,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020136",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     },
     {
-      "name": "AI Reviewer Evidence before the report-only commit",
-      "status": "EXPECTED_FAILURE_MISSING_REPORT_ARTIFACT",
-      "run_id": 45159322229,
-      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45159322229",
-      "head_sha": "859450cd0535185bc2133291d1c6a75ce02ad92e"
+      "name": "AI Reviewer Evidence prior to this report-only commit",
+      "status": "EXPECTED_FAILURE_STALE_REPORT_BINDING",
+      "run_id": 45163020061,
+      "url": "https://github.com/hsaidno-cpu/HSMART/actions/runs/45163020061",
+      "head_sha": "0d19637d0f5b07726799957a2b92b75917990bed"
     }
   ],
   "findings": [
@@ -199,6 +200,36 @@
     "The trust-policy template must be populated locally with exact signer/source values before a local package can be built/installed.",
     "No third-party USER/PRIVATE plugin package is authorized by the sample publisher policy."
   ],
-  "disposition": "The reviewed change set is acceptable with caveats as a KM2 local signed-registry, installer, entitlement and stdio MCP pilot foundation. Exact-head PostgreSQL/application tests, cross-platform specification tests, repository governance, CLI checks, Compose validation and Docker image build passed. The pilot must remain LOCAL_PILOT_ONLY; public cloud, production runtime, arbitrary package execution and third-party plugin distribution are not authorized by this evidence. GOV-01 retains final merge and risk-acceptance authority.",
-  "reviewed_local_date": "2026-11-23"
+  "disposition": "The reviewed change set is acceptable with caveats as a KM2 local signed-registry, installer, entitlement and stdio MCP pilot foundation. Exact-head PostgreSQL 16 migration, 24 application/pilot tests, CLI validation, Compose validation and Docker image build passed. Ubuntu 24.04, macOS 15 and Windows 2025 specification validation and repository governance passed on the same exact head. Four prior Codex review findings (one P1 and three P2) are resolved in code and their GitHub review threads are closed. This is a correlation-limited assurance report by the same assistant context used for implementation, not independent provider certification, GitHub-native approval or GOV-01 merge authorization. The pilot remains LOCAL_PILOT_ONLY: no public cloud, production runtime, arbitrary package execution or third-party plugin distribution is authorized.",
+  "reviewed_local_date": "2026-11-23",
+  "resolved_prior_review_findings": [
+    {
+      "id": "CODEx-01",
+      "severity": "P1",
+      "topic": "Local tenant bootstrap module absent",
+      "status": "RESOLVED",
+      "resolution": "Added src/hsmart_platform/pilot/seed.py and ensured CLI help/bootstrap workflow passes on reviewed head."
+    },
+    {
+      "id": "CODEx-02",
+      "severity": "P2",
+      "topic": "SQLite/database files leaked into Docker build context",
+      "status": "RESOLVED",
+      "resolution": "Restored .db/.sqlite/.sqlite3/WAL/SHM exclusions and ignored local keys, local policy and artifact directories."
+    },
+    {
+      "id": "CODEx-03",
+      "severity": "P2",
+      "topic": "Archive member/resource bounds applied after eager getmembers()",
+      "status": "RESOLVED",
+      "resolution": "Switched to lazy tar iteration and applied count, expanded-size, per-file and path/link checks before extracting payloads."
+    },
+    {
+      "id": "CODEx-04",
+      "severity": "P2",
+      "topic": "Concurrent idempotency insert race returned uncaught IntegrityError",
+      "status": "RESOLVED",
+      "resolution": "Catch IntegrityError, rollback, reload unique-constraint winner, compare request digest and replay only a completed matching invocation; regression test triggers the actual SQLite unique constraint."
+    }
+  ]
 }
