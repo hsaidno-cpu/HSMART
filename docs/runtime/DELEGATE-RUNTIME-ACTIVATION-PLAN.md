@@ -1,4 +1,4 @@
-# GOV-02..GOV-06 Runtime Activation and Evidence Plan
+# GOV-02..GOV-12 AI Functional Delegate Runtime Activation and Evidence Plan
 
 **Document ID:** HSMART-RUNTIME-GOV-DELEGATES-001  
 **Version:** 0.1.0  
@@ -8,13 +8,13 @@
 
 ## 1. Executive status
 
-The five GOV-02..GOV-06 AI Functional Delegate profiles are designated but are not executable runtime instances. This document establishes a repeatable activation path and a reference policy enforcement implementation. It does not claim that a cloud account, hosted runtime, model endpoint, credential, Skill package, WORM store, or production control plane has been provisioned.
+All eleven GOV-02..GOV-12 AI Functional Delegate profiles are designated but are not executable runtime instances. This document establishes a repeatable activation path and a reference policy enforcement implementation. It does not claim that a cloud account, hosted runtime, model endpoint, credential, Skill package, WORM store, or production control plane has been provisioned.
 
 **Current lifecycle:** DESIGNATED.  
 **Runtime state:** NOT_PROVISIONED.  
 **Activation decision:** BLOCKED until every mandatory evidence gate in section 6 passes.
 
-Human GOV-02..GOV-06 seats remain VACANT. AI functional delegates provide bounded interim task execution only; they do not become human officers or legal representatives.
+GOV-01 is the only human role in the internal model. GOV-02..GOV-12 are bounded AI functional delegates, not people, officers or legal representatives; all runtimes remain NOT_PROVISIONED / NOT_ACTIVE.
 
 ## 2. Runtime topology
 
@@ -26,7 +26,13 @@ Use one isolated workload identity and runtime deployment per delegate, even if 
 | GOV-03 Product Owner | `hsmart.gov03.product-owner.orchestrator` | `hsmart-gov03-product-owner` | VACANT |
 | GOV-04 Architecture Lead | `hsmart.gov04.architecture.orchestrator` | `hsmart-gov04-architecture` | VACANT |
 | GOV-05 Engineering Lead | `hsmart.gov05.engineering.orchestrator` | `hsmart-gov05-engineering` | VACANT |
-| GOV-06 Security & Privacy Lead | `hsmart.gov06.security-privacy.orchestrator` | `hsmart-gov06-security-privacy` | VACANT |
+| GOV-06 Security & Privacy Lead | `hsmart.gov06.security-privacy.orchestrator` | `hsmart-gov06-security-privacy` | AI delegate |
+| GOV-07 Operations / Reliability Lead | `hsmart.gov07.operations-reliability.orchestrator` | `hsmart-gov07-operations-reliability` | AI delegate |
+| GOV-08 Legal / Commercial Research | `hsmart.gov08.legal-commercial-research.orchestrator` | `hsmart-gov08-legal-commercial-research` | AI delegate |
+| GOV-09 Entitlement Governance Steward | `hsmart.gov09.entitlement-governance.orchestrator` | `hsmart-gov09-entitlement-governance` | AI delegate |
+| GOV-10 Repository Governance Lead | `hsmart.gov10.repository-governance.orchestrator` | `hsmart-gov10-repository-governance` | AI delegate |
+| GOV-11 Independent Assurance Reviewer | `hsmart.gov11.independent-assurance-reviewer.orchestrator` | `hsmart-gov11-independent-assurance-reviewer` | AI delegate |
+| GOV-12 Business Continuity / DR Lead | `hsmart.gov12.business-continuity.orchestrator` | `hsmart-gov12-business-continuity` | AI delegate |
 
 Each service must have a separate workload identity, resource limits, environment, network policy, tool allowlist, model binding, Skill lockfile and audit correlation namespace. Do not share broad GitHub or Notion credentials between delegates.
 
@@ -65,7 +71,7 @@ The reference engine is not yet a production authorization service. Production i
 
 | Gate | Required evidence | Failure disposition |
 |---|---|---|
-| A1 Runtime | Five distinct hosted runtime instances, health checks, isolated identities and resource/network policies | NOT_PROVISIONED |
+| A1 Runtime | Eleven distinct hosted runtime instances, health checks, isolated identities and resource/network policies | NOT_PROVISIONED |
 | A2 Model | Provider, exact model/deployment ID, version semantics and successful redacted inference test per runtime | NOT_VERIFIED |
 | A3 Skills | Immutable Skill/Sub-Skill lock records, digests, license/provenance and regression results | NOT_PINNED |
 | A4 Policy | Central enforcement gateway intercepts every mutating tool operation; direct bypass denied | NOT_ENFORCED |
@@ -99,7 +105,7 @@ Credentials must be entered directly into the chosen provider's secure connectio
 
 ## 9. MVP and Charter decisions
 
-The MVP Decision Record v1.1.0 was APPROVED AS WRITTEN by GOV-01 on 2026-11-22. Charter v1.0.2 was RATIFIED WITH CONDITIONS by GOV-01 on 2026-11-22 for internal HSMART project governance only. These decisions satisfy A9 and A10 as governance decision gates, but do not waive A1–A8, certify delivery, approve cloud expenditure, or activate any delegate. All five delegate runtimes remain NOT_PROVISIONED / NOT_ACTIVE until their individual technical evidence gates pass.
+The MVP Decision Record v1.1.0 was APPROVED AS WRITTEN by GOV-01 on 2026-11-22. Charter v1.0.2 was RATIFIED WITH CONDITIONS by GOV-01 on 2026-11-22 for internal HSMART project governance only. These decisions satisfy A9 and A10 as governance decision gates, but do not waive A1–A8, certify delivery, approve cloud expenditure, or activate any delegate. All eleven delegate runtimes remain NOT_PROVISIONED / NOT_ACTIVE until their individual technical evidence gates pass.
 
 ## 10. Per-delegate activation ledger
 
@@ -110,6 +116,12 @@ The MVP Decision Record v1.1.0 was APPROVED AS WRITTEN by GOV-01 on 2026-11-22. 
 | GOV-04 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
 | GOV-05 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
 | GOV-06 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-07 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-08 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-09 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-10 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-11 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
+| GOV-12 | BLOCKED | PENDING | PENDING | PENDING | PENDING | PENDING | NOT ACTIVE |
 
 Update this ledger only from deployment and test evidence. A successful local unit test does not prove hosted runtime activation.
 
@@ -118,15 +130,33 @@ Update this ledger only from deployment and test evidence. A successful local un
 
 | Workstream | Verified current state | Evidence required to close |
 |---|---|---|
-| Compute and workload identity | No hosting project/account or five hosted service instances provisioned through the available connected tools | Select and connect an authorized provider account; create five isolated services with separate workload identities, resource/network policies, health checks and deploy provenance |
+| Compute and workload identity | No hosting project/account or eleven hosted service instances provisioned through the available connected tools | Select and connect an authorized provider account; create five isolated services with separate workload identities, resource/network policies, health checks and deploy provenance |
 | Model/provider and credentials | No provider, exact model ID/snapshot, endpoint region or active model credential bound | GOV-01 selects provider/model and region; enter credential directly into the provider secret manager; record secret reference only and run a redacted inference test |
 | Skill/Sub-Skill installation | Skill lock records/runtime installation/digests not evidenced by the merged reference foundation | Approve exact Skill sources/revisions, generate immutable lockfiles, verify artifact/dependency digests, license/provenance and compatibility/regression results per delegate |
 | Technical policy enforcement | Local reference evaluator and 13 unit tests are in repository; no external gateway interception or bypass control is deployed | Deploy central authorization enforcement outside agents; cryptographically authenticate workload identities; mediate every connector/tool mutation; prove no bypass and policy outage DENY |
 | Permission and fail-closed validation | Local reference tests exist; hosted integration matrix and outage tests not verified in this record | Prove positive/negative scopes, revoked/expired grants, role mismatch, branch/path escape, reserved human actions and fail-closed behavior for identity, policy, grant store and audit outages |
 | Production audit | WORM design and event schema exist; no production object-lock storage provisioned | Connect WORM-capable storage; set retention only after GOV-01 decision; prove object-lock mode, protected signing, write-only ingestion, deletion-denial, integrity, backup/restore and independent read |
-| Operations | GOV-07 Operations/Reliability remains unassigned | Appoint an operations owner or record human-approved interim coverage before production workloads |
+| Operations | GOV-07 Operations/Reliability AI delegate is designated but its runtime is not provisioned | Appoint an operations owner or record human-approved interim coverage before production workloads |
 | Deployment authority and budget | No hosting-provider connection, resource-creation authorization or budget ceiling recorded in this session | GOV-01 separately approves selected provider, project, region, expected spend ceiling and production/non-production scope |
 
 **Connection finding:** The current session has GitHub and Notion project access, but no connected hosting/deployment, cloud IAM, model-provider, secret-manager or WORM-storage control-plane action. Provider discovery returned Railway and Render as available but not installed; no deployment action has been performed. Do not treat plugin discovery as an authenticated provider connection.
 
 **Runtime disposition:** all five delegates remain DESIGNATED / NOT_PROVISIONED / NOT_ACTIVE. This plan is an evidence register, not a deployment claim. Secrets must never be placed in GitHub, Notion or chat.
+
+
+## 12. GOV-07 through GOV-12 runtime activation extension
+
+The GOV-01 decision addendum `HSMART-GOV-DEC-2026-11-22-002` designates six additional AI Functional Delegates. Each is subject to mandatory A1–A8 activation gates and must have a distinct runtime identity, model binding, Skill pins, tool allowlist, approval-grant lineage and audit namespace.
+
+| Delegate | Stable Agent ID | Scope | Runtime state | Activation |
+|---|---|---|---|---|
+| GOV-07 | `hsmart.gov07.operations-reliability.orchestrator` | Operations, reliability, incident triage and recovery evidence | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-08 | `hsmart.gov08.legal-commercial-research.orchestrator` | Legal/commercial research and drafting support only | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-09 | `hsmart.gov09.entitlement-governance.orchestrator` | Entitlement rules, rights evidence and quota tests | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-10 | `hsmart.gov10.repository-governance.orchestrator` | Repository protection specification and drift checks | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-11 | `hsmart.gov11.independent-assurance-reviewer.orchestrator` | Independent-context AI review and evidence challenge | NOT_PROVISIONED | NOT ACTIVE |
+| GOV-12 | `hsmart.gov12.business-continuity.orchestrator` | Backup, restore, continuity and DR evidence | NOT_PROVISIONED | NOT ACTIVE |
+
+The GOV-07 role designation satisfies internal functional allocation; it does not prove a hosted operations system, monitoring, backup, restore, on-call response or recovery process exists. GOV-08 is not legal counsel and cannot approve or sign external instruments. GOV-11 must not represent a correlated second persona as independent certification or submit a false GitHub-native human approval.
+
+All six new delegates remain BLOCKED until A1–A8 evidence is recorded. Do not mark production operations, DR or security readiness complete from a designation, runbook or local test alone.

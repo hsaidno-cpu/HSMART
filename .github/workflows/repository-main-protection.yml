@@ -1,0 +1,54 @@
+name: Repository Main Protection
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Read status, preview dry-run, or apply main protection
+        type: choice
+        required: true
+        options: [status, dry-run, apply]
+      expected_main_sha:
+        description: Current full 40-character main SHA, read immediately before execution
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  repository-main-protection:
+    if: github.actor == 'hsaidno-cpu'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Validate caller and target SHA
+        if: inputs.operation != 'status'
+        env:
+          EXPECTED_MAIN_SHA: ${{ inputs.expected_main_sha }}
+        run: |
+          test "$GITHUB_ACTOR" = "hsaidno-cpu"
+          echo "$EXPECTED_MAIN_SHA" | grep -Eq '^[0-9a-f]{40}$'
+      - name: Read current status
+        if: inputs.operation == 'status'
+        run: python scripts/github-governance.py status
+      - name: Dry run both protection operations
+        if: inputs.operation == 'dry-run'
+        env:
+          EXPECTED_MAIN_SHA: ${{ inputs.expected_main_sha }}
+        run: |
+          python scripts/github-governance.py apply-branch-protection --expected-main-sha "$EXPECTED_MAIN_SHA"
+          python scripts/github-governance.py apply-ruleset --expected-main-sha "$EXPECTED_MAIN_SHA"
+      - name: Apply branch protection and ruleset
+        if: inputs.operation == 'apply'
+        env:
+          GH_TOKEN: ${{ secrets.HSMART_REPOSITORY_ADMIN_TOKEN }}
+          EXPECTED_MAIN_SHA: ${{ inputs.expected_main_sha }}
+        run: |
+          test -n "$GH_TOKEN" || (echo "Missing HSMART_REPOSITORY_ADMIN_TOKEN secret with Administration: write" >&2; exit 2)
+          python scripts/github-governance.py apply-branch-protection --apply --confirm-main --expected-main-sha "$EXPECTED_MAIN_SHA"
+          python scripts/github-governance.py apply-ruleset --apply --confirm-main --expected-main-sha "$EXPECTED_MAIN_SHA"

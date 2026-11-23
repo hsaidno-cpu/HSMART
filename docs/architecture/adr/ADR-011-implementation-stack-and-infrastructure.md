@@ -1,10 +1,10 @@
 # ADR-011 — MVP Application Stack & Infrastructure Direction
 
-- **Status:** RECOMMENDED BASELINE — FORMAL ACCEPTANCE PENDING
-- **Version:** 1.1.0
+- **Status:** ACCEPTED BY GOV-01 — INTERNAL TECHNICAL BASELINE; PROVIDER/PROCUREMENT CHOICES DEFERRED
+- **Version:** 1.2.0
 - **Date:** 2026-11-22
 - **Decision class:** D2
-- **Decision owner:** Architecture Lead; accountable approval by Project Sponsor/Owner — appointments pending
+- **Decision owner:** GOV-01 Project Sponsor / Accountable Owner; AI technical delegates provide bounded recommendations only
 - **Related:** ADR-001 through ADR-010; Project Charter v1.0.0; MVP Decision Record v1.1.0
 - **Supersedes:** None
 
@@ -30,7 +30,7 @@ This ADR therefore separates (a) a recommended technology baseline for an engine
 
 ## 3. Recommended MVP technology baseline
 
-These are the recommended defaults to validate in a short vertical-slice spike. They are not an accepted procurement decision.
+GOV-01 accepts these defaults as the internal MVP application stack baseline for KM 1. This acceptance does not select a cloud vendor, region, identity provider, object-store vendor, paid service or spending ceiling.
 
 | Concern | Recommended baseline | Rationale / guardrail |
 |---|---|---|
@@ -83,15 +83,15 @@ These are the recommended defaults to validate in a short vertical-slice spike. 
 - Backups are not accepted until restoration has been tested.
 - Object versioning alone is not proof of immutability; verify provider retention controls and digest behavior with an integration test.
 
-## 6. Required proof-of-fit before acceptance
+## 6. Proof-of-fit and implementation verification
 
-1. Engineering Lead records team capability and completes a small FastAPI vertical-slice spike against the canonical OpenAPI contract. If the team cannot own it, compare NestJS before acceptance.
-2. Architecture Lead proves PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
-3. Security & Privacy Lead reviews OIDC audience/issuer handling, worker identity, key lifecycle, secrets, data residency and default-deny egress.
-4. Operations/Reliability Lead demonstrates deployment, backup/restore, logs/metrics/traces and recovery ownership.
-5. Project Sponsor/Owner sets a budget envelope and approves any paid resource.
+1. GOV-05 AI Engineering Delegate maintains the FastAPI implementation against the canonical OpenAPI contract; Python 3.12 CI is the reference environment.
+2. GOV-04 AI Architecture Delegate challenges PostgreSQL migrations, uniqueness, transaction boundaries, tenant isolation and outbox recovery.
+3. GOV-06 AI Security & Privacy Delegate assesses OIDC audience/issuer handling, workload identity, key lifecycle, secrets, data residency and default-deny egress.
+4. GOV-07 AI Operations/Reliability Delegate prepares deployment, backup/restore, observability and recovery evidence; its runtime is inactive until A1–A8 pass.
+5. GOV-01 separately approves any provider, region, budget and paid resource before provisioning.
 6. Candidate cloud providers/regions are compared against documented criteria: Indonesia/data residency needs, latency, availability, managed services, security controls, recovery, support, portability and total cost.
-7. ADR approval is recorded by the roles with authority; the accepted ADR and decision log are updated in the same reviewed change.
+7. GOV-01 acceptance is recorded in HSMART-GOV-DEC-2026-11-22-002. KM 1 exit still requires hosted CI, AI assurance and GOV-01 acceptance of the exact implementation commit.
 
 ## 7. Rollback / reconsideration
 
@@ -101,12 +101,14 @@ Reconsider before production if the selected stack fails the vertical-slice acce
 
 | Approver role | Name | Decision | Date |
 |---|---|---|---|
-| Project Sponsor / Accountable Owner | NOT APPOINTED | PENDING | — |
-| Architecture Lead | NOT APPOINTED | PENDING | — |
-| Engineering Lead | NOT APPOINTED | PENDING | — |
-| Security & Privacy Lead | NOT APPOINTED | PENDING | — |
-| Operations / Reliability Lead | NOT APPOINTED | PENDING | — |
+| GOV-01 — Project Sponsor / Accountable Owner | Harysaidno | ACCEPTED — HSMART-GOV-DEC-2026-11-22-002 | 2026-11-22 |
+| GOV-04 — Architecture Lead (AI delegate) | Designated; runtime inactive | Technical recommendation only | 2026-11-22 |
+| GOV-05 — Engineering Lead (AI delegate) | Designated; runtime inactive | Implementation/evidence within grant | 2026-11-22 |
+| GOV-06 — Security & Privacy Lead (AI delegate) | Designated; runtime inactive | Security challenge/HOLD recommendation | 2026-11-22 |
+| GOV-07 — Operations & Reliability Lead (AI delegate) | Designated; runtime inactive | Operational evidence/runbook preparation | 2026-11-22 |
 
 ## 9. Current disposition
 
-**The recommended technology baseline is sufficiently specific for a reversible engineering spike. The formal ADR is not accepted.** No cloud provider, region, domain, database service, OIDC issuer, KMS, secret manager or paid service has been procured or deployed. This record must not be cited as authorization to spend money or launch production infrastructure.
+**ADR-011 v1.2.0 is ACCEPTED by GOV-01 as the internal KM 1 application-stack baseline** under `HSMART-GOV-DEC-2026-11-22-002`. This accepts Python 3.12 + FastAPI, modular monolith, PostgreSQL, SQLAlchemy/Alembic, PostgreSQL outbox worker, OCI packaging, OIDC adapter, managed secrets/KMS conventions and OpenTelemetry-compatible observability as the internal technical direction. It does not select or procure a cloud provider, region, domain, identity provider, KMS, secret manager, artifact-store vendor or paid service.
+
+Acceptance of ADR-011 is distinct from KM 1 exit acceptance. KM 1 still requires passing contract, application/PostgreSQL and repository-governance CI; AI assurance evidence; and a separate GOV-01 decision on the exact implementation commit. This record does not certify production deployment or approve spending/external commitments.

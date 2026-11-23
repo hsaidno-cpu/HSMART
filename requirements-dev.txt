@@ -1,6 +1,6 @@
-# Direct dependency pins for the HSMART contract-validation toolchain.
-# This is not the application/runtime dependency set.
+# Direct pins for the HSMART contract and application test toolchain.
 jsonschema[format]==4.23.0
 openapi-spec-validator==0.7.2
 pytest==8.3.5
 PyYAML==6.0.2
+httpx==0.28.1

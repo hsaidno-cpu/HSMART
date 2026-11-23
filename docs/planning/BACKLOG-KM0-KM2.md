@@ -129,3 +129,27 @@ A dependency cannot be marked complete because its downstream task exists. If a 
 7. Project authority: review the KM 1 exit gate before KM 2.
 
 No schedule commitment is set because capacity and owner appointments are not yet known.
+
+
+## 9. GOV-01 canonical execution addendum — 2026-11-22
+
+This addendum supersedes earlier role/owner assumptions above where they conflict with the later GOV-01 decision `HSMART-GOV-DEC-2026-11-22-002`.
+
+- GOV-01 is the only human authority in the internal HSMART governance model.
+- GOV-02..GOV-12 are bounded AI Functional Delegate designations; all are NOT_PROVISIONED / NOT_ACTIVE until individual runtime gates pass.
+- GOV-07 covers Operations/Reliability as a logical delegate; this is not production operations evidence.
+- GOV-08 is legal/commercial research and drafting only, not legal counsel or a signatory.
+- GOV-09 maintains the internal entitlement baseline; entitlement service implementation is not part of KM 1.
+- GOV-10 prepares repository protection configuration and drift reports. Main is NOT_APPLIED while GitHub reads back `protected=false`.
+- GOV-11 provides AI review reports, not native GitHub human approvals. GOV-01 retains final merge authority.
+- GOV-12 prepares continuity/DR controls; DR is NOT_TESTED.
+
+### Current mandatory priority
+
+1. PR #13 — MERGED to main at `17c78dcd2ea59c6d40f9a07d188bab6f829f0596`.
+2. GOV-07 designation and repository governance — role DESIGNATED; main protection still NOT_APPLIED.
+3. KM 0 — OPEN until governance and repository evidence are reconciled.
+4. KM 1 — ADR-011 accepted as internal stack baseline; application environment implemented on working branch; PostgreSQL 16 CI and independent KM 1 review pending.
+5. KM 2 Registry — BLOCKED until GOV-01 accepts KM 1 against exact commit and evidence.
+
+Local KM 1 test evidence at preparation: 11 passed; 2 PostgreSQL integration tests skipped locally because no database service was available. SQLite migration smoke passed but is not a substitute for PostgreSQL. Production deployment, WORM audit, DR and production security readiness remain NOT VERIFIED.

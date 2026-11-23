@@ -252,3 +252,12 @@ These references inform method selection. They are not claims of certification, 
 - [MITRE ATLAS](https://atlas.mitre.org/) — living knowledge base of adversary tactics and techniques involving AI systems, including agentic systems.
 
 GOV-06 must maintain a version-aware reference register. A link being present is not proof that the latest edition has been used or that HSMART conforms to it.
+
+
+## 10. GOV-11 designation and reviewer evidence boundary
+
+GOV-11 `hsmart.gov11.independent-assurance-reviewer.orchestrator` is designated as the logical AI assurance reviewer under GOV-01 decision `HSMART-GOV-DEC-2026-11-22-002`. Its runtime is NOT_PROVISIONED / NOT_ACTIVE. Until that runtime is independently configured, AI reviews conducted in a conversational session are recorded as AI-assisted review evidence with model/context correlation disclosed; they do not prove a separately deployed reviewer.
+
+GitHub's native review API attributes a review to the authentic GitHub actor. A logical Agent name must never be used to fabricate an APPROVE event. The deterministic `Repository Governance Review` workflow is a static/policy pre-review, not generative AI assurance. GOV-11's written review report and automated status checks are separate evidence elements.
+
+For each review, record the reviewer execution context, exact model/provider/version where available, scope, source commit, methods, tests rerun, findings, severity, dissent, correlation limitations and independent re-check. GOV-01 makes the final internal disposition and retains the human merge/release decision.

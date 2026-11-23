@@ -1,13 +1,13 @@
 # HSMART Development Environment — Contract Tooling Baseline
 
 **Document ID:** HSMART-ENG-DEV-001  
-**Version:** 1.1.1  
+**Version:** 1.2.0  
 **Prepared:** 2026-11-22  
-**Status:** IMPLEMENTED CONTRACT-TOOLING BASELINE — APPLICATION ENVIRONMENT DEPENDS ON ACCEPTED ADR-011
+**Status:** CONTRACT TOOLING + KM 1 APPLICATION FOUNDATION IMPLEMENTED — POSTGRESQL CI AND INDEPENDENT EXIT REVIEW PENDING
 
 ## 1. Scope boundary
 
-This environment makes the current canonical contracts testable from a clean checkout. It is a repeatable contract-validation environment, not the HSMART application runtime. It does not claim that the backend, database, Registry, REST/MCP gateway, worker, synchronization service or deployment environment exists.
+This document describes the existing contract-validation toolchain and the accepted KM 1 application-foundation environment. The application foundation contains a FastAPI process, SQLAlchemy persistence model, Alembic migration and PostgreSQL-backed outbox worker scaffold. It is not yet the Registry, public REST/MCP Gateway, arbitrary-code Runtime, Evaluation service, Synchronization Engine or a production deployment.
 
 The toolchain uses the Python 3.12 minor line for JSON Schema and OpenAPI contract tests. It does not by itself approve the application backend framework.
 
@@ -91,3 +91,48 @@ A clean checkout meets this tooling baseline when it:
 - Dependency upgrades must update direct pins and pass the full cross-platform validation suite.
 - Add a transitive hash lock before the toolchain becomes part of a production software-supply-chain assurance claim.
 - Expand this environment into the application development environment only after backend/database/infrastructure ADRs are accepted.
+
+
+## 8. Accepted KM 1 application environment
+
+ADR-011 v1.2.0 was accepted by GOV-01 on 2026-11-22. The application foundation uses Python 3.12.x, FastAPI/Uvicorn, PostgreSQL 16, SQLAlchemy 2.0/Alembic, PostgreSQL transactional outbox, OCI packaging, environment-driven settings and a separate worker process.
+
+Files:
+- `requirements-app.txt` — direct application dependency pins.
+- `src/hsmart_platform/` — health/readiness API, database/session factory, tenant and outbox models, outbox functions and worker.
+- `alembic/` and `alembic.ini` — versioned migration.
+- `Dockerfile`, `compose.yaml`, `.env.example` — local container topology; no production credentials or endpoints included.
+- `.github/workflows/km1-application.yml` — PostgreSQL 16 integration job.
+
+The outbox enforces idempotency within a tenant, supports claim/retry/dead-letter behavior, and never acknowledges an unhandled topic as processed. KM 1 intentionally defines no business event handlers.
+
+### Local verification record
+
+- `PYTHONPATH=src python -m pytest -q`: **11 passed, 2 skipped**.
+- Both skipped tests require a real PostgreSQL connection and run in the dedicated CI job.
+- `alembic upgrade head` migration smoke passed on SQLite only.
+- `python scripts/repository-governance-review.py`: PASS for deterministic policy/secret-pattern checks only.
+- Local runtime was Python 3.13.5, not the supported Python 3.12 line. No Docker/PostgreSQL service was available locally.
+
+This is local implementation evidence, not proof that hosted Python 3.12/PostgreSQL 16 CI passed.
+
+### Clean application bootstrap (Python 3.12)
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-dev.txt -r requirements-app.txt
+python -m pip check
+export PYTHONPATH=src
+export DATABASE_URL=postgresql+psycopg://<user>:<password>@localhost:5432/<database>
+alembic upgrade head
+python -m pytest -q
+```
+
+On Windows, activate `.venv\\Scripts\\Activate.ps1` and set `$env:PYTHONPATH="src"`. Use a local secret store or environment variable for credentials; never commit them.
+
+## 9. KM 1 boundary and non-claims
+
+This foundation does **not** implement or accept the Capability Registry, external REST/Remote MCP Gateway, OIDC or production API-key issuance, arbitrary publisher code execution, hardened sandbox runtime, production Evaluation/Observability, WORM audit, synchronization/rollback engine, production hosting, backup restoration, disaster recovery or security certification.
+
+KM 2 Registry may start only after PostgreSQL 16 CI, independent KM 1 evaluation and explicit GOV-01 KM 1 acceptance are complete.
