@@ -1,4 +1,4 @@
-"""HTTP process entry point for the HSMART modular-monolith foundation."""
+"""HTTP process entry point for HSMART KM1/KM2 pilot foundations."""
 from __future__ import annotations
 
 from fastapi import FastAPI, HTTPException
@@ -6,7 +6,8 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.engine import Engine
 
-from .database import build_engine
+from .database import build_engine, build_session_factory
+from .pilot.api import router as pilot_router
 from .settings import Settings
 
 
@@ -14,14 +15,15 @@ def create_app(settings: Settings | None = None, engine: Engine | None = None) -
     settings = settings or Settings.from_env()
     settings.validate()
     db_engine = engine or build_engine(settings.database_url)
-
     app = FastAPI(
         title=settings.app_name,
-        version="0.1.0",
-        description="HSMART application foundation. Business domains are introduced only after KM 1 exit.",
+        version="0.2.0",
+        description="HSMART modular monolith with a gated local Registry, installer and MCP pilot.",
     )
     app.state.settings = settings
     app.state.engine = db_engine
+    app.state.session_factory = build_session_factory(db_engine)
+    app.include_router(pilot_router)
 
     @app.get("/v1/health", tags=["Operations"])
     def health() -> dict[str, str]:
