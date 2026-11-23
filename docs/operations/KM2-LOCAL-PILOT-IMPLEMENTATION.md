@@ -46,13 +46,13 @@ Create a separate Ed25519 package-signing key pair:
 
 Copy config/pilot-publisher-trust.example.json to config/pilot-publisher-trust.local.json. Replace the signer SHA-256 with the exact public_key_sha256 printed by keygen. Replace the source commit placeholder with the reviewed full source commit being packaged. Do not broaden the publisher, capability or license lists for convenience.
 
-The example trust policy permits only:
+The example trust policy is an intentionally unusable template until the operator pins the actual signer fingerprint and exact source commit. It permits only:
 
 - publisher hsmart-first-party
 - capability hsmart.echo
 - source repository https://github.com/hsaidno-cpu/HSMART
 - license Apache-2.0 with the repository LICENSE as the exact license evidence
-- one explicitly approved immutable source commit
+- one explicitly approved immutable source commit. The installer rejects a package whose source SHA is not in allowed_source_commits.
 
 Other Plugin Creator packages, including USER/PRIVATE packages, are not authorized by this policy and cannot be installed with it.
 
@@ -90,7 +90,7 @@ Grant invocation permission with an evidence reference:
 
     PYTHONPATH=src python tools/hsmart_pilot_admin.py grant --tenant-id TENANT_UUID --capability-id hsmart.echo --subject pilot-user --permission capability.invoke --evidence-ref local-approval-ticket
 
-The grant CLI writes an audit event. The REST endpoint POST /v1/registry/grants requires scope entitlement.grant. Grant revocation uses POST /v1/registry/grants/{grant_id}/revoke and records the evidence reference.
+The grant CLI writes an audit event. The REST endpoint POST /v1/registry/grants requires scope entitlement.grant. Grant revocation uses POST /v1/registry/grants/{grant_id}/revoke and records the evidence reference. A revoked entitlement is checked before idempotent invocation replay, so stored results are not returned after access has been withdrawn.
 
 ## 7. Obtain a short-lived local token and launch the MCP stdio host
 
@@ -118,7 +118,7 @@ Supported transitions:
 - INSTALLED → ACTIVE, REVOKED or UNINSTALLED
 - ACTIVE → DISABLED, REVOKED or UNINSTALLED
 - DISABLED → ACTIVE, REVOKED or UNINSTALLED
-- UNINSTALLED and REVOKED are terminal states; a new install after UNINSTALLED re-verifies signature, trust and rights.
+- UNINSTALLED is terminal for that installation record, but the same immutable release can be installed again after signature/trust/rights re-verification. REVOKED is terminal for both the installation and the capability version; all installations of that version are moved to REVOKED.
 
 Revoking a release marks all installations of that capability version REVOKED. A revoked release cannot be reinstalled or activated. Content-addressed artifacts are retained for provenance and are not deleted when a single installation is uninstalled.
 
