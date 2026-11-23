@@ -14,7 +14,12 @@
     "terminology_archived": 0,
     "roadmap_active": 20,
     "roadmap_archived": 0,
-    "total_records": 45
+    "total_records": 45,
+    "record_pages_individually_fetched": 45,
+    "container_schema_pages_fetched": 5,
+    "pages_with_file_refs_observed": 0,
+    "pages_with_visible_discussions": 0,
+    "pages_with_unknown_or_truncation_markers": 0
   },
   "hash_method": {
     "algorithm": "SHA-256",
@@ -29,7 +34,7 @@
     "comment_api_status": "upgrade_required",
     "recursive_block_children": "NOT_EXPOSED_BY_CURRENT_CONNECTOR",
     "binary_attachments": "NO_NOTION_FILE_BLOCK_REFERENCES_IN_FETCHED_CONTENT",
-    "caveat": "This manifest fingerprints the 45 active database rows only. It is not a complete recursive block/file export and does not prove that no inaccessible, unindexed, hidden or externally linked assets exist."
+    "caveat": "The 45 active database record pages and five container/schema assets were fetched individually. No stable Notion file-block references, nested child database references, discussion markers, unknown-block markers or truncation markers surfaced. Comment enumeration itself is entitlement-blocked (upgrade_required); external links and inaccessible/unindexed assets outside scoped SDGDS search are not checksum-covered."
   },
   "records": [
     {
@@ -437,5 +442,43 @@
       "notion_content_hash_property": "Pending first successful GitHub Actions synchronization",
       "notion_source_commit_property": "efa30c78dd787399f23ef0450b8c2b66edaa07ff"
     }
-  ]
+  ],
+  "recursive_read_audit": {
+    "audit_date": "2026-11-23",
+    "technique": "Individually fetched all 45 active Notion database record pages with include_file_urls=true and include_discussions=true; separately fetched five container/schema pages.",
+    "record_pages": {
+      "terminology": 25,
+      "roadmap_ledger": 20,
+      "total": 45,
+      "pages_with_stable_notion_file_block_references": 0,
+      "pages_with_nested_database_references": 0,
+      "pages_with_discussion_markers_in_fetch_output": 0,
+      "pages_with_unknown_block_markers": 0,
+      "pages_with_truncation_markers": 0
+    },
+    "container_pages": {
+      "root_sdgds_page": 1,
+      "current_roadmap_page": 1,
+      "migration_roadmap_page": 1,
+      "terminology_database_schema": 1,
+      "roadmap_database_schema": 1,
+      "total": 5,
+      "stable_file_references_seen": 0,
+      "visible_discussion_markers_seen": 0,
+      "unknown_or_truncation_markers_seen": 0
+    },
+    "comments_api": {
+      "status": "UPGRADE_REQUIRED",
+      "observation": "notion_get_comments returned suggested_edits_status=upgrade_required for the root, roadmap, migration roadmap and both databases.",
+      "conclusion": "The absence of discussion markers in page fetches is not proof of zero comments. Comment enumeration is not available to this connected workspace."
+    },
+    "attachment_scope": {
+      "conclusion": "No stable notion-file-block references surfaced in the 45 record pages or five container/schema pages.",
+      "limitation": "This does not rule out external URL links, inaccessible files, linked pages outside the search scope, hidden workspace assets or binary content not exposed by the connector."
+    },
+    "recursive_page_scope": {
+      "state": "RECORD_PAGE_FETCH_PASS_WITH_SCOPE_LIMITS",
+      "note": "All 45 individual database record pages were fetched; no nested child database, separate child page or visible unknown/truncation marker was observed. Fetch output exposes serialized page properties/body, not a complete raw Notion block-child export or workspace-wide revision dump."
+    }
+  }
 }
