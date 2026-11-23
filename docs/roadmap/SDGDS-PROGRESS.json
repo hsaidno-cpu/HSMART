@@ -47,7 +47,7 @@
       "state": "OPEN",
       "mergeable": true,
       "base_sha": "543bef61f1fd1ce3a736bd107857bee0b244c388",
-      "head_sha": "0890bfa6538fbc7e23a61150f5a574128c4bc684",
+      "head_sha": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb",
       "changed_files": 11,
       "additions": 2224,
       "deletions": 23
@@ -98,7 +98,41 @@
       "note": "25 records seeded; five source-reference updates were individually applied. Current full aggregate re-read unavailable due Notion workspace Query Data Source allowance."
     },
     "main_branch_status": "PR #28 is merged to main. PR #29 is not merged.",
-    "production_state": "No deployed glossary runtime or autonomous discovery service evidenced."
+    "production_state": "No deployed glossary runtime or autonomous discovery service evidenced.",
+    "roadmap_revision_head_sha": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb",
+    "roadmap_revision_workflows": {
+      "commit": "34bc2237f47c3587cc342946eeb1c8e0824ab2eb",
+      "passed_before_assurance_refresh": 4,
+      "total": 5,
+      "items": [
+        {
+          "name": "SDGDS Terminology Registry",
+          "run_id": 45102772850,
+          "result": "PASS"
+        },
+        {
+          "name": "Repository Governance",
+          "run_id": 45102772955,
+          "result": "PASS"
+        },
+        {
+          "name": "Specification Validation",
+          "run_id": 45102772913,
+          "result": "PASS"
+        },
+        {
+          "name": "KM1 Application Foundation",
+          "run_id": 45102772890,
+          "result": "PASS"
+        },
+        {
+          "name": "AI Reviewer Evidence",
+          "run_id": 45102772865,
+          "result": "EXPECTED_FAILURE_STALE_REPORT_REQUIRES_EXACT_SHA_REFRESH"
+        }
+      ],
+      "note": "AI Reviewer Evidence failed because the prior review report was bound to an earlier code SHA; the roadmap code addition therefore requires a fresh review and report-only commit."
+    }
   },
   "progress_measurement": {
     "overall_completion": null,
@@ -530,7 +564,7 @@
       "external": [],
       "acceptance": "Progress dimensions and evidence limitations are recorded separately; no unqualified overall percentage is published.",
       "next": "Re-evaluate after GOV-01 disposition and after first authenticated Notion sync.",
-      "notes": "5/5 workflow groups passed on commit 0890bfa; 8/8 SDGDS tests passed; 25 seed terms; PR open; no verified automated Notion sync; coverage denominator and user outcomes unknown.",
+      "notes": "Earlier foundation head 0890bfa had 5/5 workflow groups pass and 8/8 SDGDS tests pass. Roadmap revision head 34bc223 has four new-scope checks green; AI Reviewer Evidence correctly requested an exact-SHA review refresh. 25 seed terms; PR open; no verified automated Notion sync; coverage denominator and user outcomes unknown.",
       "evidence": [
         "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423084",
         "https://github.com/hsaidno-cpu/HSMART/actions/runs/45098423077",
@@ -652,7 +686,7 @@
       "external": [
         "Explicit GOV-01 review/approval is required."
       ],
-      "acceptance": "Decision is recorded against exact PR head 0890bfa6538fbc7e23a61150f5a574128c4bc684 and roadmap revision 0.1.0.",
+      "acceptance": "Decision is recorded against the exact reviewed code commit 34bc2237f47c3587cc342946eeb1c8e0824ab2eb and roadmap revision 0.1.0.",
       "next": "GOV-01 reviews exact PR and accepts, requests changes, or rejects.",
       "notes": "PR is open, mergeable and CI-green; this is not approval.",
       "evidence": [
