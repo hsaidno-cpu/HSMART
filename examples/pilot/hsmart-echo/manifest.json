@@ -1,0 +1,12 @@
+{
+  "capability_id": "hsmart.echo",
+  "version": "0.1.0",
+  "display_name": "HSMART Echo",
+  "description": "First-party local pilot capability. The package contains documentation and schema only; execution is delegated to a fixed HSMART built-in entrypoint.",
+  "publisher_id": "hsmart-first-party",
+  "entrypoint": "builtin:hsmart.echo.v1",
+  "license_id": "Apache-2.0",
+  "rights_status": "CLEARED",
+  "rights_evidence_ref": "https://github.com/hsaidno-cpu/HSMART/blob/main/LICENSE",
+  "source_repository": "https://github.com/hsaidno-cpu/HSMART"
+}
