@@ -274,3 +274,38 @@ def invoke_capability(
         "trace_id": invocation.trace_id,
         "idempotent_replay": False,
     }
+
+
+def revoke_capability_grant(
+    session: Session,
+    *,
+    tenant_id: str,
+    grant_id: str,
+    revoked_by: str,
+    evidence_ref: str,
+) -> CapabilityGrant:
+    grant = session.scalar(
+        select(CapabilityGrant).where(
+            CapabilityGrant.tenant_id == tenant_id,
+            CapabilityGrant.id == grant_id,
+        )
+    )
+    if grant is None:
+        raise PilotError("grant_not_found", 404)
+    if grant.revoked_at is not None:
+        return grant
+    if not evidence_ref.strip():
+        raise PilotError("revocation_evidence_required", 422)
+    grant.revoked_at = datetime.now(timezone.utc)
+    append_audit(
+        session,
+        tenant_id=tenant_id,
+        actor=revoked_by,
+        action="ENTITLEMENT_GRANT_REVOKED",
+        resource=grant.capability_id,
+        outcome="ALLOW",
+        reason_code="EXPLICIT_GRANT_REVOCATION",
+        payload_sha256=_digest({"grant_id": grant_id, "evidence_ref": evidence_ref}),
+    )
+    session.commit()
+    return grant
