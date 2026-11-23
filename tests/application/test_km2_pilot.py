@@ -36,7 +36,7 @@ from hsmart_platform.pilot.packages import (
     transition_installation,
     verify_package,
 )
-from hsmart_platform.pilot.service import invoke_capability
+from hsmart_platform.pilot.service import grant_capability, invoke_capability, revoke_capability_grant
 from hsmart_platform.settings import Settings
 
 
@@ -204,6 +204,7 @@ def create_package(tmp_path: Path, *, rights_status: str = "CLEARED"):
                 "allowed_capabilities": ["hsmart.echo"],
                 "allowed_license_ids": ["Apache-2.0"],
                 "rights_evidence_ref": metadata["rights_evidence_ref"],
+                "allowed_source_commits": [GIT_SHA],
                 "license_file_path": str(ROOT / "LICENSE")
             }
         }
@@ -358,7 +359,100 @@ def test_invocation_idempotency_and_audit_chain(tmp_path):
         assert verify_audit_chain(session, tenant.id)
 
 
-def test_mcp_stdio_host_invokes_signed_entitled_capability(tmp_path):
+
+def test_trust_policy_rejects_untrusted_signer_and_unapproved_source(tmp_path):
+    from hsmart_platform.pilot.errors import PackageVerificationError
+
+    bundle, _, public_path, trust_path, _ = create_package(tmp_path)
+    policy = json.loads(trust_path.read_text(encoding="utf-8"))
+    policy["trusted_signers"]["test-package-key"]["public_key_sha256"] = "0" * 64
+    trust_path.write_text(json.dumps(policy), encoding="utf-8")
+    with pytest.raises(PackageVerificationError, match="package_signer_not_trusted"):
+        verify_package(bundle, public_path, trust_path)
+
+
+def test_installer_rejects_unapproved_source_commit(tmp_path):
+    from hsmart_platform.pilot.errors import PackageVerificationError
+
+    bundle, _, public_path, trust_path, _ = create_package(tmp_path)
+    policy = json.loads(trust_path.read_text(encoding="utf-8"))
+    policy["publishers"]["hsmart-first-party"]["allowed_source_commits"] = ["f" * 40]
+    trust_path.write_text(json.dumps(policy), encoding="utf-8")
+    with pytest.raises(PackageVerificationError, match="source_commit_not_approved"):
+        verify_package(bundle, public_path, trust_path)
+
+
+def test_uninstall_then_reinstall_preserves_immutable_release(tmp_path):
+    engine = make_engine()
+    with Session(engine) as session:
+        tenant = Tenant(slug="tenant-reinstall", display_name="Reinstall Tenant")
+        session.add(tenant)
+        session.commit()
+        bundle, _, public_path, trust_path, digest = create_package(tmp_path)
+        first = install_package(
+            session,
+            tenant_id=tenant.id,
+            host_id=HOST_ID,
+            bundle_path=bundle,
+            public_key_path=public_path,
+            artifact_store_path=tmp_path / "artifacts",
+            installer_subject="publisher",
+            trust_policy_path=trust_path,
+        )
+        removed = transition_installation(session, first.id, "UNINSTALLED", "admin")
+        assert removed.state == "UNINSTALLED"
+        second = install_package(
+            session,
+            tenant_id=tenant.id,
+            host_id=HOST_ID,
+            bundle_path=bundle,
+            public_key_path=public_path,
+            artifact_store_path=tmp_path / "artifacts",
+            installer_subject="publisher",
+            trust_policy_path=trust_path,
+        )
+        assert second.id == first.id
+        assert second.state == "INSTALLED"
+        assert second.package_digest == digest
+        assert verify_audit_chain(session, tenant.id)
+    engine.dispose()
+
+
+def test_entitlement_revocation_blocks_idempotent_replay(tmp_path):
+    engine = make_engine()
+    settings = make_settings("sqlite://", make_keys(tmp_path)[1])
+    with Session(engine) as session:
+        tenant = Tenant(slug="tenant-revoke", display_name="Revocation Tenant")
+        session.add(tenant)
+        session.commit()
+        capability, _, _, grant = seed_active_capability(session, tenant.id)
+        principal = __import__("hsmart_platform.pilot.auth", fromlist=["Principal"]).Principal(
+            SUBJECT, tenant.id, frozenset({"capability.invoke"}), ISSUER
+        )
+        first = invoke_capability(
+            session, settings, principal,
+            capability_key="hsmart.echo", version="0.1.0",
+            payload={"message": "before revoke"}, idempotency_key="revoke-replay-0001",
+        )
+        revoked = revoke_capability_grant(
+            session,
+            tenant_id=tenant.id,
+            grant_id=grant.id,
+            revoked_by="tenant-admin",
+            evidence_ref="ticket:revoke-123",
+        )
+        assert revoked.revoked_at is not None
+        from hsmart_platform.pilot.errors import AuthorizationError
+        with pytest.raises(AuthorizationError, match="capability_entitlement_missing"):
+            invoke_capability(
+                session, settings, principal,
+                capability_key="hsmart.echo", version="0.1.0",
+                payload={"message": "before revoke"}, idempotency_key="revoke-replay-0001",
+            )
+        assert verify_audit_chain(session, tenant.id)
+    engine.dispose()
+
+def test_mcp_stdio_host_invokes_signed_installed_entitled_capability(tmp_path):
     from mcp.client.session import ClientSession
     from mcp.client.stdio import StdioServerParameters, stdio_client
 
@@ -373,7 +467,31 @@ def test_mcp_stdio_host_invokes_signed_entitled_capability(tmp_path):
         tenant = Tenant(slug="mcp-tenant", display_name="MCP Tenant")
         session.add(tenant)
         session.commit()
-        seed_active_capability(session, tenant.id)
+        bundle, _, package_public_key, trust_path, _ = create_package(tmp_path)
+        installation = install_package(
+            session,
+            tenant_id=tenant.id,
+            host_id=HOST_ID,
+            bundle_path=bundle,
+            public_key_path=package_public_key,
+            artifact_store_path=tmp_path / "artifacts",
+            installer_subject="mcp-pilot-publisher",
+            trust_policy_path=trust_path,
+        )
+        transition_installation(session, installation.id, "ACTIVE", "mcp-pilot-admin")
+        capability = session.scalar(select(Capability).where(
+            Capability.tenant_id == tenant.id,
+            Capability.capability_key == "hsmart.echo",
+        ))
+        grant_capability(
+            session,
+            tenant_id=tenant.id,
+            capability_key="hsmart.echo",
+            subject=SUBJECT,
+            permission="capability.invoke",
+            granted_by="mcp-pilot-admin",
+            evidence_ref="ticket:mcp-pilot-allow",
+        )
     token = make_token(private_path, tenant.id, ["capability.read", "capability.invoke"])
     env = {
         "PYTHONPATH": str(ROOT / "src"),
