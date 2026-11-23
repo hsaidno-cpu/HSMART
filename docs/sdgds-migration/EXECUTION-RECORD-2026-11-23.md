@@ -84,15 +84,15 @@ A disposable GitHub Actions `postgres:16` service applied `examples/sdgds-migrat
 5. Outbox idempotency-key uniqueness.
 6. Atomic term + audit + outbox transaction rollback/commit.
 
-Previous completed evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465115/job/137764609621
+Exact-current-head evidence (PR #31 head `3c20dd7789bb67b028563402ea5933c57a6094da`): https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922794. The disposable PostgreSQL 16.16 service applied the DDL and the exact-head suite passed 6/6 in 0.36 seconds. The destructive reset is guarded by explicit opt-in and an exact disposable database/user identity.
 
-The destructive schema reset in the test harness is now guarded by an explicit `SDGDS_TEST_ALLOW_DESTRUCTIVE_RESET=true` opt-in and exact disposable database/user identity `sdgds_spike`. The new guard was added after review to prevent accidental execution against an arbitrary database. A fresh exact-head PostgreSQL CI rerun is required for this guarded version.
+The destructive schema reset in the test harness is now guarded by an explicit `SDGDS_TEST_ALLOW_DESTRUCTIVE_RESET=true` opt-in and exact disposable database/user identity `sdgds_spike`. The new guard was added after review to prevent accidental execution against an arbitrary database. The guarded version was re-run on the current PR head and passed. The tests use a disposable DB; they do not prove production backup/restore, HA, DR, load, database security, retention or SLO readiness.
 
 This validates the tested DDL/constraints/transaction semantics only. It does not prove production backup/restore, HA, DR, load, database security, retention, or SLO readiness.
 
 ### Baserow OSE 2.4.3
 
-A disposable `baserow/baserow:2.4.3` integration passed **1 test in 134.93 seconds**:
+A disposable `baserow/baserow:2.4.3` integration passed **1 test in 90.54 seconds on the current PR head**:
 
 - Created a synthetic user and JWT session.
 - Explicitly created a workspace through `POST /api/workspaces/` when no workspace was provisioned automatically.
@@ -102,11 +102,11 @@ A disposable `baserow/baserow:2.4.3` integration passed **1 test in 134.93 secon
 - Verified delete was denied with `delete:false`.
 - Removed the disposable container and volume.
 
-Previous completed evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45195465246/job/137764610704
+Exact-current-head evidence: https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922816. The integration verified a synthetic user/JWT, explicit workspace, database/table, table-scoped create/read token, create/read success and delete denial. The disposable container and volume were removed.
 
 The image's startup log reported that its internal database role could not create the `vector` extension. Core API and the tested table/token ACL flow passed; Baserow vector/AI features were not tested. The all-in-one image has its own internal PostgreSQL/Redis, separate from SDGDS PostgreSQL 16.
 
-A new exact-head Baserow run is required after later PR changes; previous PASS evidence above is from the completed tested head.
+This exact-head run is current evidence for Baserow OSE 2.4.3. It does not validate Enterprise-only OIDC SSO, vector/AI features, production backup/restore or multi-tenant operational readiness.
 
 ### OIDC and authorization
 
@@ -155,7 +155,7 @@ Logical designation does not prove runtime identity, model/version binding, Skil
 | Production security / backup / DR readiness | NOT RUN |
 | Real Notion import / cutover / legacy retirement | NOT AUTHORIZED |
 
-PR #31 remains OPEN / DRAFT / NOT MERGED. A separate exact-head assurance report is still required. That report must state its correlation limits and must not claim GitHub-native approval or GOV-01 authorization.
+PR #31 remains OPEN / DRAFT / NOT MERGED. Exact-head status: Specification Validation PASS (https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922839); Repository Governance PASS (https://github.com/hsaidno-cpu/HSMART/actions/runs/45197923064); PostgreSQL 16.16 PASS 6/6 (https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922794); Baserow OSE 2.4.3 PASS 1/1 (https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922816); AI Reviewer Evidence FAIL (https://github.com/hsaidno-cpu/HSMART/actions/runs/45197922761) because `docs/reviews/PR-31-AI-ASSURANCE.json` is missing. Do not fabricate an independent review artifact or bypass this gate. A real separate-context review and GOV-01 disposition are still required.
 
 ## 7. Next actions
 
