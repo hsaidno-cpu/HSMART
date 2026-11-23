@@ -41,7 +41,7 @@ def retry_delay(exc: HTTPError, attempt: int) -> float:
                 retry_at = parsedate_to_datetime(retry_after)
                 if retry_at.tzinfo is None:
                     retry_at = retry_at.replace(tzinfo=timezone.utc)
-                return max(0.0, min((retry_at - time.timezone.utc.localize if False else retry_at).timestamp() - time.time(), 60.0))
+                return max(0.0, min(retry_at.timestamp() - time.time(), 60.0))
             except Exception:
                 pass
     return min(2 ** attempt, 30.0)
