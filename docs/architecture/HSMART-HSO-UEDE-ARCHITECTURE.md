@@ -250,3 +250,14 @@ The PRE/roadmap audit currently finds an HSO Master Roadmap & Milestones Notion 
 9. **No parallel source of truth:** HSMART and HSO retain canonical source ownership; Notion provides governance/roadmap records; GitHub provides source/PR/CI; UEDE keeps only the minimal execution state and receipts required for deterministic recovery.
 
 **P0 exit condition:** PR #32 and PR #25 may be considered architecturally established only after their contract text is reconciled, the exact-head evidence checks pass, the PR dependency graph remains intact, and GOV-01 records a decision against the exact final heads. Merge is a separate action and remains subject to the existing repository and KM gates.
+
+
+## 15. Human approval and manual-action notification contract
+
+HSMART adopts [HAP-01 — Human Approval, Manual Action & Notification Procedure](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/governance/HUMAN-APPROVAL-AND-ACTION-NOTIFICATION-PROCEDURE.md) as the canonical cross-ecosystem procedure. HSMART's integration-specific obligations are captured in [UEDE Human Action Integration](../governance/UEDE-HUMAN-ACTION-INTEGRATION.md).
+
+GOV-01 is the sole human decision authority. Human approval is distinct from a manual UI action. When either is required, the workflow must stop at the gate and provide the owner with the exact repository, PR/issue, branch, base and head SHA, direct UI link, precise UI location, numbered instructions, expected result, risk, forbidden premature actions and staleness conditions. One idempotent record must be maintained in the [UEDE Human Action & Approval Inbox](https://app.notion.com/p/42399868397f8152b2b7d1bf8cc15712).
+
+Green CI is technical evidence, not approval or KM acceptance. A changed head/base, dependency, policy or PRE revision invalidates the prior action request. HSMART KM gates, service acceptance, security and production controls remain unchanged. No second human reviewer/approver is introduced and no AI may approve its own work.
+
+All HSMART ecosystem responses must state whether human action is required, show exact links/instructions when applicable, report evidence and finish with one next-work recommendation plus one ready-to-copy Indonesian next prompt. Automated GitHub webhooks, dispatchers and push notifications remain NOT_CONFIGURED until a live end-to-end test proves delivery; the Notion Inbox and explicit assistant response are the currently available record/notification path.
