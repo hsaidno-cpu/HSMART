@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR38-HSAR-CONSUMER-CONTRACT-20261126",
+  "pr_number": 38,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "ce0e83b864f5fe6e958c978080cbbfcf7a813e72",
+  "reviewed_head_sha": "2d2d82723fd02b90b47009b188a24ad5bcb18e08",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "NO_AI_MERGE_AUTHORITY_GOV01_FINAL_DISPOSITION_REQUIRED",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.independent-assurance-reviewer.orchestrator",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured assurance review produced by the current GPT-6 assistant execution. It was not executed by a separate provisioned GOV-11 runtime; this is not an independent runtime review.",
+    "decision_authority": "No merge, release, risk-acceptance, policy-change or GitHub-native approval authority."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant conversation and connected tool context used to prepare the PR update and review. No separate model/provider/runtime isolation is evidenced."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "PR #38 from base SHA ce0e83b864f5fe6e958c978080cbbfcf7a813e72 through code/documentation head SHA 2d2d82723fd02b90b47009b188a24ad5bcb18e08. The only changed path is docs/hsar/HSAR-HSMART-CONSUMER-CONTRACT.md.",
+    "focus": [
+      "HSMART and HSO repository/platform boundary and source ownership",
+      "Canonical source, provenance, exact revision and maturity-state requirements",
+      "Six primary HSAR forensic spearheads and truthful invocation/version states",
+      "Conditional routing of additional authorized HSO ecosystem specialists",
+      "Adaptive methodology discovery, screening, pilot, validation, adoption and retirement",
+      "Four core analysis tables and conditional four-plus-two comparative reporting",
+      "Anchored score rubric, N/A treatment, comparator fairness and non-compensating hard gates",
+      "L1-L4 scan boundaries and named-host runtime authorization",
+      "Improvement handoff, rollback and human decision boundaries",
+      "GitHub-to-Notion synchronization requirements and secret-handling constraints",
+      "Checkpoint, backup, restore and replay requirements",
+      "Exact code-head, diff path and CI evidence reconciliation"
+    ],
+    "excluded": [
+      "HSMART product source-code or runtime modification",
+      "Live HSAR-to-HSMART API/MCP adapter or shared database implementation",
+      "Named-host invocation of all six primary plugins",
+      "Event-driven GitHub-to-Notion synchronization activation",
+      "Full ecosystem L1-L4 scan of HSMART",
+      "Production deployment, security certification, DR certification or external legal opinion",
+      "Independent separate GOV-11 model/provider/runtime execution"
+    ]
+  },
+  "methods": [
+    "requirements-to-diff traceability against PR #38 scope",
+    "repository and exact-base/head reconciliation",
+    "source ownership and authority boundary review",
+    "specialist orchestration and version-honesty review",
+    "adaptive methodology lifecycle and evidence-provenance review",
+    "four-plus-two analytical output contract and scoring fairness review",
+    "L1-L4 evidence-level and host authorization boundary review",
+    "checkpoint, retry, idempotency, restore and recovery contract review",
+    "security/privacy/secret redaction and integration activation boundary review",
+    "exact-commit CI evidence inspection",
+    "correlation-risk and human approval gate review"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS",
+      "run_id": 45674368855,
+      "note": "Job completed successfully on code head 2d2d82723fd02b90b47009b188a24ad5bcb18e08."
+    },
+    {
+      "name": "KM1 Application Foundation — PostgreSQL 16 integration",
+      "status": "PASS",
+      "run_id": 45674368796,
+      "note": "Dependency consistency, database migration and application foundation tests completed successfully on the reviewed code head."
+    },
+    {
+      "name": "Specification Validation — OpenAPI/required files and cross-platform contract tests",
+      "status": "PASS",
+      "run_id": 45674368244,
+      "note": "OpenAPI and required-file check plus Ubuntu 24.04, Windows 2025 and macOS 15 contract jobs completed successfully."
+    },
+    {
+      "name": "AI Reviewer Evidence before report-only commit",
+      "status": "EXPECTED_FAILURE_PRE_REPORT_ONLY_COMMIT",
+      "run_id": 45674368217,
+      "note": "Expected precondition failure: docs/reviews/PR-38-AI-ASSURANCE.json was not yet present on the reviewed code commit. This artifact is being added as the only subsequent change so the validator can verify the exact reviewed SHA."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Runtime integration boundary",
+      "finding": "The consumer contract defines HSAR documentation consumption and future versioned adapters but does not implement or test a live HSMART runtime integration.",
+      "disposition": "Correctly treated as a documentation-only contract. Any future runtime coupling requires a separately versioned API/adapter, explicit owner, source contract, permissions and host tests."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "GitHub-to-Notion synchronization",
+      "finding": "Event-driven synchronization is specified but not configured or verified; the contract requires scoped Notion integration access and protected Actions secrets.",
+      "disposition": "Keep synchronization NOT_CONFIGURED or BLOCKED until a least-privilege pilot passes create/update/no-op, duplicate, stale-source, permission, auth, timeout, rate-limit, redaction and read-back tests."
+    },
+    {
+      "id": "F-03",
+      "severity": "LOW",
+      "status": "OPEN",
+      "area": "Specialist runtime and exact-version evidence",
+      "finding": "The six primary plugins are designated as HSAR spearheads, but this PR does not provision their separate runtimes or prove their call-through on HSMART.",
+      "disposition": "Require actual invocation receipts and requested/observed version records for each role. Procedure fallback must not be reported as a plugin invocation."
+    },
+    {
+      "id": "F-04",
+      "severity": "LOW",
+      "status": "OPEN",
+      "area": "Comparative analysis empirical validation",
+      "finding": "The 4+2 rubric and feature-gap score model are documented but no comparative benchmark on matched HSMART source objects is included in this documentation PR.",
+      "disposition": "Run matched-scope comparative pilots during a later authorized L1-L3 scan. Preserve N/A when evidence is unknown and do not aggregate incomparable scores."
+    },
+    {
+      "id": "F-05",
+      "severity": "LOW",
+      "status": "OPEN",
+      "area": "Recovery verification",
+      "finding": "Checkpoint, backup and restore requirements are defined but an actual restore/replay exercise is outside this documentation PR.",
+      "disposition": "Keep backup/restore runtime status NOT_RUN until an isolated restore, hash/schema/count verification and idempotent replay produce real receipts."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "GOV-01 final disposition",
+      "status": "PENDING",
+      "required": "Explicit human disposition on exact PR #38 final head after the report-only evidence commit and final CI read-back."
+    },
+    {
+      "gate": "GitHub-native review/approval",
+      "status": "PENDING",
+      "required": "No native approval is claimed by this AI-generated report. Any required human GitHub review must be performed by an authorized human identity."
+    },
+    {
+      "gate": "Runtime and synchronization activation",
+      "status": "PENDING_CONFIGURATION",
+      "required": "Separate scoped runtime/connector provisioning, protected credentials, permissions and end-to-end tests."
+    },
+    {
+      "gate": "Production or cross-system adoption",
+      "status": "HOLD",
+      "required": "No production deployment, direct data sharing, merge or runtime coupling follows from this documentation review."
+    }
+  ],
+  "limitations": [
+    "This is a correlation-limited AI assurance report, not independent model/provider certification.",
+    "GOV-11 is designated as a logical role but its separate runtime is NOT_PROVISIONED.",
+    "The same GPT-6 assistant execution prepared and reviewed the documentation change; shared context/model/tooling creates correlation risk.",
+    "Exact model deployment revision is not exposed and is recorded as NOT_EXPOSED.",
+    "CI proves only the named workflows and tests on their exact run/commit; it does not prove production runtime, independent specialist invocation, Notion sync or DR capability.",
+    "The reviewed PR contains one documentation contract file and no HSMART application code change.",
+    "The AI Reviewer Evidence workflow is expected to fail on the code-only commit because the report artifact must be added in a report-only commit; the post-report validation run is a separate acceptance check."
+  ],
+  "disposition": "PASS_WITH_CAVEATS for the documentation-only HSMART consumer integration contract on reviewed code head 2d2d82723fd02b90b47009b188a24ad5bcb18e08. This does not accept the whole HSMART platform, authorize merge, activate runtime/synchronization or certify independent review. GOV-01 retains final human disposition.",
+  "reviewed_local_date": "2026-11-26"
+}
