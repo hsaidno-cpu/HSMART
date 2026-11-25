@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.hsmart.example/v1/uede-roadmap-snapshot.schema.json",
+  "title": "UEDE PRE Roadmap Snapshot",
+  "description": "Immutable, read-only snapshot of an approved PRE roadmap revision. It carries source authority and completeness evidence; it is not a roadmap write API or a substitute for a PRE decision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "snapshotId", "source", "capturedAt", "completeness", "authority", "roadmap", "accessMode"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "snapshotId": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["system", "roadmapId", "revision", "locator", "updatedAt"],
+      "properties": {
+        "system": { "const": "PRE" },
+        "roadmapId": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "format": "uri" },
+        "updatedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "completeness": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "paginationComplete", "pageCount", "recordCount", "expectedRecordCount", "contentDigest", "freshness", "missingReferences"],
+      "properties": {
+        "state": { "enum": ["COMPLETE", "PARTIAL", "UNKNOWN"] },
+        "paginationComplete": { "type": "boolean" },
+        "pageCount": { "type": "integer", "minimum": 0 },
+        "recordCount": { "type": "integer", "minimum": 0 },
+        "expectedRecordCount": { "type": ["integer", "null"], "minimum": 0 },
+        "contentDigest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "freshness": { "enum": ["FRESH", "STALE", "UNKNOWN"] },
+        "missingReferences": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner", "baselineState", "decisionAuthority", "approvalReference", "approvedAt"],
+      "properties": {
+        "owner": { "const": "PRE" },
+        "baselineState": { "enum": ["DRAFT", "APPROVED", "FROZEN", "RETIRED", "UNKNOWN"] },
+        "decisionAuthority": { "type": "string", "minLength": 1 },
+        "approvalReference": { "type": ["string", "null"], "format": "uri" },
+        "approvedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "roadmap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["title", "stage", "workItems"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "stage": { "enum": ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "UNKNOWN"] },
+        "workItems": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["workItemId", "title", "priority", "status", "gateState", "dependencies", "acceptanceCriteria", "sourceLocator"],
+            "properties": {
+              "workItemId": { "type": "string", "minLength": 1 },
+              "title": { "type": "string", "minLength": 1 },
+              "priority": { "enum": ["P0", "P1", "P2", "P3", "UNKNOWN"] },
+              "status": { "enum": ["NOT_STARTED", "IN_PROGRESS", "BLOCKED", "COMPLETED", "CANCELLED", "UNKNOWN"] },
+              "gateState": { "enum": ["NOT_RUN", "NOT_ASSESSED", "PASS", "PASS_WITH_CAVEATS", "HOLD", "FAIL", "BLOCKED", "NOT_APPLICABLE"] },
+              "dependencies": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+              "acceptanceCriteria": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "sourceLocator": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+    "accessMode": { "const": "READ_ONLY" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "authority": { "properties": { "baselineState": { "enum": ["APPROVED", "FROZEN"] } }, "required": ["baselineState"] } }, "required": ["authority"] },
+      "then": { "properties": { "authority": {
+        "properties": {
+          "approvalReference": { "type": "string", "format": "uri" },
+          "approvedAt": { "type": "string", "format": "date-time" }
+        }
+      } } }
+    },
+    {
+      "if": { "properties": { "completeness": { "properties": { "state": { "const": "COMPLETE" } }, "required": ["state"] } }, "required": ["completeness"] },
+      "then": { "properties": { "completeness": {
+        "properties": {
+          "paginationComplete": { "const": true },
+          "freshness": { "const": "FRESH" },
+          "missingReferences": { "maxItems": 0 }
+        }
+      } } }
+    }
+  ]
+}
