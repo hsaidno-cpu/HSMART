@@ -98,6 +98,16 @@ def test_adapter_is_explicitly_not_configured_without_transport() -> None:
         adapter.read_evaluation_log()
 
 
+def test_bound_transport_is_not_misreported_as_live_or_authorized() -> None:
+    adapter = PreReadOnlyAdapter(FakeTransport({
+        PRE_EVALUATION_LOG_SOURCE: [ReadOnlyRowsPage([], has_more=False)]
+    }))
+    readiness = adapter.readiness()
+    assert readiness["state"] == "TRANSPORT_BOUND_NOT_VERIFIED"
+    assert readiness["liveReadState"] == "NOT_VERIFIED"
+    assert readiness["sourceAuthorizationState"] == "NOT_VERIFIED"
+
+
 def test_reads_all_evaluation_pages_and_marks_freshness_unknown() -> None:
     transport = FakeTransport({
         PRE_EVALUATION_LOG_SOURCE: [
@@ -190,6 +200,16 @@ def test_out_of_range_percentage_fails_closed() -> None:
     })
     with pytest.raises(InvalidSourceRecord):
         PreReadOnlyAdapter(transport).read_evaluation_log()
+
+
+def test_transition_receipt_scalar_json_fails_closed() -> None:
+    transport = FakeTransport({
+        PRE_TRANSITION_QUEUE_SOURCE: [
+            ReadOnlyRowsPage([_transition_row(**{"Approval Receipt JSON": '"approved"'})], has_more=False)
+        ]
+    })
+    with pytest.raises(InvalidSourceRecord):
+        PreReadOnlyAdapter(transport).read_transition_queue()
 
 
 def test_digest_is_deterministic_for_same_records() -> None:
