@@ -219,3 +219,15 @@ This record does not claim:
 - production, disaster recovery, marketplace or commercial distribution is authorized.
 
 This file is a dated audit snapshot. Update it when source catalogs, exact PR heads, CI evidence, authority decisions or runtime states change.
+
+
+
+## 11. Follow-up: HSO catalog test repair and deployment capacity — 25 November 2026
+
+The HSO catalog-validation failure previously recorded for PR #25 and PR #26 was traced to a stale special-case assertion for `INT-PONYTAIL-SDO-001`. The canonical HSO compatibility row records `CONTRACT_TESTED`, schema `PASS`, behavior `PASS`, host activation `NOT_RUN`, runtime execution `NOT_RUN`. The test had incorrectly expected the older `INTERFACE_DEFINED_NOT_EXECUTED` state.
+
+A focused HSO baseline test repair is proposed in [HSO PR #27](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/pull/27), exact head `c86f5c440ec351580a0aab3e63c53cda671a7799`. The change makes the test check the recorded contract evidence while retaining host/runtime `NOT_RUN`. HSO Catalog and Distribution Validation passed on this exact head ([run 45610209291](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/actions/runs/45610209291)); the HSO Mission Control workflow completed as a safe skip with event delivery and scheduled reconciliation not configured ([run 45610209327](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/actions/runs/45610209327)). PR #27 remains draft and unmerged.
+
+The same HSO exact head returned Vercel rate-limit statuses for both `mission-control` and `hypersystem-orchestrator` deployment contexts, with a retry window of 24 hours. Treat this as a provider-capacity blocker, not a source-code test failure or successful deployment. HSO PR #25 and #26 still require a retarget/rebase to the corrected base after human disposition of #27, followed by exact-head CI and independent inspection of each deployment context.
+
+No PR was merged, no Vercel deployment was promoted, no source connector was configured, and no HSMART KM/PRE gate changed as a result of this follow-up.
