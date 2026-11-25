@@ -1,0 +1,163 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR33-20261125",
+  "pr_number": 33,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "480161fd90f96afaf75d63c4fbb88b52d54c5d6e",
+  "reviewed_head_sha": "8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_EXACT_FINAL_HEAD_CI_AND_HUMAN_GOV01_DECISION",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured code and contract assurance review performed in this current assistant execution. The same assistant context authored and reviewed the change; no separately provisioned GOV-11 runtime or isolated review context is evidenced.",
+    "decision_authority": "Advisory only. No authority to merge, release, accept a KM gate, approve its own work, or alter PRE baseline state."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Correlation-limited review in the same assistant execution that prepared the contract proposal. No independent provider/runtime/context isolation is claimed."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "Three UEDE JSON Schemas, cross-field semantic validator, architecture boundary document and contract tests in HSMART PR #33, reviewed at exact code head 8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2.",
+    "focus": [
+      "PRE authority, snapshot freshness, pagination and completeness boundaries",
+      "HSO capability source provenance, license/rights, instruction parity and invocation readiness",
+      "Exact target HEAD, verification SHA and successful CI commit binding",
+      "Prohibition of canonical PRE stage mutations through execution receipts",
+      "Reuse of the HSO-owned workflow-plan schema without a competing planner contract",
+      "Schema strictness, unknown-field rejection and positive/negative tests",
+      "PR stacking and HSMART KM dependency boundaries"
+    ],
+    "excluded": [
+      "Live PRE API, Notion runtime adapter or transition worker behavior",
+      "Live HSO generic plugin/MCP skill invocation",
+      "HSMART production deployment, hosted identity, secrets or audit storage",
+      "Independent third-party security certification",
+      "GOV-01 human approval or KM 1 gate acceptance"
+    ]
+  },
+  "methods": [
+    "Read-only inspection of HSMART PR #33 exact diff and base/head metadata",
+    "Cross-contract review of source authority, ownership, directionality and mutation boundaries",
+    "Inspection of JSON Schema 2020-12 conditions and cross-field validation code",
+    "Review of positive/negative tests and synthetic fixture truthfulness",
+    "Read-only inspection of exact-head GitHub Actions jobs, step conclusions and test logs",
+    "Failure-mode review for false capability readiness, incomplete snapshots and mismatched execution SHA",
+    "Least-privilege, fail-closed and human-approval boundary review"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Specification Validation on code-reviewed exact head",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2",
+      "run_id": 45601025472,
+      "evidence": "83 passed, 3 skipped, 1 warning on Linux, macOS and Windows contract matrix; OpenAPI/required-file validation passed."
+    },
+    {
+      "name": "KM1 Application Foundation / PostgreSQL 16",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2",
+      "run_id": 45601025449,
+      "evidence": "PostgreSQL 16 migration and application integration job passed; 11 passed, 1 warning."
+    },
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2",
+      "run_id": 45601025486,
+      "evidence": "Deterministic repository governance and GitHub governance operator validation passed."
+    },
+    {
+      "name": "AI Reviewer Evidence before report-only commit",
+      "status": "EXPECTED_MISSING_REPORT",
+      "reviewed_sha": "8f4ee0c252853c1f6dddaa1a31e3a4d3d73f5bb2",
+      "run_id": 45601025460,
+      "evidence": "The workflow could not find docs/reviews/PR-33-AI-ASSURANCE.json. This report-only commit supplies the required artifact; all required checks must be rerun on the resulting final head."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Cross-field receipt validation",
+      "finding": "Standard JSON Schema cannot compare target.headCommitSha, verification.verifiedCommitSha and ciRuns[].commitSha across separate objects. The proposal adds src/hsmart_platform/uede_contracts.py to enforce exact equality and require a successful CI run on the same HEAD.",
+      "disposition": "Any receipt consumer must run JSON Schema validation and the semantic validator together. An adapter that calls only the schema validator is not acceptable for PASS receipts."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "PRE integration readiness",
+      "finding": "The PRE snapshot contract is defined, but no canonical PRE Git source, supported shared API/runtime or live read-only adapter has been verified in this implementation.",
+      "disposition": "Keep the adapter unimplemented or explicitly NOT_CONFIGURED until PRE source, rights, API transport and pagination behavior are confirmed. Do not convert Notion connector access into a claim of deployed PRE API."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSO capability dispatch",
+      "finding": "HSO catalog entries are not equivalent to host-enabled, rights-cleared and runtime-tested capabilities. Generic skill invocation remains NOT_CONFIGURED in the current HSO audit.",
+      "disposition": "Use the descriptor for read-only discovery. Keep capabilities BLOCKED or NOT_ASSESSED until source, license, parity, contract test, host activation and real invocation evidence all pass."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Upstream architecture and KM gates",
+      "finding": "PR #33 is stacked on draft PR #32. HSMART PC-007 remains open and KM 2 remains blocked pending formal KM 1 acceptance.",
+      "disposition": "Do not merge this stack or use it to authorize registry work. Preserve the current KM sequence and the designated human GOV-01 decision."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Evidence scope",
+      "finding": "Contract fixtures are synthetic. Passing schema tests prove the local contract/test implementation only; they do not prove compatibility with live PRE records, live HSO providers or deployed HSMART services.",
+      "disposition": "Add fixture captures from authorized source snapshots and adapter contract tests after the relevant read-only integration is provisioned."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Report-only exact-head validation",
+      "status": "PENDING",
+      "required": "Add only this report after the reviewed code SHA, then rerun all required checks on the resulting PR #33 head."
+    },
+    {
+      "gate": "HSMART PR #32 upstream architecture",
+      "status": "HOLD",
+      "required": "PR #32 remains a separate draft proposal. PR #33 must remain stacked until the upstream architecture disposition is recorded."
+    },
+    {
+      "gate": "HSMART KM 1 acceptance / PC-007",
+      "status": "HOLD",
+      "required": "The designated human authority records the exact-head KM 1 decision. No KM 2 registry work is authorized before acceptance."
+    },
+    {
+      "gate": "Human GOV-01 decision",
+      "status": "PENDING",
+      "required": "The sole designated human authority decides whether to accept, revise or reject the exact final PR #33 head. This report is not that decision."
+    },
+    {
+      "gate": "PRE and HSO live adapters",
+      "status": "NOT_CONFIGURED",
+      "required": "Complete read-only source authorization, interface contract tests, host activation and real runtime acceptance before dispatch or PRE evidence write-back."
+    }
+  ],
+  "limitations": [
+    "This report is correlation-limited and is not independent model/provider certification.",
+    "GOV-11 is a designated logical role; a separate GOV-11 runtime is not provisioned.",
+    "The current CI evidence is bound to the code-reviewed SHA before this report-only commit. Exact final-head CI remains pending.",
+    "This report does not constitute GOV-01 approval, GitHub-native APPROVED review, KM 1 acceptance, KM 2 authorization, security certification or release authorization.",
+    "No live PRE API, generic HSO skill invocation, production registry or autonomous worker was exercised."
+  ],
+  "disposition": "The UEDE core contract proposal is technically coherent as a read-only/factual contract baseline with caveats. JSON Schema is paired with cross-field semantic checks for exact-head receipts and capability readiness. Keep PR #33 in draft and stacked on PR #32. Require final exact-head CI and the sole designated human GOV-01 decision before any merge; do not advance HSMART KM 2 or enable live dispatch through this proposal.",
+  "reviewed_local_date": "2026-11-25"
+}
