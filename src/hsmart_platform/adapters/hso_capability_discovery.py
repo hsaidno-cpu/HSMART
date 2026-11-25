@@ -367,7 +367,7 @@ class HsoCapabilityDiscoveryAdapter:
         else:
             blockers.add("HOST_ACTIVATION_AND_INVOCATION_NOT_PROVEN")
         blockers.add("INTERFACE_CONTRACT_NOT_TESTED_FOR_TARGET_HOST")
-        if plugin.get("version_alignment_state") not in (None, "ALIGNED"):
+        if plugin.get("version_alignment_state") not in (None, "ALIGNED", "SOURCE_AND_PLATFORM_MATCH"):
             blockers.add("PLUGIN_PLATFORM_VERSION_ALIGNMENT_NOT_CLEARED")
         if distribution.get("distribution_status") == "legacy_redirect":
             blockers.add("LEGACY_ALIAS_NOT_INDEPENDENTLY_INSTALLABLE")
