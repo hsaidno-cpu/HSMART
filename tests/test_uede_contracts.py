@@ -35,7 +35,7 @@ def sample_roadmap() -> dict[str, Any]:
             "system": "PRE",
             "roadmapId": "HSMART-ROADMAP-PC-001",
             "revision": "1.0.0",
-            "locator": "https://app.notion.com/p/42099868397f8100adc1f016d0994669",
+            "locator": "https://example.com/pre/roadmaps/hsmart/1.0.0",
             "updatedAt": "2026-11-25T10:00:00Z",
         },
         "capturedAt": "2026-11-25T10:30:00Z",
@@ -44,9 +44,8 @@ def sample_roadmap() -> dict[str, Any]:
             "expectedRecordCount": 1, "contentDigest": DIGEST, "freshness": "FRESH", "missingReferences": [],
         },
         "authority": {
-            "owner": "PRE", "baselineState": "APPROVED", "decisionAuthority": "GOV-01",
-            "approvalReference": "https://app.notion.com/p/42099868397f8100adc1f016d0994669",
-            "approvedAt": "2026-11-25T09:00:00Z",
+            "owner": "PRE", "baselineState": "UNKNOWN", "decisionAuthority": "UNVERIFIED",
+            "approvalReference": None, "approvedAt": None,
         },
         "roadmap": {
             "title": "HSMART Progressive Completion Roadmap", "stage": "R1",
@@ -64,7 +63,7 @@ def sample_roadmap() -> dict[str, Any]:
 def sample_capability() -> dict[str, Any]:
     return {
         "schemaVersion": "1.0.0", "capabilityId": "hso.skill-analyzer",
-        "identity": {"displayName": "Skill Analyzer", "kind": "SKILL", "version": "1.3.0"},
+        "identity": {"displayName": "Skill Analyzer", "kind": "SKILL", "version": None},
         "ownership": {"ownerSystem": "HSO", "ownerReference": "hsaidno-cpu/Hypersystem-Orchestrator"},
         "source": {"repository": None, "ref": None, "commitSha": None, "contentDigest": None, "state": "NOT_IDENTIFIED"},
         "rights": {"state": "UNDECLARED", "license": None, "distributionAllowed": False},
@@ -93,15 +92,15 @@ def sample_receipt() -> dict[str, Any]:
         "target": {
             "repository": "hsaidno-cpu/HSMART", "branch": "feat/example", "baseCommitSha": "b" * 40,
             "headCommitSha": SHA, "changedFiles": ["docs/example.md"],
-            "pullRequest": "https://github.com/hsaidno-cpu/HSMART/pull/33",
+            "pullRequest": "https://example.com/pull/33",
         },
         "ciRuns": [{
-            "runReference": "https://github.com/hsaidno-cpu/HSMART/actions/runs/123",
+            "runReference": "https://example.com/actions/runs/123",
             "commitSha": SHA, "conclusion": "SUCCESS", "completedAt": "2026-11-25T10:04:00Z",
         }],
         "verification": {
             "state": "PASS", "verifiedCommitSha": SHA,
-            "evidenceReferences": ["https://github.com/hsaidno-cpu/HSMART/actions/runs/123"], "limitations": [],
+            "evidenceReferences": ["https://example.com/actions/runs/123"], "limitations": [],
         },
         "roadmapEffect": {"canonicalStageMutation": False, "writeBackMode": "EXECUTION_FACTS_ONLY"},
     }
@@ -126,10 +125,16 @@ def test_complete_pre_snapshot_cannot_claim_incomplete_pagination() -> None:
     assert list(validator("uede-roadmap-snapshot.schema.json").iter_errors(sample))
 
 
+def test_unknown_pre_baseline_does_not_claim_owner_approval() -> None:
+    sample = sample_roadmap()
+    assert sample["authority"]["baselineState"] == "UNKNOWN"
+    assert sample["authority"]["approvalReference"] is None
+    assert not list(validator("uede-roadmap-snapshot.schema.json").iter_errors(sample))
+
+
 def test_approved_pre_baseline_requires_approval_reference_and_time() -> None:
     sample = sample_roadmap()
-    sample["authority"]["approvalReference"] = None
-    sample["authority"]["approvedAt"] = None
+    sample["authority"]["baselineState"] = "APPROVED"
     assert list(validator("uede-roadmap-snapshot.schema.json").iter_errors(sample))
 
 
@@ -199,6 +204,7 @@ def test_execution_receipt_cannot_mutate_canonical_pre_stage() -> None:
     sample = sample_receipt()
     sample["roadmapEffect"]["canonicalStageMutation"] = True
     assert list(validator("uede-execution-receipt.schema.json").iter_errors(sample))
+    assert "CANONICAL_PRE_STAGE_MUTATION_FORBIDDEN" in execution_receipt_semantic_errors(sample)
 
 
 def test_execution_receipt_pass_requires_evidence() -> None:
