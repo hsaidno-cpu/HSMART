@@ -36,7 +36,7 @@ A valid plan is still not a dispatch grant. Runtime re-checks permissions, sourc
 
 ## 5. Readiness is multi-dimensional
 
-A capability is not dispatchable because it exists in a catalog or has an instruction snapshot. Dispatch requires all of: verified canonical source, cleared usage/distribution rights for the intended use, instruction parity, passing interface contract tests, named-host activation, and a passing real runtime invocation with evidence. An "active" catalog state is not a substitute for host evidence. If any dimension is unknown or blocked, eligibility is BLOCKED or NOT_ASSESSED.
+A capability is not dispatchable because it exists in a catalog or has an instruction snapshot. Dispatch requires all of: verified canonical source with repository/ref/commit/digest, declared usage rights, instruction parity, passing interface contract tests, named-host activation, and a passing real runtime invocation with evidence. JSON Schema enforces local fields; src/hsmart_platform/uede_contracts.py enforces cross-field consistency, including parity counts and readiness conditions. An "active" catalog state is not a substitute for host evidence. If any dimension is unknown or blocked, eligibility is BLOCKED or NOT_ASSESSED.
 
 ## 6. Execution and authority rules
 
