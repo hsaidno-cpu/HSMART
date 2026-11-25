@@ -153,6 +153,17 @@ def test_unverified_child_source_stays_candidate_not_verified() -> None:
     assert source["contentDigest"] is None
 
 
+def test_source_and_platform_match_is_not_misclassified_as_version_drift() -> None:
+    docs = _documents()
+    plugins = dict(docs[CATALOG_PATHS["plugins"]])
+    items = [dict(item) for item in plugins["plugins"]]
+    items[0]["version_alignment_state"] = "SOURCE_AND_PLATFORM_MATCH"
+    plugins["plugins"] = items
+    docs[CATALOG_PATHS["plugins"]] = plugins
+    result = HsoCapabilityDiscoveryAdapter(FakeCatalogTransport(docs)).discover()
+    assert "PLUGIN_PLATFORM_VERSION_ALIGNMENT_NOT_CLEARED" not in result.descriptors[0]["eligibility"]["blockers"]
+
+
 def test_catalog_digest_or_repository_metadata_cannot_clear_license() -> None:
     result = HsoCapabilityDiscoveryAdapter(FakeCatalogTransport(_documents())).discover()
     assert result.descriptors[0]["rights"]["state"] == "UNDECLARED"
