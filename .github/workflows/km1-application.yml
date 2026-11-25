@@ -47,5 +47,10 @@ jobs:
         run: python -m pip check
       - name: Apply database migrations
         run: alembic upgrade head
+      - name: Verify migration rollback and reapply
+        run: |
+          alembic downgrade base
+          alembic upgrade head
+          alembic current
       - name: Run application foundation tests
         run: python -m pytest -q tests/application
