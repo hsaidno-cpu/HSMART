@@ -231,3 +231,18 @@ A focused HSO baseline test repair is proposed in [HSO PR #27](https://github.co
 The same HSO exact head returned Vercel rate-limit statuses for both `mission-control` and `hypersystem-orchestrator` deployment contexts, with a retry window of 24 hours. Treat this as a provider-capacity blocker, not a source-code test failure or successful deployment. HSO PR #25 and #26 still require a retarget/rebase to the corrected base after human disposition of #27, followed by exact-head CI and independent inspection of each deployment context.
 
 No PR was merged, no Vercel deployment was promoted, no source connector was configured, and no HSMART KM/PRE gate changed as a result of this follow-up.
+
+
+
+## 12. PR #36 final-head validation — 25 November 2026
+
+After the HSO follow-up and report-only GOV-11 refresh, HSMART PR #36 final head `222bbdfe1ce821e5ae52ae20ec1cfd4dce2f0921` completed all four required workflow groups successfully:
+
+| Workflow | Run | Result |
+|---|---|---|
+| Specification Validation | [45610571934](https://github.com/hsaidno-cpu/HSMART/actions/runs/45610571934) | PASS: OpenAPI/required files and Ubuntu, macOS, Windows contract matrix |
+| KM1 Application Foundation | [45610571966](https://github.com/hsaidno-cpu/HSMART/actions/runs/45610571966) | PASS |
+| Repository Governance | [45610572088](https://github.com/hsaidno-cpu/HSMART/actions/runs/45610572088) | PASS |
+| AI Reviewer Evidence | [45610572099](https://github.com/hsaidno-cpu/HSMART/actions/runs/45610572099) | PASS |
+
+This validates the documentation PR on its exact final commit. It does not approve merge, change KM 0/KM 1, accept PC-007, authorize KM 2, or deploy a production runtime. PR #36 remains OPEN / DRAFT / NOT MERGED and stacked on HSMART PR #35.
