@@ -24,7 +24,7 @@ A valid plan is still not a dispatch grant. Runtime re-checks permissions, sourc
 
 - uede-roadmap-snapshot.schema.json: binds PRE roadmap ID/revision, source locator, authority disposition, pagination/completeness, digest, freshness, dependencies, gates, and acceptance criteria. COMPLETE requires complete pagination, fresh evidence, and no missing references. An APPROVED/FROZEN baseline must include its decision reference and approval timestamp.
 - uede-capability-descriptor.schema.json: records owner, immutable source pointer, rights, instruction parity, interface contract tests, named host activation, runtime invocation, permissions, and blockers. ELIGIBLE is invalid unless every required evidence plane passes.
-- uede-execution-receipt.schema.json: binds one attempt to plan digest, repository, branch, base/head SHA, changed files, PR, CI runs, and verification. A PASS receipt must reference the exact verified commit and contain evidence. Canonical PRE stage mutation is structurally forbidden.
+- uede-execution-receipt.schema.json: binds one attempt to plan digest, repository, branch, base/head SHA, changed files, PR, CI runs, and verification. A PASS receipt must reference the exact verified commit and contain successful CI evidence. The standard JSON Schema checks shape and CI success; src/hsmart_platform/uede_contracts.py enforces cross-field equality between target HEAD, verified SHA and a successful exact-head CI run. Canonical PRE stage mutation is structurally forbidden.
 
 ## 4. Versioning and compatibility
 
