@@ -4,7 +4,7 @@
   "pr_number": 36,
   "repository": "hsaidno-cpu/HSMART",
   "reviewed_base_sha": "7717ef78f59320ccdfcc3928aebc0f3b880444c4",
-  "reviewed_head_sha": "c05cf110619860ed679db00bd36b6236ad0f2405",
+  "reviewed_head_sha": "c849c86bed09dc1c1e7a83f5d1393c3004b5f419",
   "review_result": "PASS_WITH_CAVEATS",
   "merge_authorization": "HOLD_PENDING_FINAL_HEAD_CI_AND_GOV01_DECISION",
   "reviewer": {
@@ -24,7 +24,7 @@
   "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
   "github_native_approval": false,
   "review_scope": {
-    "changeset": "HSMART PR #36 documentation-only changes reviewed at exact code head c05cf110619860ed679db00bd36b6236ad0f2405: dated execution record, HSO capability-routing matrix, README, and section 11 follow-up describing HSO PR #27 catalog-test repair and Vercel deployment rate-limit evidence.",
+    "changeset": "HSMART PR #36 documentation-only changes reviewed at exact code head c849c86bed09dc1c1e7a83f5d1393c3004b5f419: execution record, HSO capability-routing matrix, README, HSO compatibility/deployment follow-up and final exact-head CI results for PR #36.",
     "source_basis": [
       "HSMART PR #32–#35 exact head and CI metadata",
       "HSO catalog revision 2026-11-23 at parent commit 9853bde6d8484b486aa4d163e65f834fa632410b",
@@ -41,7 +41,8 @@
       "No accidental claims of PRE live read, HSO automatic invocation, production deployment or KM gate acceptance",
       "README current-status statements and documentation links",
       "Accuracy of the HSO PR #27 compatibility-test correction against the canonical Ponytail-SDO matrix row",
-      "Separation of successful HSO catalog validation from skipped source sync and Vercel deployment rate-limit statuses"
+      "Separation of successful HSO catalog validation from skipped source sync and Vercel deployment rate-limit statuses",
+      "Exact-head validation results for HSMART PR #36 after the HSO follow-up"
     ],
     "excluded": [
       "Re-executing every underlying PR test suite; their exact-head GitHub Actions results are inspected as referenced evidence",
@@ -62,35 +63,35 @@
   ],
   "ci_evidence": [
     {
-      "name": "Previous PR #36 code snapshot validation (historical, before section 11 addendum)",
-      "status": "PASS_ON_PRIOR_REVIEWED_SNAPSHOT_NOT_FINAL_HEAD",
-      "reviewed_sha": "c1f419ed2cf823ca0501572821a95799263dbae6",
+      "name": "Previous PR #36 exact-head validation (before section 12)",
+      "status": "PASS_ON_PRIOR_CODE_HEAD",
+      "reviewed_sha": "222bbdfe1ce821e5ae52ae20ec1cfd4dce2f0921",
       "run_ids": [
-        45608802320,
-        45608802380,
-        45608802294,
-        45608802240
+        45610571934,
+        45610571966,
+        45610572088,
+        45610572099
       ],
-      "evidence": "The first three workflow groups passed and AI Reviewer Evidence initially failed because the report file was absent. These runs do not validate the new section 11 addendum."
+      "evidence": "All four workflow groups passed on that exact head: OpenAPI and Ubuntu/macOS/Windows contracts, KM1 application foundation, repository governance and AI Reviewer Evidence."
     },
     {
-      "name": "HSMART PR #36 exact final-head validation after report-only commit",
+      "name": "PR #36 exact-head validation after section 12 and report-only assurance update",
       "status": "PENDING_AT_REPORT_AUTHORING",
-      "reviewed_sha": "c05cf110619860ed679db00bd36b6236ad0f2405",
-      "evidence": "This report is the only intended change after the code-review head. Specification Validation, KM1 Application Foundation, Repository Governance and AI Reviewer Evidence must all complete on the resulting final report head."
+      "reviewed_sha": "c849c86bed09dc1c1e7a83f5d1393c3004b5f419",
+      "evidence": "The final report-only commit will trigger the four required workflows again. The updated report must remain the only changed file after this reviewed code head."
     },
     {
-      "name": "HSO compatibility-test repair external evidence",
+      "name": "HSO PR #27 compatibility-test repair",
       "status": "PASS_ON_HSO_PR27_EXACT_HEAD",
       "reviewed_sha": "c86f5c440ec351580a0aab3e63c53cda671a7799",
       "run_id": 45610209291,
-      "evidence": "HSO Catalog and Distribution Validation passed on the HSO PR #27 head after correcting the stale Ponytail edge test. This is upstream evidence, not HSMART PR #36 CI."
+      "evidence": "HSO Catalog and Distribution Validation passed after the stale Ponytail compatibility assertion was corrected. HSO PR #27 remains draft and unmerged."
     },
     {
       "name": "HSO deployment capacity",
       "status": "RATE_LIMITED_EXTERNAL",
       "reviewed_sha": "c86f5c440ec351580a0aab3e63c53cda671a7799",
-      "evidence": "Vercel returned rate-limit statuses for both mission-control and hypersystem-orchestrator project contexts, with retry in 24 hours. No successful deployment is claimed."
+      "evidence": "Vercel returned rate-limit statuses for both mission-control and hypersystem-orchestrator deployment contexts, retry in 24 hours."
     }
   ],
   "findings": [
@@ -171,8 +172,9 @@
     "This report does not claim live PRE sync, HSO skill dispatch, HSMART production deployment, KM acceptance or native GitHub approval.",
     "The final report-only PR commit has not yet been validated; exact final-head CI is pending.",
     "Section 11 was added after the previous PR #36 code snapshot. Its source review is recorded against c05cf110619860ed679db00bd36b6236ad0f2405; final PR #36 CI must rerun after this report-only commit.",
-    "HSO PR #27's Catalog and Distribution Validation passed, but both Vercel deployment contexts were rate-limited; no deployment is claimed."
+    "HSO PR #27's Catalog and Distribution Validation passed, but both Vercel deployment contexts were rate-limited; no deployment is claimed.",
+    "Section 12 records four successful HSMART PR #36 workflows on prior code head 222bbdfe1ce821e5ae52ae20ec1cfd4dce2f0921. The new report-only head must be revalidated again."
   ],
-  "disposition": "The updated execution record now includes the HSO compatibility-test root cause, the PR #27 exact-head validation result, the skipped Mission Control sync, and the Vercel rate-limit blocker. The HSMART documentation remains coherent and strictly evidence-bound. Keep PR #36 draft and stacked; require all four exact final-head HSMART workflows and the designated human GOV-01 decision before merge.",
+  "disposition": "The updated execution record is internally consistent and includes final-head validation for the prior PR #36 code snapshot, the HSO PR #27 catalog-test repair, Mission Control safe-skip semantics and the Vercel capacity blocker. Keep PR #36 draft and stacked; require all four exact final-head workflows after the report-only commit and the designated human GOV-01 decision before merge.",
   "reviewed_local_date": "2026-11-25"
 }
