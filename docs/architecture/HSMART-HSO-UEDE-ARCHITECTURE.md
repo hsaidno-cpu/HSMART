@@ -254,7 +254,7 @@ The PRE/roadmap audit currently finds an HSO Master Roadmap & Milestones Notion 
 
 ## 15. Human approval and manual-action notification contract
 
-HSMART adopts [HAP-01 — Human Approval, Manual Action & Notification Procedure](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/governance/HUMAN-APPROVAL-AND-ACTION-NOTIFICATION-PROCEDURE.md) as the canonical cross-ecosystem procedure. HSMART's integration-specific obligations are captured in [UEDE Human Action Integration](../governance/UEDE-HUMAN-ACTION-INTEGRATION.md).
+HSMART adopts [HAP-01 — Human Approval, Manual Action & Notification Procedure](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/architecture/ue-de-unified-ecosystem-20261125/governance/HUMAN-APPROVAL-AND-ACTION-NOTIFICATION-PROCEDURE.md) as the canonical cross-ecosystem procedure. HSMART's integration-specific obligations are captured in [UEDE Human Action Integration](../governance/UEDE-HUMAN-ACTION-INTEGRATION.md).
 
 GOV-01 is the sole human decision authority. Human approval is distinct from a manual UI action. When either is required, the workflow must stop at the gate and provide the owner with the exact repository, PR/issue, branch, base and head SHA, direct UI link, precise UI location, numbered instructions, expected result, risk, forbidden premature actions and staleness conditions. One idempotent record must be maintained in the [UEDE Human Action & Approval Inbox](https://app.notion.com/p/42399868397f8152b2b7d1bf8cc15712).
 
