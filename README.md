@@ -65,14 +65,14 @@ A successful HTTP response alone is not acceptance evidence.
 
 ## Status and non-goals
 
-- Current status: **KM 1 application foundation implemented on PR #28 branch; PR #13 canonical; main protection and KM 0/KM 1 exit gates remain open**.
+- Current status (26 Nov 2026): **KM 1 application foundation merged to main via PR #28** (merge commit `543bef61f1fd1ce3a736bd107857bee0b244c388`); PR #13 remains the earlier canonical platform foundation. KM 0 / KM 1 exit gates remain open. Current main is `2071bbaa23c3a258189abde074d6436457f84295`. No production deployment or production runtime is claimed. Main branch protection is **NOT VERIFIED by the current read-only integration**.
 - No production endpoint, cloud account, database, OAuth issuer, marketplace payment provider, or runtime is claimed to exist.
 - The baseline does not require microservices, Kubernetes, multi-region deployment, or autonomous code modification in the MVP.
 - External clients may need adapter refresh or reconnection for changed tool manifests. HSMART cannot force an independently managed client to refresh.
 
 ## Repository protection operation
 
-**First-time bootstrap:** because the workflow itself is still on PR #28, it is not yet available from the default branch. Apply the initial protection from a local checkout using the exact commands in `docs/governance/REPOSITORY-BASELINE-CONTROLS.md` and a local-only token with repository **Administration: write**. After PR #28 merges, use **Actions → Repository Main Protection → Run workflow** for status, dry-run and later changes; that workflow is restricted to `hsaidno-cpu`, reads `HSMART_REPOSITORY_ADMIN_TOKEN` from repository Secrets and requires the current full `main` SHA. Never put the token in ChatGPT, Notion, source files or workflow inputs. Installing a workflow does not itself protect `main`; verify GitHub's API read-back and negative test.
+**Main protection verification boundary (26 Nov 2026):** PR #28 is already merged, so the Repository Main Protection workflow is present on `main`. Its presence does not prove that a ruleset was applied. Use **Actions → Repository Main Protection → Run workflow** for status/dry-run and authorized changes; the workflow is restricted to `hsaidno-cpu`, reads `HSMART_REPOSITORY_ADMIN_TOKEN` from repository Secrets and requires the current full `main` SHA. Never put the token in ChatGPT, Notion, source files or workflow inputs. In the current L1 read-only audit, the GitHub rulesets listing returned an empty array and the branch-protection endpoint returned HTTP 403 (`Resource not accessible by integration`). Therefore main protection is **NOT VERIFIED**, not declared active or absent. Require an authorized GitHub API read-back and a negative enforcement test before reporting it as protected.
 
 ## Contributing
 
