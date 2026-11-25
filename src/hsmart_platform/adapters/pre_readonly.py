@@ -182,9 +182,12 @@ def _json_value(value: Any, *, field: str) -> Any:
             return value
         raise InvalidSourceRecord(f"{field} must contain JSON text, an object, a list, or null")
     try:
-        return json.loads(value)
+        parsed = json.loads(value)
     except json.JSONDecodeError as exc:
         raise InvalidSourceRecord(f"{field} contains invalid JSON") from exc
+    if not isinstance(parsed, (dict, list)):
+        raise InvalidSourceRecord(f"{field} must decode to an object or array")
+    return parsed
 
 
 def _date(row: Mapping[str, Any], base_name: str) -> str | None:
@@ -288,7 +291,9 @@ class PreReadOnlyAdapter:
 
     def readiness(self) -> dict[str, Any]:
         return {
-            "state": "READ_ONLY_READY" if self.configured else "NOT_CONFIGURED",
+            "state": "TRANSPORT_BOUND_NOT_VERIFIED" if self.configured else "NOT_CONFIGURED",
+            "liveReadState": "NOT_VERIFIED",
+            "sourceAuthorizationState": "NOT_VERIFIED",
             "accessMode": "READ_ONLY",
             "writeOperationsExposed": False,
             "sources": {
