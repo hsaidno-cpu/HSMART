@@ -41,8 +41,21 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements-app.txt
+      - name: Install pinned dependency-lock compiler
+        run: python -m pip install pip-tools==7.7.0
+      - name: Generate and verify application hash lock
+        run: |
+          pip-compile --generate-hashes --resolver=backtracking --output-file=requirements-app.lock requirements-app.txt
+          if git ls-files --error-unmatch requirements-app.lock >/dev/null 2>&1; then
+            git diff --exit-code -- requirements-app.lock
+          fi
+          echo HSMART_APP_LOCK_START
+          cat requirements-app.lock
+          echo HSMART_APP_LOCK_END
       - name: Install application and development dependencies
-        run: python -m pip install -r requirements-dev.txt -r requirements-app.txt
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install --require-hashes -r requirements-app.lock
       - name: Verify dependency consistency
         run: python -m pip check
       - name: Apply database migrations
