@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR34-20261125",
+  "pr_number": 34,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "29b6c38fd6e1e584410f8c58eba20a7299501743",
+  "reviewed_head_sha": "1cbf146c47a012eda25ed4db2b608dd2ba4ce778",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_FINAL_HEAD_CI_AND_GOV01_DECISION",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured source, schema, test and CI assurance review performed in the same assistant execution that authored the proposal. This is correlation-limited review; no separately provisioned GOV-11 agent runtime, isolated context or independent human reviewer is evidenced.",
+    "decision_authority": "Advisory only. No merge, PRE approval, milestone acceptance, production release or policy-change authority."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant execution authored and reviewed PR #34; exact model-runtime isolation is not available."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "HSMART PR #34, reviewed at exact code SHA 1cbf146c47a012eda25ed4db2b608dd2ba4ce778. Scope comprises a PRE read-only transport protocol, normalized evaluation and transition ledger mapping, pagination/digest controls, snapshot schema, architecture boundary and tests.",
+    "focus": [
+      "PRE evaluation ledger and transition queue ownership boundaries",
+      "Strict read-only transport interface with no mutation or apply-transition method",
+      "Explicit unconfigured and unverified transport/readiness semantics",
+      "Pagination cursor completeness, bounded retrieval and repeated-cursor rejection",
+      "Fail-closed normalization of relation JSON, receipt JSON, numeric fields and enum values",
+      "Stable SHA-256 digest over normalized records",
+      "Separation of pagination completeness from source freshness",
+      "Exact-head cross-platform and PostgreSQL CI evidence",
+      "PR stacking, PC-007 dependency and KM 2 non-activation"
+    ],
+    "excluded": [
+      "A live Notion transport or actual PRE shared-runtime endpoint",
+      "Authenticated PRE source permissions and freshness SLA",
+      "Cryptographic verification of PRE approval receipts",
+      "PRE transition policy execution or stage application",
+      "HSMART production deployment, registry, gateway or managed runtime",
+      "Independent third-party security certification",
+      "GOV-01 final acceptance"
+    ]
+  },
+  "methods": [
+    "Read-only inspection of PRE Evaluation & Gate Log schema and Transition Queue schema",
+    "Review of PRE architecture/operating contract and current HSMART PC-007 dependency",
+    "Exact-head source review of PR #34 files and base/head metadata",
+    "Review of read-only protocol surface and absence of mutation operations",
+    "Positive and negative fixture test review",
+    "Inspection of GitHub Actions exact-head logs for Linux, macOS and Windows",
+    "Inspection of PostgreSQL 16 application integration and repository governance results",
+    "Failure-mode review for incomplete pages, repeated cursor, invalid relation JSON, invalid receipt JSON, invalid percentages and unknown states"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Specification Validation",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "1cbf146c47a012eda25ed4db2b608dd2ba4ce778",
+      "run_id": 45602275494,
+      "evidence": "Ubuntu 24.04: 96 passed, 3 skipped, 1 warning; Windows 2025: 96 passed, 3 skipped, 1 warning; macOS 15: 96 passed, 3 skipped, 1 warning. OpenAPI and required repository files passed."
+    },
+    {
+      "name": "KM1 Application Foundation / PostgreSQL 16",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "1cbf146c47a012eda25ed4db2b608dd2ba4ce778",
+      "run_id": 45602275552,
+      "evidence": "PostgreSQL 16 application integration passed; 11 passed, 1 warning."
+    },
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "1cbf146c47a012eda25ed4db2b608dd2ba4ce778",
+      "run_id": 45602275610,
+      "evidence": "Repository governance workflow completed successfully."
+    },
+    {
+      "name": "AI Reviewer Evidence before report-only commit",
+      "status": "EXPECTED_MISSING_REPORT",
+      "reviewed_sha": "1cbf146c47a012eda25ed4db2b608dd2ba4ce778",
+      "run_id": 45602275695,
+      "evidence": "Workflow failed because docs/reviews/PR-34-AI-ASSURANCE.json did not exist. This report-only commit supplies the requested artifact; every required check must run again on the final PR head."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "PRE runtime integration",
+      "finding": "The PRE plugin package is USER/PRIVATE, its independent canonical Git source and license declaration are not identified, and its shared runtime is specified but not deployed. PR #34 implements a transport port and mapper, not a live adapter.",
+      "disposition": "Keep runtime state NOT_CONFIGURED until PRE/GOV-01 authorizes exact data-source access and a named host passes live read-only contract tests."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Source authorization",
+      "finding": "A bound transport does not prove that its credentials are restricted to the two PRE data sources or are read-only at the provider boundary.",
+      "disposition": "Require least-privilege credentials, source allowlisting and a negative write-permission test before host activation."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Freshness",
+      "finding": "The normalized page contract does not provide an authoritative page/source last-modified timestamp. Capture time cannot be treated as source freshness.",
+      "disposition": "Preserve freshness UNKNOWN until a source timestamp or a GOV-01-approved freshness policy is implemented and tested."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Approval receipt trust",
+      "finding": "Approval receipt JSON is captured as source data only. This adapter does not authenticate the decision owner or verify cryptographic signatures and cannot infer that a request is approved or applied.",
+      "disposition": "A separate authenticated policy-engine and receipt-verification contract is required before any approval-dependent orchestration."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Roadmap authority separation",
+      "finding": "The HSO Master Roadmap & Milestones database describes the HSO ecosystem roadmap and is not the HSMART engineering task source. Treating it as HSMART's roadmap would conflate ownership.",
+      "disposition": "Keep HSMART/GitHub as engineering source, PRE as evaluation/gate authority, and HSO roadmap as a separate ecosystem source."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Report-only exact-head validation",
+      "status": "PENDING",
+      "required": "Add this report as the only file after the reviewed code SHA and rerun all required CI on the resulting final PR #34 head."
+    },
+    {
+      "gate": "Upstream PR #33 and PR #32",
+      "status": "HOLD",
+      "required": "PR #34 remains stacked on PR #33, which is stacked on PR #32. Preserve dependency order and do not merge any stack layer by bypassing the designated user's decision."
+    },
+    {
+      "gate": "PC-007 / KM 1 exit",
+      "status": "HOLD",
+      "required": "No KM 2 Registry work or stage advancement before the sole GOV-01 authority records KM 1 ACCEPTED or an exact return-to-work decision."
+    },
+    {
+      "gate": "Live PRE transport activation",
+      "status": "NOT_CONFIGURED",
+      "required": "Confirm PRE source/rights, authorize read-only data-source access, configure host transport, test permissions/pagination/freshness, and verify real runtime evidence."
+    },
+    {
+      "gate": "Human GOV-01 decision",
+      "status": "PENDING",
+      "required": "The sole designated human authority decides whether to accept, revise or reject the exact final PR #34 head. This AI assurance report is not that decision."
+    }
+  ],
+  "limitations": [
+    "This report is correlation-limited and is not independent model/provider certification.",
+    "GOV-11 is a designated logical role; a separate GOV-11 runtime is not provisioned.",
+    "The tests use synthetic fixture pages. They prove local mapper behavior, not live compatibility or access to PRE.",
+    "The connector's Query Data Source operation is unavailable due to the account's usage limit; no live source rows were fetched during this implementation.",
+    "The successful CI evidence is bound to the code-reviewed SHA before this report-only commit. Final-head CI remains pending.",
+    "No PRE stage, transition, HSMART task, GitHub issue, branch protection, production resource or deployment was changed by this adapter."
+  ],
+  "disposition": "PR #34 is technically coherent as a bounded read-only transport/normalization contract with explicit NOT_CONFIGURED and UNKNOWN states. Keep it draft and stacked. Require exact final-head CI, a separately authorized read-only source transport, live contract evidence and the sole human GOV-01 decision before activation or merge. Do not allow this adapter to apply transitions or unlock KM 2.",
+  "reviewed_local_date": "2026-11-25"
+}
