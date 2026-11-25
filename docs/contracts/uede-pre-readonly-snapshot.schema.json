@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.hsmart.example/v1/uede-pre-readonly-snapshot.schema.json",
+  "title": "UEDE PRE Read-only Evidence Snapshot",
+  "description": "A paginated, read-only capture of PRE evaluation or transition-queue records. Freshness remains UNKNOWN until an authoritative source-modified timestamp is available. A snapshot is evidence, not an approval or a stage transition.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "snapshotId", "source", "capturedAt", "pagination", "freshness", "contentDigest", "accessMode", "records"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "snapshotId": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "dataSourceUrl", "dataSourceName"],
+      "properties": {
+        "system": { "const": "PRE" },
+        "dataSourceUrl": { "type": "string", "format": "uri" },
+        "dataSourceName": { "enum": ["PRE Evaluation & Gate Log", "PRE Transition Queue — Policy Evaluations"] }
+      }
+    },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "pagination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "pagesRead", "recordCount", "nextCursorAvailable", "incompleteReason"],
+      "properties": {
+        "state": { "enum": ["COMPLETE", "PARTIAL"] },
+        "pagesRead": { "type": "integer", "minimum": 1 },
+        "recordCount": { "type": "integer", "minimum": 0 },
+        "nextCursorAvailable": { "type": "boolean" },
+        "incompleteReason": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "COMPLETE" } }, "required": ["state"] },
+          "then": { "properties": { "nextCursorAvailable": { "const": false }, "incompleteReason": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "state": { "const": "PARTIAL" } }, "required": ["state"] },
+          "then": { "properties": { "nextCursorAvailable": { "const": true }, "incompleteReason": { "type": "string", "minLength": 1 } } }
+        }
+      ]
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "sourceUpdatedAt"],
+      "properties": {
+        "state": { "const": "UNKNOWN" },
+        "sourceUpdatedAt": { "type": "null" }
+      }
+    },
+    "contentDigest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "accessMode": { "const": "READ_ONLY" },
+    "records": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["recordType", "evaluationType", "preStage", "evaluatorRole", "gateState", "nextDisposition", "relatedWorkItemUrls", "supportingEvidenceUrls"],
+            "properties": {
+              "recordType": { "const": "EVALUATION" },
+              "recordUrl": { "type": ["string", "null"] },
+              "evaluationId": { "type": ["integer", "null"] },
+              "title": { "type": ["string", "null"] },
+              "evaluationType": { "enum": ["Intake Review", "Baseline Review", "Formative Check", "Milestone Acceptance", "Outcome & Impact", "Adaptation Decision", "Closure Review", "UNKNOWN"] },
+              "preStage": { "enum": ["R0 Intake", "R1 Strategy & Baseline", "R2 Roadmap Design", "R3 Approval & Baseline Freeze", "R4 Iteration Execution", "R5 Formative Check", "R6 Milestone Acceptance", "R7 Outcome & Impact", "R8 Adaptation", "R9 Closure & Learning", "UNKNOWN"] },
+              "evaluatorRole": { "enum": ["PRE", "Evaluator Team", "HSO", "Security reviewer", "Human decision owner", "Not assigned", "UNKNOWN"] },
+              "gateState": { "enum": ["NOT_RUN", "NOT_ASSESSED", "PASS", "PASS_WITH_CAVEATS", "HOLD", "FAIL", "BLOCKED", "NOT_APPLICABLE", "UNKNOWN"] },
+              "nextDisposition": { "enum": ["CONTINUE", "HOLD", "RESEQUENCE", "REBASELINE", "SPLIT", "MERGE", "DEFER", "PILOT", "ROLLBACK", "STOP", "CLOSE", "UNKNOWN"] },
+              "measurementDate": { "type": ["string", "null"] },
+              "deliveryCompletionPercent": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+              "milestoneAcceptancePercent": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+              "verificationCoveragePercent": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+              "denominatorAndCalculation": { "type": ["string", "null"] },
+              "evidenceCoverage": { "type": ["string", "null"] },
+              "evaluationSummary": { "type": ["string", "null"] },
+              "scopeAndExclusions": { "type": ["string", "null"] },
+              "uncertaintyAndLimitations": { "type": ["string", "null"] },
+              "relatedWorkItemUrls": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+              "supportingEvidenceUrls": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["recordType", "fromStage", "requestedStage", "requestState", "gateDecision", "decisionOwnerUrls", "workItemUrls"],
+            "properties": {
+              "recordType": { "const": "TRANSITION_REQUEST" },
+              "recordUrl": { "type": ["string", "null"] },
+              "requestId": { "type": ["integer", "null"] },
+              "requestTitle": { "type": ["string", "null"] },
+              "projectId": { "type": ["string", "null"] },
+              "scopeId": { "type": ["string", "null"] },
+              "correlationId": { "type": ["string", "null"] },
+              "idempotencyKey": { "type": ["string", "null"] },
+              "fromStage": { "enum": ["R0 Intake", "R1 Strategy & Baseline", "R2 Roadmap Design", "R3 Approval & Baseline Freeze", "R4 Iteration Execution", "R5 Formative Check", "R6 Milestone Acceptance", "R7 Outcome & Impact", "R8 Adaptation", "R9 Closure & Learning", "UNKNOWN"] },
+              "requestedStage": { "enum": ["R1 Strategy & Baseline", "R2 Roadmap Design", "R3 Approval & Baseline Freeze", "R4 Iteration Execution", "R5 Formative Check", "R6 Milestone Acceptance", "R7 Outcome & Impact", "R8 Adaptation", "R9 Closure & Learning", "UNKNOWN"] },
+              "requestState": { "enum": ["PENDING", "EVALUATING", "HOLD", "BLOCKED", "ELIGIBLE_FOR_APPROVAL", "APPROVED", "POLICY_PASSED", "APPLIED", "REJECTED", "UNKNOWN"] },
+              "gateDecision": { "enum": ["ALLOW", "HOLD", "DENY", "NOT_RUN", "UNKNOWN"] },
+              "evaluatedAt": { "type": ["string", "null"] },
+              "appliedAt": { "type": ["string", "null"] },
+              "requestedByActorId": { "type": ["string", "null"] },
+              "decisionOwnerUrls": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+              "workItemUrls": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+              "sourceCommit": { "type": ["string", "null"] },
+              "sourceEvent": { "type": ["string", "null"] },
+              "evaluationDigest": { "type": ["string", "null"] },
+              "blockReasons": { "type": ["string", "null"] },
+              "evidenceEnvelope": { "type": ["object", "array", "null"] },
+              "evaluationReceipt": { "type": ["object", "array", "null"] },
+              "approvalReceipt": { "type": ["object", "array", "null"] },
+              "externalAuditReceiptUrl": { "type": ["string", "null"] }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
