@@ -7,6 +7,7 @@ from typing import Any
 
 import pytest
 from jsonschema import Draft202012Validator, FormatChecker
+from hsmart_platform.uede_contracts import execution_receipt_semantic_errors
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -177,13 +178,21 @@ def test_eligibility_cannot_pass_when_any_evidence_plane_fails(mutate) -> None:
 
 
 def test_execution_receipt_with_matching_verified_commit_is_valid() -> None:
-    assert not list(validator("uede-execution-receipt.schema.json").iter_errors(sample_receipt()))
+    sample = sample_receipt()
+    assert not list(validator("uede-execution-receipt.schema.json").iter_errors(sample))
+    assert execution_receipt_semantic_errors(sample) == ()
 
 
 def test_execution_receipt_rejects_pass_without_exact_commit() -> None:
     sample = sample_receipt()
     sample["verification"]["verifiedCommitSha"] = "c" * 40
-    assert list(validator("uede-execution-receipt.schema.json").iter_errors(sample))
+    assert execution_receipt_semantic_errors(sample) == ("VERIFIED_COMMIT_SHA_MISMATCH",)
+
+
+def test_execution_receipt_rejects_ci_from_a_different_commit() -> None:
+    sample = sample_receipt()
+    sample["ciRuns"][0]["commitSha"] = "d" * 40
+    assert execution_receipt_semantic_errors(sample) == ("EXACT_HEAD_CI_SUCCESS_REQUIRED",)
 
 
 def test_execution_receipt_cannot_mutate_canonical_pre_stage() -> None:
