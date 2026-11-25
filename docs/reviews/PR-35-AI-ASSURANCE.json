@@ -134,18 +134,22 @@
     {
       "id": "F-02",
       "severity": "HIGH",
-      "status": "OPEN",
+      "status": "MITIGATED_FOR_CURRENT_SCOPE",
       "area": "License and distribution rights",
       "finding": "Several catalog entries have undeclared, restricted, private-not-cleared or non-commercial usage terms. A.S.F.R.E.E is marked PolyForm Noncommercial; Skill Analyzer's repository license was not declared. No bulk install, redistribution or commercial invocation should be inferred from ecosystem membership.",
-      "disposition": "Maintain UNDECLARED or RESTRICTED rights. Require explicit legal/owner clearance for intended HSMART use before distribution or runtime invocation."
+      "disposition": "Maintain UNDECLARED or RESTRICTED rights. Require explicit legal/owner clearance for intended HSMART use before distribution or runtime invocation.",
+      "mitigation": "The current read-only discovery adapter always leaves capability eligibility BLOCKED and never exposes invocation or distribution operations. This is a preventive control for the current PR scope, not evidence that the underlying legal/runtime prerequisite is satisfied.",
+      "residualState": "OPERATIONAL_GATE_NOT_CLEARED"
     },
     {
       "id": "F-03",
       "severity": "HIGH",
-      "status": "OPEN",
+      "status": "MITIGATED_FOR_CURRENT_SCOPE",
       "area": "Host runtime activation",
       "finding": "The HSO runtime catalog records one narrowly scoped Skill Analyzer Remote MCP capability with probe status READY_WITH_LIMITATIONS and approval policy ALWAYS, but this does not prove that the current HSMART host can invoke it. The current adapter marks host activation NOT_CONFIGURED and invocation NOT_RUN.",
-      "disposition": "Do not enable dispatch until a named HSMART host passes authentication, allowlist, protocol handshake, user approval, exact tool discovery and real invocation tests with a receipt."
+      "disposition": "Do not enable dispatch until a named HSMART host passes authentication, allowlist, protocol handshake, user approval, exact tool discovery and real invocation tests with a receipt.",
+      "mitigation": "The current read-only discovery adapter always leaves capability eligibility BLOCKED and never exposes invocation or distribution operations. This is a preventive control for the current PR scope, not evidence that the underlying legal/runtime prerequisite is satisfied.",
+      "residualState": "OPERATIONAL_GATE_NOT_CLEARED"
     },
     {
       "id": "F-04",
@@ -213,6 +217,6 @@
     "No child repository source hash, license signature, live HSO invocation, HSMART production deployment or PRE write-back was performed.",
     "The successful CI evidence is bound to code-reviewed SHA 16672f1 before this report-only commit; exact final-head CI remains pending."
   ],
-  "disposition": "PR #35 is technically coherent as a pinned, read-only catalog discovery adapter with conservative, fail-closed readiness semantics. All 288 discovered plugin/skill descriptors must remain BLOCKED until individual source, rights, parity, interface, host and runtime evidence is complete. Keep the PR draft and stacked. Require exact final-head CI and the sole human GOV-01 decision before merge; do not treat HSO catalog presence or CONTRACT_TESTED compatibility edges as permission to execute or distribute.",
+  "disposition": "PR #35 is technically coherent as a pinned, read-only catalog discovery adapter with conservative, fail-closed readiness semantics. All 288 discovered plugin/skill descriptors must remain BLOCKED until individual source, rights, parity, interface, host and runtime evidence is complete. Keep the PR draft and stacked. Require exact final-head CI and the sole human GOV-01 decision before merge; do not treat HSO catalog presence or CONTRACT_TESTED compatibility edges as permission to execute or distribute. High-severity operational prerequisites are mitigated only for this bounded PR scope by the fail-closed BLOCKED default; they remain explicit, uncleared activation gates and must not be waived.",
   "reviewed_local_date": "2026-11-25"
 }
