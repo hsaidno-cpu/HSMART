@@ -9,7 +9,7 @@
 
 HSMART adopts the shared ecosystem procedure defined in the HSO canonical governance document:
 
-[HSO Human Approval, Manual Action & Notification Procedure (HAP-01)](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/main/governance/HUMAN-APPROVAL-AND-ACTION-NOTIFICATION-PROCEDURE.md)
+[HSO Human Approval, Manual Action & Notification Procedure (HAP-01)](https://github.com/hsaidno-cpu/Hypersystem-Orchestrator/blob/architecture/ue-de-unified-ecosystem-20261125/governance/HUMAN-APPROVAL-AND-ACTION-NOTIFICATION-PROCEDURE.md)
 
 This HSMART document is an integration contract, not a duplicate policy source. If details differ, the canonical HSO HAP-01 document governs operational notification format, action records, approval receipts and lifecycle behavior, subject to GOV-01 approval and repository/KM acceptance.
 
