@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.hsmart.example/v1/uede-capability-descriptor.schema.json",
+  "title": "UEDE HSO Capability Descriptor",
+  "description": "Evidence-backed description of one HSO capability. Catalog presence is not invocation permission. Dispatch eligibility requires verified source, rights, instruction parity, contract tests, host activation and runtime evidence.",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "capabilityId", "identity", "ownership", "source", "rights", "instructionParity", "interface", "hostRuntime", "permissions", "eligibility", "observedAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "capabilityId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._:-]{2,159}$" },
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["displayName", "kind", "version"],
+      "properties": {
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "kind": { "enum": ["PLUGIN", "SKILL", "SUBSKILL", "AGENT", "SCRIPT", "WORKFLOW", "TOOL", "ORCHESTRATOR"] },
+        "version": { "type": ["string", "null"] }
+      }
+    },
+    "ownership": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ownerSystem", "ownerReference"],
+      "properties": {
+        "ownerSystem": { "enum": ["HSO", "HSMART", "THIRD_PARTY", "UNKNOWN"] },
+        "ownerReference": { "type": "string", "minLength": 1 }
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "ref", "commitSha", "contentDigest", "state"],
+      "properties": {
+        "repository": { "type": ["string", "null"], "format": "uri" },
+        "ref": { "type": ["string", "null"] },
+        "commitSha": { "type": ["string", "null"], "pattern": "^[a-f0-9]{40}$" },
+        "contentDigest": { "type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$" },
+        "state": { "enum": ["VERIFIED", "CANDIDATE", "NOT_IDENTIFIED", "UNAVAILABLE", "CONFLICT"] }
+      }
+    },
+    "rights": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "license", "distributionAllowed"],
+      "properties": {
+        "state": { "enum": ["CLEARED", "RESTRICTED", "UNDECLARED", "BLOCKED"] },
+        "license": { "type": ["string", "null"] },
+        "distributionAllowed": { "type": "boolean" }
+      }
+    },
+    "instructionParity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "sourceFileCount", "comparedFileCount", "driftedFiles"],
+      "properties": {
+        "state": { "enum": ["PASS", "DRIFT", "NOT_COMPARED", "NOT_APPLICABLE"] },
+        "sourceFileCount": { "type": "integer", "minimum": 0 },
+        "comparedFileCount": { "type": "integer", "minimum": 0 },
+        "driftedFiles": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+      }
+    },
+    "interface": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protocol", "contractVersion", "contractTestState"],
+      "properties": {
+        "protocol": { "enum": ["MCP", "REST", "SDK", "NATIVE", "WORKFLOW", "NONE"] },
+        "contractVersion": { "type": ["string", "null"] },
+        "contractTestState": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_CONFIGURED"] }
+      }
+    },
+    "hostRuntime": {
+      "type": "object", "additionalProperties": false,
+      "required": ["hostId", "activationState", "invocationState", "evidenceReference"],
+      "properties": {
+        "hostId": { "type": ["string", "null"] },
+        "activationState": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_CONFIGURED"] },
+        "invocationState": { "enum": ["PASS", "FAIL", "NOT_RUN", "NOT_CONFIGURED"] },
+        "evidenceReference": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "permissions": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "eligibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "policyVersion", "evaluatedAt", "blockers"],
+      "properties": {
+        "state": { "enum": ["ELIGIBLE", "BLOCKED", "NOT_ASSESSED"] },
+        "policyVersion": { "type": "string", "minLength": 1 },
+        "evaluatedAt": { "type": "string", "format": "date-time" },
+        "blockers": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "observedAt": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "eligibility": { "properties": { "state": { "const": "ELIGIBLE" } }, "required": ["state"] } }, "required": ["eligibility"] },
+      "then": {
+        "properties": {
+          "source": { "properties": { "state": { "const": "VERIFIED" } } },
+          "rights": { "properties": { "state": { "const": "CLEARED" }, "distributionAllowed": { "const": true } } },
+          "instructionParity": { "properties": { "state": { "const": "PASS" }, "driftedFiles": { "maxItems": 0 } } },
+          "interface": { "properties": { "contractTestState": { "const": "PASS" } } },
+          "hostRuntime": { "properties": { "activationState": { "const": "PASS" }, "invocationState": { "const": "PASS" }, "evidenceReference": { "type": "string", "format": "uri" } } },
+          "eligibility": { "properties": { "blockers": { "maxItems": 0 } } }
+        }
+      }
+    }
+  ]
+}

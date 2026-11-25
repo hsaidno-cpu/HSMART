@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.hsmart.example/v1/uede-execution-receipt.schema.json",
+  "title": "UEDE Engineering Execution Receipt",
+  "description": "Append-only factual receipt for one bounded engineering attempt. It records exact source/branch/commit/test evidence and cannot accept a roadmap milestone or mutate canonical PRE state.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "executionId",
+    "workItemReference",
+    "planReference",
+    "startedAt",
+    "finishedAt",
+    "executionState",
+    "target",
+    "ciRuns",
+    "verification",
+    "roadmapEffect"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "executionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workItemReference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "planReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "artifactReference",
+        "contentDigest"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifactReference": {
+          "type": "string",
+          "format": "uri"
+        },
+        "contentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      }
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "executionState": {
+      "enum": [
+        "ACCEPTED",
+        "QUEUED",
+        "RUNNING",
+        "WAITING_APPROVAL",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED",
+        "TIMED_OUT",
+        "BLOCKED",
+        "OUTCOME_UNKNOWN"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "branch",
+        "baseCommitSha",
+        "headCommitSha",
+        "changedFiles",
+        "pullRequest"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseCommitSha": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "headCommitSha": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "changedFiles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "pullRequest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "ciRuns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "runReference",
+          "commitSha",
+          "conclusion",
+          "completedAt"
+        ],
+        "properties": {
+          "runReference": {
+            "type": "string",
+            "format": "uri"
+          },
+          "commitSha": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
+          },
+          "conclusion": {
+            "enum": [
+              "SUCCESS",
+              "FAILURE",
+              "CANCELLED",
+              "SKIPPED",
+              "NEUTRAL",
+              "UNKNOWN"
+            ]
+          },
+          "completedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "verifiedCommitSha",
+        "evidenceReferences",
+        "limitations"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "BLOCKED",
+            "NOT_RUN",
+            "INCONCLUSIVE"
+          ]
+        },
+        "verifiedCommitSha": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "evidenceReferences": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "roadmapEffect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonicalStageMutation",
+        "writeBackMode"
+      ],
+      "properties": {
+        "canonicalStageMutation": {
+          "const": false
+        },
+        "writeBackMode": {
+          "const": "EXECUTION_FACTS_ONLY"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verification": {
+            "properties": {
+              "state": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "verification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "executionState": {
+            "const": "COMPLETED"
+          },
+          "target": {
+            "properties": {
+              "headCommitSha": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              }
+            }
+          },
+          "verification": {
+            "properties": {
+              "verifiedCommitSha": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "evidenceReferences": {
+                "minItems": 1
+              }
+            }
+          },
+          "ciRuns": {
+            "minItems": 1,
+            "items": {
+              "properties": {
+                "conclusion": {
+                  "const": "SUCCESS"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
