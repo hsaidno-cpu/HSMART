@@ -1,8 +1,8 @@
 FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
-COPY requirements-app.lock ./requirements-app.lock
-RUN python -m pip install --no-cache-dir --require-hashes -r requirements-app.lock \
+COPY requirements-app.txt ./requirements-app.txt
+RUN python -m pip install --no-cache-dir -r requirements-app.txt \
     && useradd --create-home --uid 10001 hsmart
 COPY alembic.ini ./alembic.ini
 COPY alembic ./alembic
