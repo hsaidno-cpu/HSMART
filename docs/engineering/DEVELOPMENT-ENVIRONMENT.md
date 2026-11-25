@@ -15,7 +15,7 @@ The toolchain uses the Python 3.12 minor line for JSON Schema and OpenAPI contra
 
 - Python 3.12.x (keep the same major/minor line locally and in CI; apply the latest security patch available for the platform).
 - Git.
-- Network access to install pinned development dependencies and the hash-locked application runtime from `requirements-dev.txt` and `requirements-app.lock` on first setup.
+- Network access to install the exact direct development dependencies in requirements-dev.txt on first setup.
 - Bash on macOS/Linux; PowerShell on Windows.
 - No cloud account, API key, production database or provider credential is required for contract tests.
 
@@ -54,7 +54,7 @@ The bootstrap scripts create a project-local virtual environment and install req
 - GitHub Actions exercises the bootstrap and test suite on Ubuntu 24.04, Windows Server 2025 and macOS 15.
 - CI reports the actual Python and pip versions, runs pip check, runs pytest, and performs repository/OpenAPI structural checks.
 
-**Dependency-lock boundary:** requirements-app.txt is the direct-pin input for the application runtime. requirements-app.lock is the generated transitive lock, including package hashes, and is consumed with pip's `--require-hashes` mode by the application image and PostgreSQL CI. The lock is compiled with pip-tools 7.7.0 under Python 3.12. requirements-dev.txt remains a direct-pin developer/test dependency file; this does not claim the complete development toolchain is hermetic or bit-for-bit reproducible. GitHub-hosted runner images are also mutable.
+**Dependency-lock limitation:** requirements-dev.txt is a direct-pin file, not a transitive hash-locked artifact. Dependency resolution for transitive packages may therefore change as package indexes evolve. Do not use the words hermetic, bit-for-bit reproducible or fully locked for this baseline. A hashed transitive lock remains a separate engineering task and must be generated and verified in a network-enabled environment before it is adopted.
 
 **Runner limitation:** versioned runner labels prevent accidental drift to a different OS major label, but GitHub-hosted runner images are updated over time. CI logs record the environment used; exact image immutability requires a maintained, pinned container/runner image and is not claimed here. Current supported labels are documented by GitHub's runner-images project: https://github.com/actions/runner-images.
 
@@ -98,8 +98,7 @@ A clean checkout meets this tooling baseline when it:
 ADR-011 v1.2.0 was accepted by GOV-01 on 2026-11-22. The application foundation uses Python 3.12.x, FastAPI/Uvicorn, PostgreSQL 16, SQLAlchemy 2.0/Alembic, PostgreSQL transactional outbox, OCI packaging, environment-driven settings and a separate worker process.
 
 Files:
-- `requirements-app.txt` — direct application dependency constraints used to compile the runtime lock.
-- `requirements-app.lock` — generated transitive runtime lock with hashes; the container installs it using `pip --require-hashes`.
+- `requirements-app.txt` — direct application dependency pins.
 - `src/hsmart_platform/` — health/readiness API, database/session factory, tenant and outbox models, outbox functions and worker.
 - `alembic/` and `alembic.ini` — versioned migration.
 - `Dockerfile`, `compose.yaml`, `.env.example` — local container topology; no production credentials or endpoints included.
@@ -122,8 +121,7 @@ This is local implementation evidence, not proof that hosted Python 3.12/Postgre
 ```bash
 python -m venv .venv
 . .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-python -m pip install --require-hashes -r requirements-app.lock
+python -m pip install -r requirements-dev.txt -r requirements-app.txt
 python -m pip check
 export PYTHONPATH=src
 export DATABASE_URL=postgresql+psycopg://<user>:<password>@localhost:5432/<database>
