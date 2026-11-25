@@ -1,0 +1,218 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR35-20261125",
+  "pr_number": 35,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "90a539f04df4518bd6a430d7153a877b2c7fde9e",
+  "reviewed_head_sha": "16672f1e598cb1adbca926f9cfceaa1a018d35cd",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_FINAL_HEAD_CI_AND_GOV01_DECISION",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured source, schema, catalog and CI assurance review performed in the same assistant execution that authored the proposal. This is correlation-limited review; no separately provisioned GOV-11 runtime, isolated context or independent human review is evidenced.",
+    "decision_authority": "Advisory only. No authority to merge, deploy, change HSO catalog state, accept a KM gate, authorize a capability or modify PRE policy."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant execution authored and reviewed PR #35; independent runtime/context isolation is not available."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "HSMART PR #35 exact code head 16672f1e598cb1adbca926f9cfceaa1a018d35cd. Three files: HSO read-only catalog adapter, architecture boundary and adapter contract tests.",
+    "upstream_source": {
+      "repository": "hsaidno-cpu/Hypersystem-Orchestrator",
+      "commit": "9853bde6d8484b486aa4d163e65f834fa632410b",
+      "catalog_revision": "2026-11-23",
+      "files_read": [
+        "catalog/plugins.json",
+        "catalog/repositories.json",
+        "catalog/instruction-snapshots.json",
+        "catalog/distribution-registry.json",
+        "catalog/hso-runtime-capabilities.json",
+        "catalog/compatibility-matrix.json"
+      ],
+      "observed_inventory": {
+        "plugins": 23,
+        "skill_records": 265,
+        "emitted_descriptors": 288,
+        "compatibility_edges": 15,
+        "compatibility_edge_status": "CONTRACT_TESTED",
+        "runtime_capabilities": 4,
+        "parity_states": {
+          "MATCH": 1,
+          "DRIFT_DETECTED": 3,
+          "NOT_COMPARED": 2,
+          "NOT_APPLICABLE": 17
+        },
+        "version_alignment_states": {
+          "DEPLOYMENT_AHEAD_OF_SOURCE": 1,
+          "SOURCE_AND_PLATFORM_MATCH": 2,
+          "PLATFORM_ONLY_SOURCE_NOT_IDENTIFIED": 15,
+          "SOURCE_AHEAD_OF_PLATFORM": 2,
+          "CANDIDATE_SOURCE_INCOMPLETE": 2,
+          "LEGACY_REDIRECT_VERSION": 1
+        }
+      }
+    },
+    "focus": [
+      "Pinned exact HSO catalog revision and six-file read-only discovery boundary",
+      "Plugin and skill catalog identity/count consistency",
+      "Duplicate identifiers and missing instruction snapshot rejection",
+      "Child repository provenance and distinction between parent catalog pin and child source verification",
+      "Usage-rights/license and distribution readiness fail-closed behavior",
+      "Instruction parity, platform version alignment and drift-state preservation",
+      "Separation of plugin handoff CONTRACT_TESTED edges from MCP tool invocation evidence",
+      "Separation of runtime catalog registration from target-host activation and real invocation",
+      "Exact-head cross-platform test, PostgreSQL integration and repository governance evidence"
+    ],
+    "excluded": [
+      "Fetching all 23 child repositories and independently hashing their content",
+      "Authenticating license rights or legal distribution permission",
+      "Direct HSMART host activation of all HSO plugins/skills",
+      "Live remote-MCP invocation or automatic skill orchestration",
+      "Production registry persistence, deployment, secrets or runtime key provisioning",
+      "Independent third-party security/legal certification",
+      "GOV-01 human approval, PR merge or KM gate acceptance"
+    ]
+  },
+  "methods": [
+    "Pinned-revision read of six HSO catalog JSON documents",
+    "Cross-file reconciliation of plugin identities, instruction snapshot identities and record counts",
+    "Validation of generated descriptor identifier patterns against all 265 skill records",
+    "Source, license, parity, version and distribution status cross-check",
+    "Runtime capability and compatibility edge evidence separation",
+    "Read-only code review of HSMART adapter and synthetic positive/negative tests",
+    "Exact-head inspection of GitHub Actions jobs and test logs for Linux, macOS and Windows",
+    "PostgreSQL 16 application integration and repository governance verification",
+    "Failure-mode review for unknown source, unknown rights, version drift, parity drift and unverified host runtime"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Specification Validation",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "16672f1e598cb1adbca926f9cfceaa1a018d35cd",
+      "run_id": 45603445505,
+      "evidence": "Ubuntu 24.04: 106 passed, 3 skipped, 1 warning; macOS 15: 106 passed, 3 skipped, 1 warning; Windows 2025: 106 passed, 3 skipped, 1 warning. OpenAPI and required repository file validation passed."
+    },
+    {
+      "name": "KM1 Application Foundation / PostgreSQL 16",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "16672f1e598cb1adbca926f9cfceaa1a018d35cd",
+      "run_id": 45603445480,
+      "evidence": "PostgreSQL 16 application integration passed; 11 passed, 1 warning."
+    },
+    {
+      "name": "Repository Governance Review",
+      "status": "PASS_ON_EXACT_REVIEWED_HEAD",
+      "reviewed_sha": "16672f1e598cb1adbca926f9cfceaa1a018d35cd",
+      "run_id": 45603445547,
+      "evidence": "Repository governance workflow completed successfully."
+    },
+    {
+      "name": "AI Reviewer Evidence before report-only commit",
+      "status": "EXPECTED_MISSING_REPORT",
+      "reviewed_sha": "16672f1e598cb1adbca926f9cfceaa1a018d35cd",
+      "run_id": 45603445950,
+      "evidence": "Workflow failed because docs/reviews/PR-35-AI-ASSURANCE.json did not exist. This report-only commit supplies the requested artifact; all required checks must rerun on the resulting final PR head."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Child source verification",
+      "finding": "The adapter reads the pinned HSO parent catalog, but it does not fetch or hash the 23 child repositories or each release package. Parent-catalog pinning does not prove that each child source remains accessible or matches the catalog metadata.",
+      "disposition": "Keep child source state CANDIDATE until a separate bounded, allowlisted child-repository verifier captures exact commit and content digest."
+    },
+    {
+      "id": "F-02",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "area": "License and distribution rights",
+      "finding": "Several catalog entries have undeclared, restricted, private-not-cleared or non-commercial usage terms. A.S.F.R.E.E is marked PolyForm Noncommercial; Skill Analyzer's repository license was not declared. No bulk install, redistribution or commercial invocation should be inferred from ecosystem membership.",
+      "disposition": "Maintain UNDECLARED or RESTRICTED rights. Require explicit legal/owner clearance for intended HSMART use before distribution or runtime invocation."
+    },
+    {
+      "id": "F-03",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "area": "Host runtime activation",
+      "finding": "The HSO runtime catalog records one narrowly scoped Skill Analyzer Remote MCP capability with probe status READY_WITH_LIMITATIONS and approval policy ALWAYS, but this does not prove that the current HSMART host can invoke it. The current adapter marks host activation NOT_CONFIGURED and invocation NOT_RUN.",
+      "disposition": "Do not enable dispatch until a named HSMART host passes authentication, allowlist, protocol handshake, user approval, exact tool discovery and real invocation tests with a receipt."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Instruction parity and release alignment",
+      "finding": "HSO catalog includes three DRIFT_DETECTED entries, two NOT_COMPARED entries, one MATCH, and numerous NOT_APPLICABLE entries. Version alignment includes source/platform lag and platform-only snapshots. These are material provenance differences, not cosmetic metadata.",
+      "disposition": "Preserve parity and version states. Resolve source/package differences per plugin; never overwrite platform instructions or mark them aligned automatically."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Meaning of compatibility evidence",
+      "finding": "All 15 integration-matrix edges are CONTRACT_TESTED. That status describes the HSO handoff schema/mock contract, not real host activation or plugin runtime execution.",
+      "disposition": "Do not use compatibility edge state as invocation evidence. Add separate target-host and real-runtime receipts when a real integration is enabled."
+    },
+    {
+      "id": "F-06",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Catalog freshness",
+      "finding": "The adapter pins a known HSO commit, which makes its snapshot reproducible, but it does not automatically follow main or prove that the pinned catalog is the latest approved revision.",
+      "disposition": "Refresh the pinned catalog only through an explicit versioned update and repeat the six-file integrity checks; retain old revision snapshots for audit."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Report-only exact-head validation",
+      "status": "PENDING",
+      "required": "Add this report as the only file after reviewed code SHA 16672f1 and rerun all required CI on the final PR #35 head."
+    },
+    {
+      "gate": "Upstream PR #34, #33 and #32",
+      "status": "HOLD",
+      "required": "PR #35 remains stacked on PR #34; preserve the PR dependency order and do not bypass the sole designated human authority's decision."
+    },
+    {
+      "gate": "HSMART PC-007 / KM 1 acceptance",
+      "status": "HOLD",
+      "required": "Do not start or unlock KM 2 Registry work before the designated human authority records the KM 1 exit decision."
+    },
+    {
+      "gate": "Rights clearance",
+      "status": "NOT_CLEARED_FOR_BULK_DISTRIBUTION",
+      "required": "Review rights per plugin for intended commercial use, private distribution and invocation before package or runtime enablement."
+    },
+    {
+      "gate": "Live HSO invocation",
+      "status": "NOT_CONFIGURED",
+      "required": "Provision a named HSMART host, narrowly scoped credentials, explicit approval policy and real invocation evidence before changing readiness."
+    },
+    {
+      "gate": "Human GOV-01 decision",
+      "status": "PENDING",
+      "required": "The sole designated human authority decides whether to accept, revise or reject the exact final PR #35 head. This report is not that decision."
+    }
+  ],
+  "limitations": [
+    "This report is correlation-limited and is not independent model/provider certification.",
+    "GOV-11 is a designated logical role; a separate GOV-11 runtime is not provisioned.",
+    "Tests use synthetic catalog fixtures. They prove local mapping logic, not a live HSMART-to-HSO host transport.",
+    "The 23 plugin and 265 skill counts are catalog data at pinned HSO commit 9853bde6d8484b486aa4d163e65f834fa632410b, not an assertion that all entries are executable.",
+    "No child repository source hash, license signature, live HSO invocation, HSMART production deployment or PRE write-back was performed.",
+    "The successful CI evidence is bound to code-reviewed SHA 16672f1 before this report-only commit; exact final-head CI remains pending."
+  ],
+  "disposition": "PR #35 is technically coherent as a pinned, read-only catalog discovery adapter with conservative, fail-closed readiness semantics. All 288 discovered plugin/skill descriptors must remain BLOCKED until individual source, rights, parity, interface, host and runtime evidence is complete. Keep the PR draft and stacked. Require exact final-head CI and the sole human GOV-01 decision before merge; do not treat HSO catalog presence or CONTRACT_TESTED compatibility edges as permission to execute or distribute.",
+  "reviewed_local_date": "2026-11-25"
+}
