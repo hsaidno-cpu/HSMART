@@ -43,7 +43,7 @@ This repository currently contains the architecture and implementation contracts
 | tests/ | JSON Schema fixtures, OpenAPI contract tests and governance policy tests |
 | src/hsmart_governance/ | Local reference policy evaluator; not a production authorization gateway |
 | src/hsmart_platform/ | KM 1 FastAPI/SQLAlchemy/Alembic application foundation; not KM 2 services |
-| docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint |
+| docs/architecture/ | Master architecture, domains, ADRs, ecosystem integration, repository blueprint, UEDE execution log and HSO capability-routing matrix |
 | docs/access/ | Universal Access Manager and its six required subskills |
 | docs/security/ | Threat model and security baseline |
 | docs/data/ | Logical data model and governance |
@@ -56,6 +56,8 @@ This repository currently contains the architecture and implementation contracts
 | docs/governance/ | Ownership, human authority, AI Functional Delegation Charter, delegate registry, permission/approval policy, cross-evaluation and audit governance |
 | docs/roadmap/ | Implementation phases and acceptance criteria |
 | docs/operations/ | Production-readiness and operations |
+| docs/architecture/UEDE-HSMART-EXECUTION-LOG-2026-11-25.md | Dated HSMART–HSO implementation, authority, CI, infrastructure, risk and next-step evidence record |
+| docs/architecture/UEDE-HSO-CAPABILITY-ROUTING-MATRIX.md | Pinned HSO plugin/skill inventory, distribution, rights, parity and routing matrix |
 
 ## First implementation milestone
 
@@ -65,7 +67,7 @@ A successful HTTP response alone is not acceptance evidence.
 
 ## Status and non-goals
 
-- Current status: **KM 1 application foundation implemented on PR #28 branch; PR #13 canonical; main protection and KM 0/KM 1 exit gates remain open**.
+- Current status (25 November 2026): **KM 0 OPEN; KM 1 IN PROGRESS with PC-007 exit acceptance pending; KM 2 remains gated. UEDE PRs #32–#35 are draft, stacked and CI-clean on their exact heads, not merged. PRE/HSO adapters are read-only discovery implementations; HSMART has no production deployment or autonomous engineering runtime.**
 - No production endpoint, cloud account, database, OAuth issuer, marketplace payment provider, or runtime is claimed to exist.
 - The baseline does not require microservices, Kubernetes, multi-region deployment, or autonomous code modification in the MVP.
 - External clients may need adapter refresh or reconnection for changed tool manifests. HSMART cannot force an independently managed client to refresh.

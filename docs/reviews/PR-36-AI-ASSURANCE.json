@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR36-20261125",
+  "pr_number": 36,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "7717ef78f59320ccdfcc3928aebc0f3b880444c4",
+  "reviewed_head_sha": "c849c86bed09dc1c1e7a83f5d1393c3004b5f419",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_FINAL_HEAD_CI_AND_GOV01_DECISION",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured source and evidence review of the documentation-only PR performed in the same assistant execution that prepared the documentation. The assessment is correlation-limited; no isolated GOV-11 runtime, separate context or independent human reviewer is evidenced.",
+    "decision_authority": "Advisory only. No authority to merge, release, change HSMART stage state, modify HSO catalog rights or approve PRE transitions."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant execution authored and reviewed PR #36; no separate provider/runtime isolation is claimed."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "HSMART PR #36 documentation-only changes reviewed at exact code head c849c86bed09dc1c1e7a83f5d1393c3004b5f419: execution record, HSO capability-routing matrix, README, HSO compatibility/deployment follow-up and final exact-head CI results for PR #36.",
+    "source_basis": [
+      "HSMART PR #32–#35 exact head and CI metadata",
+      "HSO catalog revision 2026-11-23 at parent commit 9853bde6d8484b486aa4d163e65f834fa632410b",
+      "HSO Supabase Mission Control read-only table, migration, function, source and security-advisor observations captured 2026-11-25",
+      "HSMART PC-003/PC-004/PC-005/PC-006/PC-007 open issues and current status",
+      "HSO PR #25 exact-head unit-test and deployment status"
+    ],
+    "focus": [
+      "Accuracy of plugin and skill inventory, per-plugin source, rights, distribution and parity counts",
+      "Separation of catalog inventory, compatibility contracts, target host activation and runtime invocation",
+      "Correct exact-head binding of HSMART PR #32–#35 CI links",
+      "Separation of HSMART tasks, HSO operational roadmap and PRE evaluation authority",
+      "Correct treatment of Supabase Mission Control schemas, source configuration and security advisor state",
+      "No accidental claims of PRE live read, HSO automatic invocation, production deployment or KM gate acceptance",
+      "README current-status statements and documentation links",
+      "Accuracy of the HSO PR #27 compatibility-test correction against the canonical Ponytail-SDO matrix row",
+      "Separation of successful HSO catalog validation from skipped source sync and Vercel deployment rate-limit statuses",
+      "Exact-head validation results for HSMART PR #36 after the HSO follow-up"
+    ],
+    "excluded": [
+      "Re-executing every underlying PR test suite; their exact-head GitHub Actions results are inspected as referenced evidence",
+      "Live invocation of all HSO skills or plugins",
+      "Live PRE API or Notion Query Data Source adapter execution",
+      "Supabase schema/function/permission changes or security remediation",
+      "GOV-01 human decision, native GitHub approval, branch-protection application or release"
+    ]
+  },
+  "methods": [
+    "Read and reconciled the three changed documentation/README files at exact HSMART head",
+    "Recomputed plugin, skill, source-state, distribution, rights and parity counts from pinned HSO catalog JSON",
+    "Inspected HSO Mission Control table row counts, migrations, Edge Function states, source rows, completion criteria and Security Advisor",
+    "Inspected HSMART PR #32–#35 metadata and exact-head workflow runs",
+    "Inspected HSMART issues PC-003 through PC-007 and PRE gate boundaries",
+    "Inspected HSO PR #25 failed test and Vercel status split",
+    "Checked for false assertions about production, live adapters, runtime invocation, approval and roadmap state"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Previous PR #36 exact-head validation (before section 12)",
+      "status": "PASS_ON_PRIOR_CODE_HEAD",
+      "reviewed_sha": "222bbdfe1ce821e5ae52ae20ec1cfd4dce2f0921",
+      "run_ids": [
+        45610571934,
+        45610571966,
+        45610572088,
+        45610572099
+      ],
+      "evidence": "All four workflow groups passed on that exact head: OpenAPI and Ubuntu/macOS/Windows contracts, KM1 application foundation, repository governance and AI Reviewer Evidence."
+    },
+    {
+      "name": "PR #36 exact-head validation after section 12 and report-only assurance update",
+      "status": "PENDING_AT_REPORT_AUTHORING",
+      "reviewed_sha": "c849c86bed09dc1c1e7a83f5d1393c3004b5f419",
+      "evidence": "The final report-only commit will trigger the four required workflows again. The updated report must remain the only changed file after this reviewed code head."
+    },
+    {
+      "name": "HSO PR #27 compatibility-test repair",
+      "status": "PASS_ON_HSO_PR27_EXACT_HEAD",
+      "reviewed_sha": "c86f5c440ec351580a0aab3e63c53cda671a7799",
+      "run_id": 45610209291,
+      "evidence": "HSO Catalog and Distribution Validation passed after the stale Ponytail compatibility assertion was corrected. HSO PR #27 remains draft and unmerged."
+    },
+    {
+      "name": "HSO deployment capacity",
+      "status": "RATE_LIMITED_EXTERNAL",
+      "reviewed_sha": "c86f5c440ec351580a0aab3e63c53cda671a7799",
+      "evidence": "Vercel returned rate-limit statuses for both mission-control and hypersystem-orchestrator deployment contexts, retry in 24 hours."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSO capability readiness",
+      "finding": "Most of the 23 catalog identities remain snapshot-only, pending-source, rights-uncleared or parity-unverified. The matrix correctly labels these as non-dispatchable, but its values remain pinned to the 2026-11-23 catalog snapshot.",
+      "disposition": "Regenerate the matrix after catalog changes and require child-source, license, parity, named-host and real invocation evidence before dispatch."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Mission Control synchronization",
+      "finding": "The five configured HSO sources were enabled but not_configured. The PR #26 event-ingestion workflow job can complete successfully while skipping signed event delivery because HSO_SYNC_URL and HSO_SYNC_TOKEN are absent; the scheduled-reconciliation job was also skipped.",
+      "disposition": "Do not claim HSMART-to-HSO synchronization. Configure exact authorized endpoint/secret and prove a signed event delivery plus reconciliation with resulting sync-run/snapshot evidence."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Supabase security",
+      "finding": "Security Advisor reported public.rls_auto_enable() callable by anon and authenticated as SECURITY DEFINER. Documentation records the warning but does not remediate it.",
+      "disposition": "Require owner-approved privilege restriction or SECURITY INVOKER redesign, role-negative tests and a clean follow-up Security Advisor."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSMART roadmap gates",
+      "finding": "KM 0 and KM 1 exit remain unresolved; PC-007 is open and hard-blocks KM 2. Draft PRs and their passing tests do not satisfy the complete KM 1 exit evidence bundle.",
+      "disposition": "Keep the documented gates open until exact evidence is assembled and the sole designated human authority records the decision."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSO compatibility test and deployment capacity",
+      "finding": "The HSO catalog validation failure on main/PR #25/PR #26 came from a stale special-case assertion for INT-PONYTAIL-SDO-001. The canonical row is CONTRACT_TESTED with schema/behavior PASS and host/runtime NOT_RUN. HSO PR #27 corrects the test, and its Catalog and Distribution Validation passed on exact head c86f5c4. Vercel deployment checks for both HSO projects are currently rate-limited.",
+      "disposition": "Keep HSO PR #27 draft until human review; after disposition, rebase/retarget HSO PRs #25 and #26, then rerun exact-head CI. Treat Vercel rate-limit as an external deployment blocker."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Report-only exact-head validation",
+      "status": "PENDING",
+      "required": "Add only this report after the reviewed documentation SHA and rerun Specification Validation, KM1 Application Foundation, Repository Governance and AI Reviewer Evidence on the new final PR head."
+    },
+    {
+      "gate": "Underlying HSMART implementation stack",
+      "status": "HOLD",
+      "required": "Keep PR #36 stacked on #35, then #34, #33 and #32. No merge, retarget or squash out of order is requested."
+    },
+    {
+      "gate": "PC-007 / KM 1 exit",
+      "status": "HOLD",
+      "required": "Do not unlock KM 2 until PC-005/PC-006 evidence is complete and the designated human authority records KM 1 ACCEPTED or return-to-work."
+    },
+    {
+      "gate": "Human GOV-01",
+      "status": "PENDING",
+      "required": "The sole designated human authority decides whether to accept, revise or reject the exact final PR #36 head. This report is not the decision."
+    },
+    {
+      "gate": "HSO PR #27 compatibility-test correction",
+      "status": "OPEN_DRAFT_CI_PASS",
+      "required": "Review the narrowly scoped test correction and decide its merge. Rebase HSO PR #25 and #26 only after the base changes, then rerun exact-head checks."
+    }
+  ],
+  "limitations": [
+    "The review is correlation-limited; no independent GOV-11 runtime or external auditor is evidenced.",
+    "The capability matrix is a static snapshot of the pinned HSO catalog, not a live registry query.",
+    "Supabase data is a point-in-time read-only observation; it may change after the snapshot.",
+    "The HSO PR #26 workflow event job completed but skipped signed event delivery because HSO_SYNC_URL and HSO_SYNC_TOKEN were absent; its scheduled-reconciliation job was skipped.",
+    "This report does not claim live PRE sync, HSO skill dispatch, HSMART production deployment, KM acceptance or native GitHub approval.",
+    "The final report-only PR commit has not yet been validated; exact final-head CI is pending.",
+    "Section 11 was added after the previous PR #36 code snapshot. Its source review is recorded against c05cf110619860ed679db00bd36b6236ad0f2405; final PR #36 CI must rerun after this report-only commit.",
+    "HSO PR #27's Catalog and Distribution Validation passed, but both Vercel deployment contexts were rate-limited; no deployment is claimed.",
+    "Section 12 records four successful HSMART PR #36 workflows on prior code head 222bbdfe1ce821e5ae52ae20ec1cfd4dce2f0921. The new report-only head must be revalidated again."
+  ],
+  "disposition": "The updated execution record is internally consistent and includes final-head validation for the prior PR #36 code snapshot, the HSO PR #27 catalog-test repair, Mission Control safe-skip semantics and the Vercel capacity blocker. Keep PR #36 draft and stacked; require all four exact final-head workflows after the report-only commit and the designated human GOV-01 decision before merge.",
+  "reviewed_local_date": "2026-11-25"
+}
