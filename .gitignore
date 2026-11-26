@@ -34,3 +34,7 @@ data/
 tmp/
 logs/
 *.log
+
+# HSMART local pilot data and publisher trust overrides
+.hsmart-artifacts/
+config/pilot-publisher-trust.local.json

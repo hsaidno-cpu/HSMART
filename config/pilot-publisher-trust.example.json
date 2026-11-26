@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "trusted_signers": {
+    "hsmart-dev-ed25519-1": {
+      "public_key_sha256": "REPLACE_WITH_SHA256_PRINTED_BY_PACKAGE_KEYGEN"
+    }
+  },
+  "publishers": {
+    "hsmart-first-party": {
+      "source_repository": "https://github.com/hsaidno-cpu/HSMART",
+      "allowed_source_commits": [
+        "REPLACE_WITH_REVIEWED_40_CHARACTER_SOURCE_COMMIT"
+      ],
+      "allowed_capabilities": [
+        "hsmart.echo"
+      ],
+      "allowed_license_ids": [
+        "Apache-2.0"
+      ],
+      "rights_evidence_ref": "https://github.com/hsaidno-cpu/HSMART/blob/main/LICENSE",
+      "license_file_path": "../LICENSE"
+    }
+  }
+}

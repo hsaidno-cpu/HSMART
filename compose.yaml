@@ -27,6 +27,14 @@ services:
     environment:
       HSMART_ENV: development
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-hsmart_dev}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-hsmart_dev}
+      HSMART_OIDC_ISSUER: ${HSMART_OIDC_ISSUER:-}
+      HSMART_OIDC_AUDIENCE: ${HSMART_OIDC_AUDIENCE:-}
+      HSMART_OIDC_PUBLIC_KEY_FILE: /run/hsmart-keys/oidc-test-public.pem
+      HSMART_PILOT_HOST_ID: ${HSMART_PILOT_HOST_ID:-hsmart-local-mcp-host-v1}
+      HSMART_ARTIFACT_STORE: /var/lib/hsmart/artifacts
+    volumes:
+      - ./.local/keys:/run/hsmart-keys:ro
+      - hsmart-artifacts:/var/lib/hsmart/artifacts
     ports:
       - "127.0.0.1:${API_PORT:-8000}:8000"
     depends_on:
@@ -37,6 +45,25 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
+  mcp-host:
+    profiles: ["mcp"]
+    build: .
+    stdin_open: true
+    tty: false
+    environment:
+      HSMART_ENV: development
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-hsmart_dev}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-hsmart_dev}
+      HSMART_OIDC_ISSUER: ${HSMART_OIDC_ISSUER:-}
+      HSMART_OIDC_AUDIENCE: ${HSMART_OIDC_AUDIENCE:-}
+      HSMART_OIDC_PUBLIC_KEY_FILE: /run/hsmart-keys/oidc-test-public.pem
+      HSMART_PILOT_ACCESS_TOKEN: ${HSMART_PILOT_ACCESS_TOKEN:-}
+      HSMART_PILOT_HOST_ID: ${HSMART_PILOT_HOST_ID:-hsmart-local-mcp-host-v1}
+    volumes:
+      - ./.local/keys:/run/hsmart-keys:ro
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    command: ["python", "-m", "hsmart_platform.pilot.mcp_pilot"]
   worker:
     build: .
     environment:
@@ -49,3 +76,4 @@ services:
     restart: unless-stopped
 volumes:
   hsmart-postgres:
+  hsmart-artifacts:

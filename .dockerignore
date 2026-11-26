@@ -1,7 +1,22 @@
-.git
-.venv
-__pycache__
-.pytest_cache
+# Do not send local credentials, test keys or runtime data to the Docker build context.
 .env
+.env.*
+!.env.example
+.local/
+*.pem
 *.db
 *.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.key
+secrets/
+config/pilot-publisher-trust.local.json
+.hsmart-artifacts/
+dist/
+build/
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.git/

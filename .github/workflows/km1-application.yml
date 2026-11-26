@@ -1,4 +1,4 @@
-name: KM1 Application Foundation
+name: KM1 Application Foundation and KM2 Pilot
 
 on:
   pull_request:
@@ -47,5 +47,14 @@ jobs:
         run: python -m pip check
       - name: Apply database migrations
         run: alembic upgrade head
-      - name: Run application foundation tests
+      - name: Run application foundation and KM2 pilot tests
         run: python -m pytest -q tests/application
+      - name: Validate CLI entry points
+        run: |
+          python tools/hsmart_package.py --help
+          python tools/hsmart_pilot_admin.py --help
+      - name: Validate Compose syntax and build local pilot image
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
+          docker build --tag hsmart-km2-pilot:ci .

@@ -3,10 +3,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements-app.txt ./requirements-app.txt
 RUN python -m pip install --no-cache-dir -r requirements-app.txt \
-    && useradd --create-home --uid 10001 hsmart
+    && useradd --create-home --uid 10001 hsmart \
+    && mkdir -p /var/lib/hsmart/artifacts \
+    && chown -R hsmart:10001 /var/lib/hsmart
 COPY alembic.ini ./alembic.ini
 COPY alembic ./alembic
 COPY src ./src
+COPY tools ./tools
+COPY config ./config
+COPY LICENSE ./LICENSE
 ENV PYTHONPATH=/app/src
 USER 10001:10001
 EXPOSE 8000
