@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR32-20261125-HAP01",
+  "pr_number": 32,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "ce0e83b864f5fe6e958c978080cbbfcf7a813e72",
+  "reviewed_head_sha": "c982797ae64b34b59d24d2fdf5d6278490a41288",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_GOV01_EXACT_HEAD_DECISION_AND_EXISTING_KM_PR_GATES",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured documentation and governance assurance review performed in the current assistant execution against the exact HSMART PR #32 head. This was not executed by a separately provisioned GOV-11 runtime.",
+    "decision_authority": "Advisory only. No authority to merge, release, accept a KM gate, or approve its own work."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant context participated in drafting and assurance review; no separate provider/runtime/context isolation is evidenced. Treat this as correlation-limited AI assurance, not independent certification."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "Documentation-only HSMART PR #32 changes at reviewed head c982797ae64b34b59d24d2fdf5d6278490a41288: unified HSMART–HSO UEDE architecture plus HAP-01 integration contract; cross-checked against the HSO HAP-01 draft on its PR #25 branch and current Notion action inbox design.",
+    "focus": [
+      "HSMART–HSO unified ecosystem boundaries and separate canonical source ownership",
+      "UEDE shared control-plane responsibilities and PRE authority",
+      "P0–P9 delivery order, dependencies and exit evidence",
+      "HSMART KM0/KM1/KM2 sequencing and HSO PR dependency preservation",
+      "HSO capability provenance, rights, instruction parity and host readiness",
+      "PRE source/schema/API/runtime availability and Notion/Supabase authority boundaries",
+      "sole GOV-01 human approval authority and anti-self-approval controls",
+      "autonomy tiers, least privilege, evidence binding and stop conditions",
+      "HAP-01 separation of human approval decisions and manual UI operations",
+      "GOV-01 sole owner approval authority with no second human reviewer",
+      "Notion Human Action & Approval Inbox schema, exact-SHA binding, idempotency and staleness handling",
+      "explicit notification template, human UI navigation instructions and end-of-response next-prompt contract",
+      "truthful distinction between assistant/Notion notification path and not-yet-deployed GitHub webhook/push channels"
+    ],
+    "excluded": [
+      "Implementation correctness of Kestra or OpenHands",
+      "Live PRE API or adapter behavior",
+      "Live generic HSO plugin/MCP invocation",
+      "HSMART production services, identity, secrets or audit runtime",
+      "Production deployment, disaster recovery and external security certification",
+      "Legal interpretation of plugin licensing beyond recorded repository metadata"
+    ]
+  },
+  "methods": [
+    "document and requirement traceability review",
+    "cross-repository architecture and authority consistency review",
+    "read-only inspection of HSMART and HSO PR metadata, branches, exact-head workflow results and review findings",
+    "read-only inspection of HSO catalog/source-rights/instruction-index/runtime claims",
+    "read-only inspection of PRE roadmap records, schema fields and current deployment evidence",
+    "gate/dependency and failure-mode review",
+    "least-privilege, self-modification and false-readiness claim review",
+    "read-through review of HAP-01 and HSMART integration contract at their exact PR branch revisions",
+    "cross-check of Notion Human Action & Approval Inbox properties and owner-action queue records",
+    "review of current exact-head CI job summaries and failure logs"
+  ],
+  "ci_evidence": [
+    {
+      "name": "Specification Validation on reviewed HAP-01 docs head",
+      "status": "IN_PROGRESS_AT_REVIEWED_HEAD",
+      "reviewed_sha": "c982797ae64b34b59d24d2fdf5d6278490a41288",
+      "run_id": 45610012110
+    },
+    {
+      "name": "Repository Governance on reviewed HAP-01 docs head",
+      "status": "IN_PROGRESS_AT_REVIEWED_HEAD",
+      "reviewed_sha": "c982797ae64b34b59d24d2fdf5d6278490a41288",
+      "run_id": 45610012136
+    },
+    {
+      "name": "KM1 Application Foundation on reviewed HAP-01 docs head",
+      "status": "IN_PROGRESS_AT_REVIEWED_HEAD",
+      "reviewed_sha": "c982797ae64b34b59d24d2fdf5d6278490a41288",
+      "run_id": 45610012120
+    },
+    {
+      "name": "AI Reviewer Evidence before report refresh",
+      "status": "FAILED_STALE_REVIEW_BINDING",
+      "reviewed_sha": "c982797ae64b34b59d24d2fdf5d6278490a41288",
+      "run_id": 45610012166,
+      "detail": "Expected: existing report did not cover documentation changes made after its prior reviewed_head_sha. This report-only refresh is intended to bind assurance to the current reviewed documentation head."
+    },
+    {
+      "name": "Exact final-head CI after report-only evidence commit",
+      "status": "PENDING",
+      "reviewed_sha": null,
+      "run_id": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSMART KM and repository controls",
+      "finding": "The latest project control record keeps KM 0 OPEN and KM 1 IN_PROGRESS; KM 2+ are blocked until formal KM 1 acceptance. Main protection was previously reported NOT_APPLIED/NOT_VERIFIED.",
+      "disposition": "UEDE work may perform documentation and authorized read-only discovery. Do not use architecture acceptance or PR-level CI to bypass KM exit, branch protection or GOV-01 decisions."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "PRE authority and runtime",
+      "finding": "PRE v0.1.1 is currently a USER/PRIVATE specification with no identified canonical Git source or declared license; shared runtime and capability-learning federation are SPECIFIED_NOT_DEPLOYED. The observed 20-record HSO Notion roadmap and HSO Mission Control database do not establish a deployed PRE API.",
+      "disposition": "P4 must begin as an explicitly named read-only adapter to the owner-authorized roadmap record, with revision, completeness and digest evidence. Do not claim a live PRE API."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "HSO capability eligibility",
+      "finding": "Relevant HSO capabilities have varying source, license, instruction-parity and host-readiness states. SDO has 0/4 exact instruction matches; A.S.F.R.E.E is PolyForm Noncommercial with package/source drift; SKILL ANALYZER lacks a source license declaration and has package/instruction drift; Plugin Agent Orchestrator is source-unidentified.",
+      "disposition": "Keep capability discovery read-only. Require per-capability rights, immutable source, package parity, host and invocation evidence before any dispatch."
+    },
+    {
+      "id": "F-04",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Execution readiness",
+      "finding": "HSO's plan-only planner and sandbox runtime exist, but generic plugin.skill.invoke and generic mcp.remote.invoke remain NOT_CONFIGURED. Kestra and OpenHands are not deployed/connected as UEDE runtimes.",
+      "disposition": "Reuse the existing planner, keep generic invocation disabled, and require a synthetic end-to-end acceptance workflow before increasing autonomy."
+    },
+    {
+      "id": "F-05",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "PR sequencing and baseline reconciliation",
+      "finding": "The HSO PR graph contains work stacked on PR #15; current PR descriptions/roadmap records must remain aligned with the owner's latest explicit ordering. HSMART PR #30/#31 retain their own gates and must not be absorbed into UEDE.",
+      "disposition": "Do not retarget, merge or reorder existing PRs from this architecture change. Reconcile any conflicting dependency descriptions before a base-branch mutation."
+    },
+    {
+      "id": "F-06",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Human approval notification delivery",
+      "finding": "HAP-01 and the Notion Human Action & Approval Inbox are documented/created, but GitHub event ingestion, webhook signature verification, automatic issue/PR notification dispatch, approval receipt verification and external push delivery have not been deployed or end-to-end tested.",
+      "disposition": "The currently evidenced path is the explicit assistant response plus the Notion Inbox. Keep GitHub webhook/push channels NOT_CONFIGURED until their implementation and delivery tests pass; do not claim asynchronous alerts are live."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "GOV-01 architecture disposition",
+      "status": "PENDING",
+      "required": "The sole designated human authority records a decision against the exact final PR #32 and PR #25 heads; no second human reviewer is required."
+    },
+    {
+      "gate": "PR #32 exact-head evidence",
+      "status": "PENDING",
+      "required": "Run Specification Validation, Repository Governance, KM1 Application Foundation and AI Reviewer Evidence on the exact final head; all required checks must be green."
+    },
+    {
+      "gate": "HSMART KM gates",
+      "status": "HOLD",
+      "required": "Do not advance KM 2+ before formal KM 1 acceptance; retain branch protection, assurance and existing KM exit controls."
+    },
+    {
+      "gate": "HSO cross-repository contract",
+      "status": "PENDING",
+      "required": "PR #25 must pass exact-head CI after its upstream PR/base dependencies are reconciled."
+    },
+    {
+      "gate": "HAP-01 event-driven notifications",
+      "status": "NOT_DEPLOYED",
+      "required": "GitHub event adapter, signature/deduplication, action record writer, notification dispatcher and approval receipt verifier require implementation and live acceptance."
+    },
+    {
+      "gate": "Runtime activation",
+      "status": "NOT_AUTHORIZED",
+      "required": "Architecture acceptance does not authorize adapter writes, engineering dispatch, merge, production access or autonomy expansion."
+    }
+  ],
+  "limitations": [
+    "This is correlation-limited AI documentation assurance, not independent model/provider certification.",
+    "GOV-11 is a designated logical role; its separate runtime is not provisioned.",
+    "The reviewed head is the documentation head c982797ae64b34b59d24d2fdf5d6278490a41288; final-head CI after the report-only commit is pending.",
+    "HAP-01 event-driven GitHub notifications and external push delivery are not deployed or verified.",
+    "The report does not constitute GOV-01 approval, GitHub-native APPROVED review, KM acceptance, security certification or runtime activation."
+  ],
+  "disposition": "The HSMART–HSO–UEDE architecture and HAP-01 integration contract are coherent as a documentation proposal with the recorded caveats. HAP-01 correctly preserves one human decision authority, separates approval from manual action, binds owner actions to exact repository state, and makes current notification limits explicit. Keep PR #32 in draft until the report-only evidence commit passes its validator, all required exact-head checks pass, existing KM/PR gates remain satisfied, and GOV-01 records a decision. No merge, KM acceptance, deployment or notification-runtime activation is authorized by this report.",
+  "reviewed_local_date": "2026-11-25"
+}
