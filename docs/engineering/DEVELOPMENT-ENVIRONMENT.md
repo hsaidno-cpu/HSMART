@@ -131,6 +131,19 @@ python -m pytest -q
 
 On Windows, activate `.venv\\Scripts\\Activate.ps1` and set `$env:PYTHONPATH="src"`. Use a local secret store or environment variable for credentials; never commit them.
 
+### Disposable database migration lifecycle
+
+Run the following only against a disposable local development database. `alembic downgrade base` removes the schema managed by this application; never point it at a shared, staging or production database.
+
+```bash
+alembic upgrade head
+alembic downgrade base
+alembic upgrade head
+alembic current
+```
+
+The PostgreSQL 16 CI job runs this apply → rollback → re-apply sequence before the application tests. A successful `upgrade head` after the rollback is required before the tests execute.
+
 ## 9. KM 1 boundary and non-claims
 
 This foundation does **not** implement or accept the Capability Registry, external REST/Remote MCP Gateway, OIDC or production API-key issuance, arbitrary publisher code execution, hardened sandbox runtime, production Evaluation/Observability, WORM audit, synchronization/rollback engine, production hosting, backup restoration, disaster recovery or security certification.

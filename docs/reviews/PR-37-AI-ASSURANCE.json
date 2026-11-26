@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "HSMART-GOV11-PR37-20261125",
+  "pr_number": 37,
+  "repository": "hsaidno-cpu/HSMART",
+  "reviewed_base_sha": "ce0e83b864f5fe6e958c978080cbbfcf7a813e72",
+  "reviewed_head_sha": "04f4433a8845102ad92f17f3b09bed10f41e3b77",
+  "review_result": "PASS_WITH_CAVEATS",
+  "merge_authorization": "HOLD_PENDING_EXACT_FINAL_HEAD_CI_AND_PC006_CLOSEOUT",
+  "reviewer": {
+    "role_id": "GOV-11",
+    "agent_id": "hsmart.gov11.assurance-review.current-execution",
+    "lifecycle_state": "DESIGNATED",
+    "runtime_state": "NOT_PROVISIONED",
+    "actual_execution": "Structured source and diff review of the two-file PC-006 change during the same assistant execution that prepared the change. This is correlation-limited and not an isolated GOV-11 runtime or independent human review.",
+    "decision_authority": "Advisory only. Cannot merge, release, accept KM 1, close PC-006/PC-007 or approve a PRE transition."
+  },
+  "model_provenance": {
+    "provider": "OpenAI",
+    "model": "GPT-6",
+    "exact_deployment_revision": "NOT_EXPOSED",
+    "execution_context": "Same assistant execution authored and reviewed the PR; no runtime isolation or independent execution is claimed."
+  },
+  "review_independence": "CORRELATION_LIMITED_NOT_INDEPENDENT_CERTIFICATION",
+  "github_native_approval": false,
+  "review_scope": {
+    "changeset": "HSMART PR #37 final source diff at reviewed head 04f4433a8845102ad92f17f3b09bed10f41e3b77: PostgreSQL 16 application workflow and development environment documentation.",
+    "files": [
+      ".github/workflows/km1-application.yml",
+      "docs/engineering/DEVELOPMENT-ENVIRONMENT.md"
+    ],
+    "focus": [
+      "Migration application, full downgrade to Alembic base, re-application to head, and application tests on disposable PostgreSQL 16 CI service.",
+      "Explicit warning that alembic downgrade base is destructive and must not target shared, staging or production data.",
+      "Preservation of secrets boundary and existing runtime configuration.",
+      "No accidental claim that the lockfile, independent evaluation, PC-006, PC-007 or KM 1 is complete."
+    ],
+    "excluded": [
+      "No production data or hosted database migration.",
+      "No production deployment, runtime invocation or live external integration.",
+      "No independent reviewer or separate GOV-11 runtime.",
+      "No generated transitive hash lock; current requirements-app.txt remains direct pins."
+    ]
+  },
+  "methods": [
+    "Inspected the exact two-file PR diff.",
+    "Inspected the KM1 Application Foundation workflow and PostgreSQL 16 job steps.",
+    "Inspected GitHub Actions job logs for the initial PR #37 code head.",
+    "Confirmed the migration downgrade and re-upgrade commands completed before application tests.",
+    "Reviewed the issue #19 acceptance criteria and the remaining dependency-lock requirement."
+  ],
+  "ci_evidence": [
+    {
+      "name": "PR #37 initial code-head PostgreSQL 16 run",
+      "status": "PASS_ON_PREVIOUS_CODE_HEAD",
+      "reviewed_sha": "49fd8738792428890882e4cb3d601a25d331bfc0",
+      "run_id": 45618234394,
+      "evidence": "PostgreSQL 16 job installed dependencies, applied migration revision 0001_platform_foundation, downgraded to base, re-applied to head, and ran application tests: 11 passed, 1 warning. Specification Validation run 45618234129 and Repository Governance run 45618234126 also passed on that initial code head."
+    },
+    {
+      "name": "PR #37 final source head",
+      "status": "PENDING_EXACT_FINAL_HEAD_RERUN",
+      "reviewed_sha": "04f4433a8845102ad92f17f3b09bed10f41e3b77",
+      "evidence": "The final source diff retains the two reviewed changes. The available integration connection did not produce a new workflow run for this subsequent app-authored commit; final exact-head CI remains required."
+    },
+    {
+      "name": "AI Reviewer Evidence on initial code head",
+      "status": "EXPECTED_FAILURE_MISSING_REPORT_AT_THAT_HEAD",
+      "reviewed_sha": "49fd8738792428890882e4cb3d601a25d331bfc0",
+      "run_id": 45618234170,
+      "evidence": "The validator failed because docs/reviews/PR-37-AI-ASSURANCE.json had not yet been added. This report is the report-only evidence file; the final validator run is still required."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Application dependency reproducibility",
+      "finding": "requirements-app.txt still contains direct dependency pins only. A transitive hash-locked runtime dependency file has not been generated or committed.",
+      "disposition": "Generate requirements-app.lock on a network-enabled Python 3.12 resolver, commit it, install with pip --require-hashes, and verify the Docker build and exact-head CI."
+    },
+    {
+      "id": "F-02",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "Exact-head verification",
+      "finding": "The migration lifecycle passed on the initial PR #37 code head, but subsequent app-authored commit operations mean the final current head has no observed workflow run.",
+      "disposition": "Push a normal user-authored synchronization commit or otherwise trigger all required workflows on the final exact PR head before merge."
+    },
+    {
+      "id": "F-03",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "area": "PC-007 independence",
+      "finding": "This assurance report is correlation-limited and is not independent certification. PC-007 still requires a distinct evidence evaluation and explicit GOV-01 decision.",
+      "disposition": "Keep PC-007 open and KM 2 blocked until the evidence ledger and GOV-01 decision are recorded."
+    }
+  ],
+  "open_blocking_findings": 0,
+  "merge_gates": [
+    {
+      "gate": "Final exact-head CI",
+      "status": "PENDING",
+      "required": "Specification Validation, KM1 PostgreSQL Application Foundation, Repository Governance and AI Reviewer Evidence must pass on the final SHA."
+    },
+    {
+      "gate": "PC-006 acceptance",
+      "status": "HOLD",
+      "required": "Complete dependency hash lock and clean-checkout application setup evidence in addition to migration apply/rollback/re-apply."
+    },
+    {
+      "gate": "PC-007 independent exit",
+      "status": "HOLD",
+      "required": "Record a separately reviewed evidence ledger and GOV-01 decision; this report does not satisfy independent review."
+    },
+    {
+      "gate": "GOV-01",
+      "status": "PENDING",
+      "required": "The sole designated human authority decides whether to accept, revise or reject the exact final PR head. This report is advisory, not approval."
+    }
+  ],
+  "limitations": [
+    "The AI review is correlation-limited and not independent certification.",
+    "CI evidence on SHA 49fd873 does not substitute for exact-head rerun on SHA 04f4433.",
+    "The application dependency file is direct-pinned only; no transitive hash-lock is claimed.",
+    "A full Alembic downgrade is destructive and is tested only against an ephemeral CI database or a disposable local database.",
+    "This PR does not close PC-006, satisfy PC-007, accept KM 1 or unlock KM 2."
+  ],
+  "reviewed_local_date": "2026-11-25",
+  "disposition": "The narrow migration lifecycle change is technically sound and its initial PostgreSQL 16 CI run passed. Keep PR #37 draft until a hash-locked application dependency file is committed, exact final-head CI passes, and GOV-01 decides. Do not count this report as independent PC-007 evidence."
+}
